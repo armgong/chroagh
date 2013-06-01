@@ -3,6 +3,11 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+# For reference, Chromium OS can be locked with the following command:
+# host-dbus dbus-send --system --dest=org.chromium.SessionManager \
+# --type=method_call --print-reply /org/chromium/SessionManager \
+# org.chromium.SessionManagerInterface.LockScreen
+
 # FIXME: xscreensaver does not seem to be a good option, it only activates once
 # Xephyr is displayed, and -deactivate does not seem to work if the screen
 # is locked...
