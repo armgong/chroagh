@@ -7,8 +7,8 @@
 # Usage:
 #    volume [o|i] [mute|up|down|#]
 #
-# FIXME: Input gain is not supported yet (value do not seem to have bounds,
-#        uncertain of what good increment values would be)
+# FIXME: Input gain is not supported yet (value in 100*dB does not seem to
+#        have bounds, and uncertain of what good increment values would be)
 # FIXME: Chromium OS does not acknowledge outside modification of the value:
 #        pressing Volume Up in Chromium OS will increment from the last value
 #        set in Chromium OS, disregarding anything set with this application.
