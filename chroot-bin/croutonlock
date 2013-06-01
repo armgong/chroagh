@@ -1,0 +1,29 @@
+#!/bin/sh -e
+# Copyright (c) 2013 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# FIXME: xscreensaver does not seem to be a good option, it only activates once
+# Xephyr is displayed, and -deactivate does not seem to work if the screen
+# is locked...
+#LOCKCMD="xscreensaver -nosplash & sleep 1; xscreensaver-command -lock"
+#UNLOCKCMD="xscreensaver-command -deactivate"
+
+LOCKCMD='xlock -mode blank & echo $! > /tmp/xlock-'"$DISPLAY"'.pid'
+UNLOCKCMD='kill `cat /tmp/xlock-'"$DISPLAY"'.pid`'
+
+host-dbus dbus-monitor --system "type='signal',interface='org.chromium.SessionManagerInterface'" |
+    mawk -W interactive '
+        /path=\/org\/chromium\/SessionManager; interface=org.chromium.SessionManagerInterface; member=.*$/ {
+            sub(/.*member=/, "")
+
+            print
+            if ($0 == "LockScreen") {
+                print "Locking..."
+                system("'"$LOCKCMD"'");
+            } else if ($0 == "UnlockScreen") {
+                print "Unlocking..."
+                system("'"$UNLOCKCMD"'");
+        	}
+        }
+'
