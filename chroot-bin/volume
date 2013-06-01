@@ -7,9 +7,9 @@
 # Usage:
 #    volume [o|i] [mute|up|down|#]
 #
-# FIXME: Input gain is not supported yet (values do not seem to have bounds,
+# FIXME: Input gain is not supported yet (value do not seem to have bounds,
 #        uncertain of what good increment values would be)
-# FIXME: Chromium OS does not acknoledge outside modification of the value:
+# FIXME: Chromium OS does not acknowledge outside modification of the value:
 #        pressing Volume Up in Chromium OS will increment from the last value
 #        set in Chromium OS, disregarding anything set with this application.
 
@@ -42,6 +42,11 @@ d*) increment='-4';;
 *) print='y';;
 esac
 
+if [ -n "$mute" ]; then
+    $DBUSCMD org.chromium.cras.Control.Set${device}Mute boolean:true
+    exit 0
+fi
+
 if [ -z "$absolute" ]; then
     value=`$DBUSCMD --print-reply \
               org.chromium.cras.Control.GetVolumeState | {
@@ -61,14 +66,14 @@ if [ -z "$absolute" ]; then
         exit 0
     fi
 
-    let value=value+increment
+    value=$(($value+$increment))
 else
     value="$absolute"
 fi
 
 [ "$value" -lt 0 ] && value=0
 
-if [ "$value" -eq 0 -o -n "$mute" ]; then muteval='true'; else muteval='false'; fi
+if [ "$value" -eq 0 ]; then muteval='true'; else muteval='false'; fi
 $DBUSCMD org.chromium.cras.Control.Set${device}Mute boolean:$muteval
 $DBUSCMD org.chromium.cras.Control.Set${device}${control} int32:$value
 
