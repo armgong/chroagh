@@ -1,0 +1,75 @@
+#!/bin/sh -e
+# Copyright (c) 2013 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# A shortcut script to control audio volume.
+# Usage:
+#    volume [o|i] [mute|up|down|#]
+#
+# FIXME: Input gain is not supported yet (values do not seem to have bounds,
+#        uncertain of what good increment values would be)
+# FIXME: Chromium OS does not acknoledge outside modification of the value:
+#        pressing Volume Up in Chromium OS will increment from the last value
+#        set in Chromium OS, disregarding anything set with this application.
+
+DBUSCMD="host-dbus dbus-send --system --dest=org.chromium.cras \
+              --type=method_call /org/chromium/cras"
+
+# Choose the device
+device='Output'
+control='Volume'
+case "$1" in
+i*) device='Input'
+    control='Gain'
+    #FIXME: Figure out what increments make sense
+    echo "Controlling input volume not supported yet." 1>&2
+    exit 1
+    shift;;
+o*) shift;;
+esac
+
+# Handle user command
+absolute=''
+increment=''
+mute=''
+print=''
+case "$1" in
+m*) mute='y';;
+u*) increment='4';;
+d*) increment='-4';;
+[0-9]*) absolute="$1";;
+*) print='y';;
+esac
+
+if [ -z "$absolute" ]; then
+    value=`$DBUSCMD --print-reply \
+              org.chromium.cras.Control.GetVolumeState | {
+        read junk
+        read unit outputval
+        read junk
+        read unit inputval
+        if [ "$device" = 'Input' ]; then
+            echo "$inputval"
+        else
+            echo "$outputval"
+        fi
+    }`
+
+    if [ -n "$print" ]; then
+        echo $value
+        exit 0
+    fi
+
+    let value=value+increment
+else
+    value="$absolute"
+fi
+
+[ "$value" -lt 0 ] && value=0
+
+if [ "$value" -eq 0 -o -n "$mute" ]; then muteval='true'; else muteval='false'; fi
+$DBUSCMD org.chromium.cras.Control.Set${device}Mute boolean:$muteval
+$DBUSCMD org.chromium.cras.Control.Set${device}${control} int32:$value
+
+exit 0
