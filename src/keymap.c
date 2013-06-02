@@ -5,6 +5,9 @@
  * Monitors the X11 server for keboard layout change events, and copies the
  * layout over to the X11 server specified as parameter.
  *
+ * We only support "standard" keymaps, and not languages requiring special
+ * handling by ibus (e.g. Vietnamese, Chinese...).
+ *
  * Compile with: gcc keymap.c -lX11 -lxkbfile -o keymap
  */
 
