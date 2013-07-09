@@ -2,11 +2,15 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  *
+ * Adapted from cursor.c, itself partly adapted from the XcursorImageLoadCursor
+ * implementation in libXcursor, copyright 2002 Keith Packard.
+ *
  * Monitors the X11 server for keboard layout change events, and copies the
  * layout over to the X11 server specified as parameter.
  *
  * We only support "standard" keymaps, and not languages requiring special
  * handling by ibus (e.g. Vietnamese, Chinese...).
+ *
  *
  * Compile with: gcc keymap.c -lX11 -lxkbfile -o keymap
  */
@@ -72,8 +76,7 @@ int main(int argc, char** argv) {
         return 2;
     }
     /* Open the displays */
-    int cros_xkbEventCode = 0;
-    if (!(cros_d = XkbOpenDisplay(NULL, &cros_xkbEventCode, NULL, NULL, NULL, NULL))) {
+    if (!(cros_d = XOpenDisplay(NULL))) {
         fprintf(stderr, "Failed to open Chromium OS display\n");
         return 1;
     }
@@ -87,27 +90,31 @@ int main(int argc, char** argv) {
     /* Synchronize at startup */
     forward_layout(cros_d, chroot_d);
 
-    /* Listen for events */
-    if (!XkbSelectEvents(cros_d, XkbUseCoreKbd, XkbNewKeyboardNotifyMask, XkbNewKeyboardNotifyMask)) {
-        fprintf(stderr, "Failed to select XKB events.\n");
-        return 1;
-    }
+    Window cros_w = DefaultRootWindow(cros_d);
 
-    XkbEvent event;
+    /* An (more proper) alternative is to listen for XkbNewKeyboardNotify
+     * events. However, these events are sent before the keymap (or at least
+     * the property) is actually changed, and is called once per input device.
+     * Listening for PropertyChange in _XKB_RF_NAMES_PROP_ATOM does not
+     * cause these problems, but may be more likely to break in case of
+     * internal Xorg changes. */
+    XSelectInput(cros_d, cros_w, PropertyChangeMask);
+
+    XEvent event;
     while (!error) {
-        XNextEvent(cros_d, &event.core);
+        XNextEvent(cros_d, &event);
         if (error) break;
-        if (event.type != cros_xkbEventCode) continue;
+        if (event.type != PropertyNotify) continue;
 
-        if (event.any.xkb_type == XkbNewKeyboardNotify) {
-            /* FIXME: We receive 4 events per layout switch (one per input device?), can we filter that out? */
-            if (verbose) printf("XkbNewKeyboardNotify (dev=%x time=%ld)!\n", event.any.device, event.any.time);
-            /* FIXME: We receice the event before the layout is actually modified... Is there a better way than sleeping? */
-            usleep(100*1000);
+        char* name = XGetAtomName(cros_d, event.xproperty.atom);
+
+        if (verbose) printf("PropertyNotify (%s)!\n", name);
+
+        if (name && strcmp(name, _XKB_RF_NAMES_PROP_ATOM) == 0) {
             forward_layout(cros_d, chroot_d);
-        } else {
-            if (verbose) printf("Event (%08x)!\n", event.any.xkb_type);
         }
+
+        XFree(name);
     }
 
     XCloseDisplay(cros_d);
