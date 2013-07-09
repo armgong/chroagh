@@ -16,7 +16,9 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBrules.h>
@@ -33,33 +35,60 @@ static int error_handler(Display *d, XErrorEvent *e) {
     return 0;
 }
 
-static int forward_layout() {
-    XkbRF_VarDefsRec cros_vdr, chroot_vdr;
-    char* tmp;
+/* Unbelievably, XkbRF_GetNamesProp lacks a proper way to free its returned
+ * structures... */
+static void FreeVarDefsRec(XkbRF_VarDefsRec *vdp) {
+    free(vdp->model);
+    free(vdp->layout);
+    free(vdp->variant);
+    free(vdp->options);
+}
 
-    if (!XkbRF_GetNamesProp(cros_d, &tmp, &cros_vdr)) {
+/* Duplicated libxkbfile routine in libxbkfile/src/XKBfileInt.h */
+static inline
+char *_XkbDupString(const char *s)
+{
+    return s ? strdup(s) : NULL;
+}
+
+static int forward_layout() {
+    XkbRF_VarDefsRec cros_vdr, newchroot_vdr, chroot_vdr;
+    char* cros_rf;
+    char *chroot_rf;
+
+    if (!XkbRF_GetNamesProp(cros_d, &cros_rf, &cros_vdr)) {
         fprintf(stderr, "Failed to obtain Xkb names from Chromium OS.");
         return 0;
     }
 
     if (verbose) {
-        printf("Chromium OS: model: %s; layout: %s; variant: %s; options: %s; tmp: %s\n",
-            cros_vdr.model, cros_vdr.layout, cros_vdr.variant, cros_vdr.options, tmp);
+        printf("Chromium OS: model: %s; layout: %s; variant: %s; "
+               "options: %s; rulefile: %s\n",
+            cros_vdr.model, cros_vdr.layout, cros_vdr.variant,
+            cros_vdr.options, cros_rf);
     }
 
-    if (!XkbRF_GetNamesProp(chroot_d, &tmp, &chroot_vdr)) {
+    if (!XkbRF_GetNamesProp(chroot_d, &chroot_rf, &chroot_vdr)) {
         fprintf(stderr, "Failed to obtain Xkb names from chroot display.");
         return 0;
     }
 
-    chroot_vdr.layout = cros_vdr.layout;
-    chroot_vdr.variant = cros_vdr.variant;
-    chroot_vdr.options = cros_vdr.options;
+    /* New keyboard description: Keep model, update the rest. */
+    newchroot_vdr.model = _XkbDupString(chroot_vdr.model);
+    newchroot_vdr.layout = _XkbDupString(cros_vdr.layout);
+    newchroot_vdr.variant = _XkbDupString(cros_vdr.variant);
+    newchroot_vdr.options = _XkbDupString(cros_vdr.options);
 
-    if (!XkbRF_SetNamesProp(chroot_d, tmp, &chroot_vdr)) {
+    if (!XkbRF_SetNamesProp(chroot_d, chroot_rf, &chroot_vdr)) {
         fprintf(stderr, "Failed to set Xkb names to chroot display.");
         return 0;
     }
+
+    FreeVarDefsRec(&cros_vdr);
+    FreeVarDefsRec(&chroot_vdr);
+    FreeVarDefsRec(&newchroot_vdr);
+    free(cros_rf);
+    free(chroot_rf);
 
     return 1;
 }
