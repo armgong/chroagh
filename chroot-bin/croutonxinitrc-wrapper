@@ -51,6 +51,9 @@ if [ -f '/usr/share/X11/xkb/compat/chromebook' ]; then
     setxkbmap -model chromebook
 fi
 
+# Launch the daemon synchronizing the keyboard layout
+host-x11 croutonkeymap "$DISPLAY" &
+
 # Launch key binding daemon
 xmethod="`readlink -f '/etc/X11/xinit/xserverrc'`"
 xmethod="${xmethod##*-}"

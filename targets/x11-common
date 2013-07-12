@@ -13,6 +13,10 @@ ln -sfT "/etc/crouton/xserverrc-$XMETHOD" '/etc/X11/xinit/xserverrc'
 # Generate the executable that outputs the equivalent of base::TimeTicks::Now()
 compile ticks -lrt
 
+# Compile croutonkeymap, that synchronizes the chroot keyboard layout with
+# Chromium OS
+compile keymap '-lX11 -lxkbfile' libx11-dev libxkbfile-dev
+
 # Install utilities and links for powerd-poking daemon
 install --minimal xprintidle dbus
 ln -sf croutonpowerd /usr/local/bin/gnome-screensaver-command

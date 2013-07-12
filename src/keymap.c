@@ -2,17 +2,11 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  *
- * Adapted from cursor.c, itself partly adapted from the XcursorImageLoadCursor
- * implementation in libXcursor, copyright 2002 Keith Packard.
- *
- * Monitors the X11 server for keboard layout change events, and copies the
- * layout over to the X11 server specified as parameter.
+ * Monitors the X11 display for keyboard layout change events, and copies the
+ * layout over to the X11 display specified as parameter.
  *
  * We only support "standard" keymaps, and not languages requiring special
  * handling by ibus (e.g. Vietnamese, Chinese...).
- *
- *
- * Compile with: gcc keymap.c -lX11 -lxkbfile -o keymap
  */
 
 #include <stdio.h>
@@ -23,7 +17,7 @@
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBrules.h>
 
-static int verbose = 0;
+static int verbose = 1;
 static int error = 0;
 static Display *cros_d;
 static Display *chroot_d;
@@ -44,7 +38,7 @@ static void FreeVarDefsRec(XkbRF_VarDefsRec *vdp) {
     free(vdp->options);
 }
 
-/* Duplicated libxkbfile routine in libxbkfile/src/XKBfileInt.h */
+/* Duplicate libxkbfile routine in libxbkfile/src/XKBfileInt.h */
 static inline
 char *_XkbDupString(const char *s)
 {
@@ -121,10 +115,11 @@ int main(int argc, char** argv) {
 
     Window cros_w = DefaultRootWindow(cros_d);
 
-    /* An (more proper) alternative is to listen for XkbNewKeyboardNotify
+    /* A more proper alternative is to listen for XkbNewKeyboardNotify
      * events. However, these events are sent before the keymap (or at least
-     * the property) is actually changed, and is called once per input device.
-     * Listening for PropertyChange in _XKB_RF_NAMES_PROP_ATOM does not
+     * the property) is actually changed, and is sent multiple times
+     * (once per input device).
+     * Listening for PropertyNotify in _XKB_RF_NAMES_PROP_ATOM does not
      * cause these problems, but may be more likely to break in case of
      * internal Xorg changes. */
     XSelectInput(cros_d, cros_w, PropertyChangeMask);
