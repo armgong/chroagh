@@ -8,7 +8,7 @@ HOSTBIN='startcli'
 . "${TARGETSDIR:="$PWD"}/common"
 
 ### Append to prepare.sh:
-install wget openssh-client kbd
+install wget arch=openssh,openssh-client kbd
 
 TIPS="$TIPS
 You can start a shell in a new VT via the startcli host command: sudo startcli

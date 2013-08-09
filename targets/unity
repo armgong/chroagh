@@ -6,6 +6,11 @@ if [ ! "$TARGETS" = 'help' -a ! "${ARCH#arm}" = "$ARCH" ] \
         && ! release -eq precise; then
     error 1 "unity target does not work in xephyr in $RELEASE due to missing egl support."
 fi
+if [ "$TARGETS" != 'help' -a "${DISTROAKA:-"$DISTRO"}" = 'arch' ]; then
+    echo "unity target is not supported by crouton in Arch Linux." 1>&2
+    echo "If you are adventurous, you can try the instructions here:" 1>&2
+    echo "https://wiki.archlinux.org/index.php/Unity" 1>&2
+fi
 REQUIRES='gtk-extra'
 DESCRIPTION='Installs the Unity desktop environment. (Approx. 700MB)'
 HOSTBIN='startunity'
