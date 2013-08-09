@@ -43,6 +43,12 @@ aurcompile() {
         cd "$PACKAGE"
         pkgver=`sed -n '"'"'s/^pkgver=//p'"'"' PKGBUILD`
         pkgrel=`sed -n '"'"'s/^pkgrel=//p'"'"' PKGBUILD`
+        # FIXME: Temporary fix for mawk (the AUR PKGBUILD currently works, but
+        # will break again on the next upstream update)
+        if [ "$PACKAGE" = "mawk" ]; then
+            sed -i PKGBUILD -e '\''s|source=.*|\
+source=("ftp://invisible-island.net/mawk/$pkgname-${pkgver//_/-}.tgz")|'\''
+        fi
         if pacman -Q "$PACKAGE" 2>/dev/null | \
                     grep "^$PACKAGE $pkgver-$pkgrel\$"; then
             echo "Package $PACKAGE already up to date ($pkgver-$pkgrel)."
