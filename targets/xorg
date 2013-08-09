@@ -91,9 +91,13 @@ END
     apt-get -y --force-yes --no-install-recommends dist-upgrade -f
 fi
 
-install xorg dmz-cursor-theme
-# Fix launching X11 from inside crosh (user doesn't own a TTY)
-sed -i 's/allowed_users=.*/allowed_users=anybody/' '/etc/X11/Xwrapper.config'
+#FIXME(arch): xorg installs too many packages
+install xorg arch=,dmz-cursor-theme arch=ttf-dejavu
+
+if [ "${DISTROAKA:-"$DISTRO"}" = 'debian' ]; then
+    # Fix launching X11 from inside crosh (user doesn't own a TTY)
+    sed -i 's/allowed_users=.*/allowed_users=anybody/' /etc/X11/Xwrapper.config
+fi
 
 TIPS="$TIPS
 You can flip through your running chroot desktops and Chromium OS by hitting
