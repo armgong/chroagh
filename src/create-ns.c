@@ -17,18 +17,19 @@
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <termios.h>
 
 static int verbose = 3;
 
 #define log(level, str, ...) do { \
-    if (verbose >= (level)) printf("%s: " str "\n", __func__, ##__VA_ARGS__); \
+    if (verbose >= (level)) printf("%s: " str "\r\n", __func__, ##__VA_ARGS__); \
 } while (0)
 
-#define error(str, ...) printf("%s: " str "\n", __func__, ##__VA_ARGS__)
+#define error(str, ...) printf("%s: " str "\r\n", __func__, ##__VA_ARGS__)
 
 /* Similar to perror, but prints function name as well */
 #define syserror(str, ...) do { \
-    printf("%s: " str " (%s)\n", \
+    printf("%s: " str " (%s)\r\n", \
                     __func__, ##__VA_ARGS__, strerror(errno)); \
     exit(1); \
 } while (0)
@@ -65,10 +66,9 @@ static int childFunc(void *arg) {
     char* root = argv[0];
     char** init = &argv[1];
 
-
     char* name = strdup(ptsname(ptfd));
 
-    log(3, "ptfd=%d|%s\n", ptfd, name);
+    log(3, "ptfd=%d|%s", ptfd, name);
 
     close(STDIN_FILENO);
     close(STDOUT_FILENO);
@@ -157,10 +157,21 @@ int main(int argc, char** argv) {
     char* stack;
     int pid;
     struct winsize ws;
+    int termios_saved_valid = 0;
+    struct termios termios_saved, termios_raw;
 
     if (argc < 3) {
         error("Need 2 args");
         exit(1);
+    }
+
+    if (tcgetattr(STDIN_FILENO, &termios_saved) >= 0) {
+        termios_saved_valid = 1;
+
+        termios_raw = termios_saved;
+        cfmakeraw(&termios_raw);
+        termios_raw.c_lflag &= ~ECHO;
+        tcsetattr(STDIN_FILENO, TCSANOW, &termios_raw);
     }
 
     /* Make a new pt */
@@ -182,7 +193,7 @@ int main(int argc, char** argv) {
                 fl, &argv[1]);
     if (pid == -1)
         syserror("clone");
-    log(3, "clone() returned %ld\n", (long) pid);
+    log(3, "clone() returned %ld", (long) pid);
 
     /* Add non-blocking flag */
     int flags = fcntl(ptfd, F_GETFL, 0);
@@ -206,7 +217,7 @@ int main(int argc, char** argv) {
         if (n > 0) {
             log(4, "read fd=%d n=%d", ptfd, n);
             buffer[n] = 0;
-            printf("%s", buffer);
+            write(STDOUT_FILENO, buffer, n);
         }
 
         n = read(STDIN_FILENO, buffer, 1024);
@@ -224,6 +235,10 @@ int main(int argc, char** argv) {
         }
     }
 
-    log(3, "child has terminated\n");
+    log(3, "child has terminated");
+
+    if (termios_saved_valid) {
+        tcsetattr(STDIN_FILENO, TCSANOW, &termios_saved);
+    }
     return 0;
 }
