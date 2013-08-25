@@ -6,13 +6,14 @@
 APPLICATION="${0##*/}"
 BACKGROUND=''
 BINDIR="`dirname "$0"`"
-CHROOTS="`readlink -f "$BINDIR/../chroots"`"
+CHROOTS="/usr/local/chroots"
 KEYFILE=''
 NAME=''
 TARGET=''
 USERNAME='1000'
 NOLOGIN=''
 SETUPSCRIPT='/prepare.sh'
+NAMESPACE=''
 
 USAGE="$APPLICATION [options] [command [args...]]
 
@@ -25,6 +26,7 @@ Options:
     -b          Fork and run the specified command silently in the background.
     -c CHROOTS  Directory the chroots are in. Default: $CHROOTS
     -k KEYFILE  Override the auto-detected encryption key location.
+    -i          Start the chroot's init process in a new namespace.
     -n NAME     Name of the chroot to enter. Default: first one found in CHROOTS
     -t TARGET   Only enter the chroot if it contains the specified TARGET.
     -u USERNAME Username (or UID) to log into. Default: 1000 (the primary user)
@@ -35,13 +37,19 @@ Options:
 # Common functions
 . "$BINDIR/../installer/functions"
 
+# We need to run as root
+if [ ! "$USER" = root -a ! "$UID" = 0 ]; then
+    error 2 "$APPLICATION must be run as root."
+fi
+
 # Process arguments
-while getopts 'bc:k:n:t:u:x' f; do
+while getopts 'bc:k:in:t:u:x' f; do
     case "$f" in
     b) BACKGROUND='y';;
     c) CHROOTS="`readlink -f "$OPTARG"`";;
     k) KEYFILE="$OPTARG";;
     n) NAME="$OPTARG";;
+    i) NAMESPACE='y';;
     t) TARGET="$OPTARG";;
     u) USERNAME="$OPTARG";;
     x) NOLOGIN="$((NOLOGIN+1))"
@@ -49,12 +57,22 @@ while getopts 'bc:k:n:t:u:x' f; do
     \?) error 2 "$USAGE";;
     esac
 done
-shift "$((OPTIND-1))"
 
-# We need to run as root
-if [ ! "$USER" = root -a ! "$UID" = 0 ]; then
-    error 2 "$APPLICATION must be run as root."
+# If -i is specified, and we are not process 1 (yet), respawn ourself in a
+# new namespace
+# FIXME: With kernel 3.8, we will be able to join an existing namespace
+if [ -n "$NAMESPACE" -a ! "$$" = "1" ]; then
+    if [ -n "$BACKGROUND" ]; then
+        error 2 "We cannot start the init system in background."
+    fi
+    if ! [ $# = "$((OPTIND-1))" ]; then
+        error 2 "A command cannot be specified with -i."
+    fi
+
+    exec create-ns "$0" "$@"
 fi
+
+shift "$((OPTIND-1))"
 
 # We need a command if we specified to run in the background
 if [ -n "$BACKGROUND" -a $# = 0 ]; then
@@ -302,13 +320,45 @@ fi
 
 # Ensure the chroot is executable and writable by bind-mounting it to itself.
 bindmount "$CHROOT" / rw,dev,exec,suid --make-unbindable
-bindmount /dev
-bindmount /dev/pts
-bindmount /dev/shm
-bindmount /sys
-bindmount /sys/fs/fuse/connections
+
+if [ -n "$NAMESPACE" ]; then
+    mount -t proc proc "$CHROOT/proc"
+    mount -o bind "/proc/sys" "$CHROOT/proc/sys"
+    mount -o bind,rdonly,remount "$CHROOT/proc/sys"
+    mount -o rdonly -t sysfs sysfs "$CHROOT/sys"
+    mount -o mode=755 -t tmpfs tmpfs "$CHROOT/dev"
+
+    mkdir "$CHROOT/dev/pts"
+    chmod 0755 "$CHROOT/dev/pts"
+    # This is supposed to create a new instance, but its not working on kernel 3.4
+    mount -o newinstance,ptmxmode=0666,mode=620,gid=5 -t devpts devpts "$CHROOT/dev/pts"
+
+    devmknod() {
+        cp -a "$1" "$CHROOT$1"
+    }
+
+    devmknod /dev/null
+    devmknod /dev/zero
+    devmknod /dev/full
+    devmknod /dev/random
+    devmknod /dev/urandom
+    devmknod /dev/tty
+    devmknod /dev/ptmx
+
+    ln -s `tty` "$CHROOT/dev/console"
+else
+    bindmount /dev
+    bindmount /dev/pts
+    bindmount /dev/shm
+    bindmount /sys
+    bindmount /sys/fs/fuse/connections
+    bindmount /proc
+
+    # Add a /run/udev symlink for later versions of udev
+    ln -sfT /dev/.udev "`fixabslinks '/var/run'`/udev"
+fi
+
 bindmount /tmp /tmp exec
-bindmount /proc
 tmpfsmount /var/run 'noexec,nosuid,mode=0755,size=10%'
 tmpfsmount /var/run/lock 'noexec,nosuid,nodev,size=5120k'
 bindmount /var/run/dbus /var/host/dbus
@@ -322,9 +372,6 @@ done
 
 # Add a shm symlink to our new /var/run
 ln -sfT /dev/shm "`fixabslinks '/var/run'`/shm"
-
-# Add a /run/udev symlink for later versions of udev
-ln -sfT /dev/.udev "`fixabslinks '/var/run'`/udev"
 
 # Bind-mount /media, specifically the removable directory
 destmedia="`fixabslinks '/var/host/media'`"
@@ -359,7 +406,7 @@ if [ -n "$BACKGROUND" ]; then
 fi
 
 # Launch the system dbus unless we are entering a basic shell.
-if [ ! "$NOLOGIN" = 1 ] && grep -q '^root:' "$passwd" 2>/dev/null; then
+if [ -z "$NAMESPACE" ] && [ ! "$NOLOGIN" = 1 ] && grep -q '^root:' "$passwd" 2>/dev/null; then
     # Try to detect the dbus user by parsing its configuration file
     # If it fails, or if the user does not exist, `id -un '$dbususer'`
     # will fail, and we fallback on a default user name ("messagebus")
@@ -388,7 +435,14 @@ fi
 
 # Start the chroot and any specified command
 ret=0
-if [ -n "$NOLOGIN" ]; then
+if [ -n "$NAMESPACE" ]; then
+    # Find the init system
+    for init in /usr/lib/systemd/systemd /lib/systemd/systemd /sbin/init; do
+        exec env -i PATH=/usr/sbin:/usr/bin container=crouton chroot $CHROOT $init || true
+    done
+    echo "Cannot find init in chroot" 1>&2
+    ret=1
+elif [ -n "$NOLOGIN" ]; then
     env -i TERM="$TERM" chroot "$CHROOT" "$@" || ret=$?
     # Handle the return value when running the setup script.
     if [ "$NOLOGIN" = 2 ]; then
