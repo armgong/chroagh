@@ -10,6 +10,8 @@ l=6
 r=7
 # Do horizontal scrolling by default
 x=1
+# Do ratpoison switching by default
+s=1
 # Set the default scaling and constant values
 xs='0.2'
 xc='0.01'
@@ -17,24 +19,26 @@ ys='0.2'
 yc='0.05'
 
 #
-USAGE="${0##*/} [-x] [-r] [-a #.#] [-b #.#] [-c #.#] [-d #.#]
+USAGE="${0##*/} [-x] [-s] [-r] [-a #.#] [-b #.#] [-c #.#] [-d #.#]
 Runs the mousewheel daemon.
 Options:
     -r Reverse the direction of scrolling.
     -x Disable horizontal scrolling.
+    -s Disable ratpoison window switching
     -a Sets the X scrolling scaling factor (default: $xs).
     -b Sets the X scrolling constant additive (default: $xc).
     -c Sets the Y scrolling scaling factor (default: $ys).
     -d Sets the Y scrolling constant additive (default: $yc)."
 
 # Process options
-while getopts 'a:b:c:d:rx' opt; do
+while getopts 'a:b:c:d:rsx' opt; do
     case "$opt" in
         a) xs="$OPTARG";;
         b) xc="$OPTARG";;
         c) ys="$OPTARG";;
         d) yc="$OPTARG";;
         r) z=$u; u=$d; d=$z; z=$l; l=$r; r=$z;;
+        s) s='0';;
         x) x='0';;
         \?) echo "$USAGE" 1>&2; exit 1;;
     esac
@@ -71,6 +75,18 @@ aura="`xwininfo -root -children | mawk '/aura_root/ {print $1}'`"
         return (x != "") && (x != 0) && (x+0 != x+1)
     }
 
+    function getcurrenttime() {
+        "date +%s%N" | getline d
+        close ("date +%s%N")
+        return d
+    }
+
+    BEGIN {
+        modkey[0] = 37; # Left Ctrl
+        modkey[1] = 50; # Left Shift
+        modkey[2] = 64; # Left Alt
+    }
+
     m {
         if ($4 == "'"$aura"',") {
             if (m == "MapNotify") {
@@ -85,6 +101,43 @@ aura="`xwininfo -root -children | mawk '/aura_root/ {print $1}'`"
     }
     /^U?n?[Mm]apNotify/ {
         m = $1
+    }
+
+    '"$s"' && /^EVENT type (13|14)/ { # Key press/release
+        for (i = 0; i < length(modkey); i++) {
+            if ($8 == modkey[i]) modmask[i] = ($3 == 13)
+        }
+        modon = (modmask[0] && modmask[1] && modmask[2])
+        modx = 0
+        lastswitchtime = 0
+    }
+
+    '"$s"' && modon && /^EVENT type 17/ {
+        if (isnonzero($10))
+            modx += $10
+        else
+            modx = 0
+        if (modx > 100) {
+            if (lastswitchdir == 1 &&
+                    getcurrenttime()-lastswitchtime < 500000000) {
+                modx = 0
+                next
+            }
+            system("croutoncycle next");
+            lastswitchtime = getcurrenttime()
+            lastswitchdir = 1
+            modx = 0
+        } else if (modx <= -100) {
+            if (lastswitchdir == -1 &&
+                    getcurrenttime()-lastswitchtime < 500000000) {
+                modx = 0
+                next
+            }
+            system("croutoncycle prev");
+            lastswitchtime = getcurrenttime()
+            lastswitchdir = -1
+            modx = 0
+        }
     }
 
     !w && /^EVENT type 17/ {
