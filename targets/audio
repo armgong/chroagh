@@ -158,10 +158,10 @@ build_cras() {
 
     # Install CRAS dependencies
     install --minimal alsa-utils \
-        libasound2$pkgsuffix libspeexdsp1$pkgsuffix
+        arch=alsa-lib,libasound2$pkgsuffix arch=speex,libspeexdsp1$pkgsuffix
 
-    install --minimal --asdeps gcc $pkgdepextra libc6-dev$pkgsuffix \
-        pkg-config libspeexdsp-dev$pkgsuffix
+    install --minimal --asdeps gcc $pkgdepextra arch=,libc6-dev$pkgsuffix \
+        pkg-config arch=,libspeexdsp-dev$pkgsuffix
 
     # precise does not allow libasound2-dev and libasound2-dev:i386 to be
     # installed simultaneously
@@ -175,7 +175,7 @@ build_cras() {
         fi
         ALSALIBDIR="/usr/lib$archextrapath/alsa-lib"
     else
-        install --minimal --asdeps libasound2-dev$pkgsuffix
+        install --minimal --asdeps arch=,libasound2-dev$pkgsuffix
         ALSALIBDIR="`PKG_CONFIG_PATH="$pkgconfigpath" \
                                 pkg-config --variable=libdir alsa`/alsa-lib"
     fi
@@ -193,8 +193,8 @@ build_cras() {
         install_mirror_package --asdeps 'libsbc-dev' \
                             'pool/main/s/sbc' '.*~bpo7\+.*' $cras_arch
     else
-        install --minimal libsbc1$pkgsuffix
-        install --minimal --asdeps libsbc-dev$pkgsuffix
+        install --minimal arch=sbc,libsbc1$pkgsuffix
+        install --minimal --asdeps arch=,libsbc-dev$pkgsuffix
     fi
 
     # Start subshell for compilation
@@ -358,7 +358,10 @@ build_cras() {
 # On x86_64, the ALSA plugin needs to be compiled for both 32-bit and 64-bit
 # to allow audio playback using 32-bit applications.
 if [ "$ARCH" = 'amd64' ]; then
-    build_cras 'i386'
+    # FIXME: Fix 32-bit CRAS plugin on Arch
+    if [ "${DISTROAKA:-"$DISTRO"}" != 'arch' ]; then
+        build_cras 'i386'
+    fi
 fi
 
 # Build CRAS for native architecture
