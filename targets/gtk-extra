@@ -18,5 +18,5 @@ if [ "${DISTROAKA:-"$DISTRO"}" = 'debian' ]; then
         fi
     done
 else
-    # FIXME: Arch code for the above?
+    true # FIXME: Arch code for the above?
 fi
