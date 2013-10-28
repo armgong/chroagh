@@ -38,13 +38,13 @@ fi
 
 mkdir -p "$FETCHDIRDB" "$FETCHDIRPKG" "$BOOTSTRAPCHROOT"
 
-echo "Fetching repository packages list..."
+echo "Fetching repository packages list..." 1>&2
 # Fetch Arch package database
 for REPO in $REPOS; do
-    echo "Fetching $REPO..."
+    echo "Fetching $REPO..." 1>&2
     MIRRORBASE="`echo $MIRROR | sed -e "s/\\$repo/$REPO/" \
                                     -e "s/\\$arch/$ARCH/"`"
-    curl $curlparams -o "$FETCHDIRDB/$REPO.db" "$MIRRORBASE/$REPO.db"
+    curl $curlparams -o "$FETCHDIRDB/$REPO.db" "$MIRRORBASE/$REPO.db" 1>&2
     # Create package list in this format: $REPO:package-version
     tar tf "$FETCHDIRDB/$REPO.db" \
         | sed -n 's|^\(.*\)/$|'"$REPO:"'\1|p' >> "$LIST"
@@ -65,7 +65,7 @@ getdbfield() {
     return 0
 }
 
-echo "Downloading and extracting packages..."
+echo "Downloading and extracting packages..." 1>&2
 missing="$PACKAGES_BOOTSTRAP"
 installed=""
 bootstrappkg=""
@@ -89,7 +89,7 @@ while [ -n "$missing" ]; do
         done
 
         if [ "$inst" = 'y' ]; then
-            echo "Downloading and installing $PACKAGE..."
+            echo "Downloading and installing $PACKAGE..." 1>&2
             PKG="`grep ":$PACKAGE-[0-9]" "$LIST" | head -n 1`"
             if [ -z "$PKG" ]; then
                 echo "Cannot find package $PACKAGE..." 1>&2
@@ -100,7 +100,7 @@ while [ -n "$missing" ]; do
             FILE="`getdbfield "$REPO" "$PKGVER" "desc" "FILENAME"`"
             MIRRORBASE="`echo $MIRROR | sed -e "s/\\$repo/$REPO/" \
                                             -e "s/\\$arch/$ARCH/"`"
-            curl $curlparams -o "$FETCHDIRPKG/$FILE" "$MIRRORBASE/$FILE"
+            curl $curlparams -o "$FETCHDIRPKG/$FILE" "$MIRRORBASE/$FILE" 1>&2
             tar xfk "$FETCHDIRPKG/$FILE" -C "$BOOTSTRAPCHROOT"
 
             # Get list of dependencies (ignore versions)
