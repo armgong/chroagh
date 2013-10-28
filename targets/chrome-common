@@ -28,12 +28,12 @@ REQUIRES='x11'
 
 ### Append to prepare.sh:
 if [ "${DISTROAKA:-"$DISTRO"}" = 'arch' ]; then
-    # FIXME(arch): untested, and merge with code below
     channel="-$CHANNEL"
     if [ "$CHANNEL" = "stable" ]; then
         channel=""
     fi
-    install arch=aur:google-chrome$channel
+    install ca-certificates
+    install aur:google-chrome$channel
 else
     # Only download if it's not already installed, since it auto-updates
     pkg="google-chrome-$CHANNEL"
