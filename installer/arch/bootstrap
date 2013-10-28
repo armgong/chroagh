@@ -30,6 +30,12 @@ FETCHDIRDB="$tmp/db"
 FETCHDIRPKG="$tmp/packages"
 BOOTSTRAPCHROOT="$tmp/$subdir"
 
+curlparams="--retry 3"
+# Display progress bar only if we are outputing to a tty
+if [ -t 2 ]; then
+    curlparams="$curlparams -#"
+fi
+
 mkdir -p "$FETCHDIRDB" "$FETCHDIRPKG" "$BOOTSTRAPCHROOT"
 
 echo "Fetching repository packages list..."
@@ -38,7 +44,7 @@ for REPO in $REPOS; do
     echo "Fetching $REPO..."
     MIRRORBASE="`echo $MIRROR | sed -e "s/\\$repo/$REPO/" \
                                     -e "s/\\$arch/$ARCH/"`"
-    curl --retry 3 -# -o "$FETCHDIRDB/$REPO.db" "$MIRRORBASE/$REPO.db"
+    curl $curlparams -o "$FETCHDIRDB/$REPO.db" "$MIRRORBASE/$REPO.db"
     # Create package list in this format: $REPO:package-version
     tar tf "$FETCHDIRDB/$REPO.db" \
         | sed -n 's|^\(.*\)/$|'"$REPO:"'\1|p' >> "$LIST"
@@ -94,7 +100,7 @@ while [ -n "$missing" ]; do
             FILE="`getdbfield "$REPO" "$PKGVER" "desc" "FILENAME"`"
             MIRRORBASE="`echo $MIRROR | sed -e "s/\\$repo/$REPO/" \
                                             -e "s/\\$arch/$ARCH/"`"
-            curl --retry 3 -# -o "$FETCHDIRPKG/$FILE" "$MIRRORBASE/$FILE"
+            curl $curlparams -o "$FETCHDIRPKG/$FILE" "$MIRRORBASE/$FILE"
             tar xfk "$FETCHDIRPKG/$FILE" -C "$BOOTSTRAPCHROOT"
 
             # Get list of dependencies (ignore versions)
