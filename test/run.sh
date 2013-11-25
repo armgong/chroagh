@@ -338,6 +338,8 @@ export CROUTON_NEW_PASSPHRASE="$CROUTON_PASSPHRASE"
 export CROUTON_EDIT_RESPONSE='y'
 export CROUTON_MOUNT_RESPONSE='y'
 export CROUTON_UNMOUNT_RESPONSE='y'
+# Test machines lack entropy: bind mount /dev/random to /dev/urandom
+export CROUTON_BIND_RANDOM='y'
 
 # Prevent powerd from sleeping the system
 sh -e "$SCRIPTDIR/chroot-bin/croutonpowerd" -i &
