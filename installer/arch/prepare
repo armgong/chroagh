@@ -18,7 +18,9 @@ aurcompile() {
     shift
     echo "Compiling $package from AUR..." 1>&2
     # Make sure base-devel and wget are installed
-    install --asdeps base-devel
+    # Expand base-devel so that install can replace packages with their
+    # multilib versions
+    install --asdeps `pacman -Sg base-devel | cut -d' ' -f 2`
     install wget
 
     if ! id aur > /dev/null 2>&1; then
@@ -62,10 +64,20 @@ source=("ftp://invisible-island.net/mawk/$pkgname-${pkgver//_/-}.tgz")|'\''
     return 0
 }
 
+# Detect if multilib repositories are installed
+arch_multilib() {
+    pacman -Sl multilib >/dev/null 2>&1
+}
+
 # install_dist: see install() in prepare.sh for details.
 # We ignore the second part of the parameters, as Arch only pulls required deps.
+# We also replace gcc and binutils by their multilib versions, if the multilib
+# repository is enabled.
 install_dist() {
-    local pkgs='' aurpkgs='' params=''
+    local pkgs='' aurpkgs='' params='' multilib=''
+    if arch_multilib; then
+        multilib='y'
+    fi
     while [ "$#" != 0 ]; do
         if [ "$1" = "--minimal" ]; then
             true # Ignore: irrelevant for arch
@@ -83,7 +95,12 @@ install_dist() {
         fi
         aurstrip=${1#aur:}
         if [ "$aurstrip" = "$1" ]; then
-            pkgs="$pkgs $1"
+            if [ -n "$multilib" ] && \
+	       [ "$1" = "gcc" -o "$1" = "binutils" ]; then
+                pkgs="$pkgs $1-multilib"
+            else
+                pkgs="$pkgs $1"
+            fi
         else
             aurpkgs="$aurpkgs $aurstrip"
         fi
