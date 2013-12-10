@@ -17,6 +17,5 @@ if [ "${DISTROAKA:-"$DISTRO"}" = 'debian' ]; then
             update-alternatives --install "/usr/bin/$link" "$link" "$netsurf" 10
         fi
     done
-else
-    true # FIXME: Arch code for the above?
 fi
+# Arch: Alternative handling is done in x11-common
