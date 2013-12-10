@@ -110,7 +110,7 @@ upgrades requiring manual intervention, then enter the chroot as root with:
  $ sudo enter-chroot -n $NAME -u 0
 and follow the instructions on Arch Linux website.
 END
-        exit $?
+        exit $ret
     fi
 fi
 
