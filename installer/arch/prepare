@@ -226,6 +226,10 @@ END
     pacman -D --asexplicit $basepkg >/dev/null
 
     rm -f "$bootstrappkglist"
+
+    # Request a script restart to refresh the mount environment and recreate
+    # groups (/etc/group and other files were erased)
+    relaunch_setup
 fi
 
 # Fix the keyboard mode early on (this will be called again after dist-upgrade).
