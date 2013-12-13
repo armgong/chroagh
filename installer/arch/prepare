@@ -21,7 +21,7 @@ aurcompile() {
     # Expand base-devel so that install can replace packages with their
     # multilib versions
     install --asdeps `pacman -Sg base-devel | cut -d' ' -f 2`
-    install wget
+    install wget ca-certificates
 
     if ! id aur > /dev/null 2>&1; then
         useradd aur -r -s /bin/false
