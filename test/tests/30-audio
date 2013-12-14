@@ -52,7 +52,7 @@ END
                                 head -n 1 | sed -e '\''s/$repo/extra/'\'' \
                                                 -e '\''s/$arch/i686/'\''`"
                     filename="`wget "$mirror" -O- -q | \
-    sed -n -e '\''s/.*\"\(alsa-utils-.*.tar\.[^\.]*\)\".*/\1/p'\'' | head -n 1`"
+    sed -n -e '\''s/.*"\(alsa-utils-[^\"]*.tar\.[^\."]*\)".*/\1/p'\'' | head -n 1`"
                     wget "$mirror/$filename"
                     tar xf $filename usr/bin --strip-components=2
                 )
