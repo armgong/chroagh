@@ -7,14 +7,13 @@
 # It must set at least ARCH and MIRROR if not already specified.
 
 if [ -z "$ARCH" ]; then
-    ARCH="`uname -m |  sed -e 's i.86 i686 ;s arm.* armv7h ;'`"
+    ARCH="`uname -m | sed -e 's i.86 i686 ;s arm.* armv7h ;'`"
 fi
 
 if [ -z "$MIRROR" ]; then
     if [ "$ARCH" = 'x86_64' -o "$ARCH" = 'i686' ]; then
-        MIRROR='http://mirrors.kernel.org/archlinux/$repo/os/$arch'
+        MIRROR="${CROUTON_MIRROR_arch:-http://mirrors.kernel.org/archlinux/\$repo/os/\$arch}"
     else
-        MIRROR='http://mirror.archlinuxarm.org/armv7h/$repo'
+        MIRROR="${CROUTON_MIRROR_alarm:-http://mirror.archlinuxarm.org/armv7h/\$repo}"
     fi
 fi
-
