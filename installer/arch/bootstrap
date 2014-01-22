@@ -23,7 +23,8 @@ fi
 # - gawk provides awk
 PACKAGES_BOOTSTRAP="bash gawk pacman grep util-linux"
 # Packages we do not want to install (even if they are dependencies)
-PACKAGES_BOOTSTRAP_IGNORE="ca-certificates perl e2fsprogs"
+# FIXME: This was probably a bad idea, actually...
+PACKAGES_BOOTSTRAP_IGNORE=""
 
 LIST="$tmp/list"
 FETCHDIRDB="$tmp/db"
