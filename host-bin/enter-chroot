@@ -16,6 +16,7 @@ TARGET=''
 USERNAME='1000'
 NOLOGIN=''
 SETUPSCRIPT='/prepare.sh'
+NAMESPACE=''
 
 USAGE="$APPLICATION [options] [command [args...]]
 
@@ -30,6 +31,7 @@ Options:
     -l          Make the command part of a login. Parameters are passed directly
                 to the chroot command, and a call to su is appended.
     -k KEYFILE  Override the auto-detected encryption key location.
+    -i          Start the chroot's init process in a new namespace.
     -n NAME     Name of the chroot to enter. Default: first one found in CHROOTS
     -t TARGET   Only enter the chroot if it contains the specified TARGET.
     -u USERNAME Username (or UID) to log into. Default: 1000 (the primary user)
@@ -55,9 +57,14 @@ chrootcmd() {
     return "$ret"
 }
 
+# We need to run as root
+if [ ! "$USER" = root -a ! "$UID" = 0 ]; then
+    error 2 "$APPLICATION must be run as root."
+fi
+
 # Process arguments
 prevoptind=1
-while getopts 'bc:k:ln:t:u:x' f; do
+while getopts 'bc:k:iln:t:u:x' f; do
     # Disallow empty string as option argument
     if [ "$((OPTIND-prevoptind))" = 2 -a -z "$OPTARG" ]; then
         error 2 "$USAGE"
@@ -69,6 +76,7 @@ while getopts 'bc:k:ln:t:u:x' f; do
     k) KEYFILE="$OPTARG";;
     l) LOGIN='y';;
     n) NAME="$OPTARG";;
+    i) NAMESPACE='y';;
     t) TARGET="$OPTARG";;
     u) USERNAME="$OPTARG";;
     x) NOLOGIN="$((NOLOGIN+1))"
@@ -76,17 +84,38 @@ while getopts 'bc:k:ln:t:u:x' f; do
     \?) error 2 "$USAGE";;
     esac
 done
+
+# If -i is specified, and we are not process 1 (yet), respawn ourself in a
+# new namespace
+if [ -n "$NAMESPACE" -a ! "$$" = "1" ]; then
+    if [ -n "$BACKGROUND" ]; then
+        error 2 "We cannot start the init system in background."
+    fi
+    if ! [ $# = "$((OPTIND-1))" ]; then
+        error 2 "A command cannot be specified with -i."
+    fi
+
+    # FIXME: With kernel 3.8, we can join an existing namespace
+    # FIXME: We should first unshare, then run command using nsenter
+
+    #unshare --fork -u -m -p -- "$SHELL" "$0" "$@"
+
+    # Dirty trick to create a new pts. We cannot pass parameters properly,
+    # though. We may need to build a small utility in the chroot. Nicely
+    # enough, script quits when the chroot has booted...
+    script -c "unshare --fork -u -m -p -- $SHELL $0 -c '$CHROOTS' -i"
+
+    # nsenter -m -u -p -t PID
+
+    exit 0
+fi
+
 shift "$((OPTIND-1))"
 
 # Shift away empty string as first argument (used in start* scripts to mark
 # the end of user-specified parameters)
 if [ "$#" -ge 1 -a -z "$1" ]; then
     shift
-fi
-
-# We need to run as root
-if [ ! "$USER" = root -a ! "$UID" = 0 ]; then
-    error 2 "$APPLICATION must be run as root."
 fi
 
 # We need a command if we specified to run in the background
@@ -338,13 +367,50 @@ else
     firstrun='y'
 fi
 
-bindmount /dev
-bindmount /dev/pts
-bindmount /dev/shm
-bindmount /sys
-bindmount /sys/fs/fuse/connections
+if [ -n "$NAMESPACE" ]; then
+    mount -t proc proc "$CHROOT/proc"
+    mount -o rdonly -t sysfs sysfs "$CHROOT/sys"
+    mount -o bind "/proc/sys" "$CHROOT/proc/sys"
+    mount -o bind,rdonly,remount "$CHROOT/proc/sys"
+    mount -o mode=755 -t tmpfs tmpfs "$CHROOT/dev"
+
+    mkdir "$CHROOT/dev/pts"
+    chmod 0755 "$CHROOT/dev/pts"
+    # This is supposed to create a new instance, but its not working on
+    # kernel 3.4, nor 3.8 (missing kernel option)
+    mount -o newinstance,ptmxmode=0666,mode=620,gid=5 -t devpts devpts "$CHROOT/dev/pts"
+
+    devmknod() {
+        cp -a "$1" "$CHROOT$1"
+    }
+
+    devmknod /dev/null
+    devmknod /dev/zero
+    devmknod /dev/full
+    devmknod /dev/random
+    devmknod /dev/urandom
+    devmknod /dev/tty
+    devmknod /dev/ptmx
+
+    # This should probably be replaced by a FIFO (it breaks badly if the current
+    # tty is over ssh). It also kills crosh on shutdown. Lovely.
+    ln -s "`tty`" "$CHROOT/dev/console"
+    #echo > "$CHROOT/log"
+    #ln -s "/log" "$CHROOT/dev/console"
+    #ln -s /dev/null "$CHROOT/dev/console"
+else
+    bindmount /dev
+    bindmount /dev/pts
+    bindmount /dev/shm
+    bindmount /sys
+    bindmount /sys/fs/fuse/connections
+    bindmount /proc
+
+    # Add a /run/udev symlink for later versions of udev
+    ln -sfT /dev/.udev "`fixabslinks '/var/run'`/udev"
+fi
+
 bindmount /tmp /tmp exec
-bindmount /proc
 tmpfsmount /var/run 'noexec,nosuid,mode=0755,size=10%'
 tmpfsmount /var/run/lock 'noexec,nosuid,nodev,size=5120k'
 bindmount /var/run/dbus /var/host/dbus
@@ -359,9 +425,6 @@ done
 
 # Add a shm symlink to our new /var/run
 ln -sfT /dev/shm "`fixabslinks '/var/run'`/shm"
-
-# Add a /run/udev symlink for later versions of udev
-ln -sfT /dev/.udev "`fixabslinks '/var/run'`/udev"
 
 # Add a /var/host/cras symlink for CRAS clients
 ln -sfT /var/host/cras "`fixabslinks '/var/run'`/cras"
@@ -442,7 +505,8 @@ fi
 ret=0
 
 # Launch the system dbus unless we are entering a basic shell.
-if [ ! "$NOLOGIN" = 1 ] && grep -q '^root:' "$passwd" 2>/dev/null; then
+if [ -z "$NAMESPACE" ] && [ ! "$NOLOGIN" = 1 ] \
+        && grep -q '^root:' "$passwd" 2>/dev/null; then
     # Try to detect the dbus user by parsing its configuration file
     # If it fails, or if the user does not exist, `id -un '$dbususer'`
     # will fail, and we fallback on a default user name ("messagebus")
@@ -474,7 +538,23 @@ if [ ! "$NOLOGIN" = 1 ] && grep -q '^root:' "$passwd" 2>/dev/null; then
 fi
 
 # Start the chroot and any specified command
-if [ -n "$NOLOGIN" ]; then
+if [ -n "$NAMESPACE" ]; then
+    cd "$CHROOT"
+    mkdir -p oldroot
+    pivot_root "$CHROOT" oldroot
+
+    # FIXME: Get rid of oldroot
+
+    # FIXME: How can we detect when the system has booted?
+    # systemd unit?
+
+    # Find the init system
+    for init in /usr/lib/systemd/systemd /lib/systemd/systemd /sbin/init; do
+        exec env -i PATH=/usr/sbin:/usr/bin container=crouton $init || true
+    done
+    echo "Cannot find init in chroot" 1>&2
+    ret=1
+elif [ -n "$NOLOGIN" ]; then
     env -i TERM="$TERM" chroot "$CHROOT" "$@" || ret=$?
     # Handle the return value when running the setup script.
     if [ "$NOLOGIN" = 2 ]; then
