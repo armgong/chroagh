@@ -98,12 +98,12 @@ if [ -n "$NAMESPACE" -a ! "$$" = "1" ]; then
     # FIXME: With kernel 3.8, we can join an existing namespace
     # FIXME: We should first unshare, then run command using nsenter
 
-    #unshare --fork -u -m -p -- "$SHELL" "$0" "$@"
+    unshare --fork -u -m -p -- "$SHELL" "$0" "$@"
 
     # Dirty trick to create a new pts. We cannot pass parameters properly,
     # though. We may need to build a small utility in the chroot. Nicely
-    # enough, script quits when the chroot has booted...
-    script -c "unshare --fork -u -m -p -- $SHELL $0 -c '$CHROOTS' -i"
+    # enough, script (sometimes) quits when the chroot has booted...
+    #script -q -c "unshare --fork -u -m -p -- $SHELL $0 -c '$CHROOTS' -i" /dev/null
 
     # nsenter -m -u -p -t PID
 
@@ -394,10 +394,10 @@ if [ -n "$NAMESPACE" ]; then
 
     # This should probably be replaced by a FIFO (it breaks badly if the current
     # tty is over ssh). It also kills crosh on shutdown. Lovely.
-    ln -s "`tty`" "$CHROOT/dev/console"
+    #ln -s "`tty`" "$CHROOT/dev/console"
     #echo > "$CHROOT/log"
     #ln -s "/log" "$CHROOT/dev/console"
-    #ln -s /dev/null "$CHROOT/dev/console"
+    ln -s /dev/null "$CHROOT/dev/console"
 else
     bindmount /dev
     bindmount /dev/pts
@@ -550,7 +550,9 @@ if [ -n "$NAMESPACE" ]; then
 
     # Find the init system
     for init in /usr/lib/systemd/systemd /lib/systemd/systemd /sbin/init; do
-        exec env -i PATH=/usr/sbin:/usr/bin container=crouton $init || true
+        ls /usr/local/bin
+        exec /usr/local/bin/croutonexecpts /bin/sh -e
+             'tty; env -i PATH=/usr/sbin:/usr/bin container=crouton '"$init"'' || true
     done
     echo "Cannot find init in chroot" 1>&2
     ret=1
