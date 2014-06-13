@@ -1,0 +1,17 @@
+test="$2"
+base="$1/$test"
+
+list="
+parrot-dev_da39a3ee
+peppy-beta_2f863267
+x86-mario-stable_da39a3ee"
+
+mkdir -p "$test"
+cd "$test"
+
+echo "$test" > info
+
+for mach in $list; do
+	mkdir -p "$mach"
+	(cd "$mach"; wget --no-check-certificate "$base/$mach/35-xorg-test" -O 35-xorg-test)
+done

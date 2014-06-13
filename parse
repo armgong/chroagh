@@ -1,0 +1,72 @@
+test="$1"
+
+list="
+parrot-dev_da39a3ee
+peppy-beta_2f863267
+x86-mario-stable_da39a3ee"
+
+rellist="
+wheezy
+jessie
+sid
+kali
+precise
+saucy
+trusty
+"
+
+cd "$test"
+
+if [ -e rellist ]; then
+   rellist="`cat rellist`"
+fi
+
+for mach in $list; do
+    echo $mach
+	(
+           cd "$mach";
+           awk '
+$3 ~ /release:/ {
+       release=$4
+       print release
+}
+release && $3 !~ /^0x/ && $3 !~ /^GL/ {
+       $1=$2=""
+       print $0 > "output-" release
+}
+$3 ~ /xdriinfo:/ {
+      release = ""
+}
+' 35-xorg-test
+        )
+done
+
+echo '<html><body><pre>' > out.html
+cat info >> out.html
+echo '</pre><table border=1>' >> out.html
+
+echo '<tr><td></td>' >> out.html
+for rel in $rellist; do
+#for mach in $list; do
+echo "<td>$rel</td>" >> out.html
+#echo "<td>$mach</td>" >> out.html
+done
+echo '</tr>' >> out.html
+
+#for rel in $rellist; do
+for mach in $list; do
+echo '<tr>' >> out.html
+echo "<td>$mach</td>" >> out.html
+#echo "<td>$rel</td>" >> out.html
+for rel in $rellist; do
+#for mach in $list; do
+echo '<td><pre>' >> out.html
+cat $mach/output-$rel >> out.html
+echo '</pre></td>' >> out.html
+done
+echo '</tr>' >> out.html
+done
+echo '</table></body></html>' >> out.html
+
+cp out.html "$test.html"
+cp "$test.html" ~/Downloads/
