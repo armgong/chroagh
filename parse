@@ -68,5 +68,5 @@ echo '</tr>' >> out.html
 done
 echo '</table></body></html>' >> out.html
 
-cp out.html "$test.html"
-cp "$test.html" ~/Downloads/
+mv out.html "$test.html"
+cp "$test.html" ..
