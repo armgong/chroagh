@@ -4,7 +4,8 @@ base="$1/$test"
 list="
 parrot-dev_da39a3ee
 peppy-beta_2f863267
-x86-mario-stable_da39a3ee"
+x86-mario-stable_da39a3ee
+squawks-stable_5bedb87a"
 
 mkdir -p "$test"
 cd "$test"
