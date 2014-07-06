@@ -18,10 +18,6 @@ trusty
 
 cd "$test"
 
-if [ -e rellist ]; then
-   rellist="`cat rellist`"
-fi
-
 for mach in $list; do
     echo $mach
 	(
@@ -41,6 +37,17 @@ $3 ~ /xdriinfo:/ {
 ' 35-xorg-test
         )
 done
+
+newrellist=''
+for rel in $rellist; do
+    for x in */"output-$rel"; do
+       if [ -f "$x" ]; then
+           newrellist="$newrellist $rel"
+       fi
+       break
+    done
+done
+rellist="$newrellist"
 
 echo '<html><body><pre>' > out.html
 cat info >> out.html
