@@ -3,9 +3,15 @@
   "description": "Crouton in a tab!",
   "version": "0.1",
   "manifest_version": 2,
+  "permissions": [ "system.network" ],
   "app": {
     "background": {
       "scripts": ["background.js"]
+    }
+  },
+  "sockets": {
+    "tcp" : {
+      "connect": ["127.0.0.1:30002"]
     }
   }
 //,

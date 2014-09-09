@@ -9,6 +9,7 @@ var status_ = "";
 
 var context_;
 var image_;
+var imageindex_ = 0;
 
 function init() {
     canvas_ = document.getElementById('canvas');
@@ -25,11 +26,38 @@ function init() {
 function websocketConnect() {
     console.log("websocketConnect: " + websocket_);
 
-    websocket_ = new WebSocket(URL);
+/*    websocket_ = new WebSocket(URL);
     websocket_.binaryType = "arraybuffer";
     websocket_.onopen = websocketOpen;
     websocket_.onmessage = websocketMessage;
-    websocket_.onclose = websocketClose;
+    websocket_.onclose = websocketClose;*/
+
+    chrome.sockets.tcp.create({}, function(createInfo) {
+        tcpsocket_ = createInfo.socketId;
+        chrome.sockets.tcp.connect(createInfo.socketId,
+                                   "127.0.0.1", 30002, onConnectedCallback);
+    });
+}
+
+function onConnectedCallback(result) {
+    console.log("connected" + result);
+    chrome.sockets.tcp.onReceive.addListener(function(info) {
+        if (info.socketId != tcpsocket_)
+            return;
+        // info.data is an arrayBuffer.
+        var i8 = new Uint8Array(info.data);
+        //console.log("data " + i8.length + "/" + imageindex_);
+        for (var i = 0; i < i8.length; i++) {
+            image_.data[imageindex_+i] = i8[i];
+            if (imageindex_+i+1 == image_.data.length) {
+                requestAnimationFrame(display);
+                imageindex_ = 0;
+                /* Should stop getting data here, until it's up */
+                chrome.sockets.tcp.setPaused(tcpsocket_, true);
+            }
+        }
+        imageindex_ += i8.length;
+    });
 }
 
 function websocketOpen() {
@@ -106,18 +134,19 @@ function display(timestamp) {
     console.log("t=" + 1000/(timestamp-lastt));
     lastt = timestamp;
 
-    var i8 = new Uint8Array(data_);
+    //var i8 = new Uint8Array(data_);
     //image.data = i8;
-    for (var i = 0; i < image_.data.length; i++) {
-        image_.data[i] = i8[i];
-    }
+    //for (var i = 0; i < image_.data.length; i++) {
+    //    image_.data[i] = i8[i];
+    //}
     context_.putImageData(image_, 0, 0);
 
     k++;
 
     if (k < 1000) {
-        websocket_.send("S"); /* Ask for a frame */
-        screen_ = true;
+        chrome.sockets.tcp.setPaused(tcpsocket_, false);
+        //websocket_.send("S"); /* Ask for a frame */
+        //screen_ = true;
         //requestAnimationFrame(display);
     }
 }
