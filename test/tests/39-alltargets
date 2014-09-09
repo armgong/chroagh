@@ -3,9 +3,28 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-# All supported releases should be install all targets
+# All supported releases should be able to install all targets, unless
+# explicitly blacklisted (exit status 99)
 for release in $SUPPORTED_RELEASES; do
-    for target in chrome chromium e17 gnome kde lxde touch unity xbmc xfce; do
+    for target in "$SCRIPTDIR/targets/"*; do
+        target="${target#$SCRIPTDIR/targets/}"
+
+        # Ignore *common targets
+        if [ "${target%common}" != "$target" ]; then
+            continue
+        fi
+
+        # Some other targets do not require testing in this context
+        for blacklist in audio core x11 xephyr xorg; do
+            if [ "$target" = "$blacklist" ]; then
+                break
+            fi
+        done
+        if [ "$target" = "$blacklist" ]; then
+            continue
+        fi
+
+        # Start with a x11 snapshot, as most targets depend on it
         snapshot "$release" x11
         ret=0
         crouton -u -n "$release" -t "$target" || ret=$?
@@ -14,7 +33,7 @@ for release in $SUPPORTED_RELEASES; do
                 log "Target $target failed on $release, as expected (unsupported combination)."
             else
                 log "Target $target failed on $release."
-                exit 1
+                exit "$ret"
             fi
         fi
         host delete-chroot -y "$release"
