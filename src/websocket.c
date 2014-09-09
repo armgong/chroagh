@@ -33,7 +33,7 @@ const int BUFFERSIZE = 4096;
 /* WebSocket constants */
 #define VERSION "1"
 const int PORT = 30001;
-const int FRAMEMAXHEADERSIZE = 2+8;
+const int FRAMEMAXHEADERSIZE = 16; // Actually 2+8, but align on 8-byte boundary
 const int MAXFRAMESIZE = 16*1048576; // 16MiB
 const char* GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 /* Key from client must be 24 bytes long (16 bytes, base64 encoded) */
@@ -770,6 +770,34 @@ static int socket_client_read_frame_data(char* buffer, unsigned int size,
     return n;
 }
 
+static void socket_client_sendscreen() {
+    int width = 400;
+    int height = 200;
+    int bufferlen = width*height*4;
+    static int tmp = 255;
+
+    char* outbuf = malloc(FRAMEMAXHEADERSIZE+bufferlen);
+    uint32_t* data = (uint32_t*)(outbuf+FRAMEMAXHEADERSIZE);
+
+    int i, j;
+    for (i = 0; i < height; i++) {
+        for (j = 0; j < width; j++) {
+            data[i*width+j] = 0xff000000 + (tmp << 8);
+        }
+        tmp = (tmp + 1) % 256;
+    }
+
+    log(2, "Sending screen packet.");
+
+    if (socket_client_write_frame(outbuf, bufferlen, WS_OPCODE_BINARY, 1) < 0) {
+        error("Write error.");
+        socket_client_close(0);
+        free(outbuf);
+        return;
+    }
+    free(outbuf);
+}
+
 /* Unrequested data came in from WebSocket client. */
 static void socket_client_read() {
     char buffer[BUFFERSIZE];
@@ -818,9 +846,18 @@ static void socket_client_read() {
 
     /* In future versions, we can process such packets here. */
 
+    if (length == 1 && buffer[0] == 'S') {
+        log(1, "Asked for screen data!");
+
+        socket_client_sendscreen();
+
+        return;
+    }
+
     /* In the current version, this is actually never supposed to happen:
      * close the connection */
-    error("Received an unexpected packet from client.");
+    error("Received an unexpected packet from client (%d, %c).",
+          length, buffer[0]);
     socket_client_close(0);
 }
 
