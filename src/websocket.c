@@ -770,21 +770,25 @@ static int socket_client_read_frame_data(char* buffer, unsigned int size,
     return n;
 }
 
+static char* outbuf = NULL;
+
 static void socket_client_sendscreen() {
     int width = 400;
     int height = 200;
     int bufferlen = width*height*4;
     static int tmp = 255;
 
-    char* outbuf = malloc(FRAMEMAXHEADERSIZE+bufferlen);
-    uint32_t* data = (uint32_t*)(outbuf+FRAMEMAXHEADERSIZE);
+    if (!outbuf) {
+        outbuf = malloc(FRAMEMAXHEADERSIZE+bufferlen);
+        uint32_t* data = (uint32_t*)(outbuf+FRAMEMAXHEADERSIZE);
 
-    int i, j;
-    for (i = 0; i < height; i++) {
-        for (j = 0; j < width; j++) {
-            data[i*width+j] = 0xff000000 + (tmp << 8);
+        int i, j;
+        for (i = 0; i < height; i++) {
+            for (j = 0; j < width; j++) {
+                data[i*width+j] = 0xff000000 + (tmp << 8);
+            }
+            tmp = (tmp + 1) % 256;
         }
-        tmp = (tmp + 1) % 256;
     }
 
     log(2, "Sending screen packet.");
@@ -792,10 +796,10 @@ static void socket_client_sendscreen() {
     if (socket_client_write_frame(outbuf, bufferlen, WS_OPCODE_BINARY, 1) < 0) {
         error("Write error.");
         socket_client_close(0);
-        free(outbuf);
+        //free(outbuf);
         return;
     }
-    free(outbuf);
+    //free(outbuf);
 }
 
 /* Unrequested data came in from WebSocket client. */

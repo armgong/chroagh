@@ -40,15 +40,17 @@ var screen_ = false;
 var data_ = null;
 
 function websocketMessage(evt) {
-    var received_msg = evt.data;
-
     if (active_ && screen_) {
         screen_ = false;
-        data_ = received_msg;
+        if (data_ == null)
+            data_ = evt.data;
         //console.log("Got data!");
-        //requestAnimationFrame(display);
+        requestAnimationFrame(display);
         return;
     }
+    console.log("Should not reach here");
+
+    var received_msg = evt.data;
 
     var cmd = received_msg[0];
     var payload = received_msg.substring(1);
@@ -114,9 +116,9 @@ function display(timestamp) {
     k++;
 
     if (k < 1000) {
-        //websocket_.send("S"); /* Ask for a frame */
+        websocket_.send("S"); /* Ask for a frame */
         screen_ = true;
-        requestAnimationFrame(display);
+        //requestAnimationFrame(display);
     }
 }
 
