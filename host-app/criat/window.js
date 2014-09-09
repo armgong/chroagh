@@ -32,7 +32,7 @@ function websocketConnect() {
     websocket_.onmessage = websocketMessage;
     websocket_.onclose = websocketClose;*/
 
-    chrome.sockets.tcp.create({}, function(createInfo) {
+    chrome.sockets.tcp.create({ "bufferSize": 1048576 }, function(createInfo) {
         tcpsocket_ = createInfo.socketId;
         chrome.sockets.tcp.connect(createInfo.socketId,
                                    "127.0.0.1", 30002, onConnectedCallback);
