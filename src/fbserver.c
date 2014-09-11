@@ -10,6 +10,7 @@
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <X11/extensions/XTest.h>
 
 const int PORT = 30002;
 const int BUFFERSIZE = 4096;
@@ -37,6 +38,8 @@ static Display *dpy;
 int init_display() {
     dpy = XOpenDisplay(NULL);
 
+    /* Fixme: check XTest extension available */
+
     return 0;
 }
 
@@ -58,6 +61,8 @@ int write_image(int fd) {
     }
 
     write(fd, img->data, size);
+
+    XDestroyImage(img);
 
     return 0;
 }
@@ -103,7 +108,7 @@ int main(int argc, char** argv) {
     int newclient_fd;
     struct sockaddr_in client_addr;
     unsigned int client_addr_len = sizeof(client_addr);
-    char buffer[BUFFERSIZE];
+    unsigned char buffer[BUFFERSIZE];
 
     while (1) {
         newclient_fd = accept(server_fd,
@@ -115,8 +120,30 @@ int main(int argc, char** argv) {
         }
 
         int n;
-        while ((n = read(newclient_fd, buffer, BUFFERSIZE)) > 0) {
-            write_image(newclient_fd);
+        while ((n = read(newclient_fd, buffer, 4)) > 0) {
+            if (buffer[0] != 'S')
+                printf("b %c:%02x%02x%02x\n",
+                   buffer[0], buffer[1], buffer[2], buffer[3]);
+            switch (buffer[0]) {
+            case 'S':
+                write_image(newclient_fd);
+                break;
+            case 'K':
+            {
+                KeySym ks = ((KeySym)buffer[2]) << 8 | buffer[3];
+                KeyCode kc = XKeysymToKeycode(dpy, ks);
+                printf("ks=%04x\n", (unsigned int)ks);
+                printf("kc=%04x\n", kc);
+                if (kc != 0) {
+                    XTestFakeKeyEvent(dpy, kc, buffer[1], CurrentTime);
+                } else {
+                    fprintf(stderr, "Invalid keysym %04x.\n", (unsigned int)ks);
+                }
+            }
+                break;
+            case 'U':
+                break;
+            }
         }
     }
 

@@ -23,7 +23,7 @@ VERSION = 1
 TARPARAMS ?= -j
 
 croutoncursor_LIBS = -lX11 -lXfixes -lXrender
-croutonfbserver_LIBS = -lX11
+croutonfbserver_LIBS = -lX11 -lXtst
 croutonwmtools_LIBS = -lX11
 croutonxi2event_LIBS = -lX11 -lXi
 
