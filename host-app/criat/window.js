@@ -28,12 +28,12 @@ function init() {
     canvas_.addEventListener("mousedown", onMouse);
     canvas_.addEventListener("mouseup", onMouse);
     canvas_.addEventListener("mousemove", onMouse);
+    canvas_.addEventListener("mousewheel", onMouse);
     canvas_.addEventListener('contextmenu', function(ev) {
         ev.preventDefault();
         return false;
     });
     /* TODO: handle mouse exit (release button) */
-    /* TODO: mousewheel */
     /* TODO: touchscreen */
 }
 
@@ -219,17 +219,26 @@ function onKeyPress(e) {
 }
 
 /* FIXME: To prevent lag, do not send new M events until acknowledged */
-var e_;
 function onMouse(e) {
-    e_ = e;
     e.preventDefault();
 
     //console.log(e.type + " " + e.layerX + "x" + e.layerY);
     tcpsend("M", [ e.layerX >> 8, e.layerX,
                    e.layerY >> 8, e.layerY ]);
 
-    if (e.type != "mousemove") {
-        //console.log("/" + e.which);
+    if (e.type == "mousewheel") {
+        console.log(e.wheelDeltaX + "/" + e.wheelDeltaY);
+        if (e.wheelDeltaX > 0) {
+            tcpsend("C", [ 1, 6 ]); tcpsend("C", [ 0, 6 ]);
+        } else if (e.wheelDeltaX < 0) {
+            tcpsend("C", [ 1, 7 ]); tcpsend("C", [ 0, 7 ]);
+        }
+        if (e.wheelDeltaY > 0) {
+            tcpsend("C", [ 1, 4 ]); tcpsend("C", [ 0, 4 ]);
+        } else if (e.wheelDeltaY < 0) {
+            tcpsend("C", [ 1, 5 ]); tcpsend("C", [ 0, 5 ]);
+        }
+    } else if (e.type != "mousemove") {
         tcpsend("C", [ e.type == "mousedown" ? 1 : 0, e.which ]);
     }
     return false;
