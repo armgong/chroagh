@@ -12,6 +12,10 @@ var image_;
 var image_back_;
 var imageindex_ = 0;
 
+/* Mouse motion queue, only send before screen update */
+/* TODO: If there is more than mouse motion, then we need to be smarter. */
+var mousemotionqueue_ = null;
+
 function init() {
     canvas_ = document.getElementById('canvas');
     websocketConnect();
@@ -49,6 +53,17 @@ function websocketConnect() {
     });
 }
 
+function cmdsend(cmd, param, flushmotion) {
+    if (flushmotion != false && mousemotionqueue_) {
+        var x = mousemotionqueue_[0];
+        var y = mousemotionqueue_[1];
+        tcpsend("M", [ x >> 8, x,
+                       y >> 8, y ]);
+        mousemotionqueue_ = null;
+    }
+    tcpsend(cmd, param);
+}
+
 function tcpsend(cmd, param) {
     var buf = new ArrayBuffer(8);
     var bufView = new Uint8Array(buf);
@@ -67,7 +82,7 @@ function tcpsend(cmd, param) {
 function onConnectedCallback(result) {
     console.log("connected" + result);
 
-    tcpsend("S");
+    cmdsend("S");
 
     chrome.sockets.tcp.onReceive.addListener(function(info) {
         if (info.socketId != tcpsocket_)
@@ -129,7 +144,7 @@ function display(timestamp) {
 
     if (k < 10*60*60) {
         chrome.sockets.tcp.setPaused(tcpsocket_, false);
-        tcpsend("S");
+        cmdsend("S");
         //websocket_.send("S"); /* Ask for a frame */
         //screen_ = true;
         //requestAnimationFrame(display);
@@ -209,7 +224,7 @@ function onKey(e) {
     sym = keyCodeToKeysym(e.keyCode);
     //console.log(e.type + " " + e.keyCode + " =>" + sym);
     if (sym)
-        tcpsend("K", [ e.type == "keydown" ? 1 : 0, sym >> 8, sym ]);
+        cmdsend("K", [ e.type == "keydown" ? 1 : 0, sym >> 8, sym ]);
 }
 
 /* Can we do something smart with this? */
@@ -223,23 +238,22 @@ function onMouse(e) {
     e.preventDefault();
 
     //console.log(e.type + " " + e.layerX + "x" + e.layerY);
-    tcpsend("M", [ e.layerX >> 8, e.layerX,
-                   e.layerY >> 8, e.layerY ]);
+    mousemotionqueue_ = [ e.layerX, e.layerY ];
 
     if (e.type == "mousewheel") {
         console.log(e.wheelDeltaX + "/" + e.wheelDeltaY);
         if (e.wheelDeltaX > 0) {
-            tcpsend("C", [ 1, 6 ]); tcpsend("C", [ 0, 6 ]);
+            cmdsend("C", [ 1, 7 ]); tcpsend("C", [ 0, 7 ]);
         } else if (e.wheelDeltaX < 0) {
-            tcpsend("C", [ 1, 7 ]); tcpsend("C", [ 0, 7 ]);
+            cmdsend("C", [ 1, 6 ]); tcpsend("C", [ 0, 6 ]);
         }
         if (e.wheelDeltaY > 0) {
-            tcpsend("C", [ 1, 4 ]); tcpsend("C", [ 0, 4 ]);
+            cmdsend("C", [ 1, 4 ]); tcpsend("C", [ 0, 4 ]);
         } else if (e.wheelDeltaY < 0) {
-            tcpsend("C", [ 1, 5 ]); tcpsend("C", [ 0, 5 ]);
+            cmdsend("C", [ 1, 5 ]); tcpsend("C", [ 0, 5 ]);
         }
-    } else if (e.type != "mousemove") {
-        tcpsend("C", [ e.type == "mousedown" ? 1 : 0, e.which ]);
+    } else if (e.type == "mousedown" || e.type == "mouseup") {
+        cmdsend("C", [ e.type == "mousedown" ? 1 : 0, e.which ]);
     }
     return false;
 }

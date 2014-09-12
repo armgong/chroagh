@@ -45,7 +45,7 @@ int init_display() {
 
 int write_image(int fd) {
     Window root = DefaultRootWindow(dpy);
-    XImage *img = XGetImage(dpy, root, 0, 0, 800, 250, AllPlanes, ZPixmap);
+    XImage *img = XGetImage(dpy, root, 0, 0, 800, 600, AllPlanes, ZPixmap);
     //printf("size %d %d\n", img->bytes_per_line, img->height);
 
     int size = img->bytes_per_line * img->height;
