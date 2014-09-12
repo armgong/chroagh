@@ -120,10 +120,11 @@ int main(int argc, char** argv) {
         }
 
         int n;
-        while ((n = read(newclient_fd, buffer, 4)) > 0) {
-            if (buffer[0] != 'S')
-                printf("b %c:%02x%02x%02x\n",
-                   buffer[0], buffer[1], buffer[2], buffer[3]);
+        while ((n = read(newclient_fd, buffer, 8)) > 0) {
+            if (buffer[0] != 'S' && buffer[0] != 'M')
+                printf("b %c:%02x%02x%02x%02x%02x%02x%02x\n",
+                       buffer[0], buffer[1], buffer[2], buffer[3],
+                       buffer[4], buffer[5], buffer[6], buffer[7]);
             switch (buffer[0]) {
             case 'S':
                 write_image(newclient_fd);
@@ -141,7 +142,19 @@ int main(int argc, char** argv) {
                 }
             }
                 break;
-            case 'U':
+            case 'C':
+            {
+                int down = buffer[1];
+                int button = buffer[2];
+                XTestFakeButtonEvent(dpy, button, down, CurrentTime);
+            }
+                break;
+            case 'M':
+            {
+                int x = ((KeySym)buffer[1]) << 8 | buffer[2];
+                int y = ((KeySym)buffer[3]) << 8 | buffer[4];
+                XTestFakeMotionEvent(dpy, 0, x, y, CurrentTime);
+            }
                 break;
             }
         }

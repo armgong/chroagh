@@ -22,9 +22,19 @@ function init() {
     image_ = context_.createImageData(canvas.width, canvas.height);
     image_back_ = context_.createImageData(canvas.width, canvas.height);
 
-    document.addEventListener("keydown", onCanvasKeyDown);
-    document.addEventListener("keyup", onCanvasKeyUp);
-    document.addEventListener("keypress", onCanvasKeyPress);
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("keyup", onKey);
+    document.addEventListener("keypress", onKeyPress);
+    canvas_.addEventListener("mousedown", onMouse);
+    canvas_.addEventListener("mouseup", onMouse);
+    canvas_.addEventListener("mousemove", onMouse);
+    canvas_.addEventListener('contextmenu', function(ev) {
+        ev.preventDefault();
+        return false;
+    });
+    /* TODO: handle mouse exit (release button) */
+    /* TODO: mousewheel */
+    /* TODO: touchscreen */
 }
 
 /* TODO: code reuse with extension? */
@@ -40,7 +50,7 @@ function websocketConnect() {
 }
 
 function tcpsend(cmd, param) {
-    var buf = new ArrayBuffer(4);
+    var buf = new ArrayBuffer(8);
     var bufView = new Uint8Array(buf);
     bufView[0] = cmd.charCodeAt(0);
     for (var i = 1; i < bufView.length; i++) {
@@ -195,23 +205,34 @@ function keyCodeToKeysym(code) {
     return null;
 }
 
-function onCanvasKeyDown(e) {
+function onKey(e) {
     sym = keyCodeToKeysym(e.keyCode);
-    console.log("down " + e.keyCode + " =>" + sym);
+    //console.log(e.type + " " + e.keyCode + " =>" + sym);
     if (sym)
-        tcpsend("K", [ 1, sym >> 8, sym ]);
+        tcpsend("K", [ e.type == "keydown" ? 1 : 0, sym >> 8, sym ]);
 }
 
-function onCanvasKeyUp(e) {
-    sym = keyCodeToKeysym(e.keyCode);
-    console.log("up " + e.keyCode + " =>" + sym);
-    if (sym)
-        tcpsend("K", [ 0, sym >> 8, sym ]);
-}
-
-function onCanvasKeyPress(e) {
+/* Can we do something smart with this? */
+function onKeyPress(e) {
 //    console.log("press " + e.keyCode);
 //    tcpsend("K", [ e.keyCode, 0 ]);
+}
+
+/* FIXME: To prevent lag, do not send new M events until acknowledged */
+var e_;
+function onMouse(e) {
+    e_ = e;
+    e.preventDefault();
+
+    //console.log(e.type + " " + e.layerX + "x" + e.layerY);
+    tcpsend("M", [ e.layerX >> 8, e.layerX,
+                   e.layerY >> 8, e.layerY ]);
+
+    if (e.type != "mousemove") {
+        //console.log("/" + e.which);
+        tcpsend("C", [ e.type == "mousedown" ? 1 : 0, e.which ]);
+    }
+    return false;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
