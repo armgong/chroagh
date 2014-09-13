@@ -89,16 +89,35 @@ function onConnectedCallback(result) {
             return;
         // info.data is an arrayBuffer.
         var i8 = new Uint8Array(info.data);
-        //console.log("data " + i8.length + "/" + imageindex_);
-        for (var i = 0; i < i8.length; i++, imageindex_++) {
-            image_back_.data[imageindex_] = i8[i];
-            if (imageindex_+1 >= image_.data.length) {
+        var i8index = 0;
+
+        while (i8index < i8.length) {
+            //console.log("data " + i8index + "/" + i8.length + " // " + imageindex_ + "/" + image_.data.length);
+
+            var imageleft = image_.data.length-imageindex_;
+            var bound = ((i8index+imageleft) > i8.length) ? i8.length : (i8index+imageleft);
+            //console.log("imageleft=" + imageleft + " bound=" + bound);
+
+            for (; i8index < bound; i8index++, imageindex_++) {
+                image_back_.data[imageindex_] = i8[i8index];
+            }
+            //imageindex_ += bound-i8index;
+            //i8index = bound;
+
+            imageleft = image_.data.length-imageindex_;
+
+            //console.log("imageleft=" + imageleft);
+            
+            if (imageleft <= 0) {
                 requestAnimationFrame(display);
-                imageindex_ = -1;
+                imageindex_ = 0;
                 tmp = image_back_;
                 image_back_ = image_;
                 image_ = tmp;
-                chrome.sockets.tcp.setPaused(tcpsocket_, true);
+                //chrome.sockets.tcp.setPaused(tcpsocket_, true);
+                continue;
+            } else {
+                break;
             }
         }
     });
@@ -129,7 +148,9 @@ function display(timestamp) {
     fps = document.getElementById("fps");
     cfps = 1000/(timestamp-lastt);
     avgfps = 0.9*avgfps + 0.1*cfps;
-    fps.textContent = "fps:" + Math.round(cfps) + " (" + Math.round(avgfps) + ")";
+    if ((k % 60) == 0) {
+        fps.textContent = "fps:" + Math.round(cfps) + " (" + Math.round(avgfps) + ")";
+    }
 
     lastt = timestamp;
 
@@ -143,7 +164,7 @@ function display(timestamp) {
     k++;
 
     if (k < 10*60*60) {
-        chrome.sockets.tcp.setPaused(tcpsocket_, false);
+        //chrome.sockets.tcp.setPaused(tcpsocket_, false);
         cmdsend("S");
         //websocket_.send("S"); /* Ask for a frame */
         //screen_ = true;
