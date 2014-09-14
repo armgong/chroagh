@@ -27,11 +27,7 @@ REQUIRES='x11'
 
 ### Append to prepare.sh:
 if [ "${DISTROAKA:-"$DISTRO"}" = 'arch' ]; then
-    channel="-$CHANNEL"
-    if [ "$CHANNEL" = "stable" ]; then
-        channel=""
-    fi
-    install aur:google-chrome$channel
+    install aur:google-chrome$CHANNEL
 else
     # Only download if it's not already installed, since it auto-updates
     pkg="google-chrome-$CHANNEL"
