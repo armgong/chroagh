@@ -50,7 +50,7 @@ int write_image(int fd) {
 
     int size = img->bytes_per_line * img->height;
 
-    uint32_t* ptr = (uint32_t*)img->data;
+/*    uint32_t* ptr = (uint32_t*)img->data;
     int i;
     for (i = 0; i < size/4; i++) {
         ptr[i] = (ptr[i] & 0x000000ff) << 16 |
@@ -58,7 +58,7 @@ int write_image(int fd) {
                  (ptr[i] & 0x00ff0000) >> 16 |
                  0xff000000;
         //ptr[i] = 0xff0000ff;
-    }
+        }*/
 
     write(fd, img->data, size);
 
@@ -98,6 +98,8 @@ int server_init() {
         exit(1);
     }
 
+    printf("server_init\n");
+
     return 0;
 }
 
@@ -121,7 +123,7 @@ int main(int argc, char** argv) {
 
         int n;
         while ((n = read(newclient_fd, buffer, 8)) > 0) {
-            if (buffer[0] != 'S' && buffer[0] != 'M')
+            //if (buffer[0] != 'S' && buffer[0] != 'M')
                 printf("b %c:%02x%02x%02x%02x%02x%02x%02x\n",
                        buffer[0], buffer[1], buffer[2], buffer[3],
                        buffer[4], buffer[5], buffer[6], buffer[7]);

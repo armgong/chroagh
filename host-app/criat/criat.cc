@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <sstream>
 
+#include "ppapi/cpp/net_address.h"
+#include "ppapi/c/ppb_tcp_socket.h"
 #include "ppapi/c/ppb_image_data.h"
 #include "ppapi/cpp/graphics_2d.h"
 #include "ppapi/cpp/image_data.h"
@@ -15,15 +17,18 @@
 #include "ppapi/cpp/var.h"
 #include "ppapi/cpp/point.h"
 #include "ppapi/utility/completion_callback_factory.h"
+#include "ppapi/cpp/host_resolver.h"
+#include "ppapi/cpp/tcp_socket.h"
 
 namespace {
 
-// The expected string sent by the browser.
-const char* const kHelloString = "hello";
-// The string sent back to the browser upon receipt of a message
-// containing "hello".
-const char* const kReplyString = "hello from NaCl";
+    // The expected string sent by the browser.
+    const char* const kHelloString = "hello";
+    // The string sent back to the browser upon receipt of a message
+    // containing "hello".
+    const char* const kReplyString = "hello from NaCl";
 
+    const int debug = 0;
 }  // namespace
 
 class CriatInstance : public pp::Instance {
@@ -33,6 +38,8 @@ public:
           callback_factory_(this),
           image_data_(NULL),
           k_(0),
+          socket_(this),
+          connected_(false),
           avgfps_(0) {}
     
     virtual ~CriatInstance() { }
@@ -46,13 +53,27 @@ public:
         std::string message = var_message.AsString();
         if (message == kHelloString) {
             // If it matches, send our response back to JavaScript.
-            pp::Var var_reply(kReplyString);
-            PostMessage(var_reply);
+            LogMessage(0, kReplyString);
         }
     }
     
     virtual bool Init(uint32_t argc, const char* argn[], const char* argv[]) {
         RequestInputEvents(PP_INPUTEVENT_CLASS_MOUSE);
+
+        if (!pp::HostResolver::IsAvailable()) {
+            LogMessage(0, "HostResolver not available");
+            return false;
+        }
+
+        resolver_ = pp::HostResolver(this);
+        if (resolver_.is_null()) {
+            LogMessage(0, "Error creating HostResolver.");
+            return false;
+        }
+
+        PP_HostResolver_Hint hint = { PP_NETADDRESS_FAMILY_UNSPECIFIED, 0 };
+        resolver_.Resolve("127.0.0.1", 30002, hint,
+        callback_factory_.NewCallback(&CriatInstance::OnResolveCompletion));
         
         return true;
     }
@@ -68,7 +89,7 @@ public:
         // successfully, or if this is the first call to DidChangeView (when the
         // module first starts). In either case, start the main loop.
         if (flush_context_.is_null())
-            MainLoop(0);
+            OnFlush(0);
     }
     
     virtual bool HandleInputEvent(const pp::InputEvent& event) {
@@ -92,7 +113,46 @@ public:
     }
     
 private:
+    void LogMessage(int level, std::string str) {
+        if (level <= debug)
+            PostMessage(str);
+    }
+
+    void OnResolveCompletion(int32_t result) {
+        if (result != PP_OK) {
+            if (result == PP_ERROR_NOACCESS)
+                LogMessage(0, "No access.");
+            LogMessage(0, "Resolve failed.");
+            return;
+        }
+        
+        pp::NetAddress addr = resolver_.GetNetAddress(0);
+        LogMessage(1, std::string("Resolved: ") +
+                    addr.DescribeAsString(true).AsString());
+        
+        LogMessage(1, "Connecting ...");
+        socket_.Connect(addr,
+                        callback_factory_.NewCallback(&CriatInstance::OnConnectCompletion));
+    }
+
+    void OnConnectCompletion(int32_t result) {
+        if (result != PP_OK) {
+            if (result == PP_ERROR_NOACCESS)
+                LogMessage(0, "No access.");
+
+            std::ostringstream status;
+            status << "Connection failed: " << result;
+            LogMessage(0, status.str());
+            return;
+        }
+
+        LogMessage(1, "Connected");
+        connected_ = true;
+    }
+
     bool CreateContext(const pp::Size& new_size) {
+        LogMessage(5, "CreateContext");
+
         const bool kIsAlwaysOpaque = true;
         context_ = pp::Graphics2D(this, new_size, kIsAlwaysOpaque);
         if (!BindGraphics(context_)) {
@@ -106,24 +166,69 @@ private:
         return true;
     }
     
-    void Paint() {
-        uint32_t* data = static_cast<uint32_t*>(image_data_->data());
-        if (!data)
+    void AllocateImage(bool initzero) {
+        LogMessage(5, "AllocateImage");
+        PP_ImageDataFormat format = pp::ImageData::GetNativeImageDataFormat();
+        image_data_ = new pp::ImageData(this, format, size_, true);
+        image_pos_ = 0;
+    }
+
+    void TCPSend(char cmd) {
+        send_buffer[0] = cmd;
+        socket_.Write(send_buffer, 8,
+            callback_factory_.NewCallback(&CriatInstance::OnWriteCompletion)); 
+   }
+
+    void OnWriteCompletion(int32_t result) {
+        std::stringstream status;
+        status << "WriteCompletion: " << result;
+        LogMessage(5, status.str());
+        FillBuffer();
+    }
+
+    void FillBuffer() {
+        char* data = static_cast<char*>(image_data_->data());
+
+        uint32_t totalsize = size_.width() * size_.height() * 4;
+        size_t length = totalsize-image_pos_;
+        if (connected_ && length > 0)
+            socket_.Read(data+image_pos_, length,
+                         callback_factory_.NewCallback(&CriatInstance::OnReadCompletion));
+        else
+            OnFrameReady(0);
+    }
+
+    void OnReadCompletion(int32_t result) {
+        std::stringstream status;
+        status << "ReadCompletion: " << result << ". (" << image_pos_ << ")";
+        LogMessage(5, status.str());
+
+        if (result < 0) {
+            connected_ = false;
+            FillBuffer();
             return;
-
-        //std::stringstream ss;
-        //ss << "Paint " << data;
-        //PostMessage(ss.str());
-        
-        k_ += 1;
-
-        uint32_t num_pixels = size_.width() * size_.height();
-        size_t offset = 0;
-        for (uint32_t i = 0; i < num_pixels; ++i) {
-            data[offset] = 0xff00ff00 + (k_ << 16) + i;
-            offset++;
         }
-        
+
+        image_pos_ += result;
+        FillBuffer();
+    }
+
+    void OnFlush(int32_t) {
+        LogMessage(5, "OnFlush");
+
+        AllocateImage(false);
+        if (connected_) {
+            TCPSend('S');
+        } else {
+            /* TODO: Blank image */
+            OnFrameReady(0);
+        }
+    }
+
+    void Paint() {
+        /* FIXME: We probably want to switch to PaintImageData on partial
+         * updates. */
+
         // Using Graphics2D::ReplaceContents is the fastest way to update the
         // entire canvas every frame. According to the documentation:
         //
@@ -142,10 +247,13 @@ private:
         //   swapped back and forth.
         //
         context_.ReplaceContents(image_data_);
+
+        /* TODO: I don't think that's correct */
         image_data_->detach();
     }
     
-    void MainLoop(int32_t t) {
+    void OnFrameReady(int32_t) {
+        k_++;
         PP_Time time_ = pp::Module::Get()->core()->GetTime();
         double cfps = 1.0/(time_-lasttime_);
         lasttime_ = time_;
@@ -154,7 +262,7 @@ private:
         if ((k_ % 60) == 0) {
             std::stringstream ss;
             ss << "fps: " << (int)(cfps+0.5) << " (" << (int)(avgfps_+0.5) << ")";
-            PostMessage(ss.str());
+            LogMessage(0, ss.str());
         }
         
         if (context_.is_null()) {
@@ -165,17 +273,15 @@ private:
             return;
         }
 
-        const bool kDontInitToZero = false;
-        PP_ImageDataFormat format = pp::ImageData::GetNativeImageDataFormat();
-        image_data_ = new pp::ImageData(this, format, size_, kDontInitToZero);
-        
+        //if (k_ > 100) return;
+
         Paint();
         // Store a reference to the context that is being flushed; this ensures
         // the callback is called, even if context_ changes before the flush
         // completes.
         flush_context_ = context_;
         context_.Flush(
-            callback_factory_.NewCallback(&CriatInstance::MainLoop));
+            callback_factory_.NewCallback(&CriatInstance::OnFlush));
     }
 
     pp::CompletionCallbackFactory<CriatInstance> callback_factory_;
@@ -184,10 +290,17 @@ private:
     pp::Size size_;
 
     pp::ImageData* image_data_;
+    size_t image_pos_;
     int k_;
+
+    pp::HostResolver resolver_;
+    pp::TCPSocket socket_;
+    bool connected_;
 
     PP_Time lasttime_;
     double avgfps_;
+
+    char send_buffer[8];
 };
 
 class CriatModule : public pp::Module {

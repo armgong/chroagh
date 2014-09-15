@@ -47,7 +47,7 @@ function updateStatus(opt_message) {
 function handleMessage(message) {
     var logEl = document.getElementById('log');
     logEl.textContent = message.data;
-    //console.log(message.data);
+    console.log(message.data);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
