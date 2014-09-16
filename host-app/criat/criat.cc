@@ -114,8 +114,13 @@ public:
     
 private:
     void LogMessage(int level, std::string str) {
-        if (level <= debug)
-            PostMessage(str);
+        double delta = (pp::Module::Get()->core()->GetTime()-lasttime_)*1000;
+
+        if (level <= debug) {
+            std::ostringstream status;
+            status << (int)delta << " " << str;
+            PostMessage(status.str());
+        }
     }
 
     void OnResolveCompletion(int32_t result) {
@@ -174,6 +179,10 @@ private:
     }
 
     void TCPSend(char cmd) {
+        std::stringstream status;
+        status << "TCPSend: " << cmd;
+        LogMessage(5, status.str());
+
         send_buffer[0] = cmd;
         socket_.Write(send_buffer, 8,
             callback_factory_.NewCallback(&CriatInstance::OnWriteCompletion)); 
@@ -183,19 +192,28 @@ private:
         std::stringstream status;
         status << "WriteCompletion: " << result;
         LogMessage(5, status.str());
-        FillBuffer();
     }
 
     void FillBuffer() {
         char* data = static_cast<char*>(image_data_->data());
+        std::stringstream status;
+        status << "FillBuffer: " << (long)data;
+        LogMessage(5, status.str());
 
         uint32_t totalsize = size_.width() * size_.height() * 4;
         size_t length = totalsize-image_pos_;
         if (connected_ && length > 0)
             socket_.Read(data+image_pos_, length,
                          callback_factory_.NewCallback(&CriatInstance::OnReadCompletion));
-        else
+        else {
+            screen_flying_ = false;
+            if (connected_) {
+                screen_flying_ = true;
+                /* Ask for the next frame already */
+                TCPSend('S');
+            }
             OnFrameReady(0);
+        }
     }
 
     void OnReadCompletion(int32_t result) {
@@ -218,7 +236,11 @@ private:
 
         AllocateImage(false);
         if (connected_) {
-            TCPSend('S');
+            if (!screen_flying_) {
+                screen_flying_ = true;
+                TCPSend('S');
+            }
+            FillBuffer();
         } else {
             /* TODO: Blank image */
             OnFrameReady(0);
@@ -247,6 +269,7 @@ private:
         //   swapped back and forth.
         //
         context_.ReplaceContents(image_data_);
+        //context_.PaintImageData(*image_data_, pp::Point(0, 0));
 
         /* TODO: I don't think that's correct */
         image_data_->detach();
@@ -296,6 +319,7 @@ private:
     pp::HostResolver resolver_;
     pp::TCPSocket socket_;
     bool connected_;
+    bool screen_flying_;
 
     PP_Time lasttime_;
     double avgfps_;

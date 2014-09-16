@@ -1,4 +1,4 @@
-Xorg -config dummy/xorg.conf :2 &
+Xorg -config dummy/xorg.conf :2 -logfile xorg.log &
 sleep 2
 #Xephyr :2 -screen 800x250 &
 DISPLAY=:2 xfwm4 &
