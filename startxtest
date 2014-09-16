@@ -1,0 +1,7 @@
+Xorg -config dummy/xorg.conf :2 &
+sleep 2
+#Xephyr :2 -screen 800x250 &
+DISPLAY=:2 xfwm4 &
+DISPLAY=:2 xterm &
+make croutonfbserver && DISPLAY=:2 ./croutonfbserver
+
