@@ -174,7 +174,7 @@ private:
     void AllocateImage(bool initzero) {
         LogMessage(5, "AllocateImage");
         PP_ImageDataFormat format = pp::ImageData::GetNativeImageDataFormat();
-        image_data_ = new pp::ImageData(this, format, size_, true);
+        image_data_ = new pp::ImageData(this, format, size_, initzero);
         image_pos_ = 0;
     }
 
@@ -242,6 +242,17 @@ private:
             }
             FillBuffer();
         } else {
+            if (k_ < 5) {
+                uint32_t* data = static_cast<uint32_t*>(image_data_->data());
+                uint32_t totalsize = size_.width() * size_.height();
+                for (int i = 0; i < totalsize; i++) {
+                    data[i] = 0xDEADBEEF;
+                }
+
+                std::stringstream status;
+                status << "DEADBEEF: " << (unsigned long)data;
+                LogMessage(0, status.str());
+            }
             /* TODO: Blank image */
             OnFrameReady(0);
         }
