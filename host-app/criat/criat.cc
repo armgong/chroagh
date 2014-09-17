@@ -75,6 +75,8 @@ public:
         resolver_.Resolve("127.0.0.1", 30002, hint,
         callback_factory_.NewCallback(&CriatInstance::OnResolveCompletion));
         
+        srand(pp::Module::Get()->core()->GetTime());
+
         return true;
     }
     
@@ -178,15 +180,37 @@ private:
         image_pos_ = 0;
     }
 
-    void TCPSend(char cmd) {
+    void TCPSend(int length) {
         std::stringstream status;
-        status << "TCPSend: " << cmd;
+        status << "TCPSend: " << send_buffer[0] << " (" << length << ")";
         LogMessage(5, status.str());
 
-        send_buffer[0] = cmd;
-        socket_.Write(send_buffer, 8,
+        socket_.Write(send_buffer, length,
             callback_factory_.NewCallback(&CriatInstance::OnWriteCompletion)); 
-   }
+    }
+
+    void TCPRequestScreen() {
+        if (screen_flying_) {
+            return;
+        }
+
+        screen_flying_ = true;
+
+        send_buffer[0] = 'S';
+        *(uint16_t*)(send_buffer+1) = size_.width();
+        *(uint16_t*)(send_buffer+3) = size_.height();
+        send_buffer[5] = 1; /* shm */
+
+        uint64_t* data = static_cast<uint64_t*>(image_data_->data());
+        uint64_t rnd = rand();
+        rnd = (rnd << 32) ^ rand();
+        *data = rnd;
+
+        *(uint64_t*)(send_buffer+8) = (uint64_t)image_data_->data();
+        *(uint64_t*)(send_buffer+16) = rnd;
+
+        TCPSend(8+2*8);
+    }
 
     void OnWriteCompletion(int32_t result) {
         std::stringstream status;
@@ -206,12 +230,6 @@ private:
             socket_.Read(data+image_pos_, length,
                          callback_factory_.NewCallback(&CriatInstance::OnReadCompletion));
         else {
-            screen_flying_ = false;
-            if (connected_) {
-                screen_flying_ = true;
-                /* Ask for the next frame already */
-                TCPSend('S');
-            }
             OnFrameReady(0);
         }
     }
@@ -227,8 +245,10 @@ private:
             return;
         }
 
-        image_pos_ += result;
-        FillBuffer();
+        screen_flying_ = false;
+        OnFrameReady(0);
+        //image_pos_ += result;
+        //FillBuffer();
     }
 
     void OnFlush(int32_t) {
@@ -236,10 +256,7 @@ private:
 
         AllocateImage(false);
         if (connected_) {
-            if (!screen_flying_) {
-                screen_flying_ = true;
-                TCPSend('S');
-            }
+            TCPRequestScreen();
             FillBuffer();
         } else {
             if (k_ < 5) {
@@ -335,7 +352,7 @@ private:
     PP_Time lasttime_;
     double avgfps_;
 
-    char send_buffer[8];
+    char send_buffer[64];
 };
 
 class CriatModule : public pp::Module {
