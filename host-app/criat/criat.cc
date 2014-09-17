@@ -250,7 +250,7 @@ private:
                 }
 
                 std::stringstream status;
-                status << "DEADBEEF: " << (unsigned long)data;
+                status << "DEADBEEF: " << std::hex << (unsigned long long)data;
                 LogMessage(0, status.str());
             }
             /* TODO: Blank image */
