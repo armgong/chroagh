@@ -27,6 +27,9 @@ croutonfbserver_LIBS = -lX11 -lXtst
 croutonwmtools_LIBS = -lX11
 croutonxi2event_LIBS = -lX11 -lXi
 
+croutonwebsocket_DEPS = src/websocket.h
+croutonfbserver_DEPS = src/websocket.h
+
 ifeq ($(wildcard .git/HEAD),)
     GITHEAD :=
 else
@@ -51,7 +54,7 @@ $(TARGET): $(WRAPPER) $(SCRIPTS) $(GENVERSION) $(GITHEAD) Makefile
 $(EXTTARGET): $(EXTSOURCES) Makefile
 	rm -f $(EXTTARGET) && zip -q --junk-paths $(EXTTARGET) $(EXTSOURCES)
 
-$(SRCTARGETS): src/$(patsubst crouton%,src/%.c,$@) Makefile
+$(SRCTARGETS): src/$(patsubst crouton%,src/%.c,$@) $($@_DEPS) Makefile
 	gcc -g -Wall -Werror $(patsubst crouton%,src/%.c,$@) $($@_LIBS) -o $@
 
 extension: $(EXTTARGET)
