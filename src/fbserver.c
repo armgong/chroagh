@@ -359,7 +359,7 @@ int main(int argc, char** argv) {
                 break;
             case 'K':
             {
-                KeySym ks = ((KeySym)buffer[2]) << 8 | buffer[3];
+                KeySym ks = *(uint16_t*)(buffer+2);
                 KeyCode kc = XKeysymToKeycode(dpy, ks);
                 printf("ks=%04x\n", (unsigned int)ks);
                 printf("kc=%04x\n", kc);
@@ -379,8 +379,8 @@ int main(int argc, char** argv) {
                 break;
             case 'M':
             {
-                int x = ((KeySym)buffer[1]) << 8 | buffer[2];
-                int y = ((KeySym)buffer[3]) << 8 | buffer[4];
+                int x = *(uint16_t*)(buffer+1);
+                int y = *(uint16_t*)(buffer+3);
                 XTestFakeMotionEvent(dpy, 0, x, y, CurrentTime);
             }
                 break;
