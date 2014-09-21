@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -x
+
+LOG="`git rev-parse HEAD`-`date +%Y%m%d-%H%M%S.log`"
+
+echo $LOG
+
+top -c -b -d 1 -w 512 > $LOG &
+pid=$!
+
+date
+sleep 600
+kill $!
+wait
