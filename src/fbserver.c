@@ -98,7 +98,7 @@ int write_image(int width, int height,
         lseek(fdx, 0, SEEK_SET);
         write(fdx, img->data, size);
         close(fdx);
-        printf("banzai!\n");
+        //printf("banzai!\n");
         /* Confirm write is done */
         reply[FRAMEMAXHEADERSIZE] = 'S';
         /* FIXME: Fill in info */
@@ -161,13 +161,13 @@ int main(int argc, char** argv) {
                 int shm = buffer[1];
                 uint16_t width = *(uint16_t*)(buffer+2);
                 uint16_t height = *(uint16_t*)(buffer+4);
-                uint64_t paddr = *(uint64_t*)(buffer+8);
-                uint64_t sig = *(uint64_t*)(buffer+16);
+                uint64_t paddr = 0;
+                uint64_t sig = 0;
                 if (shm && length == 24) {
-                    uint64_t paddr = *(uint64_t*)(buffer+8);
-                    uint64_t sig = *(uint64_t*)(buffer+16);
-                    printf("P: %016lx\n", paddr);
-                    printf("S: %016lx\n", sig);
+                    paddr = *(uint64_t*)(buffer+8);
+                    sig = *(uint64_t*)(buffer+16);
+                    //printf("P: %016lx\n", paddr);
+                    //printf("S: %016lx\n", sig);
                 }
                 write_image(width, height, shm, paddr, sig);
             }
