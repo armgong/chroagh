@@ -16,6 +16,9 @@
 #include <X11/extensions/XTest.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <sys/shm.h>
+#include <X11/extensions/XShm.h>
+
 
 /* WebSocket constants */
 #define VERSION "VF1"
@@ -40,6 +43,9 @@ int init_display() {
     return 0;
 }
 
+XImage* img = NULL;
+XShmSegmentInfo shminfo;
+
 int write_image(int width, int height,
                 int shm, uint64_t paddr, uint64_t sig) {
 
@@ -48,8 +54,28 @@ int write_image(int width, int height,
     /* TODO: Resize display as necessary */
 
     Window root = DefaultRootWindow(dpy);
-    XImage *img = XGetImage(dpy, root, 0, 0, width, height, AllPlanes, ZPixmap);
+    /* No Shm: */
+    //XImage *img = XGetImage(dpy, root, 0, 0, width, height, AllPlanes, ZPixmap);
     //printf("size %d %d\n", img->bytes_per_line, img->height);
+
+    if (!img || img->width != width || img->height != height) {
+        if (img) {
+            XDestroyImage( img );
+            shmdt( shminfo.shmaddr );
+            shmctl( shminfo.shmid, IPC_RMID, 0 );
+        }
+
+        img = XShmCreateImage( dpy, DefaultVisual(dpy, 0), 24,
+                                   ZPixmap, NULL, &shminfo,
+                                   width, height );
+        shminfo.shmid = shmget( IPC_PRIVATE, img->bytes_per_line * img->height, IPC_CREAT|0777 );
+        shminfo.shmaddr = img->data = (char*)shmat( shminfo.shmid, 0, 0 );
+        shminfo.readOnly = False;
+        /* This may trigger the X protocol error we're ready to catch: */
+        XShmAttach( dpy, &shminfo );
+    }
+
+    XShmGetImage(dpy, root, img, 0, 0, AllPlanes);
 
     int size = img->bytes_per_line * img->height;
 
@@ -111,7 +137,7 @@ int write_image(int width, int height,
         socket_client_write_frame(img->data, size, WS_OPCODE_BINARY, 1);
     }
 
-    XDestroyImage(img);
+    //XDestroyImage(img);
 
     return 0;
 }
