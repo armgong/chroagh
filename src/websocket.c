@@ -11,6 +11,7 @@
 #include "websocket.h"
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <netinet/tcp.h>
 
 /* WebSocket constants */
 #define VERSION "V1"
@@ -25,6 +26,8 @@ const int PIPEOUT_WRITE_TIMEOUT = 3000;
 /* File descriptors */
 static int pipein_fd = -1;
 static int pipeout_fd = -1;
+
+static void pipeout_close();
 
 /* Open a pipe in non-blocking mode, then set it back to blocking mode. */
 /* Returns fd on success, -1 if the pipe cannot be open, -2 if the O_NONBLOCK
@@ -303,47 +306,12 @@ void pipe_init() {
 /* Unrequested data came in from WebSocket client. */
 static void socket_client_read() {
     char buffer[BUFFERSIZE];
-    int length = 0;
-    int fin = 0;
-    uint32_t maskkey;
-    int retry = 0;
-    int data = 0; /* 1 if we received some valid data */
+    int length;
 
-    /* Read possible fragmented message into buffer */
-    while (fin != 1) {
-        int curlen = socket_client_read_frame_header(&fin, &maskkey, &retry);
-
-        if (retry) {
-            if (!data) {
-                /* We only got a control frame, go back to main loop. We will
-                 * get called again if there is more data waiting. */
-                return;
-            } else {
-                /* We already read some frames of a fragmented message: wait
-                 * for the rest. */
-                continue;
-            }
-        }
-
-        if (curlen < 0) {
-            socket_client_close(0);
-            return;
-        }
-
-        if (length+curlen > BUFFERSIZE) {
-            error("Message too big (%d>%d).", length+curlen, BUFFERSIZE);
-            socket_client_close(1);
-            return;
-        }
-
-        if (socket_client_read_frame_data(buffer+length, curlen, maskkey) < 0) {
-            error("Read error.");
-            socket_client_close(0);
-            return;
-        }
-
-        length += curlen;
-        data = 1;
+    length = socket_client_read_frame(buffer, sizeof(buffer));
+    if (length < 0) {
+        socket_client_close(1);
+        return;
     }
 
     /* In future versions, we can process such packets here. */

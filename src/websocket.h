@@ -75,8 +75,6 @@ static int socket_client_read_frame_data(char* buffer, unsigned int size,
                                          uint32_t maskkey);
 static void socket_client_close(int close_reason);
 
-static void pipeout_close();
-
 /**/
 /* Helper functions */
 /**/
@@ -122,7 +120,8 @@ static int block_write(int fd, char* buffer, size_t size) {
 /* Run external command, piping some data on its stdin, and reading back
  * the output. Returns the number of bytes read from the process (at most
  * outlen), or -1 on error. */
-static int popen2(char* cmd, char* input, int inlen, char* output, int outlen) {
+static int popen2(char* cmd, char *const argv[],
+                  char* input, int inlen, char* output, int outlen) {
     pid_t pid = 0;
     int stdin_fd[2];
     int stdout_fd[2];
@@ -145,7 +144,11 @@ static int popen2(char* cmd, char* input, int inlen, char* output, int outlen) {
         close(stdout_fd[0]);
         dup2(stdout_fd[1], STDOUT_FILENO);
 
-        execlp(cmd, cmd, NULL);
+        if (argv) {
+            execvp(cmd, argv);
+        } else {
+            execlp(cmd, cmd, NULL);
+        }
 
         error("Error running '%s'.", cmd);
         exit(1);
@@ -181,14 +184,16 @@ static int popen2(char* cmd, char* input, int inlen, char* output, int outlen) {
 
         /* We can write something to stdin */
         if (fds[1].revents & POLLOUT) {
-            int n = write(stdin_fd[1], input+writelen, inlen-writelen);
-            if (n < 0) {
-                error("write error.");
-                goto error;
+            if (inlen > writelen) {
+                int n = write(stdin_fd[1], input+writelen, inlen-writelen);
+                if (n < 0) {
+                    error("write error.");
+                    goto error;
+                }
+                log(3, "write n=%d/%d", n, inlen);
+                writelen += n;
             }
-            log(3, "write n=%d/%d", n, inlen);
 
-            writelen += n;
             if (writelen == inlen) {
                 /* Done writing: Only poll stdout from now on. */
                 close(stdin_fd[1]);
@@ -522,7 +527,7 @@ static int socket_client_read_frame(char* buffer, int size) {
 }
 
 /* Send a version packet to the extension, and read VOK reply. */
-static void socket_client_sendversion(char* version) {
+static int socket_client_sendversion(char* version) {
     int versionlen = strlen(version);
     char* outbuf = malloc(FRAMEMAXHEADERSIZE+versionlen);
     memcpy(outbuf+FRAMEMAXHEADERSIZE, version, versionlen);
@@ -533,7 +538,7 @@ static void socket_client_sendversion(char* version) {
         error("Write error.");
         socket_client_close(0);
         free(outbuf);
-        return;
+        return -1;
     }
     free(outbuf);
 
@@ -550,10 +555,11 @@ static void socket_client_sendversion(char* version) {
         }
         error("Invalid response: %s.", buffer);
         socket_client_close(1);
-        return;
+        return -1;
     }
 
     log(2, "Received VOK.");
+    return 0;
 }
 
 /* Bitmask indicating if we received everything we need in the header */
@@ -749,7 +755,7 @@ static int socket_server_read_header(int newclient_fd, char* websocket_key) {
 }
 
 /* Accept a new client connection on the server socket. */
-static void socket_server_accept(char* version) {
+static int socket_server_accept(char* version) {
     int newclient_fd;
     struct sockaddr_in client_addr;
     unsigned int client_addr_len = sizeof(client_addr);
@@ -760,7 +766,7 @@ static void socket_server_accept(char* version) {
 
     if (newclient_fd < 0) {
         syserror("Error accepting new connection.");
-        return;
+        return -1;
     }
 
     /* key from client + GUID */
@@ -769,7 +775,7 @@ static void socket_server_accept(char* version) {
 
     /* Read and parse HTTP header */
     if (socket_server_read_header(newclient_fd, websocket_key) < 0) {
-        return;
+        return -1;
     }
 
     log(1, "Header read successfully.");
@@ -786,7 +792,7 @@ static void socket_server_accept(char* version) {
     memcpy(websocket_key+SECKEY_LEN, GUID, strlen(GUID));
 
     /* SHA-1 is 20 bytes long (40 characters in hex form) */
-    if (popen2("sha1sum", websocket_key, websocket_keylen,
+    if (popen2("sha1sum", NULL, websocket_key, websocket_keylen,
                buffer, BUFFERSIZE) < 2*SHA1_LEN) {
         error("sha1sum response too short.");
         exit(1);
@@ -805,7 +811,7 @@ static void socket_server_accept(char* version) {
     /* base64 encoding of SHA1_LEN bytes must be SHA1_BASE64_LEN bytes long.
      * Either the output is exactly SHA1_BASE64_LEN long, or the last character
      * is a line feed (RFC 3548 forbids other characters in output) */
-    int n = popen2("base64", sha1, SHA1_LEN, b64, b64_len);
+    int n = popen2("base64", NULL, sha1, SHA1_LEN, b64, b64_len);
     if (n < SHA1_BASE64_LEN ||
             (n != SHA1_BASE64_LEN && b64[SHA1_BASE64_LEN] != '\r' &&
              b64[SHA1_BASE64_LEN] != '\n')) {
@@ -831,7 +837,7 @@ static void socket_server_accept(char* version) {
     if (block_write(newclient_fd, buffer, len) != len) {
         syserror("Cannot write response.");
         close(newclient_fd);
-        return;
+        return -1;
     }
 
     log(2, "Response sent.");
@@ -842,9 +848,7 @@ static void socket_server_accept(char* version) {
 
     client_fd = newclient_fd;
 
-    socket_client_sendversion(version);
-
-    return;
+    return socket_client_sendversion(version);
 }
 
 /* Initialise WebSocket server */

@@ -8,13 +8,6 @@
     "background": {
       "scripts": ["background.js"]
     }
-  },
-  "sockets": {
-    "tcp" : {
-      "connect": ["*"]
-//      "connect": ["127.0.0.1:30002"]
-    }
   }
-//,
   //"icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
 }

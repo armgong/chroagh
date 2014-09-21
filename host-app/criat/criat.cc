@@ -17,8 +17,9 @@
 #include "ppapi/cpp/var.h"
 #include "ppapi/cpp/point.h"
 #include "ppapi/utility/completion_callback_factory.h"
-#include "ppapi/cpp/host_resolver.h"
-#include "ppapi/cpp/tcp_socket.h"
+#include "ppapi/cpp/var.h"
+#include "ppapi/cpp/var_array_buffer.h"
+#include "ppapi/cpp/websocket.h"
 
 namespace {
 
@@ -38,8 +39,9 @@ public:
           callback_factory_(this),
           image_data_(NULL),
           k_(0),
-          socket_(this),
+          websocket_(NULL),
           connected_(false),
+          pending_mouse_move_(false),
           avgfps_(0) {}
     
     virtual ~CriatInstance() { }
@@ -61,22 +63,14 @@ public:
         RequestInputEvents(PP_INPUTEVENT_CLASS_MOUSE);
         RequestFilteringInputEvents(PP_INPUTEVENT_CLASS_KEYBOARD);
 
-        if (!pp::HostResolver::IsAvailable()) {
-            LogMessage(0, "HostResolver not available");
-            return false;
-        }
-
-        resolver_ = pp::HostResolver(this);
-        if (resolver_.is_null()) {
-            LogMessage(0, "Error creating HostResolver.");
-            return false;
-        }
-
-        PP_HostResolver_Hint hint = { PP_NETADDRESS_FAMILY_UNSPECIFIED, 0 };
-        resolver_.Resolve("127.0.0.1", 30002, hint,
-        callback_factory_.NewCallback(&CriatInstance::OnResolveCompletion));
-        
         srand(pp::Module::Get()->core()->GetTime());
+
+        websocket_ = new pp::WebSocket(this);
+        if (!websocket_)
+            return false;
+        websocket_->Connect(pp::Var("ws://localhost:30010/"), NULL, 0,
+                            callback_factory_.NewCallback(&CriatInstance::OnConnectCompletion));
+        PostMessage(pp::Var("connecting..."));
 
         return true;
     }
@@ -175,46 +169,42 @@ public:
             status << " @ " << std::hex << keysym;
             LogMessage(1, status.str());
 
-            send_buffer[0] = 'K';
-            send_buffer[1] = event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ? 1 : 0;
-            *(uint16_t*)(send_buffer+2) = keysym;
-            TCPSend(8);
+            pp::VarArrayBuffer array_buffer(4);
+            char* data = static_cast<char*>(array_buffer.Map());
+            data[0] = 'K';
+            data[1] = event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ? 1 : 0;
+            *(uint16_t*)(data+2) = keysym;
+            array_buffer.Unmap();
+            SocketSend(array_buffer);
+            return false;
         }
 
-#if 0
-        switch(event.GetType()) {
-/*        case PP_INPUTEVENT_TYPE_RAWKEYDOWN:
-            LogMessage(1, "Raw key down");
-            break;*/
-/*        case PP_INPUTEVENT_TYPE_CHAR:
-            LogMessage(1, "char");
-            break;*/
-        case PP_INPUTEVENT_TYPE_KEYDOWN:
-            LogMessage(1, "key down");
-            break;
-        case PP_INPUTEVENT_TYPE_KEYUP:
-            LogMessage(1, "key up");
-            break;
-        default:
-            break;
-        }
-#endif
-
-#if 0
         if (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ||
+            event.GetType() == PP_INPUTEVENT_TYPE_MOUSEUP ||
             event.GetType() == PP_INPUTEVENT_TYPE_MOUSEMOVE) {
             pp::MouseInputEvent mouse_event(event);
-            
-            if (mouse_event.GetButton() == PP_INPUTEVENT_MOUSEBUTTON_NONE)
-                return true;
-            
-            mouse_ = mouse_event.GetPosition();
-            mouse_down_ = true;
+
+            pending_mouse_move_ = true;
+            mouse_pos_ = mouse_event.GetPosition();
+
+            std::ostringstream status;
+            status << "Mouse " << mouse_event.GetPosition().x() << "x" << mouse_event.GetPosition().y();
+
+            if (event.GetType() != PP_INPUTEVENT_TYPE_MOUSEMOVE) {
+                status << " " << (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? "DOWN" : "UP");
+                status << " " << (mouse_event.GetButton());
+
+                pp::VarArrayBuffer array_buffer(3);
+                char* data = static_cast<char*>(array_buffer.Map());
+                data[0] = 'C';
+                data[1] = event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? 1 : 0;
+                data[2] = mouse_event.GetButton()+1;
+                array_buffer.Unmap();
+                SocketSend(array_buffer);
+            }
+
+            LogMessage(3, status.str());
         }
-        
-        if (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEUP)
-            mouse_down_ = false;
-#endif
         
         return true;
     }
@@ -230,23 +220,6 @@ private:
         }
     }
 
-    void OnResolveCompletion(int32_t result) {
-        if (result != PP_OK) {
-            if (result == PP_ERROR_NOACCESS)
-                LogMessage(0, "No access.");
-            LogMessage(0, "Resolve failed.");
-            return;
-        }
-        
-        pp::NetAddress addr = resolver_.GetNetAddress(0);
-        LogMessage(1, std::string("Resolved: ") +
-                    addr.DescribeAsString(true).AsString());
-        
-        LogMessage(1, "Connecting ...");
-        socket_.Connect(addr,
-                        callback_factory_.NewCallback(&CriatInstance::OnConnectCompletion));
-    }
-
     void OnConnectCompletion(int32_t result) {
         if (result != PP_OK) {
             if (result == PP_ERROR_NOACCESS)
@@ -258,8 +231,75 @@ private:
             return;
         }
 
+        /* FIXME: I think this can complete synchronously?!?! */
+        SocketReceive();
+
         LogMessage(1, "Connected");
-        connected_ = true;
+    }
+
+    void OnReceiveCompletion(int32_t result) {
+        std::stringstream status;
+        status << "ReadCompletion: " << result << ". (" << image_pos_ << ")";
+        LogMessage(3, status.str());
+
+        if (result == PP_OK) {
+            const char* data;
+            if (receive_var_.is_array_buffer()) {
+                pp::VarArrayBuffer array_buffer(receive_var_);
+                LogMessage(3, "receive (binary)");
+                data = static_cast<char*>(array_buffer.Map());
+            }
+            else {
+                LogMessage(3, "receive (text): " + receive_var_.AsString());
+                data = receive_var_.AsString().c_str();
+            }
+
+            if (data[0] == 'V') {
+                if (connected_) {
+                    LogMessage(0, "Got a version while connected?!?");
+                }
+                /* FIXME: Check version */
+                websocket_->SendMessage(pp::Var("VOK"));
+                connected_ = true;
+                return;
+            } else if (data[0] == 'S') {
+                /* FIXME: Check payload */
+                screen_flying_ = false;
+                OnFrameReady(0);
+                return;
+            } else {
+                std::stringstream status;
+                status << "Error: first char " << (int)data[0];
+                LogMessage(0, status.str());
+            }
+        }
+
+        LogMessage(0, "Receive error.");
+        // TODO : Not ok, so what? Disconnect?
+        connected_ = false;
+        FillBuffer();
+    }
+
+    void SocketSend(const pp::Var& var) {
+        /* TODO: Send pending mouse move */
+
+        if (pending_mouse_move_) {
+            pp::VarArrayBuffer array_buffer(5);
+            char* data = static_cast<char*>(array_buffer.Map());
+            data[0] = 'M';
+            *(uint16_t*)(data+1) = mouse_pos_.x();
+            *(uint16_t*)(data+3) = mouse_pos_.y();
+            array_buffer.Unmap();
+            websocket_->SendMessage(array_buffer);
+            pending_mouse_move_ = false;
+        }
+
+        websocket_->SendMessage(var);
+    }
+
+    void SocketReceive() {
+        websocket_->ReceiveMessage(&receive_var_, 
+                                   callback_factory_.NewCallback(&CriatInstance::OnReceiveCompletion));
     }
 
     bool CreateContext(const pp::Size& new_size) {
@@ -285,26 +325,19 @@ private:
         image_pos_ = 0;
     }
 
-    void TCPSend(int length) {
-        std::stringstream status;
-        status << "TCPSend: " << send_buffer[0] << " (" << length << ")";
-        LogMessage(5, status.str());
-
-        socket_.Write(send_buffer, length,
-            callback_factory_.NewCallback(&CriatInstance::OnWriteCompletion)); 
-    }
-
-    void TCPRequestScreen() {
+    void RequestScreen() {
         if (screen_flying_) {
             return;
         }
 
         screen_flying_ = true;
 
+        pp::VarArrayBuffer array_buffer(8*3);
+        char* send_buffer = static_cast<char*>(array_buffer.Map());
         send_buffer[0] = 'S';
-        *(uint16_t*)(send_buffer+1) = size_.width();
-        *(uint16_t*)(send_buffer+3) = size_.height();
-        send_buffer[5] = 1; /* shm */
+        send_buffer[1] = 1; /* shm */
+        *(uint16_t*)(send_buffer+2) = size_.width();
+        *(uint16_t*)(send_buffer+4) = size_.height();
 
         uint64_t* data = static_cast<uint64_t*>(image_data_->data());
         uint64_t rnd = rand();
@@ -314,13 +347,8 @@ private:
         *(uint64_t*)(send_buffer+8) = (uint64_t)image_data_->data();
         *(uint64_t*)(send_buffer+16) = rnd;
 
-        TCPSend(8+2*8);
-    }
-
-    void OnWriteCompletion(int32_t result) {
-        std::stringstream status;
-        status << "WriteCompletion: " << result;
-        LogMessage(5, status.str());
+        array_buffer.Unmap();
+        SocketSend(array_buffer);
     }
 
     void FillBuffer() {
@@ -331,29 +359,11 @@ private:
 
         uint32_t totalsize = size_.width() * size_.height() * 4;
         size_t length = totalsize-image_pos_;
-        if (connected_ && length > 0)
-            socket_.Read(data+image_pos_, length,
-                         callback_factory_.NewCallback(&CriatInstance::OnReadCompletion));
-        else {
+        if (connected_ && length > 0) {
+            SocketReceive();
+        } else {
             OnFrameReady(0);
         }
-    }
-
-    void OnReadCompletion(int32_t result) {
-        std::stringstream status;
-        status << "ReadCompletion: " << result << ". (" << image_pos_ << ")";
-        LogMessage(5, status.str());
-
-        if (result < 0) {
-            connected_ = false;
-            FillBuffer();
-            return;
-        }
-
-        screen_flying_ = false;
-        OnFrameReady(0);
-        //image_pos_ += result;
-        //FillBuffer();
     }
 
     void OnFlush(int32_t) {
@@ -361,7 +371,7 @@ private:
 
         AllocateImage(false);
         if (connected_) {
-            TCPRequestScreen();
+            RequestScreen();
             FillBuffer();
         } else {
             if (k_ < 5) {
@@ -449,15 +459,16 @@ private:
     size_t image_pos_;
     int k_;
 
-    pp::HostResolver resolver_;
-    pp::TCPSocket socket_;
+    pp::WebSocket* websocket_;
     bool connected_;
     bool screen_flying_;
+    pp::Var receive_var_;
+
+    bool pending_mouse_move_;
+    pp::Point mouse_pos_;
 
     PP_Time lasttime_;
     double avgfps_;
-
-    char send_buffer[64];
 };
 
 class CriatModule : public pp::Module {
