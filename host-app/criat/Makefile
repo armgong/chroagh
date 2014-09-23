@@ -13,7 +13,7 @@ include $(NACL_SDK_ROOT)/tools/common.mk
 
 
 TARGET = criat
-LIBS = ppapi_cpp ppapi pthread
+LIBS = ppapi_cpp ppapi pthread ppapi_gles2
 
 CFLAGS = -Wall
 SOURCES = criat.cc

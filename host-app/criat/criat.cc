@@ -5,11 +5,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sstream>
+#include <GLES2/gl2.h>
 
 #include "ppapi/cpp/net_address.h"
 #include "ppapi/c/ppb_tcp_socket.h"
 #include "ppapi/c/ppb_image_data.h"
-#include "ppapi/cpp/graphics_2d.h"
+#include "ppapi/cpp/graphics_3d.h"
 #include "ppapi/cpp/image_data.h"
 #include "ppapi/cpp/input_event.h"
 #include "ppapi/cpp/instance.h"
@@ -20,9 +21,9 @@
 #include "ppapi/cpp/var.h"
 #include "ppapi/cpp/var_array_buffer.h"
 #include "ppapi/cpp/websocket.h"
+#include "ppapi/lib/gl/gles2/gl2ext_ppapi.h"
 
 namespace {
-
     // The expected string sent by the browser.
     const char* const kHelloString = "hello";
     // The string sent back to the browser upon receipt of a message
@@ -30,6 +31,68 @@ namespace {
     const char* const kReplyString = "hello from NaCl";
 
     const int debug = 1;
+
+GLuint CompileShader(GLenum type, const char* data) {
+  GLuint shader = glCreateShader(type);
+  glShaderSource(shader, 1, &data, NULL);
+  glCompileShader(shader);
+
+  GLint compile_status;
+  glGetShaderiv(shader, GL_COMPILE_STATUS, &compile_status);
+  if (compile_status != GL_TRUE) {
+    // Shader failed to compile, let's see what the error is.
+    char buffer[1024];
+    GLsizei length;
+    glGetShaderInfoLog(shader, sizeof(buffer), &length, &buffer[0]);
+    fprintf(stderr, "Shader failed to compile: %s\n", buffer);
+    return 0;
+  }
+
+  return shader;
+}
+
+GLuint LinkProgram(GLuint frag_shader, GLuint vert_shader) {
+  GLuint program = glCreateProgram();
+  glAttachShader(program, frag_shader);
+  glAttachShader(program, vert_shader);
+  glLinkProgram(program);
+
+  GLint link_status;
+  glGetProgramiv(program, GL_LINK_STATUS, &link_status);
+  if (link_status != GL_TRUE) {
+    // Program failed to link, let's see what the error is.
+    char buffer[1024];
+    GLsizei length;
+    glGetProgramInfoLog(program, sizeof(buffer), &length, &buffer[0]);
+    fprintf(stderr, "Program failed to link: %s\n", buffer);
+    return 0;
+  }
+
+  return program;
+}
+
+const char kFragShaderSource[] =
+    "precision mediump float;\n"
+    "varying vec2 v_texcoord;\n"
+    "uniform sampler2D u_texture;\n"
+    "void main() {\n"
+    "  gl_FragColor = texture2D(u_texture, v_texcoord);\n"
+    "}\n";
+
+const char kVertexShaderSource[] =
+    "attribute vec2 a_texcoord;\n"
+    "attribute vec4 a_position;\n"
+    "varying vec2 v_texcoord;\n"
+    "void main() {\n"
+    "  gl_Position = a_position;\n"
+    "  v_texcoord = a_texcoord;\n"
+    "}\n";
+
+    static const float kVerts[]  = {-1, -1, 0, -1,  1, 0, 1, 1, 0,
+                                    -1, -1, 0,  1, -1, 0, 1, 1, 0};
+    static const float kTextCoords[] = { 0, 0, 0, 1, 1, 1,
+                                         0, 0, 1, 0, 1, 1};
+
 }  // namespace
 
 class CriatInstance : public pp::Instance {
@@ -77,16 +140,38 @@ public:
     
     virtual void DidChangeView(const pp::View& view) {
         pp::Size new_size = view.GetRect().size();
+        bool wasnull = false;
         
-        if (!CreateContext(new_size))
-            return;
-        
-        // When flush_context_ is null, it means there is no Flush callback in
-        // flight. This may have happened if the context was not created
-        // successfully, or if this is the first call to DidChangeView (when the
-        // module first starts). In either case, start the main loop.
-        if (flush_context_.is_null())
+        LogMessage(5, "CreateContext");
+
+        if (context_.is_null()) {
+            wasnull = true;
+            if (!InitGL(new_size.width(), new_size.height())) {
+                // failed.
+                return;
+            }
+
+            InitShaders();
+        } else {
+            // Resize the buffers to the new size of the module.
+            int32_t result = context_.ResizeBuffers(new_size.width(), new_size.height());
+            if (result < 0) {
+                fprintf(stderr,
+                        "Unable to resize buffers to %d x %d!\n",
+                        new_size.width(), new_size.height());
+                return;
+            }
+        }
+
+        size_ = new_size;
+        /* TODO: Free existing image_data_ */
+        image_data_ = new unsigned char[size_.width()*size_.height()*4];
+        glViewport(0, 0, size_.width(), size_.height());
+
+        if (wasnull)
             OnFlush(0);
+
+        return;
     }
 
     // See http://unixpapa.com/js/key.html
@@ -302,26 +387,9 @@ private:
                                    callback_factory_.NewCallback(&CriatInstance::OnReceiveCompletion));
     }
 
-    bool CreateContext(const pp::Size& new_size) {
-        LogMessage(5, "CreateContext");
-
-        const bool kIsAlwaysOpaque = true;
-        context_ = pp::Graphics2D(this, new_size, kIsAlwaysOpaque);
-        if (!BindGraphics(context_)) {
-            fprintf(stderr, "Unable to bind 2d context!\n");
-            context_ = pp::Graphics2D();
-            return false;
-        }
-        
-        size_ = new_size;
-        
-        return true;
-    }
-    
     void AllocateImage(bool initzero) {
         LogMessage(5, "AllocateImage");
-        PP_ImageDataFormat format = pp::ImageData::GetNativeImageDataFormat();
-        image_data_ = new pp::ImageData(this, format, size_, initzero);
+        /* FIXME: No-op? */
         image_pos_ = 0;
     }
 
@@ -339,12 +407,12 @@ private:
         *(uint16_t*)(send_buffer+2) = size_.width();
         *(uint16_t*)(send_buffer+4) = size_.height();
 
-        uint64_t* data = static_cast<uint64_t*>(image_data_->data());
+        uint64_t* data = static_cast<uint64_t*>((void*)image_data_);
         uint64_t rnd = rand();
         rnd = (rnd << 32) ^ rand();
         *data = rnd;
 
-        *(uint64_t*)(send_buffer+8) = (uint64_t)image_data_->data();
+        *(uint64_t*)(send_buffer+8) = (uint64_t)image_data_;
         *(uint64_t*)(send_buffer+16) = rnd;
 
         array_buffer.Unmap();
@@ -352,7 +420,7 @@ private:
     }
 
     void FillBuffer() {
-        char* data = static_cast<char*>(image_data_->data());
+        char* data = (char*)(image_data_);
         std::stringstream status;
         status << "FillBuffer: " << (long)data;
         LogMessage(5, status.str());
@@ -374,8 +442,12 @@ private:
             RequestScreen();
             FillBuffer();
         } else {
+            std::stringstream status;
+            status << "OnFlush: " << (long)image_data_;
+            LogMessage(5, status.str());
+
             if (k_ < 5) {
-                uint32_t* data = static_cast<uint32_t*>(image_data_->data());
+                uint32_t* data = (uint32_t*)image_data_;
                 uint32_t totalsize = size_.width() * size_.height();
                 for (int i = 0; i < totalsize; i++) {
                     data[i] = 0xDEADBEEF;
@@ -390,34 +462,97 @@ private:
         }
     }
 
-    void Paint() {
-        /* FIXME: We probably want to switch to PaintImageData on partial
-         * updates. */
-
-        // Using Graphics2D::ReplaceContents is the fastest way to update the
-        // entire canvas every frame. According to the documentation:
-        //
-        //   Normally, calling PaintImageData() requires that the browser copy
-        //   the pixels out of the image and into the graphics context's backing
-        //   store. This function replaces the graphics context's backing store
-        //   with the given image, avoiding the copy.
-        //
-        //   In the case of an animation, you will want to allocate a new image for
-        //   the next frame. It is best if you wait until the flush callback has
-        //   executed before allocating this bitmap. This gives the browser the
-        //   option of caching the previous backing store and handing it back to
-        //   you (assuming the sizes match). In the optimal case, this means no
-        //   bitmaps are allocated during the animation, and the backing store and
-        //   "front buffer" (which the module is painting into) are just being
-        //   swapped back and forth.
-        //
-        context_.ReplaceContents(image_data_);
-        //context_.PaintImageData(*image_data_, pp::Point(0, 0));
-
-        /* TODO: I don't think that's correct */
-        image_data_->detach();
+  bool InitGL(int32_t new_width, int32_t new_height) {
+    if (!glInitializePPAPI(pp::Module::Get()->get_browser_interface())) {
+      fprintf(stderr, "Unable to initialize GL PPAPI!\n");
+      return false;
     }
-    
+
+    const int32_t attrib_list[] = {
+      PP_GRAPHICS3DATTRIB_ALPHA_SIZE, 8,
+      PP_GRAPHICS3DATTRIB_DEPTH_SIZE, 24,
+      PP_GRAPHICS3DATTRIB_WIDTH, new_width,
+      PP_GRAPHICS3DATTRIB_HEIGHT, new_height,
+      PP_GRAPHICS3DATTRIB_NONE
+    };
+
+    context_ = pp::Graphics3D(this, attrib_list);
+    if (!BindGraphics(context_)) {
+      fprintf(stderr, "Unable to bind 3d context!\n");
+      context_ = pp::Graphics3D();
+      glSetCurrentContextPPAPI(0);
+      return false;
+    }
+
+    glSetCurrentContextPPAPI(context_.pp_resource());
+    return true;
+  }
+
+  void InitShaders() {
+    frag_shader_ = CompileShader(GL_FRAGMENT_SHADER, kFragShaderSource);
+    if (!frag_shader_)
+      return;
+
+    vertex_shader_ = CompileShader(GL_VERTEX_SHADER, kVertexShaderSource);
+    if (!vertex_shader_)
+      return;
+
+    program_ = LinkProgram(frag_shader_, vertex_shader_);
+    if (!program_)
+      return;
+
+    texture_loc_ = glGetUniformLocation(program_, "u_texture");
+    position_loc_ = glGetAttribLocation(program_, "a_position");
+    texcoord_loc_ = glGetAttribLocation(program_, "a_texcoord");
+  }
+
+  void InitTexture() {
+      glGenTextures(1, &texture_);
+      glBindTexture(GL_TEXTURE_2D, texture_);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+      glTexImage2D(GL_TEXTURE_2D,
+                   0,
+                   GL_RGBA,
+                   size_.width(),
+                   size_.height(),
+                   0,
+                   GL_RGBA,
+                   GL_UNSIGNED_BYTE,
+                   &image_data_[0]);
+  }
+
+  void Render() {
+    InitTexture();
+
+//    glClearColor(0.5, 0.5, 0.5, 1);
+//    glClearDepthf(1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    //set what program to use
+    glUseProgram(program_);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture_);
+    glUniform1i(texture_loc_, 0);
+
+    glVertexAttribPointer(position_loc_,
+                          3,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          0,
+                          kVerts);
+    glEnableVertexAttribArray(position_loc_);
+    glVertexAttribPointer(texcoord_loc_,
+                          2,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          0,
+                          kTextCoords);
+    glEnableVertexAttribArray(texcoord_loc_);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+  }
+
     void OnFrameReady(int32_t) {
         k_++;
         PP_Time time_ = pp::Module::Get()->core()->GetTime();
@@ -435,27 +570,28 @@ private:
             // The current Graphics2D context is null, so updating and rendering is
             // pointless. Set flush_context_ to null as well, so if we get another
             // DidChangeView call, the main loop is started again.
-            flush_context_ = context_;
             return;
         }
 
         //if (k_ > 100) return;
-
-        Paint();
-        // Store a reference to the context that is being flushed; this ensures
-        // the callback is called, even if context_ changes before the flush
-        // completes.
-        flush_context_ = context_;
-        context_.Flush(
+        //Render();
+        context_.SwapBuffers(
             callback_factory_.NewCallback(&CriatInstance::OnFlush));
     }
 
     pp::CompletionCallbackFactory<CriatInstance> callback_factory_;
-    pp::Graphics2D context_;
-    pp::Graphics2D flush_context_;
+    pp::Graphics3D context_;
     pp::Size size_;
+    GLuint frag_shader_;
+    GLuint vertex_shader_;
+    GLuint program_;
+    GLuint texture_;
 
-    pp::ImageData* image_data_;
+    GLuint texture_loc_;
+    GLuint position_loc_;
+    GLuint texcoord_loc_;
+
+    unsigned char* image_data_;
     size_t image_pos_;
     int k_;
 
