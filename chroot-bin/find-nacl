@@ -10,42 +10,44 @@ MATCH=""
 
 #echo "$0/$1/$2/$3/" 1>&2
 
+# Ignore last nibble
+addr="${ADDRESS%?}"
+lastnib="${ADDRESS#$addr}"
+
 for pid in $PIDS; do
     echo "pid:$pid" 1>&2
     # FIXME: Check that address is indeed always found in last 32-bit of
     # mapping (probably no true on non-64-bit platforms)
-    file="`awk '
-        $1 ~ /^[0-9a-f]*'"$ADDRESS"'-/ \
-            && $2 == "rw-s" \
-            && $6 ~ /\/shm\/.com.google.Chrome/ \
-            { print $6 }
+    fulladdr="`awk '
+        $1 ~ /^[0-9a-f]*'"$addr"'0-/ \
+            && $2 ~ /rw-p/ \
+            { sub(/0-.*/, "", $1); print "0x" $1 }
     ' "/proc/$pid/maps"`"
-    #grep "shm" "/proc/$pid/maps"
-    echo "file:$file" 1>&2
-    if [ -z "$file" ]; then
+
+    fulladdr="$(($fulladdr$lastnib))"
+
+    echo "fulladdr:$fulladdr" 1>&2
+
+    if [ -z "$fulladdr" ]; then
         continue
     fi
-    for fd in "/proc/$pid/fd"/*; do
-        link="`readlink $fd`"
-        link="${link% (deleted)}"
-        if [ "$link" = "$file" ]; then
-           pattern="`hexdump -n 8 -v -e '/1 "%02x"' $fd`"
-           echo "FD:$fd ($pattern)" 1>&2
-           if [ "$pattern" = "$PATTERN" ]; then
-              if [ -n "$MATCH" ]; then
-                 echo -n "-1:ambiguous"
-                 exit 1
-              fi
-              MATCH="$pid:$fd"
-           fi
+
+    file="/proc/$pid/mem"
+    pattern="`dd if=$file bs=1 skip=$fulladdr count=8 2>/dev/null | hexdump -v -e '/1 "%02x"' $fd`"
+    echo "FD:$file ($pattern)" 1>&2
+    if [ "$pattern" = "$PATTERN" ]; then
+        if [ -n "$MATCH" ]; then
+            echo -n "-1:ambiguous"
+            exit 1
         fi
-    done
+        MATCH="$pid:$file:$fulladdr"
+    fi
 done
 
 if [ -n "$MATCH" ]; then
     echo -n "$MATCH"
     exit 0
 else
-    echo -n "-1:no match"
+    echo -n "-1:no match:0"
     exit 1
 fi

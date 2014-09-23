@@ -90,8 +90,10 @@ const char kVertexShaderSource[] =
 
     static const float kVerts[]  = {-1, -1, 0, -1,  1, 0, 1, 1, 0,
                                     -1, -1, 0,  1, -1, 0, 1, 1, 0};
-    static const float kTextCoords[] = { 0, 0, 0, 1, 1, 1,
-                                         0, 0, 1, 0, 1, 1};
+//    static const float kTextCoords[] = { 0, 0, 0, 1, 1, 1,
+//                                         0, 0, 1, 0, 1, 1};
+    static const float kTextCoords[] = { 0, 1, 0, 0, 1, 0,
+                                         0, 1, 1, 1, 1, 0};
 
 }  // namespace
 
@@ -165,6 +167,7 @@ public:
 
         size_ = new_size;
         /* TODO: Free existing image_data_ */
+        glGenTextures(1, &texture_);
         image_data_ = new unsigned char[size_.width()*size_.height()*4];
         glViewport(0, 0, size_.width(), size_.height());
 
@@ -507,7 +510,6 @@ private:
   }
 
   void InitTexture() {
-      glGenTextures(1, &texture_);
       glBindTexture(GL_TEXTURE_2D, texture_);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -574,7 +576,7 @@ private:
         }
 
         //if (k_ > 100) return;
-        //Render();
+        Render();
         context_.SwapBuffers(
             callback_factory_.NewCallback(&CriatInstance::OnFlush));
     }

@@ -30,6 +30,7 @@ static Display *dpy;
 struct cache_entry {
     uint64_t paddr; /* Adress from PNaCl side */
     char file[256]; /* File to write to */
+    off_t offset; /* offset to seek to */
 };
 
 struct cache_entry cache[2];
@@ -79,6 +80,15 @@ int write_image(int width, int height,
 
     int size = img->bytes_per_line * img->height;
 
+    uint32_t* ptr = (uint32_t*)img->data;
+    int i;
+    for (i = 0; i < size/4; i++) {
+        ptr[i] = (ptr[i] & 0x000000ff) << 16 |
+                 (ptr[i] & 0x0000ff00) |
+                 (ptr[i] & 0x00ff0000) >> 16 |
+                 0xff000000;
+    }
+
     if (shm) {
         struct cache_entry* entry = NULL;
 
@@ -112,16 +122,21 @@ int write_image(int width, int height,
             *cut = 0;
             int pid = atoi(buffer);
             char* file = cut+1;
-            printf("pid=%d, file=%s\n", pid, file);
+            cut = strchr(file, ':');
+            assert(cut);
+            *cut = 0;
+            off_t offset = strtol(cut+1, NULL, 10);
+            printf("pid=%d, file=%s, offset=%lx\n", pid, file, offset);
 
             entry = &cache[next_entry];
             entry->paddr = paddr;
             strncpy(entry->file, file, sizeof(entry->file));
+            entry->offset = offset;
             next_entry = (next_entry + 1) % 2;
         }
 
         int fdx = open(entry->file, O_RDWR);
-        lseek(fdx, 0, SEEK_SET);
+        lseek(fdx, entry->offset, SEEK_SET);
         write(fdx, img->data, size);
         close(fdx);
         //printf("banzai!\n");
