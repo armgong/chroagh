@@ -2,6 +2,10 @@
 
 set -x
 
+for cpu in /sys/devices/system/cpu/cpu*/cpufreq; do
+	echo performance | sudo tee $cpu/scaling_governor
+done
+
 LOG="`git rev-parse HEAD`-`date +%Y%m%d-%H%M%S.log`"
 
 echo $LOG
@@ -13,3 +17,7 @@ date
 sleep 600
 kill $!
 wait
+
+for cpu in /sys/devices/system/cpu/cpu*/cpufreq; do
+	echo ondemand | sudo tee $cpu/scaling_governor
+done
