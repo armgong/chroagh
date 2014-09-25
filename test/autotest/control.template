@@ -1,0 +1,42 @@
+# Copyright (c) 2014 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+from autotest_lib.client.common_lib import utils
+
+AUTHOR = "drinkcat,dnschneid"
+NAME = "platform_crouton_wrapper"
+TIME = "LENGTHY"
+TEST_TYPE = "client"
+
+DOC = """
+This test is a wrapper around platform_crouton, meant to be dynamically modified
+and passed to atest.
+It fetches the latest plaform_crouton test package, then runs it with fixed
+parameters.
+"""
+
+# For debugging purpose
+utils.system('cat /etc/lsb-release')
+
+# FIXME: How can I autodetect that?
+devserver_url = 'http://172.19.140.1:8082'
+
+# FIXME: This does not work
+#ds = dev_server.ImageServer(devserver_url)
+#ds.stage_artifacts('dummy', files='packages.checksum,test-platform_crouton.tar.bz2', archive_url='gs://drinkcat-crouton/crouton-test/packages-###TESTCSUM###')
+
+# Do it manually insteads
+utils.system("curl '" + devserver_url + "/stage?archive_url=gs://drinkcat-crouton/crouton-test/packages-###TESTCSUM###&files=packages.checksum,test-platform_crouton.tar.bz2'")
+
+# Add repository so that the test tarball can be fetched
+job.add_repository([devserver_url + '/static/crouton-test/packages-###TESTCSUM###'])
+
+args_dict = {
+          'repo': '###REPO###',
+          'branch': '###BRANCH###',
+          'runargs': '###RUNARGS###',
+          'env': '###ENV###'
+}
+
+job.run_test('platform_crouton', args=args_dict)
