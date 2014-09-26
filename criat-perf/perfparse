@@ -1,0 +1,84 @@
+#!/bin/sh
+
+FILE=$1
+PREFIX=${FILE%.log}
+#echo $PREFIX
+
+echo "Parsing $FILE" 1>&2
+
+awk '
+    BEGIN { first=1; state=0; count=0; skip=30 }
+    first { print > "'$PREFIX.title'"; first=0 }
+    /^%Cpu/ {
+        if (count >= skip) {
+            user += $2;
+            sys += $4;
+            nice += $6;
+            idle += $8;
+            waste += $10;
+            state = 1
+        }
+        count++ }
+    state == 2 {
+        pid=$1
+        if (pid !~ /[0-9]+/) {
+           state = 0;
+           next
+        }
+        cpu=$9
+        if (cpu > 0.0)
+            cpus[pid] += cpu
+        if (!names[pid]) {
+           name = ""
+           for (i = 12; i <= NF; i++) name = name " " $i
+           names[pid] = name
+        }
+    }
+    state == 1 && $1 == "PID" {
+        state = 2
+    }
+    END {
+        count -= skip
+        print user/count ";user" > "'$PREFIX.total'"
+        print sys/count ";system" > "'$PREFIX.total'"
+        print nice/count ";nice" > "'$PREFIX.total'"
+        print waste/count ";waste" > "'$PREFIX.total'"
+        print idle/count ";idle" > "'$PREFIX.total'"
+        for (key in cpus) {
+            avgcpu = cpus[key]/count
+            short="|0"
+            if (names[key] ~ /\/opt\/google\/chrome\/chrome/) {
+                if (names[key] ~ /gpu-process/) {
+                    short="Chrome GPU|1"
+                } else if (names[key] ~ /renderer/) {
+                    short="Chrome Render|2"
+                } else {
+                    short="Chrome|3"
+                }
+            } else if (names[key] ~ /\/opt\/google\/chrome\/nacl/) {
+                short="NaCl|4"
+            } else if (names[key] ~ /croutonfbserver/) {
+                short="croutonfbserver|5"
+            } else if (names[key] ~ /Xorg.*:2/) {
+                short="Xorg :2|6"
+            } else if (names[key] ~ /X.*vt1/) {
+                short="Chrome Xorg|7"
+            } else if (names[key] ~ /top/) {
+                short="top (instrumentation)|8"
+            }
+            if (short == "|0" && avgcpu > 0.5) {
+                print "Cannot find good name for " avgcpu "|" names[key] > "/dev/stderr"
+            }
+            print avgcpu "|" short "|" names[key]
+        }
+    }
+' "$FILE" | sort -nr > "$PREFIX.proc"
+
+(
+cat "$PREFIX.title"
+cat "$PREFIX.total" | tr ';' ' ' | tr '\n' ','
+echo
+echo "===="
+cat "$PREFIX.proc"
+) > "$PREFIX.parsed.log"
+#rm "$PREFIX.head" "$PREFIX.tail"

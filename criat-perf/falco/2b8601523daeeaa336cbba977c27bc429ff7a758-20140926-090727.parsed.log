@@ -1,0 +1,36 @@
+# criat 3d, byte inversion in NaCl
+33.6272 user,10.6061 system,0.047619 nice,0.0170068 waste,55.5585 idle,
+====
+22.2381|NaCl|4| /opt/google/chrome/nacl_helper
+19.5544|Chrome GPU|1| /opt/google/chrome/chrome --type=gpu-process --channel=16185.0.666707985 --enable-logging --gpu-sandbox-failures-fatal=yes --log-level=1 --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote*=1,*plugin*=2 --ui-prioritize-in-gpu-process --enable-crash-reporter=122865F5CF140E36816CAC4B487AFE43 --user-data-dir=/home/chronos +
+18.3769|Chrome|3| /opt/google/chrome/chrome --ppapi-flash-path=/opt/google/chrome/pepper/libpepflashplayer.so --ppapi-flash-version=15.0.0.152-r1 --ppapi-flash-args=enable_hw_video_decode=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --enable-fixed-position-compositing --enable-impl-side-painting --max-tiles-for-interest-area=512 --ui-enable+
+10.1544|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+7.8483|croutonfbserver|5| ./croutonfbserver
+6.29048|Xorg :2|6| Xorg -config dummy/xorg.conf :2 -logfile xorg.log
+1.89728|Chrome Xorg|7| /usr/bin/X -nohwaccess -noreset -maxvt 2 -nolisten tcp vt1 -auth /var/run/chromelogin.auth -logfile /var/log/xorg/Xorg.0.log
+1.4932|top (instrumentation)|8| top -c -b -d 1 -w 512
+0.629932|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.237415||0| shill --log-level=0 --log-scopes=
+0.159864|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.146939|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.127211|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.126531|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.108844||0| [rcu_sched]
+0.108844||0| [kworker/u:1]
+0.0952381||0| [kworker/u:2]
+0.0408163||0| /usr/bin/X -nolisten tcp :1
+0.0408163||0| emacs criat.cc
+0.0340136||0| xclock -update 1
+0.0272109||0| emacs src/fbserver.c
+0.0136054|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.00680272|top (instrumentation)|8| xfdesktop --display :1.0 --sm-client-id 21587f376-a3e3-4fdd-9a99-cadfe406f434
+0.00680272|Chrome|3| /opt/google/chrome/chrome --type=zygote --log-level=1 --enable-logging --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote*=1,*plugin*=2 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --enable-crash-reporter+
+0.00680272||0| /usr/sbin/daisydog
+0.00680272||0| /usr/lib/x86_64-linux-gnu/zeitgeist-fts
+0.00680272||0| /usr/bin/zeitgeist-daemon
+0.00680272||0| /usr/bin/powerd --prefs_dir=/var/lib/power_manager --default_prefs_dir=/usr/share/power_manager --log_dir=/var/log/power_manager --run_dir=/var/run/power_manager/power --vmodule=state_controller=1,*backlight_controller=1,ambient_light_handler=1
+0.00680272||0| tlsdated -v -- /usr/bin/tlsdate -v -C /usr/share/chromeos-ca-certificates -l
+0.00680272||0| [kworker/0:2]
+0.00680272||0| [ksoftirqd/1]
+0.00680272||0| [jbd2/sda1-8]
+0.00680272||0| dbus-daemon --system --fork
