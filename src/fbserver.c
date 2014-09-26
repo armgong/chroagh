@@ -80,6 +80,7 @@ int write_image(int width, int height,
 
     int size = img->bytes_per_line * img->height;
 
+/*
     uint32_t* ptr = (uint32_t*)img->data;
     int i;
     for (i = 0; i < size/4; i++) {
@@ -88,6 +89,7 @@ int write_image(int width, int height,
                  (ptr[i] & 0x00ff0000) >> 16 |
                  0xff000000;
     }
+*/
 
     if (shm) {
         struct cache_entry* entry = NULL;
