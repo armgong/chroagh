@@ -5,10 +5,10 @@ PREFIX=${FILE%.log}
 #echo $PREFIX
 
 awk '
-    BEGIN { first=1; state=0; count=0 }
+    BEGIN { first=1; state=0; count=0; skip=30 }
     first { print > "'$PREFIX.head'"; first=0 }
     /^%Cpu/ {
-        if (count > 100) {
+        if (count >= skip) {
             user += $2;
             sys += $4;
             nice += $6;
@@ -36,7 +36,7 @@ awk '
         state = 2
     }
     END {
-        count -= 100
+        count -= skip
         print user/count " us, " sys/count " sy, " nice/count " ni, " idle/count " id, " waste/count " wa" > "'$PREFIX.head'"
         print "=====" > "'$PREFIX.head'"
         for (key in cpus) {
