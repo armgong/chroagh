@@ -16,6 +16,7 @@
 #include "ppapi/cpp/module.h"
 #include "ppapi/cpp/var.h"
 #include "ppapi/cpp/point.h"
+#include "ppapi/cpp/message_loop.h"
 #include "ppapi/utility/completion_callback_factory.h"
 #include "ppapi/cpp/var.h"
 #include "ppapi/cpp/var_array_buffer.h"
@@ -28,6 +29,15 @@ namespace {
     // The string sent back to the browser upon receipt of a message
     // containing "hello".
     const char* const kReplyString = "hello from NaCl";
+
+struct  __attribute__((__packed__)) screen_reply {
+    char type; /* 'S' */
+    uint8_t shm:1; /* Data was transfered out of band */
+    uint8_t updated:1; /* Set to 1 if data has been updated */
+    uint16_t width;
+    uint16_t height;
+    uint8_t padding[2];
+};
 
     const int debug = 1;
 }  // namespace
@@ -263,9 +273,16 @@ private:
                 connected_ = true;
                 return;
             } else if (data[0] == 'S') {
-                /* FIXME: Check payload */
+                struct screen_reply* reply = (struct screen_reply*)data;
                 screen_flying_ = false;
-                OnFrameReady(0);
+                if (reply->updated) {
+                    OnFrameReady(0);
+                } else {
+                    /* TODO: Delay! */
+                    pp::MessageLoop::GetForMainThread().PostWork(
+                        callback_factory_.NewCallback(&CriatInstance::OnWaitEnd),
+                        15);
+                }
                 return;
             } else {
                 std::stringstream status;
@@ -366,10 +383,16 @@ private:
         }
     }
 
-    void OnFlush(int32_t) {
+    void OnWaitEnd(int32_t) {
+        OnFlush(99);
+    }
+
+    void OnFlush(int32_t param) {
         LogMessage(5, "OnFlush");
 
-        AllocateImage(false);
+        if (param != 99)
+            AllocateImage(false);
+
         if (connected_) {
             RequestScreen();
             FillBuffer();

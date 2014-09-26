@@ -18,13 +18,27 @@
 #include <X11/Xutil.h>
 #include <sys/shm.h>
 #include <X11/extensions/XShm.h>
+#include <X11/extensions/Xdamage.h>
 
+/** Shared structures **/
+
+struct  __attribute__((__packed__)) screen_reply {
+    char type; /* 'S' */
+    uint8_t shm:1; /* Data was transfered out of band */
+    uint8_t updated:1; /* Set to 1 if data has been updated */
+    uint16_t width;
+    uint16_t height;
+};
+
+/*****/
 
 /* WebSocket constants */
 #define VERSION "VF1"
 #define PORT_BASE 30010
 
 static Display *dpy;
+
+int damageEvent;
 
 /* shm entry cache */
 struct cache_entry {
@@ -35,10 +49,50 @@ struct cache_entry {
 struct cache_entry cache[2];
 int next_entry;
 
-int init_display() {
+static int xerrorHandler(Display *dpy, XErrorEvent *e) {
+    return 0;
+}
+
+static void registerdamage(Display *dpy, Window win) {
+    XWindowAttributes attrib;
+    if (XGetWindowAttributes(dpy, win, &attrib)) {
+        /* FIXME: Some sample code only cares if that's true, but this seems
+         * to break i3... */
+        if (!attrib.override_redirect) {
+            Damage xdamage = XDamageCreate(dpy, win,
+                                           XDamageReportRawRectangles);
+            /* FIXME: Necessary? */
+            XDamageSubtract(dpy, xdamage, None, None);
+        }
+    }
+}
+
+static int init_display() {
     dpy = XOpenDisplay(NULL);
 
     /* Fixme: check XTest extension available */
+
+    int damageError;
+
+    if (!XDamageQueryExtension (dpy, &damageEvent, &damageError)) {
+        fprintf(stderr, "XDamage not available!\n");
+        return -1;
+    }
+
+    Window root, parent;
+    Window *children;
+    unsigned int nchildren, i;
+
+    XSelectInput(dpy, XRootWindow(dpy, 0), SubstructureNotifyMask);
+
+    XQueryTree(dpy, XRootWindow(dpy, 0), &root, &parent,
+               &children, &nchildren);
+
+    XSetErrorHandler(xerrorHandler);
+
+    for (i = 0; i < nchildren; i++) {
+        registerdamage(dpy, children[i]);
+    }
 
     return 0;
 }
@@ -49,7 +103,8 @@ XShmSegmentInfo shminfo;
 int write_image(int width, int height,
                 int shm, uint64_t paddr, uint64_t sig) {
 
-    char reply[FRAMEMAXHEADERSIZE+8];
+    char reply_raw[FRAMEMAXHEADERSIZE+sizeof(struct screen_reply)];
+    struct screen_reply* reply = (struct screen_reply*)(reply_raw+FRAMEMAXHEADERSIZE);
 
     /* TODO: Resize display as necessary */
 
@@ -60,20 +115,48 @@ int write_image(int width, int height,
 
     if (!img || img->width != width || img->height != height) {
         if (img) {
-            XDestroyImage( img );
-            shmdt( shminfo.shmaddr );
-            shmctl( shminfo.shmid, IPC_RMID, 0 );
+            XDestroyImage(img);
+            shmdt(shminfo.shmaddr);
+            shmctl(shminfo.shmid, IPC_RMID, 0);
         }
 
-        img = XShmCreateImage( dpy, DefaultVisual(dpy, 0), 24,
-                                   ZPixmap, NULL, &shminfo,
-                                   width, height );
-        shminfo.shmid = shmget( IPC_PRIVATE, img->bytes_per_line * img->height, IPC_CREAT|0777 );
-        shminfo.shmaddr = img->data = (char*)shmat( shminfo.shmid, 0, 0 );
+        img = XShmCreateImage(dpy, DefaultVisual(dpy, 0), 24,
+                              ZPixmap, NULL, &shminfo,
+                              width, height);
+        shminfo.shmid = shmget(IPC_PRIVATE, img->bytes_per_line * img->height, IPC_CREAT|0777);
+        shminfo.shmaddr = img->data = (char*)shmat(shminfo.shmid, 0, 0);
         shminfo.readOnly = False;
         /* This may trigger the X protocol error we're ready to catch: */
         XShmAttach( dpy, &shminfo );
     }
+
+    /* Check for damage */
+    int refresh = 0;
+    XEvent ev;
+
+    while (XCheckTypedEvent(dpy, MapNotify, &ev)) {
+        registerdamage(dpy, ev.xcreatewindow.window);
+        refresh++;
+    }
+
+    /* Flush all events after the first one, if we don't care
+     * about the rectangles... */
+    while (XCheckTypedEvent(dpy, damageEvent+XDamageNotify, &ev)) {
+        refresh++;
+    }
+
+    if (!refresh) {
+        reply->type = 'S';
+        reply->shm = 0;
+        reply->updated = 0;
+        reply->width = width;
+        reply->height = height;
+        socket_client_write_frame(reply_raw, 8, WS_OPCODE_BINARY, 1);
+        return 0;
+    }
+
+    if (refresh)
+        printf("refresh=%d\n", refresh);
 
     XShmGetImage(dpy, root, img, 0, 0, AllPlanes);
 
@@ -126,13 +209,19 @@ int write_image(int width, int height,
         close(fdx);
         //printf("banzai!\n");
         /* Confirm write is done */
-        reply[FRAMEMAXHEADERSIZE] = 'S';
-        /* FIXME: Fill in info */
-        socket_client_write_frame(reply, 8, WS_OPCODE_BINARY, 1);
+        reply->type = 'S';
+        reply->shm = 1;
+        reply->updated = 1;
+        reply->width = width;
+        reply->height = height;
+        socket_client_write_frame(reply_raw, 8, WS_OPCODE_BINARY, 1);
     } else {
-        reply[FRAMEMAXHEADERSIZE] = 'S';
-        /* FIXME: Fill in info */
-        socket_client_write_frame(reply, 8, WS_OPCODE_BINARY, 1);
+        reply->type = 'S';
+        reply->shm = 0;
+        reply->updated = 1;
+        reply->width = width;
+        reply->height = height;
+        socket_client_write_frame(reply_raw, 8, WS_OPCODE_BINARY, 1);
         /* FIXME: This is broken with current API... */
         socket_client_write_frame(img->data, size, WS_OPCODE_BINARY, 1);
     }
