@@ -30,14 +30,7 @@ namespace {
     // containing "hello".
     const char* const kReplyString = "hello from NaCl";
 
-struct  __attribute__((__packed__)) screen_reply {
-    char type; /* 'S' */
-    uint8_t shm:1; /* Data was transfered out of band */
-    uint8_t updated:1; /* Set to 1 if data has been updated */
-    uint16_t width;
-    uint16_t height;
-    uint8_t padding[2];
-};
+#include "../../src/fbserver-proto.h"
 
     const int debug = 1;
 }  // namespace
@@ -179,11 +172,12 @@ public:
             status << " @ " << std::hex << keysym;
             LogMessage(1, status.str());
 
-            pp::VarArrayBuffer array_buffer(4);
-            char* data = static_cast<char*>(array_buffer.Map());
-            data[0] = 'K';
-            data[1] = event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ? 1 : 0;
-            *(uint16_t*)(data+2) = keysym;
+            struct key* k;
+            pp::VarArrayBuffer array_buffer(sizeof(*k));
+            k = static_cast<struct key*>(array_buffer.Map());
+            k->type = 'K';
+            k->down = event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ? 1 : 0;
+            k->keysym = keysym;
             array_buffer.Unmap();
             SocketSend(array_buffer);
             return false;
@@ -204,11 +198,12 @@ public:
                 status << " " << (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? "DOWN" : "UP");
                 status << " " << (mouse_event.GetButton());
 
-                pp::VarArrayBuffer array_buffer(3);
-                char* data = static_cast<char*>(array_buffer.Map());
-                data[0] = 'C';
-                data[1] = event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? 1 : 0;
-                data[2] = mouse_event.GetButton()+1;
+                struct mouseclick* mc;
+                pp::VarArrayBuffer array_buffer(sizeof(*mc));
+                mc = static_cast<struct mouseclick*>(array_buffer.Map());
+                mc->type = 'C';
+                mc->down = event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? 1 : 0;
+                mc->button = mouse_event.GetButton()+1;
                 array_buffer.Unmap();
                 SocketSend(array_buffer);
             }
@@ -301,11 +296,12 @@ private:
         /* TODO: Send pending mouse move */
 
         if (pending_mouse_move_) {
-            pp::VarArrayBuffer array_buffer(5);
-            char* data = static_cast<char*>(array_buffer.Map());
-            data[0] = 'M';
-            *(uint16_t*)(data+1) = mouse_pos_.x();
-            *(uint16_t*)(data+3) = mouse_pos_.y();
+            struct mousemove* mm;
+            pp::VarArrayBuffer array_buffer(sizeof(*mm));
+            mm = static_cast<struct mousemove*>(array_buffer.Map());
+            mm->type = 'M';
+            mm->x = mouse_pos_.x();
+            mm->y = mouse_pos_.y();
             array_buffer.Unmap();
             websocket_->SendMessage(array_buffer);
             pending_mouse_move_ = false;
@@ -349,20 +345,19 @@ private:
 
         screen_flying_ = true;
 
-        pp::VarArrayBuffer array_buffer(8*3);
-        char* send_buffer = static_cast<char*>(array_buffer.Map());
-        send_buffer[0] = 'S';
-        send_buffer[1] = 1; /* shm */
-        *(uint16_t*)(send_buffer+2) = size_.width();
-        *(uint16_t*)(send_buffer+4) = size_.height();
+        struct screen* s;
+        pp::VarArrayBuffer array_buffer(sizeof(*s));
+        s = static_cast<struct screen*>(array_buffer.Map());
 
+        s->type = 'S';
+        s->shm = 1;
+        s->width = size_.width();
+        s->height = size_.height();
+        s->paddr = (uint64_t)image_data_->data();
+        uint64_t sig = ((uint64_t)rand() << 32) ^ rand();
         uint64_t* data = static_cast<uint64_t*>(image_data_->data());
-        uint64_t rnd = rand();
-        rnd = (rnd << 32) ^ rand();
-        *data = rnd;
-
-        *(uint64_t*)(send_buffer+8) = (uint64_t)image_data_->data();
-        *(uint64_t*)(send_buffer+16) = rnd;
+        *data = sig;
+        s->sig = sig;
 
         array_buffer.Unmap();
         SocketSend(array_buffer);

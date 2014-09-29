@@ -9,6 +9,7 @@
 
 #define _GNU_SOURCE /* for ppoll */
 #include "websocket.h"
+#include "fbserver-proto.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <netinet/tcp.h>
@@ -19,18 +20,6 @@
 #include <sys/shm.h>
 #include <X11/extensions/XShm.h>
 #include <X11/extensions/Xdamage.h>
-
-/** Shared structures **/
-
-struct  __attribute__((__packed__)) screen_reply {
-    char type; /* 'S' */
-    uint8_t shm:1; /* Data was transfered out of band */
-    uint8_t updated:1; /* Set to 1 if data has been updated */
-    uint16_t width;
-    uint16_t height;
-};
-
-/*****/
 
 /* WebSocket constants */
 #define VERSION "VF1"
@@ -90,6 +79,7 @@ static int init_display() {
 
     XSetErrorHandler(xerrorHandler);
 
+    registerdamage(dpy, XRootWindow(dpy, 0));
     for (i = 0; i < nchildren; i++) {
         registerdamage(dpy, children[i]);
     }
@@ -263,55 +253,44 @@ int main(int argc, char** argv) {
             }
 
             /* FIXME: Check buffer length */
-
+/*
             if (buffer[0] != 'S' && buffer[0] != 'M' && verbose)
                 printf("b %d %c:%02x%02x%02x%02x%02x%02x%02x\n",
                    length,
                    buffer[0], buffer[1], buffer[2], buffer[3],
                    buffer[4], buffer[5], buffer[6], buffer[7]);
+*/
 
             switch (buffer[0]) {
             case 'S':
             {
-                int shm = buffer[1];
-                uint16_t width = *(uint16_t*)(buffer+2);
-                uint16_t height = *(uint16_t*)(buffer+4);
-                uint64_t paddr = 0;
-                uint64_t sig = 0;
-                if (shm && length == 24) {
-                    paddr = *(uint64_t*)(buffer+8);
-                    sig = *(uint64_t*)(buffer+16);
-                    //printf("P: %016lx\n", paddr);
-                    //printf("S: %016lx\n", sig);
-                }
-                write_image(width, height, shm, paddr, sig);
+                const struct screen* s = (struct screen*)buffer;
+                write_image(s->width, s->height, s->shm, s->paddr, s->sig);
             }
                 break;
             case 'K':
             {
-                KeySym ks = *(uint16_t*)(buffer+2);
-                KeyCode kc = XKeysymToKeycode(dpy, ks);
-                printf("ks=%04x\n", (unsigned int)ks);
+                const struct key* k = (struct key*)buffer;
+                KeyCode kc = XKeysymToKeycode(dpy, k->keysym);
+                printf("ks=%04x\n", k->keysym);
                 printf("kc=%04x\n", kc);
                 if (kc != 0) {
-                    XTestFakeKeyEvent(dpy, kc, buffer[1], CurrentTime);
+                    XTestFakeKeyEvent(dpy, kc, k->down, CurrentTime);
                 } else {
-                    fprintf(stderr, "Invalid keysym %04x.\n", (unsigned int)ks);
+                    fprintf(stderr, "Invalid keysym %04x.\n", k->keysym);
                 }
             }
                 break;
             case 'C':
             {
-                int down = buffer[1];
-                int button = buffer[2];
-                XTestFakeButtonEvent(dpy, button, down, CurrentTime);
+                const struct mouseclick* mc = (struct mouseclick*)buffer;
+                XTestFakeButtonEvent(dpy, mc->button, mc->down, CurrentTime);
             }
                 break;
             case 'M':
             {
-                int x = *(uint16_t*)(buffer+1);
-                int y = *(uint16_t*)(buffer+3);
-                XTestFakeMotionEvent(dpy, 0, x, y, CurrentTime);
+                const struct mousemove* mm = (struct mousemove*)buffer;
+                XTestFakeMotionEvent(dpy, 0, mm->x, mm->y, CurrentTime);
             }
                 break;
             default:
