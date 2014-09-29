@@ -3,6 +3,8 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+set -x
+
 if [ "$#" -lt 2 -o "$#" -gt 4 ]; then
     echo "USAGE: ${0##*/} x y [r [output]]" 1>&2
     exit 2
@@ -14,12 +16,11 @@ o="${4}"
 if [ -z "$o" ]; then
     o="`xrandr -q | awk 'x{print $1;exit}/^Screen 0/{x=1}'`"
 fi
-cvt "$x" "$y" "$r" | {
-    read _
+gtf "$x" "$y" "$r" | grep Modeline | {
     read _ mode data
     mode="${mode#\"}"
     mode="${mode%\"}"
     xrandr --newmode "$mode" $data 2>/dev/null || true
     xrandr --addmode "$o" "$mode"
-    xrandr --output "$o" --mode "$mode"
+    xrandr --output "$o" --mode "$mode" --verbose
 }

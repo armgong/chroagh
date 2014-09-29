@@ -87,6 +87,87 @@ static int init_display() {
     return 0;
 }
 
+void change_resolution(int width, int height) {
+    char* cmd = "./chroot-bin/findres";
+    char arg1[32];
+    char arg2[32];
+    int c;
+    c = snprintf(arg1, sizeof(arg1), "%d", width);
+    assert(c > 0);
+    c = snprintf(arg2, sizeof(arg2), "%d", height);
+    assert(c > 0);
+    printf("cmd=%s %s %s\n", cmd, arg1, arg2);
+    char buffer[256];
+    char* args[] = {cmd, arg1, arg2, NULL};
+    c = popen2(cmd, args, NULL, 0, buffer, 256);
+    assert(c > 0);
+    buffer[c] = 0;
+    printf("buffer=%s\n", buffer);
+    char* cut = strchr(buffer, '_');
+    if (cut) *cut = 0;
+    cut = strchr(buffer, 'x');
+    assert(cut);
+    *cut = 0;
+    int nwidth = atoi(buffer);
+    int nheight = atoi(cut+1);
+    printf("Resolution %d x %d\n", nwidth, nheight);
+
+    char reply_raw[FRAMEMAXHEADERSIZE+sizeof(struct resolution)];
+    struct resolution* reply = (struct resolution*)(reply_raw+FRAMEMAXHEADERSIZE);
+    reply->type = 'R';
+    reply->width = nwidth;
+    reply->height = nheight;
+    socket_client_write_frame(reply_raw, sizeof(*reply), WS_OPCODE_BINARY, 1);
+}
+
+struct cache_entry* find_shm(uint64_t paddr, uint64_t sig) {
+    struct cache_entry* entry = NULL;
+
+    if (cache[0].paddr == paddr) entry = &cache[0];
+    if (cache[1].paddr == paddr) entry = &cache[1];
+
+    /* TODO: Check sig */
+
+    if (!entry) {
+        char* cmd = "./chroot-bin/find-nacl";
+        char arg1[32];
+        char arg2[32];
+        int p = 0;
+        int c, i;
+        c = snprintf(arg1, sizeof(arg1), "%08lx", paddr & 0xffffffff);
+        assert(c > 0);
+        p = 0;
+        for (i = 0; i < 8; i++) {
+            c = snprintf(arg2+p, sizeof(arg2)-p, "%02x",
+                         ((uint8_t*)&sig)[i]);
+            assert(c > 0);
+            p += c;
+        }
+        printf("cmd=%s %s %s\n", cmd, arg1, arg2);
+        char buffer[256];
+        char* args[] = {cmd, arg1, arg2, NULL};
+        c = popen2(cmd, args, NULL, 0, buffer, 256);
+        if (c <= 0) {
+            return NULL;
+        }
+        buffer[c] = 0;
+        printf("buffer=%s\n", buffer);
+        char* cut = strchr(buffer, ':');
+        assert(cut);
+        *cut = 0;
+        int pid = atoi(buffer);
+        char* file = cut+1;
+        printf("pid=%d, file=%s\n", pid, file);
+
+        entry = &cache[next_entry];
+        entry->paddr = paddr;
+        strncpy(entry->file, file, sizeof(entry->file));
+        next_entry = (next_entry + 1) % 2;
+    }
+
+    return entry;
+}
+
 XImage* img = NULL;
 XShmSegmentInfo shminfo;
 
@@ -141,7 +222,7 @@ int write_image(int width, int height,
         reply->updated = 0;
         reply->width = width;
         reply->height = height;
-        socket_client_write_frame(reply_raw, 8, WS_OPCODE_BINARY, 1);
+        socket_client_write_frame(reply_raw, sizeof(*reply), WS_OPCODE_BINARY, 1);
         return 0;
     }
 
@@ -153,50 +234,16 @@ int write_image(int width, int height,
     int size = img->bytes_per_line * img->height;
 
     if (shm) {
-        struct cache_entry* entry = NULL;
+        struct cache_entry* entry = find_shm(paddr, sig);
 
-        if (cache[0].paddr == paddr) entry = &cache[0];
-        if (cache[1].paddr == paddr) entry = &cache[1];
-
-        if (!entry) {
-            char* cmd = "./chroot-bin/find-nacl";
-            char arg1[32];
-            char arg2[32];
-            int p = 0;
-            int c, i;
-            c = snprintf(arg1, sizeof(arg1), "%08lx", paddr & 0xffffffff);
-            assert(c > 0);
-            p = 0;
-            for (i = 0; i < 8; i++) {
-                c = snprintf(arg2+p, sizeof(arg2)-p, "%02x",
-                             ((uint8_t*)&sig)[i]);
-                assert(c > 0);
-                p += c;
-            }
-            printf("cmd=%s %s %s\n", cmd, arg1, arg2);
-            char buffer[256];
-            char* args[] = {cmd, arg1, arg2, NULL};
-            c = popen2(cmd, args, NULL, 0, buffer, 256);
-            assert(c > 0);
-            buffer[c] = 0;
-            printf("buffer=%s\n", buffer);
-            char* cut = strchr(buffer, ':');
-            assert(cut);
-            *cut = 0;
-            int pid = atoi(buffer);
-            char* file = cut+1;
-            printf("pid=%d, file=%s\n", pid, file);
-
-            entry = &cache[next_entry];
-            entry->paddr = paddr;
-            strncpy(entry->file, file, sizeof(entry->file));
-            next_entry = (next_entry + 1) % 2;
+        if (entry) {
+            int fdx = open(entry->file, O_RDWR);
+            lseek(fdx, 0, SEEK_SET);
+            write(fdx, img->data, size);
+            close(fdx);
+        } else {
+            printf("Cannot find shm, maybe that's not a big deal...\n");
         }
-
-        int fdx = open(entry->file, O_RDWR);
-        lseek(fdx, 0, SEEK_SET);
-        write(fdx, img->data, size);
-        close(fdx);
         //printf("banzai!\n");
         /* Confirm write is done */
         reply->type = 'S';
@@ -204,14 +251,14 @@ int write_image(int width, int height,
         reply->updated = 1;
         reply->width = width;
         reply->height = height;
-        socket_client_write_frame(reply_raw, 8, WS_OPCODE_BINARY, 1);
+        socket_client_write_frame(reply_raw, sizeof(*reply), WS_OPCODE_BINARY, 1);
     } else {
         reply->type = 'S';
         reply->shm = 0;
         reply->updated = 1;
         reply->width = width;
         reply->height = height;
-        socket_client_write_frame(reply_raw, 8, WS_OPCODE_BINARY, 1);
+        socket_client_write_frame(reply_raw, sizeof(*reply), WS_OPCODE_BINARY, 1);
         /* FIXME: This is broken with current API... */
         socket_client_write_frame(img->data, size, WS_OPCODE_BINARY, 1);
     }
@@ -266,6 +313,12 @@ int main(int argc, char** argv) {
             {
                 const struct screen* s = (struct screen*)buffer;
                 write_image(s->width, s->height, s->shm, s->paddr, s->sig);
+            }
+                break;
+            case 'R':
+            {
+                const struct resolution* r = (struct resolution*)buffer;
+                change_resolution(r->width, r->height);
             }
                 break;
             case 'K':

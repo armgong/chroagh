@@ -24,15 +24,9 @@
 
 namespace {
 
-    // The expected string sent by the browser.
-    const char* const kHelloString = "hello";
-    // The string sent back to the browser upon receipt of a message
-    // containing "hello".
-    const char* const kReplyString = "hello from NaCl";
-
 #include "../../src/fbserver-proto.h"
 
-    const int debug = 1;
+    const int debug = 0;
 }  // namespace
 
 class CriatInstance : public pp::Instance {
@@ -56,10 +50,22 @@ public:
         
         // Get the string message and compare it to "hello".
         std::string message = var_message.AsString();
-        if (message == kHelloString) {
-            // If it matches, send our response back to JavaScript.
-            LogMessage(0, kReplyString);
+
+        size_t pos = message.find(':');
+        if (pos != std::string::npos) {
+            std::string type = message.substr(0, pos);
+            if (type == "resize") {
+                size_t pos2 = message.find('/', pos+1);
+                if (pos2 != std::string::npos) {
+                    int width = stoi(message.substr(pos+1, pos2-pos-1));
+                    int height = stoi(message.substr(pos2+1));
+                    ChangeResolution(width, height);
+                }
+            }
         }
+
+        // If it matches, send our response back to JavaScript.
+        LogMessage(0, message);
     }
     
     virtual bool Init(uint32_t argc, const char* argn[], const char* argv[]) {
@@ -81,6 +87,10 @@ public:
     virtual void DidChangeView(const pp::View& view) {
         pp::Size new_size = view.GetRect().size();
         
+        std::ostringstream status;
+        status << "ChangeView " << new_size.width() << "x" << new_size.height();
+        LogMessage(0, status.str());
+
         if (!CreateContext(new_size))
             return;
         
@@ -215,14 +225,42 @@ public:
     }
     
 private:
+    void ChangeResolution(int width, int height) {
+        std::ostringstream status;
+        status << "Asked for resolution " << width
+               << "x" << height;
+        LogMessage(0, status.str());
+
+        if (connected_) {
+            struct resolution* r;
+            pp::VarArrayBuffer array_buffer(sizeof(*r));
+            r = static_cast<struct resolution*>(array_buffer.Map());
+            r->type = 'R';
+            r->width = width;
+            r->height = height;
+            array_buffer.Unmap();
+            SocketSend(array_buffer);
+        } else { /* Just assume we can take up the space */
+            std::ostringstream status;
+            status << width << "/" << height;
+            ControlMessage("resize", status.str());
+        }
+    }
+
     void LogMessage(int level, std::string str) {
         double delta = (pp::Module::Get()->core()->GetTime()-lasttime_)*1000;
 
         if (level <= debug) {
             std::ostringstream status;
             status << (int)delta << " " << str;
-            PostMessage(status.str());
+            ControlMessage("log", status.str());
         }
+    }
+
+    void ControlMessage(std::string type, std::string str) {
+        std::ostringstream status;
+        status << type << ":" << str;
+        PostMessage(status.str());
     }
 
     void OnConnectCompletion(int32_t result) {
@@ -244,18 +282,24 @@ private:
 
     void OnReceiveCompletion(int32_t result) {
         std::stringstream status;
-        status << "ReadCompletion: " << result << ". (" << image_pos_ << ")";
-        LogMessage(3, status.str());
+        status << "ReadCompletion: " << result << ".";
+        LogMessage(2, status.str());
 
         if (result == PP_OK) {
+            pp::MessageLoop::GetForMainThread().PostWork(
+                callback_factory_.NewCallback(&CriatInstance::SocketReceive),
+                0);
+
             const char* data;
             if (receive_var_.is_array_buffer()) {
                 pp::VarArrayBuffer array_buffer(receive_var_);
-                LogMessage(3, "receive (binary)");
                 data = static_cast<char*>(array_buffer.Map());
+                std::stringstream status;
+                status << "receive (binary): " << data[0];
+                LogMessage(2, status.str());
             }
             else {
-                LogMessage(3, "receive (text): " + receive_var_.AsString());
+                LogMessage(2, "receive (text): " + receive_var_.AsString());
                 data = receive_var_.AsString().c_str();
             }
 
@@ -266,6 +310,7 @@ private:
                 /* FIXME: Check version */
                 websocket_->SendMessage(pp::Var("VOK"));
                 connected_ = true;
+                ChangeResolution(size_.width(), size_.height());
                 return;
             } else if (data[0] == 'S') {
                 struct screen_reply* reply = (struct screen_reply*)data;
@@ -273,28 +318,33 @@ private:
                 if (reply->updated) {
                     OnFrameReady(0);
                 } else {
-                    /* TODO: Delay! */
+                    /* Ask for next frame in 15ms */
                     pp::MessageLoop::GetForMainThread().PostWork(
                         callback_factory_.NewCallback(&CriatInstance::OnWaitEnd),
                         15);
                 }
+                return;
+            } else if (data[0] == 'R') {
+                struct resolution* r = (struct resolution*)data;
+                std::ostringstream status2;
+                status2 << (r->width) << "/" << (r->height);
+                ControlMessage("resize", status2.str());
                 return;
             } else {
                 std::stringstream status;
                 status << "Error: first char " << (int)data[0];
                 LogMessage(0, status.str());
             }
+        } else if (result == PP_ERROR_INPROGRESS) {
+            return;
         }
 
         LogMessage(0, "Receive error.");
         // TODO : Not ok, so what? Disconnect?
         connected_ = false;
-        FillBuffer();
     }
 
     void SocketSend(const pp::Var& var) {
-        /* TODO: Send pending mouse move */
-
         if (pending_mouse_move_) {
             struct mousemove* mm;
             pp::VarArrayBuffer array_buffer(sizeof(*mm));
@@ -310,7 +360,7 @@ private:
         websocket_->SendMessage(var);
     }
 
-    void SocketReceive() {
+    void SocketReceive(int32_t result = 0) {
         websocket_->ReceiveMessage(&receive_var_, 
                                    callback_factory_.NewCallback(&CriatInstance::OnReceiveCompletion));
     }
@@ -321,7 +371,7 @@ private:
         const bool kIsAlwaysOpaque = true;
         context_ = pp::Graphics2D(this, new_size, kIsAlwaysOpaque);
         if (!BindGraphics(context_)) {
-            fprintf(stderr, "Unable to bind 2d context!\n");
+            LogMessage(0, "Unable to bind 2d context!");
             context_ = pp::Graphics2D();
             return false;
         }
@@ -363,21 +413,6 @@ private:
         SocketSend(array_buffer);
     }
 
-    void FillBuffer() {
-        char* data = static_cast<char*>(image_data_->data());
-        std::stringstream status;
-        status << "FillBuffer: " << (long)data;
-        LogMessage(5, status.str());
-
-        uint32_t totalsize = size_.width() * size_.height() * 4;
-        size_t length = totalsize-image_pos_;
-        if (connected_ && length > 0) {
-            SocketReceive();
-        } else {
-            OnFrameReady(0);
-        }
-    }
-
     void OnWaitEnd(int32_t) {
         OnFlush(99);
     }
@@ -390,8 +425,9 @@ private:
 
         if (connected_) {
             RequestScreen();
-            FillBuffer();
-        } else {
+        } 
+# if 0
+else {
             if (k_ < 5) {
                 uint32_t* data = static_cast<uint32_t*>(image_data_->data());
                 uint32_t totalsize = size_.width() * size_.height();
@@ -406,6 +442,7 @@ private:
             /* TODO: Blank image */
             OnFrameReady(0);
         }
+#endif
     }
 
     void Paint() {
@@ -446,6 +483,7 @@ private:
         if ((k_ % 60) == 0) {
             std::stringstream ss;
             ss << "fps: " << (int)(cfps+0.5) << " (" << (int)(avgfps_+0.5) << ")";
+            ss << " " << size_.width() << "x" << size_.height();
             LogMessage(0, ss.str());
         }
         

@@ -2,37 +2,26 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-HelloTutorialModule = null;  // Global application object.
+CriatModule = null;  // Global application object.
 statusText = 'NO-STATUS';
+listener_ = null;
 
 // Indicate load success.
 function moduleDidLoad() {
-    HelloTutorialModule = document.getElementById('criat');
+    CriatModule = document.getElementById('criat');
     updateStatus('SUCCESS');
     // Send a message to the Native Client module
-    HelloTutorialModule.postMessage('hello');
+    handleResize();
 }
 
-// If the page loads before the Native Client module loads, then set the
-// status message indicating that the module is still loading.  Otherwise,
-// do not change the status message.
 function pageDidLoad() {
-    if (HelloTutorialModule == null) {
+    if (CriatModule == null) {
         updateStatus('LOADING...');
     } else {
-        // It's possible that the Native Client module onload event fired
-        // before the page's onload event.  In this case, the status message
-        // will reflect 'SUCCESS', but won't be displayed.  This call will
-        // display the current message.
         updateStatus();
     }
 }
 
-// Set the global status message.  If the element with id 'statusField'
-// exists, then set its HTML to the status message as well.
-// opt_message The message test.  If this is null or undefined, then
-// attempt to set the element with id 'statusField' to the value of
-// |statusText|.
 function updateStatus(opt_message) {
     if (opt_message)
         statusText = opt_message;
@@ -45,13 +34,45 @@ function updateStatus(opt_message) {
 // This function is called by common.js when a message is received from the
 // NaCl module.
 function handleMessage(message) {
-    var logEl = document.getElementById('log');
-    logEl.textContent = message.data;
-    console.log(message.data);
+    var str = message.data;
+    var type, payload, i;
+    if ((i = str.indexOf(":")) > 0) {
+        type = str.substr(0, i);
+        payload = str.substr(i+1);
+    } else {
+        type = "log";
+        payload = str;
+    }
+
+    if (type == "log") {
+        var logEl = document.getElementById('log');
+        logEl.textContent = message.data;
+        console.log(message.data);
+    } else if (type == "resize") {
+        i = payload.indexOf("/");
+        if (i < 0) return;
+        var width = payload.substr(0, i);
+        var height = payload.substr(i+1);
+        var lwidth = listener_.clientWidth;
+        var lheight = listener_.clientHeight;
+        var marginleft = (lwidth-width)/2;
+        var margintop = (lheight-height)/2;
+        CriatModule.style.marginLeft = (marginleft > 0 ? marginleft : 0) + "px";
+        CriatModule.style.marginTop = (margintop > 0 ? margintop : 0) + "px";
+        CriatModule.width = width;
+        CriatModule.height = height;
+    }
+}
+
+function handleResize() {
+    console.log("resize! " + listener_.clientWidth + "/" + listener_.clientHeight);
+    if (CriatModule)
+        CriatModule.postMessage('resize:' + listener_.clientWidth + "/" + listener_.clientHeight);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    var listener = document.getElementById('listener');
-    listener.addEventListener('load', moduleDidLoad, true);
-    listener.addEventListener('message', handleMessage, true);
+    listener_ = document.getElementById('listener');
+    listener_.addEventListener('load', moduleDidLoad, true);
+    listener_.addEventListener('message', handleMessage, true);
+    window.addEventListener('resize', handleResize, true);
 })
