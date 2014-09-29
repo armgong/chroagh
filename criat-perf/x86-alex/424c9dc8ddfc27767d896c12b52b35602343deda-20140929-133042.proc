@@ -1,0 +1,39 @@
+56.4156|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+48.2816|Chrome GPU|1| /opt/google/chrome/chrome --type=gpu-process --channel=973.0.2126556522 --enable-logging --gpu-sandbox-failures-fatal=yes --log-level=1 --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote*=1,*plugin*=2 --ui-prioritize-in-gpu-process --enable-crash-reporter=F2493D9145244D6590A87A7B34487370 --user-data-dir=/home/chronos -+
+46.7482|Chrome|3| /opt/google/chrome/chrome --ppapi-flash-path=/opt/google/chrome/pepper/libpepflashplayer.so --ppapi-flash-version=15.0.0.152-r1 --ppapi-flash-args=enable_hw_video_decode=0 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --enable-fixed-position-compositing --enable-impl-side-painting --max-tiles-for-interest-area=512 --ui-enable+
+16.0404|NaCl|4| /opt/google/chrome/nacl_helper_bootstrap /opt/google/chrome/nacl_helper --reserved_at_zero=0x0000000040000000 --r_debug=0x0000000040000000
+15.0496|croutonfbserver|5| ./croutonfbserver
+11.9759|Xorg :2|6| Xorg -config dummy/xorg.conf :2 -logfile xorg.log
+4.78794|top (instrumentation)|8| top -c -b -d 1 -w 512
+3.41915|Chrome Xorg|7| /usr/bin/X -nohwaccess -noreset -maxvt 2 -nolisten tcp vt1 -auth /var/run/chromelogin.auth -logfile /var/log/xorg/Xorg.0.log
+1.05319||0| shill --log-level=0 --log-scopes=
+1.04468|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.978014|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.316312||0| /usr/bin/powerd --prefs_dir=/var/lib/power_manager --default_prefs_dir=/usr/share/power_manager --log_dir=/var/log/power_manager --run_dir=/var/run/power_manager/power --vmodule=state_controller=1,*backlight_controller=1,ambient_light_handler=1
+0.0957447||0| tlsdated -v -- /usr/bin/tlsdate -v -C /usr/share/chromeos-ca-certificates -l
+0.087234||0| xclock -update 1
+0.0865248||0| [kworker/u:6]
+0.0531915|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.0531915||0| [kworker/2:0]
+0.0489362||0| [kworker/1:2]
+0.0468085||0| /usr/sbin/ModemManager --log-level=INFO
+0.0404255||0| [kworker/3:1]
+0.0347518||0| [kworker/0:0]
+0.0269504||0| dbus-daemon --system --fork
+0.0262411||0| [usb-storage]
+0.0198582||0| metrics_daemon
+0.0141844|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.0134752|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.012766||0| [loop10]
+0.0070922|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*zygote+
+0.0070922||0| [watchdog/1]
+0.0070922||0| /usr/sbin/daisydog
+0.0070922||0| [ksoftirqd/1]
+0.0070922||0| [ksoftirqd/0]
+0.0070922||0| [jbd2/dm-2-8]
+0.00638298||0| [watchdog/2]
+0.00638298||0| session_manager
+0.00638298||0| [loop0]
+0.00638298||0| [ksoftirqd/3]
+0.00638298||0| [ksoftirqd/2]
+0.00638298||0| cromo

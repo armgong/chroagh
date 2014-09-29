@@ -1,0 +1,44 @@
+# 2d, 45 fps
+37.9021 user,37.1723 system,0.109929 nice,0.0283688 waste,24.556 idle,
+====
+50.4362|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --use-gl=egl --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/displ+
+30.6773|Chrome GPU|1| /opt/google/chrome/chrome --type=gpu-process --channel=17170.0.637302355 --enable-logging --disable-vaapi-accelerated-video-encode --gpu-sandbox-failures-fatal=yes --gpu-sandbox-start-early --log-level=1 --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/display*=1,*ui/ozone*=1,*zygote*=1,*plugin*=2 --ui-prioritize-in-gpu-process --enabl+
+29.0284|Chrome|3| /opt/google/chrome/chrome --ppapi-flash-path=/opt/google/chrome/pepper/libpepflashplayer.so --ppapi-flash-version=15.0.0.152-r1 --ppapi-flash-args=enable_hw_video_decode=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --enable-fixed-position-compositing --enable-impl-side-painting --max-tiles-for-interest-area=512 --ui-enable+
+12.6262|croutonfbserver|5| ./croutonfbserver
+10.7085|NaCl|4| /opt/google/chrome/nacl_helper_bootstrap /opt/google/chrome/nacl_helper --reserved_at_zero=0x0000000040002000 --r_debug=0x0000000040002000
+6.24468|Xorg :2|6| Xorg -config dummy/xorg.conf :2 -logfile xorg.log
+3.5617|top (instrumentation)|8| top -c -b -d 1 -w 512
+2.37589|Chrome Xorg|7| /usr/bin/X -nohwaccess -noreset -maxvt 2 -nolisten tcp vt1 -auth /var/run/chromelogin.auth -logfile /var/log/xorg/Xorg.0.log
+0.848936|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --use-gl=egl --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/displ+
+0.62766||0| [kworker/0:0]
+0.397872|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --use-gl=egl --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/displ+
+0.346809||0| shill --log-level=0 --log-scopes=
+0.329078||0| [kworker/0:3]
+0.258156||0| [kworker/u:1H]
+0.236879||0| [rcu_sched]
+0.201418||0| [ksdioirqd/mmc1]
+0.0680851||0| [kworker/u:1]
+0.0468085||0| /bin/bash /usr/sbin/thermal.sh
+0.0411348||0| xclock -update 1
+0.0411348||0| /usr/bin/powerd --prefs_dir=/var/lib/power_manager --default_prefs_dir=/usr/share/power_manager --log_dir=/var/log/power_manager --run_dir=/var/run/power_manager/power --vmodule=state_controller=1,*backlight_controller=1,ambient_light_handler=1
+0.0333333||0| [kworker/1:2]
+0.0283688|Chrome Render|2| /opt/google/chrome/chrome --type=renderer --enable-fixed-position-compositing --enable-logging --log-level=1 --register-pepper-plugins=/opt/google/chrome/pepper/libnetflixhelper.so#NetflixHelper#Helper for the Netflix application#2.0.0;application/x-ppapi-netflixhelper --use-gl=egl --vmodule=screen_locker=1,webui_screen_locker=1,network_portal_detector_impl=1,reset_screen_handler=1,update_engine_client=1,*ui/display/chromeos*=1,*ash/displ+
+0.0276596||0| tlsdated -v -- /usr/bin/tlsdate -v -C /usr/share/chromeos-ca-certificates -l
+0.0276596||0| [mmcqd/0]
+0.0205674||0| curl https://clients2.google.com/cr/report -v --capath /usr/share/chromeos-ca-certificates --ciphers HIGH -F prod=Chrome_ChromeOS -F ver=38.0.2125.77 -F board=daisy_spring-signed-mp-v2keys -F hwclass=SPRING G8A-D3Q-A94 -F exec_name=chrome -F boot_mode=dev -F guid=0AB2E1FD68985EB80BA35BDA8B835F54 -o /tmp/crash_sender.4QXQv6/report_id -F write_payload_size=420848 -F send_payload_size=420848 -F upload_file_minidump=@/home/user/33a384cf3fb818+
+0.0205674||0| /bin/sh /sbin/crash_sender
+0.0198582||0| dbus-daemon --system --fork
+0.0134752||0| rsyslogd -c4 -n -f /etc/rsyslog.chromeos
+0.0134752||0| metrics_daemon
+0.0134752||0| [loop10]
+0.0134752||0| [loop0]
+0.0134752||0| [ksoftirqd/0]
+0.012766||0| [usb-storage]
+0.0070922||0| [kworker/1:1H]
+0.00638298||0| update_engine
+0.00638298||0| /sbin/dhcpcd -B -q -R -U mlan0=wifi_any_476f6f676c654775657374_managed_none
+0.00638298||0| [ksoftirqd/1]
+0.00638298||0| [jbd2/mmcblk0p1-]
+0.00638298||0| [jbd2/dm-2-8]
+0.00638298||0| [jbd2/dm-1-8]
+0.00638298||0| chapsd --auto_load_system_token
