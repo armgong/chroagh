@@ -1,0 +1,45 @@
+#!/bin/sh
+
+set -e
+
+if [ -z "$1" -o -z "$2" ]; then
+   echo "Usage: $0 width height"
+   exit 2
+fi
+
+# Target resolution, we take the closest, smaller one
+TARGETW="$1"
+TARGETH="$2"
+
+# This assumes modes have "canonical" names, in the form "<w>x<h>[_<r>]"
+res="`xrandr | awk '
+    BEGIN {
+        tw='"$TARGETW"'; th='"$TARGETH"';
+        cscore=100*tw+th;
+    }
+    $1 ~ /[0-9]+x[0-9]+/ {
+        res = $1; sub(/_[0-9]+/, "", res);
+        w = res; sub(/x[0-9]*/, "", w); w = int(w);
+        h = res; sub(/[0-9]*x/, "", h); h = int(h);
+        if (w <= tw && h <= th) {
+            score = (tw-w) + (th-h)
+            #print w " x " h " // " score
+            if (score < cscore) {
+                cmode = $1
+                cscore = score
+            }
+        }
+    }
+    END {
+        if (!cmode) exit 1
+        print cmode
+    }
+'`"
+
+if [ -z "$res" ]; then
+   echo Cannot find resolution 1>&2
+   exit 1
+fi
+
+xrandr -s "$res"
+echo "$res"
