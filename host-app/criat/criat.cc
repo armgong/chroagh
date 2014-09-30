@@ -17,6 +17,7 @@
 #include "ppapi/cpp/var.h"
 #include "ppapi/cpp/point.h"
 #include "ppapi/cpp/message_loop.h"
+#include "ppapi/cpp/mouse_cursor.h"
 #include "ppapi/utility/completion_callback_factory.h"
 #include "ppapi/cpp/var.h"
 #include "ppapi/cpp/var_array_buffer.h"
@@ -337,7 +338,7 @@ private:
                     LogMessage(0, "Got a version while connected?!?");
                 }
                 /* FIXME: Check version */
-                websocket_->SendMessage(pp::Var("VOK"));
+                SocketSend(pp::Var("VOK"), false);
                 connected_ = true;
                 ChangeResolution(size_.width(), size_.height());
                 return;
@@ -352,12 +353,39 @@ private:
                         callback_factory_.NewCallback(&CriatInstance::OnWaitEnd),
                         15);
                 }
+
+                if (reply->cursor_updated) {
+                    /* FIXME: Cache cursor images */
+                    SocketSend(pp::Var("P"), false);
+                }
+                return;
+            } else if (data[0] == 'P') {
+                struct cursor_reply* cursor = (struct cursor_reply*)data;
+                std::ostringstream status;
+                status << "Cursor " << (cursor->width) << "/" << (cursor->height);
+                status << " " << (cursor->xhot) << "/" << (cursor->yhot);
+                status << " " << (cursor->cursor_serial);
+                LogMessage(0, status.str());
+                /* Scale down by factor 2 */
+                int w = cursor->width/2;
+                int h = cursor->height/2;
+                pp::ImageData img(this, pp::ImageData::GetNativeImageDataFormat(),
+                                  pp::Size(w, h), true);
+                uint32_t* data = (uint32_t*)img.data();
+                /* TODO: Smoother scaling */
+                for (int y = 0; y < h; y++) {
+                    for (int x = 0; x < w; x++) {
+                        data[y*w+x] = cursor->pixels[2*y*2*w+2*x];
+                    }
+                }
+                pp::MouseCursor::SetCursor(this, PP_MOUSECURSOR_TYPE_CUSTOM,
+                                           img, pp::Point(cursor->xhot/2, cursor->yhot/2));
                 return;
             } else if (data[0] == 'R') {
                 struct resolution* r = (struct resolution*)data;
-                std::ostringstream status2;
-                status2 << (r->width) << "/" << (r->height);
-                ControlMessage("resize", status2.str());
+                std::ostringstream status;
+                status << (r->width) << "/" << (r->height);
+                ControlMessage("resize", status.str());
                 return;
             } else {
                 std::stringstream status;
@@ -373,8 +401,8 @@ private:
         connected_ = false;
     }
 
-    void SocketSend(const pp::Var& var) {
-        if (pending_mouse_move_) {
+    void SocketSend(const pp::Var& var, bool nomouse=false) {
+        if (pending_mouse_move_ && !nomouse) {
             struct mousemove* mm;
             pp::VarArrayBuffer array_buffer(sizeof(*mm));
             mm = static_cast<struct mousemove*>(array_buffer.Map());

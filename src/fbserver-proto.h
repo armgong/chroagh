@@ -14,8 +14,24 @@ struct  __attribute__((__packed__)) screen_reply {
     char type; /* 'S' */
     uint8_t shm:1; /* Data was transfered through shm */
     uint8_t updated:1; /* Set to 1 if data has been updated */
+    uint8_t cursor_updated:1; /* Set to 1 if cursor has been updated */
+    /* FIXME: Add field if shm failed */
     uint16_t width;
     uint16_t height;
+    uint32_t cursor_serial; /* Unique cursor serial number */
+};
+
+/* Ask for cursor image (if serial is unknown) */
+struct  __attribute__((__packed__)) cursor {
+    char type; /* 'P' */
+};
+
+struct  __attribute__((__packed__)) cursor_reply {
+    char type; /* 'P' */
+    uint16_t width, height;
+    uint16_t xhot, yhot;
+    uint32_t cursor_serial;
+    uint32_t pixels[0];
 };
 
 /* Change resolution (query + reply) */

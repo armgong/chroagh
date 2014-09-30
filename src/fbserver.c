@@ -20,6 +20,7 @@
 #include <sys/shm.h>
 #include <X11/extensions/XShm.h>
 #include <X11/extensions/Xdamage.h>
+#include <X11/extensions/Xfixes.h>
 
 /* WebSocket constants */
 #define VERSION "VF1"
@@ -28,6 +29,7 @@
 static Display *dpy;
 
 int damageEvent;
+int fixesEvent;
 
 /* shm entry cache */
 struct cache_entry {
@@ -39,6 +41,7 @@ struct cache_entry cache[2];
 int next_entry;
 
 static int xerrorHandler(Display *dpy, XErrorEvent *e) {
+    printf("error!\n");
     return 0;
 }
 
@@ -61,10 +64,15 @@ static int init_display() {
 
     /* Fixme: check XTest extension available */
 
-    int damageError;
+    int error;
 
-    if (!XDamageQueryExtension (dpy, &damageEvent, &damageError)) {
+    if (!XDamageQueryExtension(dpy, &damageEvent, &error)) {
         fprintf(stderr, "XDamage not available!\n");
+        return -1;
+    }
+
+    if (!XFixesQueryExtension(dpy, &fixesEvent, &error)) {
+        fprintf(stderr, "XFixes not available!\n");
         return -1;
     }
 
@@ -72,6 +80,7 @@ static int init_display() {
     Window *children;
     unsigned int nchildren, i;
 
+    /* TODO: XRootWindow or DefaultRootWindow? */
     XSelectInput(dpy, XRootWindow(dpy, 0), SubstructureNotifyMask);
 
     XQueryTree(dpy, XRootWindow(dpy, 0), &root, &parent,
@@ -83,6 +92,9 @@ static int init_display() {
     for (i = 0; i < nchildren; i++) {
         registerdamage(dpy, children[i]);
     }
+
+    /* Register for cursor events */
+    XFixesSelectCursorInput(dpy, DefaultRootWindow(dpy), XFixesDisplayCursorNotifyMask);
 
     return 0;
 }
@@ -180,9 +192,9 @@ int write_image(int width, int height,
     /* TODO: Resize display as necessary */
 
     Window root = DefaultRootWindow(dpy);
-    /* No Shm: */
-    //XImage *img = XGetImage(dpy, root, 0, 0, width, height, AllPlanes, ZPixmap);
-    //printf("size %d %d\n", img->bytes_per_line, img->height);
+    /* Check for damage */
+    int refresh = 0;
+    XEvent ev;
 
     if (!img || img->width != width || img->height != height) {
         if (img) {
@@ -199,21 +211,30 @@ int write_image(int width, int height,
         shminfo.readOnly = False;
         /* This may trigger the X protocol error we're ready to catch: */
         XShmAttach( dpy, &shminfo );
+        /* Force refresh */
+        refresh = 1000;
     }
-
-    /* Check for damage */
-    int refresh = 0;
-    XEvent ev;
 
     while (XCheckTypedEvent(dpy, MapNotify, &ev)) {
         registerdamage(dpy, ev.xcreatewindow.window);
         refresh++;
     }
 
-    /* Flush all events after the first one, if we don't care
+    /* Flush all events after the first one, as we don't care
      * about the rectangles... */
     while (XCheckTypedEvent(dpy, damageEvent+XDamageNotify, &ev)) {
         refresh++;
+    }
+
+    /* Check for cursor events */
+    reply->cursor_updated = 0;
+    while (XCheckTypedEvent(dpy, fixesEvent+XFixesCursorNotify, &ev)) {
+        XFixesCursorNotifyEvent* curev = (XFixesCursorNotifyEvent*)&ev;
+        char* name = XGetAtomName(dpy, curev->cursor_name);
+        printf("cursor! %ld %s\n", curev->cursor_serial, name);
+        XFree(name);
+        reply->cursor_updated = 1;
+        reply->cursor_serial = curev->cursor_serial;
     }
 
     if (!refresh) {
@@ -268,6 +289,43 @@ int write_image(int width, int height,
     return 0;
 }
 
+int write_cursor() {
+    XFixesCursorImage *img = XFixesGetCursorImage(dpy);
+
+    int size = img->width*img->height;
+    const int replylength = sizeof(struct cursor_reply)+sizeof(uint32_t)*size;
+    char reply_raw[FRAMEMAXHEADERSIZE+replylength];
+    struct cursor_reply* reply = (struct cursor_reply*)(reply_raw+FRAMEMAXHEADERSIZE);
+
+    reply->type = 'P';
+    reply->width = img->width;
+    reply->height = img->height;
+    reply->xhot = img->xhot;
+    reply->yhot = img->yhot;
+    reply->cursor_serial = img->cursor_serial;
+    /* This "casts" wasteful long* to uint32_t* */
+    int i = 0;
+    for (i = 0; i < size; i++)
+        reply->pixels[i] = img->pixels[i];
+
+    /* Debug */
+#if 0
+    int x, y;
+    for (y = 0; y < img->height; y++) {
+        for (x = 0; x < img->width; x++) {
+            //printf("%08lx", img->pixels[y*img->width+x]);
+            printf("%01x", (reply->pixels[y*img->width+x] >> 28) & 0xf);
+        }
+        printf("\n");
+    }
+#endif
+
+    socket_client_write_frame(reply_raw, replylength, WS_OPCODE_BINARY, 1);
+    XFree(img);
+
+    return 0;
+}
+
 int main(int argc, char** argv) {
     int c;
 
@@ -313,6 +371,11 @@ int main(int argc, char** argv) {
             {
                 const struct screen* s = (struct screen*)buffer;
                 write_image(s->width, s->height, s->shm, s->paddr, s->sig);
+            }
+                break;
+            case 'P':
+            {
+                write_cursor();
             }
                 break;
             case 'R':
