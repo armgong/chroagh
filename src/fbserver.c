@@ -226,8 +226,8 @@ int write_image(int width, int height,
         return 0;
     }
 
-    if (refresh)
-        printf("refresh=%d\n", refresh);
+/*    if (refresh)
+      printf("refresh=%d\n", refresh);*/
 
     XShmGetImage(dpy, root, img, 0, 0, AllPlanes);
 

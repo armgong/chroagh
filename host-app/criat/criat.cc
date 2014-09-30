@@ -39,6 +39,7 @@ public:
           websocket_(NULL),
           connected_(false),
           pending_mouse_move_(false),
+          mouse_pos_(-1, -1),
           avgfps_(0) {}
     
     virtual ~CriatInstance() { }
@@ -69,7 +70,9 @@ public:
     }
     
     virtual bool Init(uint32_t argc, const char* argn[], const char* argv[]) {
-        RequestInputEvents(PP_INPUTEVENT_CLASS_MOUSE);
+        RequestInputEvents(PP_INPUTEVENT_CLASS_MOUSE |
+                           PP_INPUTEVENT_CLASS_WHEEL |
+                           PP_INPUTEVENT_CLASS_TOUCH);
         RequestFilteringInputEvents(PP_INPUTEVENT_CLASS_KEYBOARD);
 
         srand(pp::Module::Get()->core()->GetTime());
@@ -168,6 +171,17 @@ public:
         return 0x00;
     }
 
+    virtual void SendClick(int button, int down) {
+        struct mouseclick* mc;
+        pp::VarArrayBuffer array_buffer(sizeof(*mc));
+        mc = static_cast<struct mouseclick*>(array_buffer.Map());
+        mc->type = 'C';
+        mc->down = down;
+        mc->button = button;
+        array_buffer.Unmap();
+        SocketSend(array_buffer);
+    }
+
     virtual bool HandleInputEvent(const pp::InputEvent& event) {
         if (event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ||
             event.GetType() == PP_INPUTEVENT_TYPE_KEYUP) {
@@ -190,16 +204,16 @@ public:
             k->keysym = keysym;
             array_buffer.Unmap();
             SocketSend(array_buffer);
-            return false;
-        }
-
-        if (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ||
-            event.GetType() == PP_INPUTEVENT_TYPE_MOUSEUP ||
-            event.GetType() == PP_INPUTEVENT_TYPE_MOUSEMOVE) {
+        } else if (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ||
+                   event.GetType() == PP_INPUTEVENT_TYPE_MOUSEUP ||
+                   event.GetType() == PP_INPUTEVENT_TYPE_MOUSEMOVE) {
             pp::MouseInputEvent mouse_event(event);
 
-            pending_mouse_move_ = true;
-            mouse_pos_ = mouse_event.GetPosition();
+            if (mouse_pos_.x() != mouse_event.GetPosition().x() ||
+                    mouse_pos_.y() != mouse_event.GetPosition().y()) {
+                pending_mouse_move_ = true;
+                mouse_pos_ = mouse_event.GetPosition();
+            }
 
             std::ostringstream status;
             status << "Mouse " << mouse_event.GetPosition().x() << "x" << mouse_event.GetPosition().y();
@@ -208,20 +222,35 @@ public:
                 status << " " << (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? "DOWN" : "UP");
                 status << " " << (mouse_event.GetButton());
 
-                struct mouseclick* mc;
-                pp::VarArrayBuffer array_buffer(sizeof(*mc));
-                mc = static_cast<struct mouseclick*>(array_buffer.Map());
-                mc->type = 'C';
-                mc->down = event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? 1 : 0;
-                mc->button = mouse_event.GetButton()+1;
-                array_buffer.Unmap();
-                SocketSend(array_buffer);
+                SendClick(mouse_event.GetButton()+1, event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? 1 : 0);
             }
 
             LogMessage(3, status.str());
-        }
-        
-        return true;
+        } else if (event.GetType() == PP_INPUTEVENT_TYPE_WHEEL) {
+            pp::WheelInputEvent wheel_event(event);
+
+            std::ostringstream status;
+            status << "MWd " << wheel_event.GetDelta().x() << "x" << wheel_event.GetDelta().y();
+            status << " MWt " << wheel_event.GetTicks().x() << "x" << wheel_event.GetTicks().y();            
+            LogMessage(3, status.str());
+
+            if (wheel_event.GetDelta().x() < 0.0f) {
+                SendClick(6, 1);
+                SendClick(6, 0);
+            } else if (wheel_event.GetDelta().x() > 0.0f) {
+                SendClick(7, 1);
+                SendClick(7, 0);
+            }
+            if (wheel_event.GetDelta().y() < 0.0f) {
+                SendClick(5, 1);
+                SendClick(5, 0);
+            } else if (wheel_event.GetDelta().y() > 0.0f) {
+                SendClick(4, 1);
+                SendClick(4, 0);
+            }
+        } /* TODO: TYPE_TOUCH? */
+
+        return PP_TRUE;
     }
     
 private:
@@ -480,7 +509,7 @@ else {
         lasttime_ = time_;
 
         avgfps_ = 0.9*avgfps_ + 0.1*cfps;
-        if ((k_ % 60) == 0) {
+        if ((k_ % ((int)avgfps_+1)) == 0) {
             std::stringstream ss;
             ss << "fps: " << (int)(cfps+0.5) << " (" << (int)(avgfps_+0.5) << ")";
             ss << " " << size_.width() << "x" << size_.height();
