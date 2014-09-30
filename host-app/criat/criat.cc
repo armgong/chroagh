@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sstream>
+#include <unordered_map>
 
 #include "ppapi/cpp/net_address.h"
 #include "ppapi/c/ppb_tcp_socket.h"
@@ -304,10 +305,28 @@ private:
             return;
         }
 
+        cursor_cache_.clear();
+
         /* FIXME: I think this can complete synchronously?!?! */
         SocketReceive();
 
         LogMessage(1, "Connected");
+    }
+
+    int max(int c1, int c2, int c3, int c4) {
+        int max = c1;
+        if (c2 > max) max = c2;
+        if (c3 > max) max = c3;
+        if (c4 > max) max = c4;
+        return max;
+    }
+
+    int min(int c1, int c2, int c3, int c4) {
+        int min = c1;
+        if (c2 < min) min = c2;
+        if (c3 < min) min = c3;
+        if (c4 < min) min = c4;
+        return min;
     }
 
     void OnReceiveCompletion(int32_t result) {
@@ -355,8 +374,18 @@ private:
                 }
 
                 if (reply->cursor_updated) {
-                    /* FIXME: Cache cursor images */
-                    SocketSend(pp::Var("P"), false);
+                    std::unordered_map<uint32_t, Cursor>::iterator it =
+                        cursor_cache_.find(reply->cursor_serial);
+                    if (it == cursor_cache_.end() ) {
+                        /* FIXME: Cache cursor images */
+                        SocketSend(pp::Var("P"), false);
+                    } else {
+                        std::ostringstream status;
+                        status << "Cursor use cache for " << (reply->cursor_serial);
+                        LogMessage(1, status.str());
+                        pp::MouseCursor::SetCursor(this, PP_MOUSECURSOR_TYPE_CUSTOM,
+                                                   it->second.img, it->second.hot);
+                    }
                 }
                 return;
             } else if (data[0] == 'P') {
@@ -372,14 +401,42 @@ private:
                 pp::ImageData img(this, pp::ImageData::GetNativeImageDataFormat(),
                                   pp::Size(w, h), true);
                 uint32_t* data = (uint32_t*)img.data();
-                /* TODO: Smoother scaling */
                 for (int y = 0; y < h; y++) {
                     for (int x = 0; x < w; x++) {
-                        data[y*w+x] = cursor->pixels[2*y*2*w+2*x];
+                        /* TODO: Average is blurry! */
+                        int c1 = cursor->pixels[2*y*2*w+2*x];
+                        int c2 = cursor->pixels[2*y*2*w+2*(x+1)];
+                        int c3 = cursor->pixels[2*(y+1)*2*w+2*x];
+                        int c4 = cursor->pixels[2*(y+1)*2*w+2*(x+1)];
+                        /* Simple downscale is cleaner */
+                        c4 = c3 = c2 = c1;
+                        int a = ((c1 >> 24 & 0xff) + (c2 >> 24 & 0xff) +
+                                 (c3 >> 24 & 0xff) + (c4 >> 24 & 0xff) + 2) / 4;
+                        int r = ((c1 >> 16 & 0xff) + (c2 >> 16 & 0xff) +
+                                 (c3 >> 16 & 0xff) + (c4 >> 16 & 0xff) + 2) / 4;
+                        int g = ((c1 >>  8 & 0xff) + (c2 >>  8 & 0xff) +
+                                 (c3 >>  8 & 0xff) + (c4 >>  8 & 0xff) + 2) / 4;
+                        int b = ((c1       & 0xff) + (c2       & 0xff) +
+                                 (c3       & 0xff) + (c4       & 0xff) + 2) / 4;
+#if 0
+                        int a = max((c1 >> 24 & 0xff), (c2 >> 24 & 0xff),
+                                    (c3 >> 24 & 0xff), (c4 >> 24 & 0xff));
+                        int r = max((c1 >> 16 & 0xff), (c2 >> 16 & 0xff),
+                                    (c3 >> 16 & 0xff), (c4 >> 16 & 0xff));
+                        int g = max((c1 >>  8 & 0xff), (c2 >>  8 & 0xff),
+                                    (c3 >>  8 & 0xff), (c4 >>  8 & 0xff));
+                        int b = max((c1       & 0xff), (c2       & 0xff),
+                                    (c3       & 0xff), (c4       & 0xff));
+#endif
+                        data[y*w+x] = a << 24 | r << 16 | g << 8 | b;
                     }
                 }
+                pp::Point hot(cursor->xhot/2, cursor->yhot/2);
+
+                cursor_cache_[cursor->cursor_serial].img = img;
+                cursor_cache_[cursor->cursor_serial].hot = hot;
                 pp::MouseCursor::SetCursor(this, PP_MOUSECURSOR_TYPE_CUSTOM,
-                                           img, pp::Point(cursor->xhot/2, cursor->yhot/2));
+                                           img, hot);
                 return;
             } else if (data[0] == 'R') {
                 struct resolution* r = (struct resolution*)data;
@@ -582,6 +639,14 @@ else {
 
     PP_Time lasttime_;
     double avgfps_;
+
+    class Cursor {
+public:
+        pp::ImageData img;
+        pp::Point hot;
+    };
+
+    std::unordered_map<uint32_t, Cursor> cursor_cache_;
 };
 
 class CriatModule : public pp::Module {

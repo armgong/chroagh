@@ -231,7 +231,7 @@ int write_image(int width, int height,
     while (XCheckTypedEvent(dpy, fixesEvent+XFixesCursorNotify, &ev)) {
         XFixesCursorNotifyEvent* curev = (XFixesCursorNotifyEvent*)&ev;
         char* name = XGetAtomName(dpy, curev->cursor_name);
-        printf("cursor! %ld %s\n", curev->cursor_serial, name);
+        log(2, "cursor! %ld %s\n", curev->cursor_serial, name);
         XFree(name);
         reply->cursor_updated = 1;
         reply->cursor_serial = curev->cursor_serial;
