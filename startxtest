@@ -6,6 +6,6 @@ sleep 2
 DISPLAY=:2 xfwm4 &
 DISPLAY=:2 xclock -update 1 &
 DISPLAY=:2 xterm &
-#make croutonfbserver && DISPLAY=:2 ./croutonfbserver
+#make croutonfbserver && PATH="chroot-bin/:$PATH" DISPLAY=:2 ./croutonfbserver
 
 wait
