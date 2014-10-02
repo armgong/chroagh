@@ -55,6 +55,13 @@ static int verbose = 0;
 
 #define error(str, ...) printf("%s: " str "\n", __func__, ##__VA_ARGS__)
 
+#define trueorabort(expr, str, ...) do { \
+    if (!(expr)) { \
+        printf("%s: " str "\n", __func__, ##__VA_ARGS__); \
+        abort(); \
+    }            \
+} while (0)
+
 /* Similar to perror, but prints function name as well */
 #define syserror(str, ...) printf("%s: " str " (%s)\n", \
                     __func__, ##__VA_ARGS__, strerror(errno))

@@ -42,4 +42,4 @@ if [ -z "$res" ]; then
 fi
 
 xrandr -s "$res"
-echo "$res"
+echo -n "$res"
