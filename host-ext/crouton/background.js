@@ -386,7 +386,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
 
 /* Initialize, taking into account the platform */
 chrome.runtime.getPlatformInfo(function(platforminfo) {
-    if (platforminfo.os == 'cros') {
+    if (platforminfo.os == 'cros' || true) {
         /* On error: disconnect WebSocket, then log errors */
         onerror = function(msg, url, line) {
             if (websocket_)
@@ -405,6 +405,9 @@ chrome.runtime.getPlatformInfo(function(platforminfo) {
         chrome.runtime.onUpdateAvailable.addListener(function(details) {
             updateAvailable(details.version);
         });
+
+        console.log("plop");
+        chrome.windows.create({ 'url': "window.html", "type": "popup" }, function(bc) { console.log(bc); } );
     } else {
         /* Disable the icon on non-Chromium OS. */
         chrome.browserAction.setTitle(
