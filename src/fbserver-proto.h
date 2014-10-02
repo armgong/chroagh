@@ -1,5 +1,9 @@
 #include <stdint.h>
 
+/* WebSocket constants */
+#define VERSION "VF1"
+#define PORT_BASE 30010
+
 struct  __attribute__((__packed__)) screen {
     char type; /* 'S' */
     uint8_t shm:1; /* Transfer data through shm */

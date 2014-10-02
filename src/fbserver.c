@@ -21,10 +21,6 @@
 #include <X11/extensions/Xdamage.h>
 #include <X11/extensions/Xfixes.h>
 
-/* WebSocket constants */
-#define VERSION "VF1"
-#define PORT_BASE 30010
-
 static Display *dpy;
 
 int damageEvent;

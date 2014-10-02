@@ -23,11 +23,9 @@ function pageDidLoad() {
 }
 
 function updateStatus(opt_message) {
-    if (opt_message)
-        statusText = opt_message;
-    var statusField = document.getElementById('statusField');
-    if (statusField) {
-        statusField.innerHTML = statusText;
+    var status = document.getElementById('status');
+    if (status) {
+        status.innerHTML = statusText;
     }
 }
 
@@ -45,7 +43,7 @@ function handleMessage(message) {
     }
 
     if (type == "log") {
-        var logEl = document.getElementById('log');
+        var logEl = document.getElementById('status');
         logEl.textContent = message.data;
         console.log(message.data);
     } else if (type == "resize") {

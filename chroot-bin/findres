@@ -41,5 +41,5 @@ if [ -z "$res" ]; then
    exit 1
 fi
 
-xrandr -s "$res"
+xrandr -s "$res" 2>/dev/null
 echo -n "$res"

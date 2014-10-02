@@ -25,10 +25,28 @@
 #include "ppapi/cpp/websocket.h"
 
 namespace {
-
 #include "../../src/fbserver-proto.h"
 
-    const int debug = 0;
+#if 0
+    int max(int c1, int c2, int c3, int c4) {
+        int max = c1;
+        if (c2 > max) max = c2;
+        if (c3 > max) max = c3;
+        if (c4 > max) max = c4;
+        return max;
+    }
+
+    int min(int c1, int c2, int c3, int c4) {
+        int min = c1;
+        if (c2 < min) min = c2;
+        if (c3 < min) min = c3;
+        if (c4 < min) min = c4;
+        return min;
+    }
+#endif
+
+    /* FIXME: Pass debug value from Javascript */
+    int debug = 0;
 }  // namespace
 
 class CriatInstance : public pp::Instance {
@@ -38,7 +56,7 @@ public:
           callback_factory_(this),
           image_data_(NULL),
           k_(0),
-          websocket_(NULL),
+          websocket_(this),
           connected_(false),
           pending_mouse_move_(false),
           mouse_pos_(-1, -1),
@@ -46,8 +64,26 @@ public:
     
     virtual ~CriatInstance() { }
     
+    /* Register events, connect to Websocket server */
+    virtual bool Init(uint32_t argc, const char* argn[], const char* argv[]) {
+        RequestInputEvents(PP_INPUTEVENT_CLASS_MOUSE |
+                           PP_INPUTEVENT_CLASS_WHEEL |
+                           PP_INPUTEVENT_CLASS_TOUCH);
+        RequestFilteringInputEvents(PP_INPUTEVENT_CLASS_KEYBOARD);
+
+        srand(pp::Module::Get()->core()->GetTime());
+
+        SocketConnect();
+
+        return true;
+    }
+
+    /** Interface with Javascript **/
+
+public:
+    /* Handle message from Javascript */
+    /* Format: <type>:<str> */
     virtual void HandleMessage(const pp::Var& var_message) {
-        // Ignore the message if it is not a string.
         if (!var_message.is_string())
             return;
         
@@ -66,218 +102,10 @@ public:
                 }
             }
         }
-
-        // If it matches, send our response back to JavaScript.
-        LogMessage(0, message);
-    }
-    
-    virtual bool Init(uint32_t argc, const char* argn[], const char* argv[]) {
-        RequestInputEvents(PP_INPUTEVENT_CLASS_MOUSE |
-                           PP_INPUTEVENT_CLASS_WHEEL |
-                           PP_INPUTEVENT_CLASS_TOUCH);
-        RequestFilteringInputEvents(PP_INPUTEVENT_CLASS_KEYBOARD);
-
-        srand(pp::Module::Get()->core()->GetTime());
-
-        websocket_ = new pp::WebSocket(this);
-        if (!websocket_)
-            return false;
-        websocket_->Connect(pp::Var("ws://localhost:30010/"), NULL, 0,
-                            callback_factory_.NewCallback(&CriatInstance::OnConnectCompletion));
-        PostMessage(pp::Var("connecting..."));
-
-        return true;
-    }
-    
-    virtual void DidChangeView(const pp::View& view) {
-        pp::Size new_size = view.GetRect().size();
-        
-        std::ostringstream status;
-        status << "ChangeView " << new_size.width() << "x" << new_size.height();
-        LogMessage(0, status.str());
-
-        if (!CreateContext(new_size))
-            return;
-        
-        // When flush_context_ is null, it means there is no Flush callback in
-        // flight. This may have happened if the context was not created
-        // successfully, or if this is the first call to DidChangeView (when the
-        // module first starts). In either case, start the main loop.
-        if (flush_context_.is_null())
-            OnFlush(0);
     }
 
-    // See http://unixpapa.com/js/key.html
-    // We might want to use an array instead...
-    uint16_t KeyCodeToKeySym(uint32_t code) {
-        if (code >= 65 && code <= 90) { /* A to Z */
-            return code+32;
-        }
-
-        if (code >= 48 && code <= 57) { /* 0 to 9 */
-            return code;
-        }
-
-        if (code >= 96 && code <= 105) { /* KP 0 to 9 */
-            return code-96+0xffb0;
-        }
-
-        if (code >= 112 && code <= 123) { /* F1-F12 */
-            return code-112+0xffbe;
-        }
-
-        switch(code) {
-        case 8: return 0xff08;
-        case 9: return 0xff09;
-        case 12: return 0xff9d; // num 5
-        case 13: return 0xff0d;
-        case 16: return 0xffe1; // shift
-        case 17: return 0xffe3; // control
-        case 18: return 0xffe9; // alt
-        case 19: return 0xff13; // pause
-        case 20: return 0xffe5;
-        case 27: return 0xff1b;
-        case 32: return 0x20; // space
-        case 33: return 0xff55; // page up
-        case 34: return 0xff56; // page down
-        case 35: return 0xff57; // end
-        case 36: return 0xff50; // home
-        case 37: return 0xff51; // left
-        case 38: return 0xff52; // top
-        case 39: return 0xff53; // right
-        case 40: return 0xff54; // bottom
-        case 42: return 0xff61; // print screen
-        case 45: return 0xff63; // insert
-        case 46: return 0xffff; // delete
-        case 91: return 0xffeb; // super
-        case 106: return 0xffaa; // num multiply
-        case 107: return 0xffab; // num plus
-        case 109: return 0xffad; // num minus
-        case 110: return 0xffae; // num dot
-        case 111: return 0xffaf; // num divide
-        case 144: return 0xff7f; // num lock (maybe better not to pass through???)
-        case 145: return 0xff14; // scroll lock
-        case 186: return 0x3b;
-        case 187: return 0x3d;
-        case 188: return 0x2c;
-        case 189: return 0x2d;
-        case 190: return 0x2e;
-        case 191: return 0x2f;
-        case 192: return 0x60;
-        case 219: return 0x5b;
-        case 220: return 0x5c;
-        case 221: return 0x5d;
-        case 222: return 0x27;
-        }
-
-        return 0x00;
-    }
-
-    virtual void SendClick(int button, int down) {
-        struct mouseclick* mc;
-        pp::VarArrayBuffer array_buffer(sizeof(*mc));
-        mc = static_cast<struct mouseclick*>(array_buffer.Map());
-        mc->type = 'C';
-        mc->down = down;
-        mc->button = button;
-        array_buffer.Unmap();
-        SocketSend(array_buffer);
-    }
-
-    virtual bool HandleInputEvent(const pp::InputEvent& event) {
-        if (event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ||
-            event.GetType() == PP_INPUTEVENT_TYPE_KEYUP) {
-            pp::KeyboardInputEvent key_event(event);
-
-            uint32_t keycode = key_event.GetKeyCode();
-            uint16_t keysym = KeyCodeToKeySym(keycode);
-
-            std::ostringstream status;
-            status << "Key " << (event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ? "DOWN" : "UP");
-            status << ": " << std::hex << keycode;
-            status << " @ " << std::hex << keysym;
-            LogMessage(1, status.str());
-
-            struct key* k;
-            pp::VarArrayBuffer array_buffer(sizeof(*k));
-            k = static_cast<struct key*>(array_buffer.Map());
-            k->type = 'K';
-            k->down = event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ? 1 : 0;
-            k->keysym = keysym;
-            array_buffer.Unmap();
-            SocketSend(array_buffer);
-        } else if (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ||
-                   event.GetType() == PP_INPUTEVENT_TYPE_MOUSEUP ||
-                   event.GetType() == PP_INPUTEVENT_TYPE_MOUSEMOVE) {
-            pp::MouseInputEvent mouse_event(event);
-
-            if (mouse_pos_.x() != mouse_event.GetPosition().x() ||
-                    mouse_pos_.y() != mouse_event.GetPosition().y()) {
-                pending_mouse_move_ = true;
-                mouse_pos_ = mouse_event.GetPosition();
-            }
-
-            std::ostringstream status;
-            status << "Mouse " << mouse_event.GetPosition().x() << "x" << mouse_event.GetPosition().y();
-
-            if (event.GetType() != PP_INPUTEVENT_TYPE_MOUSEMOVE) {
-                status << " " << (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? "DOWN" : "UP");
-                status << " " << (mouse_event.GetButton());
-
-                SendClick(mouse_event.GetButton()+1, event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? 1 : 0);
-            }
-
-            LogMessage(3, status.str());
-        } else if (event.GetType() == PP_INPUTEVENT_TYPE_WHEEL) {
-            pp::WheelInputEvent wheel_event(event);
-
-            std::ostringstream status;
-            status << "MWd " << wheel_event.GetDelta().x() << "x" << wheel_event.GetDelta().y();
-            status << " MWt " << wheel_event.GetTicks().x() << "x" << wheel_event.GetTicks().y();            
-            LogMessage(3, status.str());
-
-            if (wheel_event.GetDelta().x() < 0.0f) {
-                SendClick(6, 1);
-                SendClick(6, 0);
-            } else if (wheel_event.GetDelta().x() > 0.0f) {
-                SendClick(7, 1);
-                SendClick(7, 0);
-            }
-            if (wheel_event.GetDelta().y() < 0.0f) {
-                SendClick(5, 1);
-                SendClick(5, 0);
-            } else if (wheel_event.GetDelta().y() > 0.0f) {
-                SendClick(4, 1);
-                SendClick(4, 0);
-            }
-        } /* TODO: TYPE_TOUCH? */
-
-        return PP_TRUE;
-    }
-    
 private:
-    void ChangeResolution(int width, int height) {
-        std::ostringstream status;
-        status << "Asked for resolution " << width
-               << "x" << height;
-        LogMessage(0, status.str());
-
-        if (connected_) {
-            struct resolution* r;
-            pp::VarArrayBuffer array_buffer(sizeof(*r));
-            r = static_cast<struct resolution*>(array_buffer.Map());
-            r->type = 'R';
-            r->width = width;
-            r->height = height;
-            array_buffer.Unmap();
-            SocketSend(array_buffer);
-        } else { /* Just assume we can take up the space */
-            std::ostringstream status;
-            status << width << "/" << height;
-            ControlMessage("resize", status.str());
-        }
-    }
-
+    /* Send a logging message to Javascript */
     void LogMessage(int level, std::string str) {
         double delta = (pp::Module::Get()->core()->GetTime()-lasttime_)*1000;
 
@@ -288,57 +116,61 @@ private:
         }
     }
 
+    /* Send a control message to Javascript */
+    /* Format: <type>:<str> */
     void ControlMessage(std::string type, std::string str) {
         std::ostringstream status;
         status << type << ":" << str;
         PostMessage(status.str());
     }
 
-    void OnConnectCompletion(int32_t result) {
-        if (result != PP_OK) {
-            if (result == PP_ERROR_NOACCESS)
-                LogMessage(0, "No access.");
+    /** WebSocket interface **/
+private:
+    /* Connect to WebSocket server */
+    void SocketConnect() {
+        /* FIXME: Use port base */
+        websocket_.Connect(pp::Var("ws://localhost:30010/"), NULL, 0,
+                            callback_factory_.NewCallback(&CriatInstance::OnSocketConnectCompletion));
+        LogMessage(0, "Connecting...");
+    }
 
+    /* WebSocket connected (or failed to) */
+    void OnSocketConnectCompletion(int32_t result) {
+        if (result != PP_OK) {
             std::ostringstream status;
             status << "Connection failed: " << result;
             LogMessage(0, status.str());
+            OnSocketClosed();
             return;
         }
 
         cursor_cache_.clear();
 
-        /* FIXME: I think this can complete synchronously?!?! */
         SocketReceive();
 
-        LogMessage(1, "Connected");
+        LogMessage(1, "Connected.");
     }
 
-    int max(int c1, int c2, int c3, int c4) {
-        int max = c1;
-        if (c2 > max) max = c2;
-        if (c3 > max) max = c3;
-        if (c4 > max) max = c4;
-        return max;
+    /* WebSocket closed */
+    void OnSocketClosed(int32_t result = 0) {
+        connected_ = false;
+        screen_flying_ = false;
+        // FIXME: Retry? Close window?
     }
 
-    int min(int c1, int c2, int c3, int c4) {
-        int min = c1;
-        if (c2 < min) min = c2;
-        if (c3 < min) min = c3;
-        if (c4 < min) min = c4;
-        return min;
-    }
-
-    void OnReceiveCompletion(int32_t result) {
+    /* Received a frame from WebSocket server */
+    void OnSocketReceiveCompletion(int32_t result) {
         std::stringstream status;
         status << "ReadCompletion: " << result << ".";
-        LogMessage(2, status.str());
+        LogMessage(5, status.str());
 
         if (result == PP_OK) {
+            /* Get ready to receive next frame */
             pp::MessageLoop::GetForMainThread().PostWork(
                 callback_factory_.NewCallback(&CriatInstance::SocketReceive),
                 0);
 
+            /* Convert binary/text to char* */
             const char* data;
             if (receive_var_.is_array_buffer()) {
                 pp::VarArrayBuffer array_buffer(receive_var_);
@@ -352,7 +184,8 @@ private:
                 data = receive_var_.AsString().c_str();
             }
 
-            if (data[0] == 'V') {
+            /* FIXME: Check frame length before casting */
+            if (data[0] == 'V') { /* Version */
                 if (connected_) {
                     LogMessage(0, "Got a version while connected?!?");
                 }
@@ -361,11 +194,11 @@ private:
                 connected_ = true;
                 ChangeResolution(size_.width(), size_.height());
                 return;
-            } else if (data[0] == 'S') {
+            } else if (data[0] == 'S') { /* Screen */
                 struct screen_reply* reply = (struct screen_reply*)data;
                 screen_flying_ = false;
                 if (reply->updated) {
-                    OnFrameReady(0);
+                    Paint();
                 } else {
                     /* Ask for next frame in 15ms */
                     pp::MessageLoop::GetForMainThread().PostWork(
@@ -377,18 +210,17 @@ private:
                     std::unordered_map<uint32_t, Cursor>::iterator it =
                         cursor_cache_.find(reply->cursor_serial);
                     if (it == cursor_cache_.end() ) {
-                        /* FIXME: Cache cursor images */
                         SocketSend(pp::Var("P"), false);
                     } else {
                         std::ostringstream status;
                         status << "Cursor use cache for " << (reply->cursor_serial);
-                        LogMessage(1, status.str());
+                        LogMessage(2, status.str());
                         pp::MouseCursor::SetCursor(this, PP_MOUSECURSOR_TYPE_CUSTOM,
                                                    it->second.img, it->second.hot);
                     }
                 }
                 return;
-            } else if (data[0] == 'P') {
+            } else if (data[0] == 'P') { /* New cursor data is received */
                 struct cursor_reply* cursor = (struct cursor_reply*)data;
                 std::ostringstream status;
                 status << "Cursor " << (cursor->width) << "/" << (cursor->height);
@@ -438,26 +270,38 @@ private:
                 pp::MouseCursor::SetCursor(this, PP_MOUSECURSOR_TYPE_CUSTOM,
                                            img, hot);
                 return;
-            } else if (data[0] == 'R') {
+            } else if (data[0] == 'R') { /* Resolution request reply */
                 struct resolution* r = (struct resolution*)data;
                 std::ostringstream status;
                 status << (r->width) << "/" << (r->height);
+                /* Tell Javascript so that it can center us on the page */
                 ControlMessage("resize", status.str());
                 return;
             } else {
                 std::stringstream status;
                 status << "Error: first char " << (int)data[0];
                 LogMessage(0, status.str());
+                /* fall-through: disconnect */
             }
         } else if (result == PP_ERROR_INPROGRESS) {
+            LogMessage(0, "Receive error INPROGRESS (should not happen).");
+            /* We called SocketReceive too many times...  */
             return;
         }
 
+//error:
         LogMessage(0, "Receive error.");
-        // TODO : Not ok, so what? Disconnect?
-        connected_ = false;
+        websocket_.Close(0, pp::Var("Receive error"),
+                 callback_factory_.NewCallback(&CriatInstance::OnSocketClosed));
     }
 
+    /* Ask to receive the next WebSocket frame */
+    void SocketReceive(int32_t result = 0) {
+        websocket_.ReceiveMessage(&receive_var_, callback_factory_.NewCallback(
+                                    &CriatInstance::OnSocketReceiveCompletion));
+    }
+
+    /* Send a WebSocket Frame, flushes the current mouse position first */
     void SocketSend(const pp::Var& var, bool nomouse=false) {
         if (pending_mouse_move_ && !nomouse) {
             struct mousemove* mm;
@@ -467,46 +311,214 @@ private:
             mm->x = mouse_pos_.x();
             mm->y = mouse_pos_.y();
             array_buffer.Unmap();
-            websocket_->SendMessage(array_buffer);
+            websocket_.SendMessage(array_buffer);
             pending_mouse_move_ = false;
         }
 
-        websocket_->SendMessage(var);
+        websocket_.SendMessage(var);
     }
 
-    void SocketReceive(int32_t result = 0) {
-        websocket_->ReceiveMessage(&receive_var_, 
-                                   callback_factory_.NewCallback(&CriatInstance::OnReceiveCompletion));
-    }
-
-    bool CreateContext(const pp::Size& new_size) {
-        LogMessage(5, "CreateContext");
+    /** UI functions **/
+public:
+    virtual void DidChangeView(const pp::View& view) {
+        pp::Size new_size = view.GetRect().size();
+        
+        std::ostringstream status;
+        status << "ChangeView " << new_size.width() << "x" << new_size.height();
+        LogMessage(0, status.str());
 
         const bool kIsAlwaysOpaque = true;
         context_ = pp::Graphics2D(this, new_size, kIsAlwaysOpaque);
         if (!BindGraphics(context_)) {
             LogMessage(0, "Unable to bind 2d context!");
             context_ = pp::Graphics2D();
-            return false;
+            return;
         }
         
         size_ = new_size;
         
-        return true;
-    }
-    
-    void AllocateImage(bool initzero) {
-        LogMessage(5, "AllocateImage");
-        PP_ImageDataFormat format = pp::ImageData::GetNativeImageDataFormat();
-        image_data_ = new pp::ImageData(this, format, size_, initzero);
-        image_pos_ = 0;
+        // When flush_context_ is null, it means there is no Flush callback in
+        // flight. This may have happened if the context was not created
+        // successfully, or if this is the first call to DidChangeView (when the
+        // module first starts). In either case, start the main loop.
+        if (flush_context_.is_null())
+            OnFlush(0);
     }
 
+    virtual bool HandleInputEvent(const pp::InputEvent& event) {
+        if (event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ||
+            event.GetType() == PP_INPUTEVENT_TYPE_KEYUP) {
+            pp::KeyboardInputEvent key_event(event);
+
+            uint32_t keycode = key_event.GetKeyCode();
+            uint16_t keysym = KeyCodeToKeySym(keycode);
+
+            std::ostringstream status;
+            status << "Key " << (event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ? "DOWN" : "UP");
+            status << ": " << std::hex << keycode;
+            status << " @ " << std::hex << keysym;
+            LogMessage(1, status.str());
+
+            struct key* k;
+            pp::VarArrayBuffer array_buffer(sizeof(*k));
+            k = static_cast<struct key*>(array_buffer.Map());
+            k->type = 'K';
+            k->down = event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN ? 1 : 0;
+            k->keysym = keysym;
+            array_buffer.Unmap();
+            SocketSend(array_buffer);
+        } else if (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ||
+                   event.GetType() == PP_INPUTEVENT_TYPE_MOUSEUP   ||
+                   event.GetType() == PP_INPUTEVENT_TYPE_MOUSEMOVE) {
+            pp::MouseInputEvent mouse_event(event);
+
+            if (mouse_pos_.x() != mouse_event.GetPosition().x() ||
+                    mouse_pos_.y() != mouse_event.GetPosition().y()) {
+                pending_mouse_move_ = true;
+                mouse_pos_ = mouse_event.GetPosition();
+            }
+
+            std::ostringstream status;
+            status << "Mouse " << mouse_event.GetPosition().x() << "x" << mouse_event.GetPosition().y();
+
+            if (event.GetType() != PP_INPUTEVENT_TYPE_MOUSEMOVE) {
+                status << " " << (event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? "DOWN" : "UP");
+                status << " " << (mouse_event.GetButton());
+
+                SendClick(mouse_event.GetButton()+1, event.GetType() == PP_INPUTEVENT_TYPE_MOUSEDOWN ? 1 : 0);
+            }
+
+            LogMessage(3, status.str());
+        } else if (event.GetType() == PP_INPUTEVENT_TYPE_WHEEL) {
+            pp::WheelInputEvent wheel_event(event);
+
+            std::ostringstream status;
+            status << "MWd " << wheel_event.GetDelta().x() << "x" << wheel_event.GetDelta().y();
+            status << "MWt " << wheel_event.GetTicks().x() << "x" << wheel_event.GetTicks().y();            
+            LogMessage(3, status.str());
+
+            if (wheel_event.GetDelta().x() < 0.0f) {
+                SendClick(6, 1); SendClick(6, 0);
+            } else if (wheel_event.GetDelta().x() > 0.0f) {
+                SendClick(7, 1); SendClick(7, 0);
+            }
+
+            if (wheel_event.GetDelta().y() < 0.0f) {
+                SendClick(5, 1); SendClick(5, 0);
+            } else if (wheel_event.GetDelta().y() > 0.0f) {
+                SendClick(4, 1); SendClick(4, 0);
+            }
+        } /* TODO: TYPE_TOUCH? */
+
+        return PP_TRUE;
+    }
+
+    void ChangeResolution(int width, int height) {
+        std::ostringstream status;
+        status << "Asked for resolution " << width << "x" << height;
+        LogMessage(1, status.str());
+
+        if (connected_) {
+            struct resolution* r;
+            pp::VarArrayBuffer array_buffer(sizeof(*r));
+            r = static_cast<struct resolution*>(array_buffer.Map());
+            r->type = 'R';
+            r->width = width;
+            r->height = height;
+            array_buffer.Unmap();
+            SocketSend(array_buffer);
+        } else { /* Just assume we can take up the space */
+            std::ostringstream status;
+            status << width << "/" << height;
+            ControlMessage("resize", status.str());
+        }
+    }
+
+private:
+    /* Convert "IE"/JavaScript keycode to X11 KeySym,
+     * see http://unixpapa.com/js/key.html */
+    /* FIXME: We might want to use an array instead... */
+    uint16_t KeyCodeToKeySym(uint32_t code) {
+        if (code >= 65 && code <= 90) /* A to Z */
+            return code+32;
+        if (code >= 48 && code <= 57) /* 0 to 9 */
+            return code;
+        if (code >= 96 && code <= 105) /* KP 0 to 9 */
+            return code-96+0xffb0;
+        if (code >= 112 && code <= 123) /* F1-F12 */
+            return code-112+0xffbe;
+
+        switch(code) {
+        case 8: return 0xff08;
+        case 9: return 0xff09;
+        case 12: return 0xff9d; // num 5
+        case 13: return 0xff0d;
+        case 16: return 0xffe1; // shift
+        case 17: return 0xffe3; // control
+        case 18: return 0xffe9; // alt
+        case 19: return 0xff13; // pause
+        case 20: return 0xffe5;
+        case 27: return 0xff1b;
+        case 32: return 0x20; // space
+        case 33: return 0xff55; // page up
+        case 34: return 0xff56; // page down
+        case 35: return 0xff57; // end
+        case 36: return 0xff50; // home
+        case 37: return 0xff51; // left
+        case 38: return 0xff52; // top
+        case 39: return 0xff53; // right
+        case 40: return 0xff54; // bottom
+        case 42: return 0xff61; // print screen
+        case 45: return 0xff63; // insert
+        case 46: return 0xffff; // delete
+        case 91: return 0xffeb; // super
+        case 106: return 0xffaa; // num multiply
+        case 107: return 0xffab; // num plus
+        case 109: return 0xffad; // num minus
+        case 110: return 0xffae; // num dot
+        case 111: return 0xffaf; // num divide
+        case 144: return 0xff7f; // num lock (maybe better not to pass through???)
+        case 145: return 0xff14; // scroll lock
+        case 186: return 0x3b;
+        case 187: return 0x3d;
+        case 188: return 0x2c;
+        case 189: return 0x2d;
+        case 190: return 0x2e;
+        case 191: return 0x2f;
+        case 192: return 0x60;
+        case 219: return 0x5b;
+        case 220: return 0x5c;
+        case 221: return 0x5d;
+        case 222: return 0x27;
+        }
+
+        return 0x00;
+    }
+
+    /* Send a mouse click */
+    void SendClick(int button, int down) {
+        struct mouseclick* mc;
+        pp::VarArrayBuffer array_buffer(sizeof(*mc));
+        mc = static_cast<struct mouseclick*>(array_buffer.Map());
+        mc->type = 'C';
+        mc->down = down;
+        mc->button = button;
+        array_buffer.Unmap();
+        SocketSend(array_buffer);
+    }
+
+    /* Request the next framebuffer grab */
     void RequestScreen() {
-        if (screen_flying_) {
+        if (!connected_) {
+            LogMessage(-1, "!connected");
             return;
         }
 
+        /* FIXME: This should not been needed... */
+        if (screen_flying_) {
+            LogMessage(-1, "Screen flying");
+            return;
+        }
         screen_flying_ = true;
 
         struct screen* s;
@@ -527,71 +539,31 @@ private:
         SocketSend(array_buffer);
     }
 
+    /* Done waiting (after a no-update screen reply was received) */
     void OnWaitEnd(int32_t) {
-        OnFlush(99);
-    }
-
-    void OnFlush(int32_t param) {
-        LogMessage(5, "OnFlush");
-
-        if (param != 99)
-            AllocateImage(false);
+        LogMessage(5, "OnWaitEnd");
 
         if (connected_) {
             RequestScreen();
         } 
-# if 0
-else {
-            if (k_ < 5) {
-                uint32_t* data = static_cast<uint32_t*>(image_data_->data());
-                uint32_t totalsize = size_.width() * size_.height();
-                for (int i = 0; i < totalsize; i++) {
-                    data[i] = 0xDEADBEEF;
-                }
-
-                std::stringstream status;
-                status << "DEADBEEF: " << std::hex << (unsigned long long)data;
-                LogMessage(0, status.str());
-            }
-            /* TODO: Blank image */
-            OnFrameReady(0);
-        }
-#endif
     }
 
-    void Paint() {
-        /* FIXME: We probably want to switch to PaintImageData on partial
-         * updates. */
+    /* Last frame is displayed (Vsync-ed) */
+    void OnFlush(int32_t param) {
+        LogMessage(5, "OnFlush");
 
-        // Using Graphics2D::ReplaceContents is the fastest way to update the
-        // entire canvas every frame. According to the documentation:
-        //
-        //   Normally, calling PaintImageData() requires that the browser copy
-        //   the pixels out of the image and into the graphics context's backing
-        //   store. This function replaces the graphics context's backing store
-        //   with the given image, avoiding the copy.
-        //
-        //   In the case of an animation, you will want to allocate a new image for
-        //   the next frame. It is best if you wait until the flush callback has
-        //   executed before allocating this bitmap. This gives the browser the
-        //   option of caching the previous backing store and handing it back to
-        //   you (assuming the sizes match). In the optimal case, this means no
-        //   bitmaps are allocated during the animation, and the backing store and
-        //   "front buffer" (which the module is painting into) are just being
-        //   swapped back and forth.
-        //
-        context_.ReplaceContents(image_data_);
-        //context_.PaintImageData(*image_data_, pp::Point(0, 0));
+        PP_ImageDataFormat format = pp::ImageData::GetNativeImageDataFormat();
+        image_data_ = new pp::ImageData(this, format, size_, false);
 
-        /* TODO: I don't think that's correct */
-        image_data_->detach();
+        RequestScreen();
     }
     
-    void OnFrameReady(int32_t) {
-        k_++;
+    /* Paint the next frame */
+    void Paint() {
         PP_Time time_ = pp::Module::Get()->core()->GetTime();
         double cfps = 1.0/(time_-lasttime_);
         lasttime_ = time_;
+        k_++;
 
         avgfps_ = 0.9*avgfps_ + 0.1*cfps;
         if ((k_ % ((int)avgfps_+1)) == 0) {
@@ -609,9 +581,10 @@ else {
             return;
         }
 
-        //if (k_ > 100) return;
+        // Using Graphics2D::ReplaceContents is the fastest way to update the
+        // entire canvas every frame.
+        context_.ReplaceContents(image_data_);
 
-        Paint();
         // Store a reference to the context that is being flushed; this ensures
         // the callback is called, even if context_ changes before the flush
         // completes.
@@ -620,16 +593,16 @@ else {
             callback_factory_.NewCallback(&CriatInstance::OnFlush));
     }
 
+private:
     pp::CompletionCallbackFactory<CriatInstance> callback_factory_;
     pp::Graphics2D context_;
     pp::Graphics2D flush_context_;
     pp::Size size_;
 
     pp::ImageData* image_data_;
-    size_t image_pos_;
     int k_;
 
-    pp::WebSocket* websocket_;
+    pp::WebSocket websocket_;
     bool connected_;
     bool screen_flying_;
     pp::Var receive_var_;
