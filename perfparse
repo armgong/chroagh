@@ -1,0 +1,51 @@
+#!/bin/sh
+
+FILE=$1
+PREFIX=${FILE%.log}
+#echo $PREFIX
+
+awk '
+    BEGIN { first=1; state=0; count=0; skip=30 }
+    first { print > "'$PREFIX.head'"; first=0 }
+    /^%Cpu/ {
+        if (count >= skip) {
+            user += $2;
+            sys += $4;
+            nice += $6;
+            idle += $8;
+            waste += $10;
+            state = 1
+        }
+        count++ }
+    state == 2 {
+        pid=$1
+        if (pid !~ /[0-9]+/) {
+           state = 0;
+           next
+        }
+        cpu=$9
+        if (cpu > 0.0)
+            cpus[pid] += cpu
+        if (!names[pid]) {
+           name = ""
+           for (i = 12; i <= NF; i++) name = name " " $i
+           names[pid] = name
+        }
+    }
+    state == 1 && $1 == "PID" {
+        state = 2
+    }
+    END {
+        count -= skip
+        print user/count " us, " sys/count " sy, " nice/count " ni, " idle/count " id, " waste/count " wa" > "'$PREFIX.head'"
+        print "=====" > "'$PREFIX.head'"
+        for (key in cpus) {
+            avgcpu = cpus[key]/count
+            if (avgcpu > 0.5)
+                print avgcpu " " names[key]
+        }
+    }
+' "$FILE" | sort -nr > "$PREFIX.tail"
+
+cat "$PREFIX.head" "$PREFIX.tail" > "$PREFIX.parsed.log"
+rm "$PREFIX.head" "$PREFIX.tail"
