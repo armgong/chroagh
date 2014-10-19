@@ -31,11 +31,25 @@ FETCHDIRDB="$tmp/db"
 FETCHDIRPKG="$tmp/packages"
 BOOTSTRAPCHROOT="$tmp/$subdir"
 
-curlparams="--retry 3"
+curlparams=""
 # Display progress bar only if we are outputing to a tty
 if [ -t 2 ]; then
     curlparams="$curlparams -#"
 fi
+
+# Try to download a file, at most 10 times (same as deboostrap)
+curlretry() {
+    try=0
+    while [ $try -lt 10 ]; do
+        try="$((try+1))"
+        if curl $curlparams "$@"; then
+            return 0
+        fi
+        ret=$?
+        sleep 1
+    done
+    return "$ret"
+}
 
 mkdir -p "$FETCHDIRDB" "$FETCHDIRPKG" "$BOOTSTRAPCHROOT"
 
@@ -45,7 +59,7 @@ for REPO in $REPOS; do
     echo "Fetching $REPO..." 1>&2
     MIRRORBASE="`echo $MIRROR | sed -e "s/\\$repo/$REPO/" \
                                     -e "s/\\$arch/$ARCH/"`"
-    curl $curlparams -o "$FETCHDIRDB/$REPO.db" "$MIRRORBASE/$REPO.db" 1>&2
+    curlretry -o "$FETCHDIRDB/$REPO.db" "$MIRRORBASE/$REPO.db" 1>&2
     # Create package list in this format: $REPO:package-version
     tar tf "$FETCHDIRDB/$REPO.db" \
         | sed -n 's|^\(.*\)/$|'"$REPO:"'\1|p' >> "$LIST"
@@ -101,8 +115,9 @@ while [ -n "$missing" ]; do
             FILE="`getdbfield "$REPO" "$PKGVER" "desc" "FILENAME"`"
             MIRRORBASE="`echo $MIRROR | sed -e "s/\\$repo/$REPO/" \
                                             -e "s/\\$arch/$ARCH/"`"
-            curl $curlparams -o "$FETCHDIRPKG/$FILE" "$MIRRORBASE/$FILE" 1>&2
-            tar --warning=no-unknown-keyword -xkf "$FETCHDIRPKG/$FILE" -C "$BOOTSTRAPCHROOT"
+            curlretry -o "$FETCHDIRPKG/$FILE" "$MIRRORBASE/$FILE" 1>&2
+            tar --warning=no-unknown-keyword -xkf "$FETCHDIRPKG/$FILE" \
+                -C "$BOOTSTRAPCHROOT"
 
             # Get list of dependencies (ignore versions)
             ndep="`getdbfield "$REPO" "$PKGVER" "depends" "DEPENDS" \
