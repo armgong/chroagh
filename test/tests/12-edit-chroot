@@ -65,6 +65,8 @@ fails host enter-chroot -n "$release" true
 # Restore the chroot
 host edit-chroot -y -f "$BACKUPDIR/$release.tar" -r "$release"
 host enter-chroot -n "$release" true
+# Verify croutonversion outputs correct information
+host edit-chroot -l $release | tee /dev/stderr | passes grep "^release: $release"
 rm "$BACKUPDIR/$release.tar"
 
 # Backup a chroot with automatic naming
@@ -77,6 +79,16 @@ fails host enter-chroot -n "$release" true
 # Restore the chroot with automatically named tarball
 host edit-chroot -y -f "$BACKUPDIR" -r "$release"
 host enter-chroot -n "$release" true
+
+# Delete it
+host delete-chroot -y "$release"
+fails host enter-chroot -n "$release" true
+
+# Restore the chroot using the crouton installer (without update)
+crouton -f "$BACKUPDIR" -n "$release"
+host enter-chroot -n "$release" true
+# Verify croutonversion outputs correct information
+host edit-chroot -l $release | tee /dev/stderr | passes grep "^release: $release"
 rm "$BACKUPDIR"/*.tar.*
 
 # Backing up a chroot fails if there if not enough disk space
