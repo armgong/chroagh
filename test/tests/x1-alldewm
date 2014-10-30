@@ -13,7 +13,7 @@ for target in xfce; do
     snapshot "$release" x11
 
     # Install snapshot tools
-    echo 'install --minimal imagemagick pngquant xautomation' | \
+    echo 'install --minimal imagemagick xautomation' | \
         crouton -T -U -n "$release"
 
     ret=0
@@ -52,8 +52,7 @@ keydown Return;sleep 1;keyup Return";;
         echo "'"$xte"'" | tr ";" "\n" | xte
         sleep 30
         # Snapshot!
-        import -window root PNG:- | \
-            pngquant --nofs --quality 0-20 - > ~/"screenshot-'"$target"'.png"'
+        import -window root -quality 75 ~/"screenshot-'"$target"'.jpg"'
 
     mv "$PREFIX/chroots/$release/home/test/screenshot-$target.png" \
         "$file-x11-$target.png"
