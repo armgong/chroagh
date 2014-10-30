@@ -51,7 +51,7 @@ fi
         import -window root -quality 75 ~/"screenshot-'"$target"'.jpg"'
 
     mv "$PREFIX/chroots/$release/home/test/screenshot-$target.jpg" \
-        "$file-x11-$target.jpg"
+        "$file-snapshot.jpg"
 
     host unmount-chroot -f -y "$release"
 )
