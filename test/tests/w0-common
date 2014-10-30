@@ -24,6 +24,7 @@ crouton -u -n "$release" -t "$target" || ret=$?
 if [ "$ret" -ne 0 ]; then
     if [ "$ret" -eq 99 ]; then
         log "Target $target failed on $release, as expected (unsupported combination)."
+        exit 0
     else
         log "Target $target failed on $release."
         exit "$ret"
@@ -49,11 +50,10 @@ fi
         # Snapshot!
         import -window root -quality 75 ~/"screenshot-'"$target"'.jpg"'
 
-    mv "$PREFIX/chroots/$release/home/test/screenshot-$target.png" \
-        "$file-x11-$target.png"
+    mv "$PREFIX/chroots/$release/home/test/screenshot-$target.jpg" \
+        "$file-x11-$target.jpg"
 
-    host unmount-chroot -f "$release" || true
-    host unmount-chroot -f -k "$release"
+    host unmount-chroot -f -y "$release"
 )
 
 host delete-chroot -y "$release"
