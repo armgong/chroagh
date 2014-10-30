@@ -121,7 +121,7 @@ logto() {
                 echo Running trap...
                 if [ -d '$PREFIX/chroots' ]; then
                     sh -e '$SCRIPTDIR/host-bin/unmount-chroot' \
-                        -a -y -c '$PREFIX/chroots'
+                        -a -f -y -c '$PREFIX/chroots'
                 fi
                 # Kill any leftover subprocess
                 pkill -P '$pid'
