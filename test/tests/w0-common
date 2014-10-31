@@ -16,7 +16,7 @@ fi
 snapshot "$release" x11
 
 # Install snapshot tools + xte
-echo 'install --minimal imagemagick xautomation' | \
+echo 'install --minimal x11-apps imagemagick xautomation' | \
     crouton -T -U -n "$release"
 
 ret=0
@@ -35,7 +35,7 @@ fi
     vtlock
     host "$startcmd" -b -n "$release"
     # FIXME: Wait for croutoncycle to change?
-    sleep 30
+    sleep 60
     host enter-chroot -n "$release" sh -exc '
         # Test croutoncycle as a bonus
         export DISPLAY="`croutoncycle display`"
@@ -45,10 +45,10 @@ fi
         fi
         if [ -n "'"$xte"'" ]; then
             echo "'"$xte"'" | tr ";" "\n" | xte
-            sleep 30
+            sleep 60
         fi
         # Snapshot!
-        import -window root -quality 75 ~/"screenshot-'"$target"'.jpg"'
+        xwd -root | convert -quality 75 xwd:- ~/"screenshot-'"$target"'.jpg"'
 
     mv "$PREFIX/chroots/$release/home/test/screenshot-$target.jpg" \
         "$file-snapshot.jpg"
