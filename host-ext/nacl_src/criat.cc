@@ -12,6 +12,7 @@
 
 #include <sstream>
 #include <unordered_map>
+#include <cstdio>
 
 #include "ppapi/cpp/graphics_2d.h"
 #include "ppapi/cpp/image_data.h"
@@ -97,27 +98,35 @@ public:
 
 private:
     /* Sends a status message to Javascript */
-    void StatusMessage(std::string str) {
-        ControlMessage("status", str);
+    template<typename... Args>
+    inline void StatusMessage(std::string format, Args&&... args) {
+        ControlMessage("status", format, args...);
     }
 
     /* Sends a logging message to Javascript */
-    void LogMessage(int level, std::string str) {
+    template<typename... Args>
+    inline void LogMessage(int level, std::string format, Args&&... args) {
         if (level <= debug_) {
-            std::ostringstream status;
             double delta = 1000 *
                 (pp::Module::Get()->core()->GetTime() - lasttime_);
-            status << "(" << level << ") " << (int)delta << " " << str;
-            ControlMessage("log", status.str());
+
+            ControlMessage("log", ("(%d) %d " + format).c_str(),
+                           level, (int)delta, args...);
         }
     }
 
     /* Sends a control message to Javascript
      * Format: <type>:<str> */
-    void ControlMessage(std::string type, std::string str) {
-        std::ostringstream status;
-        status << type << ":" << str;
-        PostMessage(status.str());
+    template<typename... Args>
+    inline void ControlMessage(std::string type, std::string format, Args&&... args) {
+        char buffer[256];
+
+        /* We don't care about the return value: if buffer cannot hold the
+         * output, let it truncate... */
+        std::snprintf(buffer, sizeof(buffer),
+                      ("%s:" + format).c_str(), type.c_str(), args...);
+
+        PostMessage(buffer);
     }
 
     /** WebSocket interface **/
@@ -141,9 +150,7 @@ private:
     /* Called when WebSocket is connected (or failed to connect) */
     void OnSocketConnectCompletion(int32_t result) {
         if (result != PP_OK) {
-            std::ostringstream status;
-            status << "Connection failed (" << result << "), retrying...";
-            StatusMessage(status.str());
+            StatusMessage("Connection failed (%d), retrying...", result);
             pp::Module::Get()->core()->CallOnMainThread(1000,
                 callback_factory_.NewCallback(&CriatInstance::SocketConnect));
             return;
@@ -180,10 +187,9 @@ private:
         if (length == target)
             return true;
 
-        std::stringstream status;
-        status << "Invalid " << type << " request (" << length
-               << " != " << target << ").";
-        LogMessage(-1, status.str());
+        LogMessage(-1, "Invalid %s request (%d != %d).",
+                   type.c_str(), length, target);
+
         return false;
     }
 
@@ -194,8 +200,7 @@ private:
             return false;
         }
         if (strcmp(data, VERSION)) {
-            LogMessage(-1, "Invalid version received (" +
-                       std::string(data) + ").");
+            LogMessage(-1, "Invalid version received (%s).", data);
             return false;
         }
         connected_ = true;
@@ -241,9 +246,7 @@ private:
                 /* No cache entry, ask for data. */
                 SocketSend(pp::Var("P"), false);
             } else {
-                std::ostringstream status;
-                status << "Cursor use cache for " << (reply->cursor_serial);
-                LogMessage(2, status.str());
+                LogMessage(2, "Cursor use cache for %u.", reply->cursor_serial);
                 pp::MouseCursor::SetCursor(this, PP_MOUSECURSOR_TYPE_CUSTOM,
                                            it->second.img, it->second.hot);
             }
@@ -254,10 +257,8 @@ private:
     /* Receives and handles a cursor_reply request */
     bool SocketParseCursor(const char* data, int datalen) {
         if (datalen < sizeof(struct cursor_reply)) {
-            std::stringstream status;
-            status << "Invalid cursor_reply packet (" << datalen
-                   << " < " << sizeof(struct cursor_reply) << ").";
-            LogMessage(-1, status.str());
+            LogMessage(-1, "Invalid cursor_reply packet (%d < %d).",
+                       datalen, sizeof(struct cursor_reply));
             return false;
         }
 
@@ -268,11 +269,9 @@ private:
                        "cursor_reply"))
             return false;
 
-        std::ostringstream status;
-        status << "Cursor " << (cursor->width) << "/" << (cursor->height);
-        status << " " << (cursor->xhot) << "/" << (cursor->yhot);
-        status << " " << (cursor->cursor_serial);
-        LogMessage(0, status.str());
+        LogMessage(0, "Cursor %d/%d %d/%d %u",
+                   cursor->width, cursor->height, cursor->xhot, cursor->yhot,
+                   cursor->cursor_serial);
 
         /* Scale down if needed */
         int scale = 1;
@@ -304,19 +303,16 @@ private:
         if (!CheckSize(datalen, sizeof(struct resolution), "resolution"))
             return false;
         struct resolution* r = (struct resolution*)data;
-        std::ostringstream newres;
-        newres << (r->width/scale_) << "/" << (r->height/scale_);
         /* Tell Javascript so that it can center us on the page */
-        ControlMessage("resize", newres.str());
+        ControlMessage("resize", "%d/%d",
+                       (int)(r->width/scale_), (int)(r->height/scale_));
         force_refresh_ = true;
         return true;
     }
 
     /* Called when a frame is received from WebSocket server */
     void OnSocketReceiveCompletion(int32_t result) {
-        std::stringstream status;
-        status << "ReadCompletion: " << result << ".";
-        LogMessage(5, status.str());
+        LogMessage(5, "ReadCompletion: %d.", result);
 
         if (result == PP_ERROR_INPROGRESS) {
             LogMessage(0, "Receive error INPROGRESS (should not happen).");
@@ -340,11 +336,10 @@ private:
             pp::VarArrayBuffer array_buffer(receive_var_);
             data = static_cast<char*>(array_buffer.Map());
             datalen = array_buffer.ByteLength();
-            std::stringstream status;
-            status << "receive (binary): " << data[0];
-            LogMessage(data[0] == 'S' ? 3 : 2, status.str());
+            LogMessage(data[0] == 'S' ? 3 : 2, "receive (binary): %c", data[0]);
         } else {
-            LogMessage(3, "receive (text): " + receive_var_.AsString());
+            LogMessage(3, "receive (text): %s",
+                       receive_var_.AsString().c_str());
             std::string str = receive_var_.AsString();
             data = str.c_str();
             datalen = str.length();
@@ -369,9 +364,7 @@ private:
                 if (SocketParseResolution(data, datalen)) return;
                 break;
             default: {
-                std::stringstream status;
-                status << "Invalid request. First char: " << (int)data[0];
-                LogMessage(-1, status.str());
+                LogMessage(-1, "Invalid request. First char: %d", data[0]);
                 /* Fall-through: disconnect. */
             }
             }
@@ -432,19 +425,12 @@ public:
             uint32_t keysym = KeyCodeToKeySym(keycode, keystr);
             bool down = event.GetType() == PP_INPUTEVENT_TYPE_KEYDOWN;
 
-            std::ostringstream status;
-            status << "Key " << (down ? "DOWN" : "UP");
-            status << ": C:" << keystr;
-            status << "/KC:" << std::hex << keycode;
-            status << "/KS:" << std::hex << keysym;
+            LogMessage((keysym == 0) ? 0 : 1, "Key %s: C:%d/KC:%x/KS:%x%s",
+                       (down ? "DOWN" : "UP"), keystr.c_str(), keycode, keysym,
+                       (keysym == 0) ? " (KEY UNKNOWN!)" : "");
 
-            if (keysym == 0) {
-                status << " (KEY UNKNOWN!)";
-                LogMessage(0, status.str());
+            if (keysym == 0)
                 return PP_TRUE;
-            }
-
-            LogMessage(1, status.str());
 
             if (keycode == 183) { /* Fullscreen => toggle fullscreen */
                 if (!down)
@@ -483,36 +469,30 @@ public:
                 mouse_pos_ = mouse_event_pos;
             }
 
-            std::ostringstream status;
-            status << "Mouse " << mouse_event_pos.x() << "x"
-                               << mouse_event_pos.y();
-
             if (event.GetType() != PP_INPUTEVENT_TYPE_MOUSEMOVE) {
-                status << " " << (down ? "DOWN" : "UP");
-                status << " " << (mouse_event.GetButton());
+                LogMessage(2, "Mouse %s button %d %dx%d",
+                           (down ? "DOWN" : "UP"), mouse_event.GetButton(),
+                           mouse_event_pos.x(), mouse_event_pos.y());
 
                 /* SendClick calls SocketSend, which flushes the mouse position
                  * before sending the click event.
                  * Also, Javascript button numbers are 0-based (left=0), while
                  * X11 numbers are 1-based (left=1). */
                 SendClick(mouse_event.GetButton()+1, down ? 1 : 0);
+            } else {
+                LogMessage(3, "Mouse MOVE %dx%d",
+                           mouse_event_pos.x(), mouse_event_pos.y());
             }
-
-            LogMessage(3, status.str());
         } else if (event.GetType() == PP_INPUTEVENT_TYPE_WHEEL) {
             pp::WheelInputEvent wheel_event(event);
 
             mouse_wheel_x += wheel_event.GetDelta().x();
             mouse_wheel_y += wheel_event.GetDelta().y();
 
-            std::ostringstream status;
-            status << "MWd " << wheel_event.GetDelta().x() << "x"
-                             << wheel_event.GetDelta().y();
-            status << "MWt " << wheel_event.GetTicks().x() << "x"
-                             << wheel_event.GetTicks().y();
-            status << "acc " << mouse_wheel_x << "x"
-                             << mouse_wheel_y;
-            LogMessage(2, status.str());
+            LogMessage(2, "Mouse wheel delta %dx%d, ticks %dx%d, acc %dx%d",
+                       wheel_event.GetDelta().x(), wheel_event.GetDelta().y(),
+                       wheel_event.GetTicks().x(), wheel_event.GetTicks().y(),
+                       mouse_wheel_x, mouse_wheel_y);
 
             while (mouse_wheel_x <= -16) {
                 SendClick(6, 1); SendClick(6, 0);
@@ -539,17 +519,14 @@ public:
 
             int count = touch_event.GetTouchCount(
                 PP_TOUCHLIST_TYPE_CHANGEDTOUCHES);
-            std::ostringstream status;
-            status << "TOUCH " << count;
+            LogMessage(0, "TOUCH %d", count);
             for (int i = 0; i < count; i++) {
                 pp::TouchPoint tp = touch_event.GetTouchByIndex(
                     PP_TOUCHLIST_TYPE_CHANGEDTOUCHES, i);
-                status << std::endl << tp.id() << "//"
-                       << tp.position().x() << "/" << tp.position().y()
-                       << "@" << tp.pressure();
+                LogMessage(0, "  %d, %dx%d, %d", tp.id(),
+                           tp.position().x(), tp.position().y(),
+                           tp.pressure());
             }
-
-            LogMessage(0, status.str());
         } /* FIXME: Handle IMEInputEvents too */
 
         return PP_TRUE;
@@ -565,10 +542,8 @@ private:
         pp::Size new_size = pp::Size(view_rect_.width()  * scale_,
         			     view_rect_.height() * scale_);
 
-        std::ostringstream status;
-        status << "InitContext " << new_size.width() << "x" << new_size.height()
-               << "s" << scale_;
-        LogMessage(0, status.str());
+        LogMessage(0, "InitContext %dx%d scale %f",
+                   new_size.width(), new_size.height(), scale_);
 
         const bool kIsAlwaysOpaque = true;
         context_ = pp::Graphics2D(this, new_size, kIsAlwaysOpaque);
@@ -585,9 +560,7 @@ private:
 
     /* Requests the server for a resolution change. */
     void ChangeResolution(int width, int height) {
-        std::ostringstream status;
-        status << "Asked for resolution " << width << "x" << height;
-        LogMessage(1, status.str());
+        LogMessage(1, "Asked for resolution %dx%d", width, height);
 
         if (connected_) {
             struct resolution* r;
@@ -599,9 +572,8 @@ private:
             array_buffer.Unmap();
             SocketSend(array_buffer, false);
         } else { /* Just assume we can take up the space */
-            std::ostringstream status;
-            status << width/scale_ << "/" << height/scale_;
-            ControlMessage("resize", status.str());
+            ControlMessage("resize", "%d/%d",
+                           (int)(width/scale_), (int)(height/scale_));
         }
     }
 
@@ -732,9 +704,7 @@ private:
      * (e.g. when changing frame rate), since we have no way of cancelling
      * scheduled callbacks. */
     void RequestScreen(int32_t token) {
-        std::stringstream status;
-        status << "OnWaitEnd " << token << "/" << request_token_;
-        LogMessage(3, status.str());
+        LogMessage(3, "OnWaitEnd %d/%d", token, request_token_);
 
         if (!connected_) {
             LogMessage(-1, "!connected");
@@ -785,14 +755,12 @@ private:
 
         avgfps_ = 0.9*avgfps_ + 0.1*cfps;
         if ((k_ % ((int)avgfps_+1)) == 0 || debug_ >= 1) {
-            std::stringstream ss;
-            ss << "fps: " << (int)(cfps+0.5)
-               << " (" << (int)(avgfps_+0.5) << ")"
-               << " delay: " << (int)(delay*1000)
-               << " deltat: " << (int)(deltat*1000)
-               << " target fps: " << (int)(target_fps_)
-               << " " << size_.width() << "x" << size_.height();
-            LogMessage(0, ss.str());
+            LogMessage(0,
+                       "fps: %d (%d) delay: %d deltat: %d target fps: %d %dx%d",
+                       (int)(cfps+0.5), (int)(avgfps_+0.5),
+                       (int)(delay*1000), (int)(deltat*1000),
+                       (int)(target_fps_),
+                       size_.width(), size_.height());
         }
 
         LogMessage(5, "OnFlush");
