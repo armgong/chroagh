@@ -544,8 +544,10 @@ public:
             std::ostringstream status;
             int count = touch_event.GetTouchCount(
                 PP_TOUCHLIST_TYPE_CHANGEDTOUCHES);
-            status << "TOUCH " << count;
+            status << "TOUCH " << count << " ";
 
+            /* We only care about the first touch (when count goes from 0
+             * to 1), and record the id in touch_id_. */
             switch (event.GetType()) {
             case PP_INPUTEVENT_TYPE_TOUCHSTART:
                 if (touch_count_ == 0 && count == 1) {
@@ -566,6 +568,9 @@ public:
                 break;
             }
 
+            /* FIXME: Is there a better way to figure out if a touch id
+             * is present? (GetTouchById is unhelpful and returns a TouchPoint
+             * full of zeros, which may well be valid...) */
             bool has_tpid = false;
             for (int i = 0; i < count; i++) {
                 pp::TouchPoint tp = touch_event.GetTouchByIndex(
@@ -578,9 +583,6 @@ public:
             }
             LogMessage(2, status.str());
 
-            /* FIXME: Is there a better way to figure out if a touch id
-             * is present? (GetTouchById is unhelpful and returns a TouchPoint
-             * full of zeros, which may be valid...) */
             if (has_tpid) {
                 std::ostringstream status;
                 /* Emulate a click: only care about touch at id touch_id_ */
@@ -599,7 +601,7 @@ public:
                 }
 
                 status << "Emulated mouse ";
-                
+
                 if (event.GetType() != PP_INPUTEVENT_TYPE_TOUCHMOVE) {
                     status << (down ? "DOWN" : "UP");
                     SendClick(1, down ? 1 : 0);
@@ -959,8 +961,8 @@ private:
     bool pending_super_l_ = false;
 
     /* Touch */
-    int touch_count_; /* Number of points currently pressed */
-    int touch_id_; /* First touch id */
+    int touch_count_;  /* Number of points currently pressed */
+    int touch_id_;  /* First touch id */
 
     /* Performance metrics */
     PP_Time lasttime_;
