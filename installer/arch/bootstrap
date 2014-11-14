@@ -90,18 +90,12 @@ bootstrappkg=""
 while [ -n "$missing" ]; do
     nextmissing=""
     for PACKAGE in $missing; do
-        inst='y'
-        # Do not install if already installed, or in ignore list
+        # Do not install if already installed
         for IPKG in $installed; do
             if [ "$IPKG" = "$PACKAGE" ]; then
-                inst='n'
-                break
+                continue 2
             fi
         done
-
-        if [ "$inst" = 'n' ]; then
-            break
-        fi
 
         echo "Downloading and installing $PACKAGE..." 1>&2
         PKG="`grep ":$PACKAGE-[0-9]" "$LIST" | head -n 1`"
