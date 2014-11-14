@@ -54,7 +54,6 @@ elif [ "${DISTROAKA:-"$DISTRO"}" = 'arch' ]; then
     if [ ! -e /etc/sudoers.d/00-wheel ]; then
         echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/00-wheel
     fi
-    groupadd -r -f plugdev
 fi
 
 username="`awk -F: '$3==1000{print $1; exit}' '/etc/passwd'`"
