@@ -91,7 +91,6 @@ END
     apt-get -y --force-yes --no-install-recommends dist-upgrade -f
 fi
 
-#FIXME(arch): xorg installs too many packages
 install xorg arch=,dmz-cursor-theme arch=ttf-dejavu
 
 if [ "${DISTROAKA:-"$DISTRO"}" = 'debian' ]; then
@@ -100,7 +99,6 @@ if [ "${DISTROAKA:-"$DISTRO"}" = 'debian' ]; then
 fi
 
 # Xorg 1.16 wants to run as normal user, which breaks crouton
-# FIXME: Probably also needed for jessie+sid
 if [ "${DISTROAKA:-"$DISTRO"}" = 'arch' ]; then
     cat >/etc/X11/Xwrapper.config <<EOF
 allowed_users=anybody
