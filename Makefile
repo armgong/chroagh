@@ -53,6 +53,9 @@ $(EXTTARGET): $(EXTSOURCES) Makefile
 $(SRCTARGETS): src/$(patsubst crouton%,src/%.c,$@) Makefile
 	gcc -g -Wall -Werror $(patsubst crouton%,src/%.c,$@) $($@_LIBS) -o $@
 
+croutonfreon.so: src/freon.c Makefile
+	gcc -g -Wall -Werror -shared -fPIC -ldl src/freon.c -o croutonfreon.so
+
 extension: $(EXTTARGET)
 
 $(CONTRIBUTORS): $(GITHEAD) $(CONTRIBUTORSSED)
