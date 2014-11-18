@@ -1,0 +1,51 @@
+2014-11-14 23:45:49: BEGIN TEST w2-gnome.precise.1
+5 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/precise-x11-snapshot.tar.gz -n precise
+109 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/precise-x11-snapshot.tar.gz -n precise
+109 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w2-gnome.precise.1.F8Z/target.YQ2Efl -U -n precise
+109 [t] BEGIN /usr/local/test-20141114160443 prefix/w2-gnome.precise.1.F8Z/target.YQ2Efl CONTENTS
+109 [t] REQUIRES=''
+109 [t] . "${TARGETSDIR:="$PWD"}/common"
+109 [t] ### Append to prepare.sh:
+109 [t] set -x
+109 [t] install --minimal x11-apps imagemagick xautomation
+109 [t] 
+109 [t] set +x
+109 [t] END /usr/local/test-20141114160443 prefix/w2-gnome.precise.1.F8Z/target.YQ2Efl CONTENTS
+180 [t] PASS: crouton -U -n precise
+180 [t] LAUNCHING: crouton -u -n precise -t gnome
+1148 [t] PASS: crouton -u -n precise -t gnome
+1148 [t] LAUNCHING: startgnome -b -n precise
+1149 [t] PASS: startgnome -b -n precise
+1209 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+1209 [t]         # Test croutoncycle as a bonus
+1209 [t]         export DISPLAY="`croutoncycle display`"
+1209 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1209 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1209 [t]             exit 1
+1209 [t]         fi
+1209 [t]         if [ -n "" ]; then
+1209 [t]             echo "" | tr ";" "
+1209 [t] " | xte
+1209 [t]             sleep 60
+1209 [t]         fi
+1209 [t]         # Snapshot!
+1209 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1215 [t] PASS: enter-chroot -n precise sh -exc 
+1215 [t]         # Test croutoncycle as a bonus
+1215 [t]         export DISPLAY="`croutoncycle display`"
+1215 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1215 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1215 [t]             exit 1
+1215 [t]         fi
+1215 [t]         if [ -n "" ]; then
+1215 [t]             echo "" | tr ";" "
+1215 [t] " | xte
+1215 [t]             sleep 60
+1215 [t]         fi
+1215 [t]         # Snapshot!
+1215 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1215 [t] LAUNCHING: unmount-chroot -f -y precise
+1230 [t] PASS: unmount-chroot -f -y precise
+1230 [t] LAUNCHING: delete-chroot -y precise
+1254 [t] PASS: delete-chroot -y precise
+1255 [t] TEST PASSED: w2-gnome.precise.1 finished with exit code 0

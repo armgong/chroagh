@@ -1,0 +1,55 @@
+2014-11-14 15:15:43: BEGIN TEST w6-xbmc.trusty.0
+0 [t] LAUNCHING: crouton -r trusty -f /usr/local/test-20141114151541 prefix/trusty-bootstrap.tar.gz -d
+116 [t] PASS: crouton -r trusty -f /usr/local/test-20141114151541 prefix/trusty-bootstrap.tar.gz -d
+116 [t] LAUNCHING: crouton -f /usr/local/test-20141114151541 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+862 [t] PASS: crouton -f /usr/local/test-20141114151541 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+862 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114151541 prefix/trusty-x11-snapshot.tar.gz trusty
+983 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114151541 prefix/trusty-x11-snapshot.tar.gz trusty
+983 [t] LAUNCHING: crouton -T /usr/local/test-20141114151541 prefix/w6-xbmc.trusty.0.NKL/target.e6Y7xj -U -n trusty
+983 [t] BEGIN /usr/local/test-20141114151541 prefix/w6-xbmc.trusty.0.NKL/target.e6Y7xj CONTENTS
+983 [t] REQUIRES=''
+983 [t] . "${TARGETSDIR:="$PWD"}/common"
+983 [t] ### Append to prepare.sh:
+983 [t] set -x
+983 [t] install --minimal x11-apps imagemagick xautomation
+983 [t] 
+983 [t] set +x
+983 [t] END /usr/local/test-20141114151541 prefix/w6-xbmc.trusty.0.NKL/target.e6Y7xj CONTENTS
+1025 [t] PASS: crouton -U -n trusty
+1025 [t] LAUNCHING: crouton -u -n trusty -t xbmc
+1210 [t] PASS: crouton -u -n trusty -t xbmc
+1210 [t] LAUNCHING: startxbmc -b -n trusty
+1210 [t] PASS: startxbmc -b -n trusty
+1270 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+1270 [t]         # Test croutoncycle as a bonus
+1270 [t]         export DISPLAY="`croutoncycle display`"
+1270 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1270 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1270 [t]             exit 1
+1270 [t]         fi
+1270 [t]         if [ -n "" ]; then
+1270 [t]             echo "" | tr ";" "
+1270 [t] " | xte
+1270 [t]             sleep 60
+1270 [t]         fi
+1270 [t]         # Snapshot!
+1270 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+1271 [t] PASS: enter-chroot -n trusty sh -exc 
+1271 [t]         # Test croutoncycle as a bonus
+1271 [t]         export DISPLAY="`croutoncycle display`"
+1271 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1271 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1271 [t]             exit 1
+1271 [t]         fi
+1271 [t]         if [ -n "" ]; then
+1271 [t]             echo "" | tr ";" "
+1271 [t] " | xte
+1271 [t]             sleep 60
+1271 [t]         fi
+1271 [t]         # Snapshot!
+1271 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+1271 [t] LAUNCHING: unmount-chroot -f -y trusty
+1284 [t] PASS: unmount-chroot -f -y trusty
+1284 [t] LAUNCHING: delete-chroot -y trusty
+1290 [t] PASS: delete-chroot -y trusty
+1291 [t] TEST PASSED: w6-xbmc.trusty.0 finished with exit code 0

@@ -1,0 +1,52 @@
+2014-11-14 23:05:56: BEGIN TEST w2-gnome.jessie.1
+3 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/jessie-x11-snapshot.tar.gz -n jessie
+127 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/jessie-x11-snapshot.tar.gz -n jessie
+127 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w2-gnome.jessie.1.lZb/target.zvJV7C -U -n jessie
+127 [t] BEGIN /usr/local/test-20141114160443 prefix/w2-gnome.jessie.1.lZb/target.zvJV7C CONTENTS
+127 [t] REQUIRES=''
+127 [t] . "${TARGETSDIR:="$PWD"}/common"
+127 [t] ### Append to prepare.sh:
+127 [t] set -x
+127 [t] install --minimal x11-apps imagemagick xautomation
+127 [t] 
+127 [t] set +x
+127 [t] END /usr/local/test-20141114160443 prefix/w2-gnome.jessie.1.lZb/target.zvJV7C CONTENTS
+207 [t] PASS: crouton -U -n jessie
+207 [t] LAUNCHING: crouton -u -n jessie -t gnome
+2148 [t] PASS: crouton -u -n jessie -t gnome
+2148 [t] Waiting for VT lock...
+2176 [t] LAUNCHING: startgnome -b -n jessie
+2178 [t] PASS: startgnome -b -n jessie
+2238 [t] LAUNCHING: enter-chroot -n jessie sh -exc 
+2238 [t]         # Test croutoncycle as a bonus
+2238 [t]         export DISPLAY="`croutoncycle display`"
+2238 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2238 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2238 [t]             exit 1
+2238 [t]         fi
+2238 [t]         if [ -n "" ]; then
+2238 [t]             echo "" | tr ";" "
+2238 [t] " | xte
+2238 [t]             sleep 60
+2238 [t]         fi
+2238 [t]         # Snapshot!
+2238 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+2245 [t] PASS: enter-chroot -n jessie sh -exc 
+2245 [t]         # Test croutoncycle as a bonus
+2245 [t]         export DISPLAY="`croutoncycle display`"
+2245 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2245 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2245 [t]             exit 1
+2245 [t]         fi
+2245 [t]         if [ -n "" ]; then
+2245 [t]             echo "" | tr ";" "
+2245 [t] " | xte
+2245 [t]             sleep 60
+2245 [t]         fi
+2245 [t]         # Snapshot!
+2245 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+2245 [t] LAUNCHING: unmount-chroot -f -y jessie
+2339 [t] PASS: unmount-chroot -f -y jessie
+2339 [t] LAUNCHING: delete-chroot -y jessie
+2390 [t] PASS: delete-chroot -y jessie
+2392 [t] TEST PASSED: w2-gnome.jessie.1 finished with exit code 0

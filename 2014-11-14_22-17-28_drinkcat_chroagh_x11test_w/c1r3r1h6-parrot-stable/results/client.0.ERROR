@@ -1,0 +1,4 @@
+11/14 16:41:53.286 ERROR|base_utils:0238| [stderr]   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+11/14 16:41:53.288 ERROR|base_utils:0238| [stderr]                                  Dload  Upload   Total   Spent    Left  Speed
+11/14 16:41:53.291 ERROR|base_utils:0238| [stderr]   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100     7  100     7    0     0   1254      0 --:--:-- --:--:-- --:--:--  1400
+11/15 02:58:03.372 ERROR|  parallel:0026| child process failed

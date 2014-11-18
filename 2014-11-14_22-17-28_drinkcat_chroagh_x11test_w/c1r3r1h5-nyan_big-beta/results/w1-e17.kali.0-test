@@ -1,0 +1,18 @@
+2014-11-14 18:30:31: BEGIN TEST w1-e17.kali.0
+9 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/kali-x11-snapshot.tar.gz -n kali
+101 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/kali-x11-snapshot.tar.gz -n kali
+101 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w1-e17.kali.0.4Sn/target.UGOvLo -U -n kali
+101 [t] BEGIN /usr/local/test-20141114151908 prefix/w1-e17.kali.0.4Sn/target.UGOvLo CONTENTS
+101 [t] REQUIRES=''
+101 [t] . "${TARGETSDIR:="$PWD"}/common"
+101 [t] ### Append to prepare.sh:
+101 [t] set -x
+101 [t] install --minimal x11-apps imagemagick xautomation
+101 [t] 
+101 [t] set +x
+101 [t] END /usr/local/test-20141114151908 prefix/w1-e17.kali.0.4Sn/target.UGOvLo CONTENTS
+153 [t] PASS: crouton -U -n kali
+153 [t] LAUNCHING: crouton -u -n kali -t e17
+160 [t] FAIL with code 99: crouton -u -n kali -t e17
+160 [t] Target e17 failed on kali, as expected (unsupported combination).
+165 [t] TEST PASSED: w1-e17.kali.0 finished with exit code 0

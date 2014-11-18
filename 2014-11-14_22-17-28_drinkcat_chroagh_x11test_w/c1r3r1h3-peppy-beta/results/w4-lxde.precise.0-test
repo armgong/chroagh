@@ -1,0 +1,55 @@
+2014-11-14 15:38:31: BEGIN TEST w4-lxde.precise.0
+5 [t] LAUNCHING: crouton -r precise -f /usr/local/test-20141114151541 prefix/precise-bootstrap.tar.gz -d
+76 [t] PASS: crouton -r precise -f /usr/local/test-20141114151541 prefix/precise-bootstrap.tar.gz -d
+76 [t] LAUNCHING: crouton -f /usr/local/test-20141114151541 prefix/precise-bootstrap.tar.gz -t x11 -n precise
+679 [t] PASS: crouton -f /usr/local/test-20141114151541 prefix/precise-bootstrap.tar.gz -t x11 -n precise
+679 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz precise
+789 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz precise
+789 [t] LAUNCHING: crouton -T /usr/local/test-20141114151541 prefix/w4-lxde.precise.0.dIv/target.wbkLYK -U -n precise
+789 [t] BEGIN /usr/local/test-20141114151541 prefix/w4-lxde.precise.0.dIv/target.wbkLYK CONTENTS
+789 [t] REQUIRES=''
+789 [t] . "${TARGETSDIR:="$PWD"}/common"
+789 [t] ### Append to prepare.sh:
+789 [t] set -x
+789 [t] install --minimal x11-apps imagemagick xautomation
+789 [t] 
+789 [t] set +x
+789 [t] END /usr/local/test-20141114151541 prefix/w4-lxde.precise.0.dIv/target.wbkLYK CONTENTS
+828 [t] PASS: crouton -U -n precise
+828 [t] LAUNCHING: crouton -u -n precise -t lxde
+1179 [t] PASS: crouton -u -n precise -t lxde
+1179 [t] LAUNCHING: startlxde -b -n precise
+1180 [t] PASS: startlxde -b -n precise
+1240 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+1240 [t]         # Test croutoncycle as a bonus
+1240 [t]         export DISPLAY="`croutoncycle display`"
+1240 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1240 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1240 [t]             exit 1
+1240 [t]         fi
+1240 [t]         if [ -n "" ]; then
+1240 [t]             echo "" | tr ";" "
+1240 [t] " | xte
+1240 [t]             sleep 60
+1240 [t]         fi
+1240 [t]         # Snapshot!
+1240 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1242 [t] PASS: enter-chroot -n precise sh -exc 
+1242 [t]         # Test croutoncycle as a bonus
+1242 [t]         export DISPLAY="`croutoncycle display`"
+1242 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1242 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1242 [t]             exit 1
+1242 [t]         fi
+1242 [t]         if [ -n "" ]; then
+1242 [t]             echo "" | tr ";" "
+1242 [t] " | xte
+1242 [t]             sleep 60
+1242 [t]         fi
+1242 [t]         # Snapshot!
+1242 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1242 [t] LAUNCHING: unmount-chroot -f -y precise
+1260 [t] PASS: unmount-chroot -f -y precise
+1260 [t] LAUNCHING: delete-chroot -y precise
+1270 [t] PASS: delete-chroot -y precise
+1271 [t] TEST PASSED: w4-lxde.precise.0 finished with exit code 0

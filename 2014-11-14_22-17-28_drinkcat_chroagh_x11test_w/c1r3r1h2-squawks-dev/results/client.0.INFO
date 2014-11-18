@@ -1,0 +1,132 @@
+11/14 15:45:25.158 INFO |       job:0184| Writing results to /usr/local/autotest/results/default
+11/14 15:45:25.478 INFO |       job:0211| START	----	----	timestamp=1416008725	localtime=Nov 14 15:45:25	
+11/14 15:45:25.515 INFO |base_packa:0164| Fetching packages.checksum from http://172.19.140.2:8082/static/squawks-release/R40-6457.0.0/autotest/packages to /usr/local/autotest/packages.checksum
+11/14 15:45:25.570 ERROR|base_utils:0239| [stderr]   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+11/14 15:45:25.571 ERROR|base_utils:0239| [stderr]                                  Dload  Upload   Total   Spent    Left  Speed
+11/14 15:45:25.576 ERROR|base_utils:0239| [stderr]   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100     7  100     7    0     0    996      0 --:--:-- --:--:-- --:--:--  1166
+11/14 15:45:25.597 INFO |base_packa:0164| Fetching packages.checksum from http://172.19.140.1:8082/static/crouton-test/packages-8fa5ee0b3fb59bc8da2b84768f2ab43e to /usr/local/autotest/packages.checksum
+11/14 15:45:25.667 INFO |       job:0211| 	START	platform_Crouton	platform_Crouton	timestamp=1416008725	localtime=Nov 14 15:45:25	
+11/14 15:45:25.935 INFO |platform_C:0040| Running crouton test:
+11/14 15:45:25.936 INFO |platform_C:0041|  - repo: drinkcat/chroagh
+11/14 15:45:25.937 INFO |platform_C:0042|  - branch: x11test
+11/14 15:45:25.937 INFO |platform_C:0043|  - runargs: w
+11/14 15:45:25.938 INFO |platform_C:0044|  - env:;CROUTON_MIRROR_debian=https://mirrors.kernel.org/debian;CROUTON_MIRROR_ubuntu_x86=https://mirrors.kernel.org/ubuntu;CROUTON_MIRROR_ubuntu_arm=http://ports.ubuntu.com/ubuntu-ports;CROUTON_MIRROR_alarm=http://ca.us.mirror.archlinuxarm.org/armv7h/$repo;
+11/14 15:45:25.939 INFO |platform_C:0052| Downloading crouton tarball: "https://github.com/drinkcat/chroagh/archive/x11test.tar.gz".
+11/14 15:45:27.282 INFO |base_utils:0239| Running tests in /usr/local/test-20141114154527 prefix
+11/14 15:45:27.282 INFO |base_utils:0239| Logging to /usr/local/autotest/results/default/platform_Crouton/results
+11/14 15:45:27.283 INFO |base_utils:0239| System: 6457.0.0 (Official Build) dev-channel squawks test
+11/14 15:45:27.284 INFO |base_utils:0239| Supported releases: wheezy jessie sid kali precise trusty utopic
+11/14 15:45:27.285 INFO |base_utils:0239| Default release for this run: trusty
+11/14 15:45:27.417 INFO |base_utils:0239| 2014-11-14 15:45:27: BEGIN TEST w5-unity.precise.0
+11/14 15:45:28.423 INFO |base_utils:0239| 2014-11-14 15:45:28: BEGIN TEST w5-unity.kali.0
+11/14 15:45:29.487 INFO |base_utils:0239| 2014-11-14 15:45:29: BEGIN TEST w3-kde.sid.0
+11/14 16:05:57.210 INFO |base_utils:0239| 1229 [t] TEST PASSED: w5-unity.kali.0 finished with exit code 0
+11/14 16:05:58.945 INFO |base_utils:0239| 2014-11-14 16:05:58: BEGIN TEST w3-kde.trusty.0
+11/14 16:22:33.887 INFO |base_utils:0239| 2226 [t] TEST PASSED: w5-unity.precise.0 finished with exit code 0
+11/14 16:22:36.060 INFO |base_utils:0239| 2014-11-14 16:22:36: BEGIN TEST w2-gnome.trusty.0
+11/14 16:28:54.882 INFO |base_utils:0239| 2605 [t] TEST PASSED: w3-kde.sid.0 finished with exit code 0
+11/14 16:28:56.624 INFO |base_utils:0239| 2014-11-14 16:28:56: BEGIN TEST w4-lxde.kali.0
+11/14 16:40:01.314 INFO |base_utils:0239| 2043 [t] TEST PASSED: w3-kde.trusty.0 finished with exit code 0
+11/14 16:40:02.748 INFO |base_utils:0239| 2014-11-14 16:40:02: BEGIN TEST w4-lxde.utopic.0
+11/14 16:41:16.126 INFO |base_utils:0239| 1120 [t] TEST PASSED: w2-gnome.trusty.0 finished with exit code 0
+11/14 16:41:17.189 INFO |base_utils:0239| 2014-11-14 16:41:17: BEGIN TEST w4-lxde.jessie.0
+11/14 16:44:41.519 INFO |base_utils:0239| 945 [t] TEST PASSED: w4-lxde.kali.0 finished with exit code 0
+11/14 16:44:43.410 INFO |base_utils:0239| 2014-11-14 16:44:43: BEGIN TEST w2-gnome.precise.0
+11/14 16:58:28.967 INFO |base_utils:0239| 825 [t] TEST PASSED: w2-gnome.precise.0 finished with exit code 0
+11/14 16:58:30.152 INFO |base_utils:0239| 2014-11-14 16:58:30: BEGIN TEST w1-e17.jessie.0
+11/14 17:19:38.918 INFO |base_utils:0239| 2376 [t] TEST PASSED: w4-lxde.utopic.0 finished with exit code 0
+11/14 17:19:40.160 INFO |base_utils:0239| 2014-11-14 17:19:40: BEGIN TEST w7-xfce.kali.0
+11/14 17:24:16.493 INFO |base_utils:0239| 1546 [t] TEST PASSED: w1-e17.jessie.0 finished with exit code 0
+11/14 17:24:18.019 INFO |base_utils:0239| 2014-11-14 17:24:18: BEGIN TEST w5-unity.jessie.0
+11/14 17:27:41.975 INFO |base_utils:0239| 203 [t] TEST PASSED: w5-unity.jessie.0 finished with exit code 0
+11/14 17:27:44.409 INFO |base_utils:0239| 2014-11-14 17:27:44: BEGIN TEST w7-xfce.precise.0
+11/14 17:36:21.923 INFO |base_utils:0239| 3304 [t] TEST PASSED: w4-lxde.jessie.0 finished with exit code 0
+11/14 17:36:23.582 INFO |base_utils:0239| 2014-11-14 17:36:23: BEGIN TEST w7-xfce.wheezy.0
+11/14 17:40:36.569 INFO |base_utils:0239| 772 [t] TEST PASSED: w7-xfce.precise.0 finished with exit code 0
+11/14 17:40:37.872 INFO |base_utils:0239| 2014-11-14 17:40:37: BEGIN TEST w4-lxde.trusty.0
+11/14 17:43:04.570 INFO |base_utils:0239| 1404 [t] TEST PASSED: w7-xfce.kali.0 finished with exit code 0
+11/14 17:43:05.683 INFO |base_utils:0239| 2014-11-14 17:43:05: BEGIN TEST w6-xbmc.utopic.0
+11/14 17:53:35.921 INFO |base_utils:0239| 630 [t] TEST PASSED: w6-xbmc.utopic.0 finished with exit code 0
+11/14 17:53:37.142 INFO |base_utils:0239| 2014-11-14 17:53:37: BEGIN TEST w7-xfce.jessie.0
+11/14 17:54:53.686 INFO |base_utils:0239| 856 [t] TEST PASSED: w4-lxde.trusty.0 finished with exit code 0
+11/14 17:54:55.575 INFO |base_utils:0239| 2014-11-14 17:54:55: BEGIN TEST w3-kde.kali.0
+11/14 18:09:34.117 INFO |base_utils:0239| 1991 [t] TEST PASSED: w7-xfce.wheezy.0 finished with exit code 0
+11/14 18:09:35.688 INFO |base_utils:0239| 2014-11-14 18:09:35: BEGIN TEST w6-xbmc.precise.0
+11/14 18:13:15.011 INFO |base_utils:0239| 1099 [t] TEST PASSED: w3-kde.kali.0 finished with exit code 0
+11/14 18:13:16.693 INFO |base_utils:0239| 2014-11-14 18:13:16: BEGIN TEST w3-kde.utopic.0
+11/14 18:18:59.116 INFO |base_utils:0239| 1522 [t] TEST PASSED: w7-xfce.jessie.0 finished with exit code 0
+11/14 18:19:00.936 INFO |base_utils:0239| 2014-11-14 18:19:00: BEGIN TEST w6-xbmc.trusty.0
+11/14 18:20:21.054 INFO |base_utils:0239| 646 [t] TEST PASSED: w6-xbmc.precise.0 finished with exit code 0
+11/14 18:20:22.813 INFO |base_utils:0239| 2014-11-14 18:20:22: BEGIN TEST w4-lxde.precise.0
+11/14 18:28:26.948 INFO |base_utils:0239| 566 [t] TEST PASSED: w6-xbmc.trusty.0 finished with exit code 0
+11/14 18:28:28.938 INFO |base_utils:0239| 2014-11-14 18:28:28: BEGIN TEST w3-kde.wheezy.0
+11/14 18:32:18.552 INFO |base_utils:0239| 716 [t] TEST PASSED: w4-lxde.precise.0 finished with exit code 0
+11/14 18:32:20.310 INFO |base_utils:0239| 2014-11-14 18:32:20: BEGIN TEST w7-xfce.trusty.0
+11/14 18:33:50.710 INFO |base_utils:0239| 1234 [t] TEST PASSED: w3-kde.utopic.0 finished with exit code 0
+11/14 18:33:52.091 INFO |base_utils:0239| 2014-11-14 18:33:52: BEGIN TEST w1-e17.kali.0
+11/14 18:36:36.533 INFO |base_utils:0239| 164 [t] TEST PASSED: w1-e17.kali.0 finished with exit code 0
+11/14 18:36:38.054 INFO |base_utils:0239| 2014-11-14 18:36:38: BEGIN TEST w1-e17.wheezy.0
+11/14 18:39:18.345 INFO |base_utils:0239| 160 [t] TEST PASSED: w1-e17.wheezy.0 finished with exit code 0
+11/14 18:39:20.272 INFO |base_utils:0239| 2014-11-14 18:39:20: BEGIN TEST w1-e17.utopic.0
+11/14 18:44:53.127 INFO |base_utils:0239| 985 [t] TEST PASSED: w3-kde.wheezy.0 finished with exit code 0
+11/14 18:44:55.071 INFO |base_utils:0239| 2014-11-14 18:44:55: BEGIN TEST w6-xbmc.wheezy.0
+11/14 18:49:32.066 INFO |base_utils:0239| 1032 [t] TEST FAILED: w7-xfce.trusty.0 finished with exit code 1
+11/14 18:49:33.893 INFO |base_utils:0239| 2014-11-14 18:49:33: BEGIN TEST w5-unity.wheezy.0
+11/14 18:52:22.524 INFO |base_utils:0239| 169 [t] TEST PASSED: w5-unity.wheezy.0 finished with exit code 0
+11/14 18:52:24.614 INFO |base_utils:0239| 2014-11-14 18:52:24: BEGIN TEST w1-e17.precise.0
+11/14 18:55:11.652 INFO |base_utils:0239| 951 [t] TEST PASSED: w1-e17.utopic.0 finished with exit code 0
+11/14 18:55:13.378 INFO |base_utils:0239| 2014-11-14 18:55:13: BEGIN TEST w2-gnome.utopic.0
+11/14 18:56:32.452 INFO |base_utils:0239| 697 [t] TEST PASSED: w6-xbmc.wheezy.0 finished with exit code 0
+11/14 18:56:34.316 INFO |base_utils:0239| 2014-11-14 18:56:34: BEGIN TEST w6-xbmc.sid.0
+11/14 19:01:27.485 INFO |base_utils:0239| 543 [t] TEST PASSED: w1-e17.precise.0 finished with exit code 0
+11/14 19:01:29.443 INFO |base_utils:0239| 2014-11-14 19:01:29: BEGIN TEST w7-xfce.utopic.0
+11/14 19:07:24.974 INFO |base_utils:0239| 650 [t] TEST FAILED: w6-xbmc.sid.0 finished with exit code 1
+11/14 19:07:26.955 INFO |base_utils:0239| 2014-11-14 19:07:26: BEGIN TEST w1-e17.sid.0
+11/14 19:13:23.434 INFO |base_utils:0239| 713 [t] TEST FAILED: w7-xfce.utopic.0 finished with exit code 100
+11/14 19:13:24.743 INFO |base_utils:0239| 2014-11-14 19:13:24: BEGIN TEST w4-lxde.wheezy.0
+11/14 19:17:24.238 INFO |base_utils:0239| 1331 [t] TEST PASSED: w2-gnome.utopic.0 finished with exit code 0
+11/14 19:17:26.455 INFO |base_utils:0239| 2014-11-14 19:17:26: BEGIN TEST w3-kde.jessie.0
+11/14 19:27:12.297 INFO |base_utils:0239| 1186 [t] TEST PASSED: w1-e17.sid.0 finished with exit code 0
+11/14 19:27:13.678 INFO |base_utils:0239| 2014-11-14 19:27:13: BEGIN TEST w5-unity.utopic.0
+11/14 19:28:57.585 INFO |base_utils:0239| 933 [t] TEST PASSED: w4-lxde.wheezy.0 finished with exit code 0
+11/14 19:28:59.142 INFO |base_utils:0239| 2014-11-14 19:28:59: BEGIN TEST w7-xfce.sid.0
+11/14 19:43:48.417 INFO |base_utils:0239| 1582 [t] TEST FAILED: w3-kde.jessie.0 finished with exit code 1
+11/14 19:43:50.401 INFO |base_utils:0239| 2014-11-14 19:43:50: BEGIN TEST w6-xbmc.jessie.0
+11/14 19:55:30.025 INFO |base_utils:0239| 1591 [t] TEST FAILED: w7-xfce.sid.0 finished with exit code 1
+11/14 19:55:32.060 INFO |base_utils:0239| 2014-11-14 19:55:32: BEGIN TEST w4-lxde.sid.0
+11/14 19:56:59.841 INFO |base_utils:0239| 789 [t] TEST PASSED: w6-xbmc.jessie.0 finished with exit code 0
+11/14 19:57:01.566 INFO |base_utils:0239| 2014-11-14 19:57:01: BEGIN TEST w6-xbmc.kali.0
+11/14 20:00:19.523 INFO |base_utils:0239| 1986 [t] TEST PASSED: w5-unity.utopic.0 finished with exit code 0
+11/14 20:00:20.956 INFO |base_utils:0239| 2014-11-14 20:00:20: BEGIN TEST w2-gnome.jessie.0
+11/14 20:08:14.377 INFO |base_utils:0239| 673 [t] TEST PASSED: w6-xbmc.kali.0 finished with exit code 0
+11/14 20:08:15.420 INFO |base_utils:0239| 2014-11-14 20:08:15: BEGIN TEST w2-gnome.sid.0
+11/14 20:29:24.485 INFO |base_utils:0239| 1744 [t] TEST PASSED: w2-gnome.jessie.0 finished with exit code 0
+11/14 20:29:26.313 INFO |base_utils:0239| 2014-11-14 20:29:26: BEGIN TEST w1-e17.trusty.0
+11/14 20:31:47.140 INFO |base_utils:0239| 2175 [t] TEST PASSED: w4-lxde.sid.0 finished with exit code 0
+11/14 20:31:49.082 INFO |base_utils:0239| 2014-11-14 20:31:49: BEGIN TEST w5-unity.trusty.0
+11/14 20:38:08.931 INFO |base_utils:0239| 1793 [t] TEST PASSED: w2-gnome.sid.0 finished with exit code 0
+11/14 20:38:10.676 INFO |base_utils:0239| 2014-11-14 20:38:10: BEGIN TEST w5-unity.sid.0
+11/14 20:42:13.518 INFO |base_utils:0239| 243 [t] TEST PASSED: w5-unity.sid.0 finished with exit code 0
+11/14 20:42:15.095 INFO |base_utils:0239| 2014-11-14 20:42:15: BEGIN TEST w2-gnome.wheezy.0
+11/14 20:43:38.033 INFO |base_utils:0239| 852 [t] TEST PASSED: w1-e17.trusty.0 finished with exit code 0
+11/14 20:43:39.588 INFO |base_utils:0239| 2014-11-14 20:43:39: BEGIN TEST w2-gnome.kali.0
+11/14 20:59:20.022 INFO |base_utils:0239| 1024 [t] TEST PASSED: w2-gnome.wheezy.0 finished with exit code 0
+11/14 20:59:21.199 INFO |base_utils:0239| 2014-11-14 20:59:21: BEGIN TEST w3-kde.precise.0
+11/14 21:01:43.891 INFO |base_utils:0239| 1794 [t] TEST PASSED: w5-unity.trusty.0 finished with exit code 0
+11/14 21:01:45.872 INFO |base_utils:0239| 2014-11-14 21:01:45: BEGIN TEST w7-xfce.trusty.1
+11/14 21:05:56.185 INFO |base_utils:0239| 1337 [t] TEST PASSED: w2-gnome.kali.0 finished with exit code 0
+11/14 21:05:57.379 INFO |base_utils:0239| 2014-11-14 21:05:57: BEGIN TEST w6-xbmc.sid.1
+11/14 21:14:28.516 INFO |base_utils:0239| 907 [t] TEST PASSED: w3-kde.precise.0 finished with exit code 0
+11/14 21:14:29.718 INFO |base_utils:0239| 2014-11-14 21:14:29: BEGIN TEST w7-xfce.utopic.1
+11/14 21:19:31.178 INFO |base_utils:0239| 1066 [t] TEST PASSED: w7-xfce.trusty.1 finished with exit code 0
+11/14 21:19:32.681 INFO |base_utils:0239| 2014-11-14 21:19:32: BEGIN TEST w3-kde.jessie.1
+11/14 21:20:51.782 INFO |base_utils:0239| 894 [t] TEST PASSED: w6-xbmc.sid.1 finished with exit code 0
+11/14 21:20:53.245 INFO |base_utils:0239| 2014-11-14 21:20:53: BEGIN TEST w7-xfce.sid.1
+11/14 21:36:34.984 INFO |base_utils:0239| 1325 [t] TEST PASSED: w7-xfce.utopic.1 finished with exit code 0
+11/14 21:41:24.696 INFO |base_utils:0239| 1312 [t] TEST PASSED: w3-kde.jessie.1 finished with exit code 0
+11/14 21:43:33.753 INFO |base_utils:0239| 1360 [t] TEST PASSED: w7-xfce.sid.1 finished with exit code 0
+11/14 21:43:34.881 INFO |base_utils:0239| All tests passed.
+11/14 21:43:34.891 INFO |base_utils:0239| Cleaning up...
+11/14 21:43:40.178 INFO |       job:0211| 		GOOD	platform_Crouton	platform_Crouton	timestamp=1416030220	localtime=Nov 14 21:43:40	completed successfully
+11/14 21:43:40.210 INFO |       job:0211| 	END GOOD	platform_Crouton	platform_Crouton	timestamp=1416030220	localtime=Nov 14 21:43:40	
+11/14 21:43:44.450 INFO |       job:0211| END GOOD	----	----	timestamp=1416030224	localtime=Nov 14 21:43:44	

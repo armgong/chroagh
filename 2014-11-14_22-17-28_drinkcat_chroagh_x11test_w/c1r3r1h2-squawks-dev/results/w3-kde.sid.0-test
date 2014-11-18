@@ -1,0 +1,55 @@
+2014-11-14 15:45:29: BEGIN TEST w3-kde.sid.0
+0 [t] LAUNCHING: crouton -r sid -f /usr/local/test-20141114154527 prefix/sid-bootstrap.tar.gz -d
+125 [t] PASS: crouton -r sid -f /usr/local/test-20141114154527 prefix/sid-bootstrap.tar.gz -d
+125 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/sid-bootstrap.tar.gz -t x11 -n sid
+1191 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/sid-bootstrap.tar.gz -t x11 -n sid
+1191 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114154527 prefix/sid-x11-snapshot.tar.gz sid
+1320 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114154527 prefix/sid-x11-snapshot.tar.gz sid
+1320 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w3-kde.sid.0.sr3/target.SJW9Ot -U -n sid
+1320 [t] BEGIN /usr/local/test-20141114154527 prefix/w3-kde.sid.0.sr3/target.SJW9Ot CONTENTS
+1320 [t] REQUIRES=''
+1320 [t] . "${TARGETSDIR:="$PWD"}/common"
+1320 [t] ### Append to prepare.sh:
+1320 [t] set -x
+1320 [t] install --minimal x11-apps imagemagick xautomation
+1320 [t] 
+1320 [t] set +x
+1320 [t] END /usr/local/test-20141114154527 prefix/w3-kde.sid.0.sr3/target.SJW9Ot CONTENTS
+1390 [t] PASS: crouton -U -n sid
+1390 [t] LAUNCHING: crouton -u -n sid -t kde
+2511 [t] PASS: crouton -u -n sid -t kde
+2511 [t] LAUNCHING: startkde -b -n sid
+2513 [t] PASS: startkde -b -n sid
+2573 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+2573 [t]         # Test croutoncycle as a bonus
+2573 [t]         export DISPLAY="`croutoncycle display`"
+2573 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2573 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2573 [t]             exit 1
+2573 [t]         fi
+2573 [t]         if [ -n "" ]; then
+2573 [t]             echo "" | tr ";" "
+2573 [t] " | xte
+2573 [t]             sleep 60
+2573 [t]         fi
+2573 [t]         # Snapshot!
+2573 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+2582 [t] PASS: enter-chroot -n sid sh -exc 
+2582 [t]         # Test croutoncycle as a bonus
+2582 [t]         export DISPLAY="`croutoncycle display`"
+2582 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2582 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2582 [t]             exit 1
+2582 [t]         fi
+2582 [t]         if [ -n "" ]; then
+2582 [t]             echo "" | tr ";" "
+2582 [t] " | xte
+2582 [t]             sleep 60
+2582 [t]         fi
+2582 [t]         # Snapshot!
+2582 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+2582 [t] LAUNCHING: unmount-chroot -f -y sid
+2592 [t] PASS: unmount-chroot -f -y sid
+2592 [t] LAUNCHING: delete-chroot -y sid
+2604 [t] PASS: delete-chroot -y sid
+2605 [t] TEST PASSED: w3-kde.sid.0 finished with exit code 0

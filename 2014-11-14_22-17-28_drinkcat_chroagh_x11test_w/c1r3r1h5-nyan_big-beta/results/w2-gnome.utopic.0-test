@@ -1,0 +1,55 @@
+2014-11-14 15:19:08: BEGIN TEST w2-gnome.utopic.0
+2 [t] LAUNCHING: crouton -r utopic -f /usr/local/test-20141114151908 prefix/utopic-bootstrap.tar.gz -d
+211 [t] PASS: crouton -r utopic -f /usr/local/test-20141114151908 prefix/utopic-bootstrap.tar.gz -d
+211 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1078 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1078 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114151908 prefix/utopic-x11-snapshot.tar.gz utopic
+1210 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114151908 prefix/utopic-x11-snapshot.tar.gz utopic
+1210 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w2-gnome.utopic.0.UZW/target.tMwRcV -U -n utopic
+1210 [t] BEGIN /usr/local/test-20141114151908 prefix/w2-gnome.utopic.0.UZW/target.tMwRcV CONTENTS
+1210 [t] REQUIRES=''
+1210 [t] . "${TARGETSDIR:="$PWD"}/common"
+1210 [t] ### Append to prepare.sh:
+1210 [t] set -x
+1210 [t] install --minimal x11-apps imagemagick xautomation
+1210 [t] 
+1210 [t] set +x
+1210 [t] END /usr/local/test-20141114151908 prefix/w2-gnome.utopic.0.UZW/target.tMwRcV CONTENTS
+1284 [t] PASS: crouton -U -n utopic
+1284 [t] LAUNCHING: crouton -u -n utopic -t gnome
+2270 [t] PASS: crouton -u -n utopic -t gnome
+2270 [t] LAUNCHING: startgnome -b -n utopic
+2274 [t] PASS: startgnome -b -n utopic
+2334 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+2334 [t]         # Test croutoncycle as a bonus
+2334 [t]         export DISPLAY="`croutoncycle display`"
+2334 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2334 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2334 [t]             exit 1
+2334 [t]         fi
+2334 [t]         if [ -n "" ]; then
+2334 [t]             echo "" | tr ";" "
+2334 [t] " | xte
+2334 [t]             sleep 60
+2334 [t]         fi
+2334 [t]         # Snapshot!
+2334 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+2337 [t] PASS: enter-chroot -n utopic sh -exc 
+2337 [t]         # Test croutoncycle as a bonus
+2337 [t]         export DISPLAY="`croutoncycle display`"
+2337 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2337 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2337 [t]             exit 1
+2337 [t]         fi
+2337 [t]         if [ -n "" ]; then
+2337 [t]             echo "" | tr ";" "
+2337 [t] " | xte
+2337 [t]             sleep 60
+2337 [t]         fi
+2337 [t]         # Snapshot!
+2337 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+2337 [t] LAUNCHING: unmount-chroot -f -y utopic
+2366 [t] PASS: unmount-chroot -f -y utopic
+2366 [t] LAUNCHING: delete-chroot -y utopic
+2395 [t] PASS: delete-chroot -y utopic
+2396 [t] TEST PASSED: w2-gnome.utopic.0 finished with exit code 0

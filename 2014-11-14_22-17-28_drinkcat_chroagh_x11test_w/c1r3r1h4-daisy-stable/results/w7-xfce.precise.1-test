@@ -1,0 +1,51 @@
+2014-11-14 23:24:54: BEGIN TEST w7-xfce.precise.1
+5 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/precise-x11-snapshot.tar.gz -n precise
+118 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/precise-x11-snapshot.tar.gz -n precise
+118 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w7-xfce.precise.1.th4/target.1PjnhI -U -n precise
+118 [t] BEGIN /usr/local/test-20141114160443 prefix/w7-xfce.precise.1.th4/target.1PjnhI CONTENTS
+118 [t] REQUIRES=''
+118 [t] . "${TARGETSDIR:="$PWD"}/common"
+118 [t] ### Append to prepare.sh:
+118 [t] set -x
+118 [t] install --minimal x11-apps imagemagick xautomation
+118 [t] 
+118 [t] set +x
+118 [t] END /usr/local/test-20141114160443 prefix/w7-xfce.precise.1.th4/target.1PjnhI CONTENTS
+177 [t] PASS: crouton -U -n precise
+177 [t] LAUNCHING: crouton -u -n precise -t xfce
+899 [t] PASS: crouton -u -n precise -t xfce
+899 [t] LAUNCHING: startxfce4 -b -n precise
+902 [t] PASS: startxfce4 -b -n precise
+962 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+962 [t]         # Test croutoncycle as a bonus
+962 [t]         export DISPLAY="`croutoncycle display`"
+962 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+962 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+962 [t]             exit 1
+962 [t]         fi
+962 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+962 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+962 [t] " | xte
+962 [t]             sleep 60
+962 [t]         fi
+962 [t]         # Snapshot!
+962 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1027 [t] PASS: enter-chroot -n precise sh -exc 
+1027 [t]         # Test croutoncycle as a bonus
+1027 [t]         export DISPLAY="`croutoncycle display`"
+1027 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1027 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1027 [t]             exit 1
+1027 [t]         fi
+1027 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1027 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1027 [t] " | xte
+1027 [t]             sleep 60
+1027 [t]         fi
+1027 [t]         # Snapshot!
+1027 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1027 [t] LAUNCHING: unmount-chroot -f -y precise
+1036 [t] PASS: unmount-chroot -f -y precise
+1036 [t] LAUNCHING: delete-chroot -y precise
+1053 [t] PASS: delete-chroot -y precise
+1054 [t] TEST PASSED: w7-xfce.precise.1 finished with exit code 0

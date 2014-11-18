@@ -1,0 +1,51 @@
+2014-11-14 18:39:20: BEGIN TEST w1-e17.utopic.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+111 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+111 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w1-e17.utopic.0.o9y/target.9Q4011 -U -n utopic
+111 [t] BEGIN /usr/local/test-20141114154527 prefix/w1-e17.utopic.0.o9y/target.9Q4011 CONTENTS
+111 [t] REQUIRES=''
+111 [t] . "${TARGETSDIR:="$PWD"}/common"
+111 [t] ### Append to prepare.sh:
+111 [t] set -x
+111 [t] install --minimal x11-apps imagemagick xautomation
+111 [t] 
+111 [t] set +x
+111 [t] END /usr/local/test-20141114154527 prefix/w1-e17.utopic.0.o9y/target.9Q4011 CONTENTS
+179 [t] PASS: crouton -U -n utopic
+179 [t] LAUNCHING: crouton -u -n utopic -t e17
+870 [t] PASS: crouton -u -n utopic -t e17
+870 [t] LAUNCHING: starte17 -b -n utopic
+870 [t] PASS: starte17 -b -n utopic
+930 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+930 [t]         # Test croutoncycle as a bonus
+930 [t]         export DISPLAY="`croutoncycle display`"
+930 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+930 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+930 [t]             exit 1
+930 [t]         fi
+930 [t]         if [ -n "" ]; then
+930 [t]             echo "" | tr ";" "
+930 [t] " | xte
+930 [t]             sleep 60
+930 [t]         fi
+930 [t]         # Snapshot!
+930 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+934 [t] PASS: enter-chroot -n utopic sh -exc 
+934 [t]         # Test croutoncycle as a bonus
+934 [t]         export DISPLAY="`croutoncycle display`"
+934 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+934 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+934 [t]             exit 1
+934 [t]         fi
+934 [t]         if [ -n "" ]; then
+934 [t]             echo "" | tr ";" "
+934 [t] " | xte
+934 [t]             sleep 60
+934 [t]         fi
+934 [t]         # Snapshot!
+934 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+934 [t] LAUNCHING: unmount-chroot -f -y utopic
+943 [t] PASS: unmount-chroot -f -y utopic
+943 [t] LAUNCHING: delete-chroot -y utopic
+950 [t] PASS: delete-chroot -y utopic
+951 [t] TEST PASSED: w1-e17.utopic.0 finished with exit code 0

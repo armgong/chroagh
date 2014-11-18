@@ -1,0 +1,52 @@
+2014-11-14 20:22:37: BEGIN TEST w4-lxde.sid.0
+3 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/sid-x11-snapshot.tar.gz -n sid
+65 [t] PASS: crouton -f /usr/local/test-20141114164154 prefix/sid-x11-snapshot.tar.gz -n sid
+65 [t] LAUNCHING: crouton -T /usr/local/test-20141114164154 prefix/w4-lxde.sid.0.g36/target.otHBGq -U -n sid
+65 [t] BEGIN /usr/local/test-20141114164154 prefix/w4-lxde.sid.0.g36/target.otHBGq CONTENTS
+65 [t] REQUIRES=''
+65 [t] . "${TARGETSDIR:="$PWD"}/common"
+65 [t] ### Append to prepare.sh:
+65 [t] set -x
+65 [t] install --minimal x11-apps imagemagick xautomation
+65 [t] 
+65 [t] set +x
+65 [t] END /usr/local/test-20141114164154 prefix/w4-lxde.sid.0.g36/target.otHBGq CONTENTS
+140 [t] PASS: crouton -U -n sid
+140 [t] LAUNCHING: crouton -u -n sid -t lxde
+2684 [t] PASS: crouton -u -n sid -t lxde
+2684 [t] Waiting for VT lock...
+2709 [t] LAUNCHING: startlxde -b -n sid
+2710 [t] PASS: startlxde -b -n sid
+2770 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+2770 [t]         # Test croutoncycle as a bonus
+2770 [t]         export DISPLAY="`croutoncycle display`"
+2770 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2770 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2770 [t]             exit 1
+2770 [t]         fi
+2770 [t]         if [ -n "" ]; then
+2770 [t]             echo "" | tr ";" "
+2770 [t] " | xte
+2770 [t]             sleep 60
+2770 [t]         fi
+2770 [t]         # Snapshot!
+2770 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+2776 [t] PASS: enter-chroot -n sid sh -exc 
+2776 [t]         # Test croutoncycle as a bonus
+2776 [t]         export DISPLAY="`croutoncycle display`"
+2776 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2776 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2776 [t]             exit 1
+2776 [t]         fi
+2776 [t]         if [ -n "" ]; then
+2776 [t]             echo "" | tr ";" "
+2776 [t] " | xte
+2776 [t]             sleep 60
+2776 [t]         fi
+2776 [t]         # Snapshot!
+2776 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+2776 [t] LAUNCHING: unmount-chroot -f -y sid
+2785 [t] PASS: unmount-chroot -f -y sid
+2785 [t] LAUNCHING: delete-chroot -y sid
+2840 [t] PASS: delete-chroot -y sid
+2842 [t] TEST PASSED: w4-lxde.sid.0 finished with exit code 0

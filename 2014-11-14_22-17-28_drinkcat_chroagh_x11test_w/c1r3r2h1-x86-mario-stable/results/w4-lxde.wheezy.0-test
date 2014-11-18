@@ -1,0 +1,51 @@
+2014-11-14 21:00:45: BEGIN TEST w4-lxde.wheezy.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+131 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+131 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w4-lxde.wheezy.0.ZaH/target.yWGvh0 -U -n wheezy
+131 [t] BEGIN /usr/local/test-20141114155905 prefix/w4-lxde.wheezy.0.ZaH/target.yWGvh0 CONTENTS
+131 [t] REQUIRES=''
+131 [t] . "${TARGETSDIR:="$PWD"}/common"
+131 [t] ### Append to prepare.sh:
+131 [t] set -x
+131 [t] install --minimal x11-apps imagemagick xautomation
+131 [t] 
+131 [t] set +x
+131 [t] END /usr/local/test-20141114155905 prefix/w4-lxde.wheezy.0.ZaH/target.yWGvh0 CONTENTS
+186 [t] PASS: crouton -U -n wheezy
+186 [t] LAUNCHING: crouton -u -n wheezy -t lxde
+1152 [t] PASS: crouton -u -n wheezy -t lxde
+1152 [t] LAUNCHING: startlxde -b -n wheezy
+1155 [t] PASS: startlxde -b -n wheezy
+1215 [t] LAUNCHING: enter-chroot -n wheezy sh -exc 
+1215 [t]         # Test croutoncycle as a bonus
+1215 [t]         export DISPLAY="`croutoncycle display`"
+1215 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1215 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1215 [t]             exit 1
+1215 [t]         fi
+1215 [t]         if [ -n "" ]; then
+1215 [t]             echo "" | tr ";" "
+1215 [t] " | xte
+1215 [t]             sleep 60
+1215 [t]         fi
+1215 [t]         # Snapshot!
+1215 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1219 [t] PASS: enter-chroot -n wheezy sh -exc 
+1219 [t]         # Test croutoncycle as a bonus
+1219 [t]         export DISPLAY="`croutoncycle display`"
+1219 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1219 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1219 [t]             exit 1
+1219 [t]         fi
+1219 [t]         if [ -n "" ]; then
+1219 [t]             echo "" | tr ";" "
+1219 [t] " | xte
+1219 [t]             sleep 60
+1219 [t]         fi
+1219 [t]         # Snapshot!
+1219 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1219 [t] LAUNCHING: unmount-chroot -f -y wheezy
+1228 [t] PASS: unmount-chroot -f -y wheezy
+1228 [t] LAUNCHING: delete-chroot -y wheezy
+1246 [t] PASS: delete-chroot -y wheezy
+1247 [t] TEST PASSED: w4-lxde.wheezy.0 finished with exit code 0

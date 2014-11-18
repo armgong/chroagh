@@ -1,0 +1,18 @@
+2014-11-14 20:38:10: BEGIN TEST w5-unity.sid.0
+45 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/sid-x11-snapshot.tar.gz -n sid
+170 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/sid-x11-snapshot.tar.gz -n sid
+170 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w5-unity.sid.0.3jU/target.1wlwEW -U -n sid
+170 [t] BEGIN /usr/local/test-20141114154527 prefix/w5-unity.sid.0.3jU/target.1wlwEW CONTENTS
+170 [t] REQUIRES=''
+170 [t] . "${TARGETSDIR:="$PWD"}/common"
+170 [t] ### Append to prepare.sh:
+170 [t] set -x
+170 [t] install --minimal x11-apps imagemagick xautomation
+170 [t] 
+170 [t] set +x
+170 [t] END /usr/local/test-20141114154527 prefix/w5-unity.sid.0.3jU/target.1wlwEW CONTENTS
+233 [t] PASS: crouton -U -n sid
+233 [t] LAUNCHING: crouton -u -n sid -t unity
+240 [t] FAIL with code 99: crouton -u -n sid -t unity
+240 [t] Target unity failed on sid, as expected (unsupported combination).
+243 [t] TEST PASSED: w5-unity.sid.0 finished with exit code 0

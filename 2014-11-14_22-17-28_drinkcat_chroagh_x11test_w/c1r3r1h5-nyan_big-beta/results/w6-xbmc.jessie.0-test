@@ -1,0 +1,51 @@
+2014-11-14 15:19:10: BEGIN TEST w6-xbmc.jessie.0
+0 [t] LAUNCHING: crouton -r jessie -f /usr/local/test-20141114151908 prefix/jessie-bootstrap.tar.gz -d
+104 [t] PASS: crouton -r jessie -f /usr/local/test-20141114151908 prefix/jessie-bootstrap.tar.gz -d
+104 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/jessie-bootstrap.tar.gz -t x11 -n jessie
+790 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/jessie-bootstrap.tar.gz -t x11 -n jessie
+790 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114151908 prefix/jessie-x11-snapshot.tar.gz jessie
+896 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114151908 prefix/jessie-x11-snapshot.tar.gz jessie
+896 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w6-xbmc.jessie.0.P4S/target.eIvpEQ -U -n jessie
+896 [t] BEGIN /usr/local/test-20141114151908 prefix/w6-xbmc.jessie.0.P4S/target.eIvpEQ CONTENTS
+896 [t] REQUIRES=''
+896 [t] . "${TARGETSDIR:="$PWD"}/common"
+896 [t] ### Append to prepare.sh:
+896 [t] set -x
+896 [t] install --minimal x11-apps imagemagick xautomation
+896 [t] 
+896 [t] set +x
+896 [t] END /usr/local/test-20141114151908 prefix/w6-xbmc.jessie.0.P4S/target.eIvpEQ CONTENTS
+942 [t] PASS: crouton -U -n jessie
+942 [t] LAUNCHING: crouton -u -n jessie -t xbmc
+1210 [t] PASS: crouton -u -n jessie -t xbmc
+1210 [t] LAUNCHING: startxbmc -b -n jessie
+1211 [t] PASS: startxbmc -b -n jessie
+1271 [t] LAUNCHING: enter-chroot -n jessie sh -exc 
+1271 [t]         # Test croutoncycle as a bonus
+1271 [t]         export DISPLAY="`croutoncycle display`"
+1271 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1271 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1271 [t]             exit 1
+1271 [t]         fi
+1271 [t]         if [ -n "" ]; then
+1271 [t]             echo "" | tr ";" "
+1271 [t] " | xte
+1271 [t]             sleep 60
+1271 [t]         fi
+1271 [t]         # Snapshot!
+1271 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+1281 [t] FAIL with code 1: enter-chroot -n jessie sh -exc 
+1281 [t]         # Test croutoncycle as a bonus
+1281 [t]         export DISPLAY="`croutoncycle display`"
+1281 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1281 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1281 [t]             exit 1
+1281 [t]         fi
+1281 [t]         if [ -n "" ]; then
+1281 [t]             echo "" | tr ";" "
+1281 [t] " | xte
+1281 [t]             sleep 60
+1281 [t]         fi
+1281 [t]         # Snapshot!
+1281 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+1299 [t] TEST FAILED: w6-xbmc.jessie.0 finished with exit code 1

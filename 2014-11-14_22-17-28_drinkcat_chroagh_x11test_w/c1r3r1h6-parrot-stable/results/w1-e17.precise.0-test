@@ -1,0 +1,55 @@
+2014-11-14 17:11:35: BEGIN TEST w1-e17.precise.0
+0 [t] LAUNCHING: crouton -r precise -f /usr/local/test-20141114164154 prefix/precise-bootstrap.tar.gz -d
+78 [t] PASS: crouton -r precise -f /usr/local/test-20141114164154 prefix/precise-bootstrap.tar.gz -d
+78 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/precise-bootstrap.tar.gz -t x11 -n precise
+1635 [t] PASS: crouton -f /usr/local/test-20141114164154 prefix/precise-bootstrap.tar.gz -t x11 -n precise
+1635 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114164154 prefix/precise-x11-snapshot.tar.gz precise
+1861 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114164154 prefix/precise-x11-snapshot.tar.gz precise
+1861 [t] LAUNCHING: crouton -T /usr/local/test-20141114164154 prefix/w1-e17.precise.0.LAT/target.z1sy1Q -U -n precise
+1861 [t] BEGIN /usr/local/test-20141114164154 prefix/w1-e17.precise.0.LAT/target.z1sy1Q CONTENTS
+1861 [t] REQUIRES=''
+1861 [t] . "${TARGETSDIR:="$PWD"}/common"
+1861 [t] ### Append to prepare.sh:
+1861 [t] set -x
+1861 [t] install --minimal x11-apps imagemagick xautomation
+1861 [t] 
+1861 [t] set +x
+1861 [t] END /usr/local/test-20141114164154 prefix/w1-e17.precise.0.LAT/target.z1sy1Q CONTENTS
+1920 [t] PASS: crouton -U -n precise
+1920 [t] LAUNCHING: crouton -u -n precise -t e17
+2524 [t] PASS: crouton -u -n precise -t e17
+2524 [t] LAUNCHING: starte17 -b -n precise
+2525 [t] PASS: starte17 -b -n precise
+2585 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+2585 [t]         # Test croutoncycle as a bonus
+2585 [t]         export DISPLAY="`croutoncycle display`"
+2585 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2585 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2585 [t]             exit 1
+2585 [t]         fi
+2585 [t]         if [ -n "" ]; then
+2585 [t]             echo "" | tr ";" "
+2585 [t] " | xte
+2585 [t]             sleep 60
+2585 [t]         fi
+2585 [t]         # Snapshot!
+2585 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+2588 [t] PASS: enter-chroot -n precise sh -exc 
+2588 [t]         # Test croutoncycle as a bonus
+2588 [t]         export DISPLAY="`croutoncycle display`"
+2588 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2588 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2588 [t]             exit 1
+2588 [t]         fi
+2588 [t]         if [ -n "" ]; then
+2588 [t]             echo "" | tr ";" "
+2588 [t] " | xte
+2588 [t]             sleep 60
+2588 [t]         fi
+2588 [t]         # Snapshot!
+2588 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+2588 [t] LAUNCHING: unmount-chroot -f -y precise
+2599 [t] PASS: unmount-chroot -f -y precise
+2599 [t] LAUNCHING: delete-chroot -y precise
+2606 [t] PASS: delete-chroot -y precise
+2607 [t] TEST PASSED: w1-e17.precise.0 finished with exit code 0

@@ -1,0 +1,55 @@
+2014-11-14 16:42:41: BEGIN TEST w3-kde.utopic.0
+6 [t] LAUNCHING: crouton -r utopic -f /usr/local/test-20141114155732 prefix/utopic-bootstrap.tar.gz -d
+270 [t] PASS: crouton -r utopic -f /usr/local/test-20141114155732 prefix/utopic-bootstrap.tar.gz -d
+270 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1442 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1442 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114155732 prefix/utopic-x11-snapshot.tar.gz utopic
+1609 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114155732 prefix/utopic-x11-snapshot.tar.gz utopic
+1609 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w3-kde.utopic.0.xuG/target.zZrcGt -U -n utopic
+1609 [t] BEGIN /usr/local/test-20141114155732 prefix/w3-kde.utopic.0.xuG/target.zZrcGt CONTENTS
+1609 [t] REQUIRES=''
+1609 [t] . "${TARGETSDIR:="$PWD"}/common"
+1609 [t] ### Append to prepare.sh:
+1609 [t] set -x
+1609 [t] install --minimal x11-apps imagemagick xautomation
+1609 [t] 
+1609 [t] set +x
+1609 [t] END /usr/local/test-20141114155732 prefix/w3-kde.utopic.0.xuG/target.zZrcGt CONTENTS
+1729 [t] PASS: crouton -U -n utopic
+1729 [t] LAUNCHING: crouton -u -n utopic -t kde
+2997 [t] PASS: crouton -u -n utopic -t kde
+2997 [t] LAUNCHING: startkde -b -n utopic
+3002 [t] PASS: startkde -b -n utopic
+3062 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+3062 [t]         # Test croutoncycle as a bonus
+3062 [t]         export DISPLAY="`croutoncycle display`"
+3062 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+3062 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+3062 [t]             exit 1
+3062 [t]         fi
+3062 [t]         if [ -n "" ]; then
+3062 [t]             echo "" | tr ";" "
+3062 [t] " | xte
+3062 [t]             sleep 60
+3062 [t]         fi
+3062 [t]         # Snapshot!
+3062 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+3076 [t] PASS: enter-chroot -n utopic sh -exc 
+3076 [t]         # Test croutoncycle as a bonus
+3076 [t]         export DISPLAY="`croutoncycle display`"
+3076 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+3076 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+3076 [t]             exit 1
+3076 [t]         fi
+3076 [t]         if [ -n "" ]; then
+3076 [t]             echo "" | tr ";" "
+3076 [t] " | xte
+3076 [t]             sleep 60
+3076 [t]         fi
+3076 [t]         # Snapshot!
+3076 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+3077 [t] LAUNCHING: unmount-chroot -f -y utopic
+3093 [t] PASS: unmount-chroot -f -y utopic
+3093 [t] LAUNCHING: delete-chroot -y utopic
+3117 [t] PASS: delete-chroot -y utopic
+3119 [t] TEST PASSED: w3-kde.utopic.0 finished with exit code 0

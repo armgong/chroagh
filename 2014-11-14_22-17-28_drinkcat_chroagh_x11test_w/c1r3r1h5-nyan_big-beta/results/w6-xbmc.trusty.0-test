@@ -1,0 +1,51 @@
+2014-11-14 18:04:20: BEGIN TEST w6-xbmc.trusty.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/trusty-x11-snapshot.tar.gz -n trusty
+90 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/trusty-x11-snapshot.tar.gz -n trusty
+90 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w6-xbmc.trusty.0.m9X/target.6VZjs0 -U -n trusty
+90 [t] BEGIN /usr/local/test-20141114151908 prefix/w6-xbmc.trusty.0.m9X/target.6VZjs0 CONTENTS
+90 [t] REQUIRES=''
+90 [t] . "${TARGETSDIR:="$PWD"}/common"
+90 [t] ### Append to prepare.sh:
+90 [t] set -x
+90 [t] install --minimal x11-apps imagemagick xautomation
+90 [t] 
+90 [t] set +x
+90 [t] END /usr/local/test-20141114151908 prefix/w6-xbmc.trusty.0.m9X/target.6VZjs0 CONTENTS
+136 [t] PASS: crouton -U -n trusty
+136 [t] LAUNCHING: crouton -u -n trusty -t xbmc
+520 [t] PASS: crouton -u -n trusty -t xbmc
+520 [t] LAUNCHING: startxbmc -b -n trusty
+521 [t] PASS: startxbmc -b -n trusty
+581 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+581 [t]         # Test croutoncycle as a bonus
+581 [t]         export DISPLAY="`croutoncycle display`"
+581 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+581 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+581 [t]             exit 1
+581 [t]         fi
+581 [t]         if [ -n "" ]; then
+581 [t]             echo "" | tr ";" "
+581 [t] " | xte
+581 [t]             sleep 60
+581 [t]         fi
+581 [t]         # Snapshot!
+581 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+583 [t] PASS: enter-chroot -n trusty sh -exc 
+583 [t]         # Test croutoncycle as a bonus
+583 [t]         export DISPLAY="`croutoncycle display`"
+583 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+583 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+583 [t]             exit 1
+583 [t]         fi
+583 [t]         if [ -n "" ]; then
+583 [t]             echo "" | tr ";" "
+583 [t] " | xte
+583 [t]             sleep 60
+583 [t]         fi
+583 [t]         # Snapshot!
+583 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+584 [t] LAUNCHING: unmount-chroot -f -y trusty
+592 [t] PASS: unmount-chroot -f -y trusty
+592 [t] LAUNCHING: delete-chroot -y trusty
+598 [t] PASS: delete-chroot -y trusty
+599 [t] TEST PASSED: w6-xbmc.trusty.0 finished with exit code 0

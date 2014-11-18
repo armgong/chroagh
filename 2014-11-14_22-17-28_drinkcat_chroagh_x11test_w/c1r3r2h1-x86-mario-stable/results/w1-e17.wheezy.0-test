@@ -1,0 +1,22 @@
+2014-11-14 16:56:18: BEGIN TEST w1-e17.wheezy.0
+3 [t] LAUNCHING: crouton -r wheezy -f /usr/local/test-20141114155905 prefix/wheezy-bootstrap.tar.gz -d
+163 [t] PASS: crouton -r wheezy -f /usr/local/test-20141114155905 prefix/wheezy-bootstrap.tar.gz -d
+163 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/wheezy-bootstrap.tar.gz -t x11 -n wheezy
+1178 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/wheezy-bootstrap.tar.gz -t x11 -n wheezy
+1178 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114155905 prefix/wheezy-x11-snapshot.tar.gz wheezy
+1423 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114155905 prefix/wheezy-x11-snapshot.tar.gz wheezy
+1423 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w1-e17.wheezy.0.P0y/target.ID7JpI -U -n wheezy
+1423 [t] BEGIN /usr/local/test-20141114155905 prefix/w1-e17.wheezy.0.P0y/target.ID7JpI CONTENTS
+1423 [t] REQUIRES=''
+1423 [t] . "${TARGETSDIR:="$PWD"}/common"
+1423 [t] ### Append to prepare.sh:
+1423 [t] set -x
+1423 [t] install --minimal x11-apps imagemagick xautomation
+1423 [t] 
+1423 [t] set +x
+1423 [t] END /usr/local/test-20141114155905 prefix/w1-e17.wheezy.0.P0y/target.ID7JpI CONTENTS
+1547 [t] PASS: crouton -U -n wheezy
+1547 [t] LAUNCHING: crouton -u -n wheezy -t e17
+1550 [t] FAIL with code 99: crouton -u -n wheezy -t e17
+1550 [t] Target e17 failed on wheezy, as expected (unsupported combination).
+1556 [t] TEST PASSED: w1-e17.wheezy.0 finished with exit code 0

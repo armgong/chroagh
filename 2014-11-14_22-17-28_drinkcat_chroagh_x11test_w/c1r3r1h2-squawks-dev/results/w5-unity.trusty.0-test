@@ -1,0 +1,52 @@
+2014-11-14 20:31:49: BEGIN TEST w5-unity.trusty.0
+17 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/trusty-x11-snapshot.tar.gz -n trusty
+126 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/trusty-x11-snapshot.tar.gz -n trusty
+126 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w5-unity.trusty.0.SHC/target.tUd7oe -U -n trusty
+126 [t] BEGIN /usr/local/test-20141114154527 prefix/w5-unity.trusty.0.SHC/target.tUd7oe CONTENTS
+126 [t] REQUIRES=''
+126 [t] . "${TARGETSDIR:="$PWD"}/common"
+126 [t] ### Append to prepare.sh:
+126 [t] set -x
+126 [t] install --minimal x11-apps imagemagick xautomation
+126 [t] 
+126 [t] set +x
+126 [t] END /usr/local/test-20141114154527 prefix/w5-unity.trusty.0.SHC/target.tUd7oe CONTENTS
+187 [t] PASS: crouton -U -n trusty
+187 [t] LAUNCHING: crouton -u -n trusty -t unity
+1572 [t] PASS: crouton -u -n trusty -t unity
+1572 [t] Waiting for VT lock...
+1626 [t] LAUNCHING: startunity -b -n trusty
+1631 [t] PASS: startunity -b -n trusty
+1691 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+1691 [t]         # Test croutoncycle as a bonus
+1691 [t]         export DISPLAY="`croutoncycle display`"
+1691 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1691 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1691 [t]             exit 1
+1691 [t]         fi
+1691 [t]         if [ -n "" ]; then
+1691 [t]             echo "" | tr ";" "
+1691 [t] " | xte
+1691 [t]             sleep 60
+1691 [t]         fi
+1691 [t]         # Snapshot!
+1691 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-unity.jpg"
+1695 [t] PASS: enter-chroot -n trusty sh -exc 
+1695 [t]         # Test croutoncycle as a bonus
+1695 [t]         export DISPLAY="`croutoncycle display`"
+1695 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1695 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1695 [t]             exit 1
+1695 [t]         fi
+1695 [t]         if [ -n "" ]; then
+1695 [t]             echo "" | tr ";" "
+1695 [t] " | xte
+1695 [t]             sleep 60
+1695 [t]         fi
+1695 [t]         # Snapshot!
+1695 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-unity.jpg"
+1696 [t] LAUNCHING: unmount-chroot -f -y trusty
+1775 [t] PASS: unmount-chroot -f -y trusty
+1775 [t] LAUNCHING: delete-chroot -y trusty
+1793 [t] PASS: delete-chroot -y trusty
+1794 [t] TEST PASSED: w5-unity.trusty.0 finished with exit code 0

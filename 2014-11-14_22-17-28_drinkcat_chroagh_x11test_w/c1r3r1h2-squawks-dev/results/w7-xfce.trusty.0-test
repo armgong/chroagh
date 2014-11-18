@@ -1,0 +1,51 @@
+2014-11-14 18:32:20: BEGIN TEST w7-xfce.trusty.0
+2 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/trusty-x11-snapshot.tar.gz -n trusty
+84 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/trusty-x11-snapshot.tar.gz -n trusty
+84 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w7-xfce.trusty.0.jGE/target.4tGEGK -U -n trusty
+84 [t] BEGIN /usr/local/test-20141114154527 prefix/w7-xfce.trusty.0.jGE/target.4tGEGK CONTENTS
+84 [t] REQUIRES=''
+84 [t] . "${TARGETSDIR:="$PWD"}/common"
+84 [t] ### Append to prepare.sh:
+84 [t] set -x
+84 [t] install --minimal x11-apps imagemagick xautomation
+84 [t] 
+84 [t] set +x
+84 [t] END /usr/local/test-20141114154527 prefix/w7-xfce.trusty.0.jGE/target.4tGEGK CONTENTS
+182 [t] PASS: crouton -U -n trusty
+182 [t] LAUNCHING: crouton -u -n trusty -t xfce
+883 [t] PASS: crouton -u -n trusty -t xfce
+884 [t] LAUNCHING: startxfce4 -b -n trusty
+885 [t] PASS: startxfce4 -b -n trusty
+945 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+945 [t]         # Test croutoncycle as a bonus
+945 [t]         export DISPLAY="`croutoncycle display`"
+945 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+945 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+945 [t]             exit 1
+945 [t]         fi
+945 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+945 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+945 [t] " | xte
+945 [t]             sleep 60
+945 [t]         fi
+945 [t]         # Snapshot!
+945 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1011 [t] PASS: enter-chroot -n trusty sh -exc 
+1011 [t]         # Test croutoncycle as a bonus
+1011 [t]         export DISPLAY="`croutoncycle display`"
+1011 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1011 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1011 [t]             exit 1
+1011 [t]         fi
+1011 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1011 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1011 [t] " | xte
+1011 [t]             sleep 60
+1011 [t]         fi
+1011 [t]         # Snapshot!
+1011 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1011 [t] LAUNCHING: unmount-chroot -f -y trusty
+1016 [t] PASS: unmount-chroot -f -y trusty
+1016 [t] LAUNCHING: delete-chroot -y trusty
+1028 [t] FAIL with code 1: delete-chroot -y trusty
+1032 [t] TEST FAILED: w7-xfce.trusty.0 finished with exit code 1

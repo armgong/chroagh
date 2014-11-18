@@ -1,0 +1,11 @@
+2014-11-14 20:52:51: BEGIN TEST w5-unity.utopic.0
+4 [t] Waiting for snapshot for utopic-x11 to complete...
+471 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+471 [e] + echo Running trap...
+471 [e] + [ -d /usr/local/test-20141114155905 prefix/w5-unity.utopic.0.7aQ/chroots ]
+471 [e] + pkill -9 -P 11169
+471 [i] Running trap...
+471 [t] FAIL with code 2: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+471 [e] + umount -l /usr/local/test-20141114155905 prefix/w5-unity.utopic.0.7aQ
+471 [e] + rm -rf --one-file-system /usr/local/test-20141114155905 prefix/w5-unity.utopic.0.7aQ
+472 [t] TEST FAILED: w5-unity.utopic.0 finished with exit code 2

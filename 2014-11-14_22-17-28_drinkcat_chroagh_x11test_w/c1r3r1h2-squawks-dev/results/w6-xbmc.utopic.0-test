@@ -1,0 +1,51 @@
+2014-11-14 17:43:05: BEGIN TEST w6-xbmc.utopic.0
+0 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+114 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+114 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w6-xbmc.utopic.0.cwB/target.Eppbjx -U -n utopic
+114 [t] BEGIN /usr/local/test-20141114154527 prefix/w6-xbmc.utopic.0.cwB/target.Eppbjx CONTENTS
+114 [t] REQUIRES=''
+114 [t] . "${TARGETSDIR:="$PWD"}/common"
+114 [t] ### Append to prepare.sh:
+114 [t] set -x
+114 [t] install --minimal x11-apps imagemagick xautomation
+114 [t] 
+114 [t] set +x
+114 [t] END /usr/local/test-20141114154527 prefix/w6-xbmc.utopic.0.cwB/target.Eppbjx CONTENTS
+185 [t] PASS: crouton -U -n utopic
+185 [t] LAUNCHING: crouton -u -n utopic -t xbmc
+546 [t] PASS: crouton -u -n utopic -t xbmc
+546 [t] LAUNCHING: startxbmc -b -n utopic
+550 [t] PASS: startxbmc -b -n utopic
+610 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+610 [t]         # Test croutoncycle as a bonus
+610 [t]         export DISPLAY="`croutoncycle display`"
+610 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+610 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+610 [t]             exit 1
+610 [t]         fi
+610 [t]         if [ -n "" ]; then
+610 [t]             echo "" | tr ";" "
+610 [t] " | xte
+610 [t]             sleep 60
+610 [t]         fi
+610 [t]         # Snapshot!
+610 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+611 [t] PASS: enter-chroot -n utopic sh -exc 
+611 [t]         # Test croutoncycle as a bonus
+611 [t]         export DISPLAY="`croutoncycle display`"
+611 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+611 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+611 [t]             exit 1
+611 [t]         fi
+611 [t]         if [ -n "" ]; then
+611 [t]             echo "" | tr ";" "
+611 [t] " | xte
+611 [t]             sleep 60
+611 [t]         fi
+611 [t]         # Snapshot!
+611 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+611 [t] LAUNCHING: unmount-chroot -f -y utopic
+621 [t] PASS: unmount-chroot -f -y utopic
+621 [t] LAUNCHING: delete-chroot -y utopic
+629 [t] PASS: delete-chroot -y utopic
+630 [t] TEST PASSED: w6-xbmc.utopic.0 finished with exit code 0

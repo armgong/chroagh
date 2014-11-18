@@ -1,0 +1,51 @@
+2014-11-14 17:59:35: BEGIN TEST w3-kde.trusty.0
+9 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/trusty-x11-snapshot.tar.gz -n trusty
+93 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/trusty-x11-snapshot.tar.gz -n trusty
+93 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w3-kde.trusty.0.16Q/target.W9bUs7 -U -n trusty
+93 [t] BEGIN /usr/local/test-20141114160443 prefix/w3-kde.trusty.0.16Q/target.W9bUs7 CONTENTS
+93 [t] REQUIRES=''
+93 [t] . "${TARGETSDIR:="$PWD"}/common"
+93 [t] ### Append to prepare.sh:
+93 [t] set -x
+93 [t] install --minimal x11-apps imagemagick xautomation
+93 [t] 
+93 [t] set +x
+93 [t] END /usr/local/test-20141114160443 prefix/w3-kde.trusty.0.16Q/target.W9bUs7 CONTENTS
+176 [t] PASS: crouton -U -n trusty
+176 [t] LAUNCHING: crouton -u -n trusty -t kde
+1472 [t] PASS: crouton -u -n trusty -t kde
+1472 [t] LAUNCHING: startkde -b -n trusty
+1474 [t] PASS: startkde -b -n trusty
+1534 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+1534 [t]         # Test croutoncycle as a bonus
+1534 [t]         export DISPLAY="`croutoncycle display`"
+1534 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1534 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1534 [t]             exit 1
+1534 [t]         fi
+1534 [t]         if [ -n "" ]; then
+1534 [t]             echo "" | tr ";" "
+1534 [t] " | xte
+1534 [t]             sleep 60
+1534 [t]         fi
+1534 [t]         # Snapshot!
+1534 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1545 [t] PASS: enter-chroot -n trusty sh -exc 
+1545 [t]         # Test croutoncycle as a bonus
+1545 [t]         export DISPLAY="`croutoncycle display`"
+1545 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1545 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1545 [t]             exit 1
+1545 [t]         fi
+1545 [t]         if [ -n "" ]; then
+1545 [t]             echo "" | tr ";" "
+1545 [t] " | xte
+1545 [t]             sleep 60
+1545 [t]         fi
+1545 [t]         # Snapshot!
+1545 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1546 [t] LAUNCHING: unmount-chroot -f -y trusty
+1562 [t] PASS: unmount-chroot -f -y trusty
+1562 [t] LAUNCHING: delete-chroot -y trusty
+1587 [t] PASS: delete-chroot -y trusty
+1588 [t] TEST PASSED: w3-kde.trusty.0 finished with exit code 0

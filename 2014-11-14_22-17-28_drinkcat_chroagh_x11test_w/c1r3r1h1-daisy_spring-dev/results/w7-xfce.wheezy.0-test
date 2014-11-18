@@ -1,0 +1,53 @@
+2014-11-14 17:34:25: BEGIN TEST w7-xfce.wheezy.0
+1 [t] Waiting for snapshot for wheezy-x11 to complete...
+396 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+504 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+504 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w7-xfce.wheezy.0.cPU/target.vOAQ5Z -U -n wheezy
+504 [t] BEGIN /usr/local/test-20141114155732 prefix/w7-xfce.wheezy.0.cPU/target.vOAQ5Z CONTENTS
+504 [t] REQUIRES=''
+504 [t] . "${TARGETSDIR:="$PWD"}/common"
+504 [t] ### Append to prepare.sh:
+504 [t] set -x
+504 [t] install --minimal x11-apps imagemagick xautomation
+504 [t] 
+504 [t] set +x
+504 [t] END /usr/local/test-20141114155732 prefix/w7-xfce.wheezy.0.cPU/target.vOAQ5Z CONTENTS
+644 [t] PASS: crouton -U -n wheezy
+644 [t] LAUNCHING: crouton -u -n wheezy -t xfce
+1883 [t] PASS: crouton -u -n wheezy -t xfce
+1884 [t] Waiting for VT lock...
+1924 [t] LAUNCHING: startxfce4 -b -n wheezy
+1929 [t] PASS: startxfce4 -b -n wheezy
+1989 [t] LAUNCHING: enter-chroot -n wheezy sh -exc 
+1989 [t]         # Test croutoncycle as a bonus
+1989 [t]         export DISPLAY="`croutoncycle display`"
+1989 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1989 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1989 [t]             exit 1
+1989 [t]         fi
+1989 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1989 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1989 [t] " | xte
+1989 [t]             sleep 60
+1989 [t]         fi
+1989 [t]         # Snapshot!
+1989 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+2062 [t] PASS: enter-chroot -n wheezy sh -exc 
+2062 [t]         # Test croutoncycle as a bonus
+2062 [t]         export DISPLAY="`croutoncycle display`"
+2062 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2062 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2062 [t]             exit 1
+2062 [t]         fi
+2062 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+2062 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+2062 [t] " | xte
+2062 [t]             sleep 60
+2062 [t]         fi
+2062 [t]         # Snapshot!
+2062 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+2062 [t] LAUNCHING: unmount-chroot -f -y wheezy
+2076 [t] PASS: unmount-chroot -f -y wheezy
+2076 [t] LAUNCHING: delete-chroot -y wheezy
+2105 [t] PASS: delete-chroot -y wheezy
+2106 [t] TEST PASSED: w7-xfce.wheezy.0 finished with exit code 0

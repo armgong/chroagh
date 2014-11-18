@@ -1,0 +1,52 @@
+2014-11-14 18:13:16: BEGIN TEST w3-kde.utopic.0
+3 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+116 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+116 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w3-kde.utopic.0.EZy/target.sNkeIY -U -n utopic
+116 [t] BEGIN /usr/local/test-20141114154527 prefix/w3-kde.utopic.0.EZy/target.sNkeIY CONTENTS
+116 [t] REQUIRES=''
+116 [t] . "${TARGETSDIR:="$PWD"}/common"
+116 [t] ### Append to prepare.sh:
+116 [t] set -x
+116 [t] install --minimal x11-apps imagemagick xautomation
+116 [t] 
+116 [t] set +x
+116 [t] END /usr/local/test-20141114154527 prefix/w3-kde.utopic.0.EZy/target.sNkeIY CONTENTS
+190 [t] PASS: crouton -U -n utopic
+190 [t] LAUNCHING: crouton -u -n utopic -t kde
+1096 [t] PASS: crouton -u -n utopic -t kde
+1096 [t] Waiting for VT lock...
+1135 [t] LAUNCHING: startkde -b -n utopic
+1137 [t] PASS: startkde -b -n utopic
+1197 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+1197 [t]         # Test croutoncycle as a bonus
+1197 [t]         export DISPLAY="`croutoncycle display`"
+1197 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1197 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1197 [t]             exit 1
+1197 [t]         fi
+1197 [t]         if [ -n "" ]; then
+1197 [t]             echo "" | tr ";" "
+1197 [t] " | xte
+1197 [t]             sleep 60
+1197 [t]         fi
+1197 [t]         # Snapshot!
+1197 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1205 [t] PASS: enter-chroot -n utopic sh -exc 
+1205 [t]         # Test croutoncycle as a bonus
+1205 [t]         export DISPLAY="`croutoncycle display`"
+1205 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1205 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1205 [t]             exit 1
+1205 [t]         fi
+1205 [t]         if [ -n "" ]; then
+1205 [t]             echo "" | tr ";" "
+1205 [t] " | xte
+1205 [t]             sleep 60
+1205 [t]         fi
+1205 [t]         # Snapshot!
+1205 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1206 [t] LAUNCHING: unmount-chroot -f -y utopic
+1227 [t] PASS: unmount-chroot -f -y utopic
+1227 [t] LAUNCHING: delete-chroot -y utopic
+1233 [t] PASS: delete-chroot -y utopic
+1234 [t] TEST PASSED: w3-kde.utopic.0 finished with exit code 0

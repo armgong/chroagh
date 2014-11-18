@@ -1,0 +1,51 @@
+2014-11-14 19:27:13: BEGIN TEST w5-unity.utopic.0
+5 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+95 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+95 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w5-unity.utopic.0.RLA/target.vLWqW7 -U -n utopic
+95 [t] BEGIN /usr/local/test-20141114154527 prefix/w5-unity.utopic.0.RLA/target.vLWqW7 CONTENTS
+95 [t] REQUIRES=''
+95 [t] . "${TARGETSDIR:="$PWD"}/common"
+95 [t] ### Append to prepare.sh:
+95 [t] set -x
+95 [t] install --minimal x11-apps imagemagick xautomation
+95 [t] 
+95 [t] set +x
+95 [t] END /usr/local/test-20141114154527 prefix/w5-unity.utopic.0.RLA/target.vLWqW7 CONTENTS
+237 [t] PASS: crouton -U -n utopic
+237 [t] LAUNCHING: crouton -u -n utopic -t unity
+1895 [t] PASS: crouton -u -n utopic -t unity
+1895 [t] LAUNCHING: startunity -b -n utopic
+1896 [t] PASS: startunity -b -n utopic
+1956 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+1956 [t]         # Test croutoncycle as a bonus
+1956 [t]         export DISPLAY="`croutoncycle display`"
+1956 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1956 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1956 [t]             exit 1
+1956 [t]         fi
+1956 [t]         if [ -n "" ]; then
+1956 [t]             echo "" | tr ";" "
+1956 [t] " | xte
+1956 [t]             sleep 60
+1956 [t]         fi
+1956 [t]         # Snapshot!
+1956 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-unity.jpg"
+1959 [t] PASS: enter-chroot -n utopic sh -exc 
+1959 [t]         # Test croutoncycle as a bonus
+1959 [t]         export DISPLAY="`croutoncycle display`"
+1959 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1959 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1959 [t]             exit 1
+1959 [t]         fi
+1959 [t]         if [ -n "" ]; then
+1959 [t]             echo "" | tr ";" "
+1959 [t] " | xte
+1959 [t]             sleep 60
+1959 [t]         fi
+1959 [t]         # Snapshot!
+1959 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-unity.jpg"
+1959 [t] LAUNCHING: unmount-chroot -f -y utopic
+1970 [t] PASS: unmount-chroot -f -y utopic
+1970 [t] LAUNCHING: delete-chroot -y utopic
+1985 [t] PASS: delete-chroot -y utopic
+1986 [t] TEST PASSED: w5-unity.utopic.0 finished with exit code 0

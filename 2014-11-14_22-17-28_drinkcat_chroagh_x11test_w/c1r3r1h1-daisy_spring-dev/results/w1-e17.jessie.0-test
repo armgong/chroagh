@@ -1,0 +1,52 @@
+2014-11-14 19:47:29: BEGIN TEST w1-e17.jessie.0
+3 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/jessie-x11-snapshot.tar.gz -n jessie
+149 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/jessie-x11-snapshot.tar.gz -n jessie
+149 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w1-e17.jessie.0.1iH/target.xViXMo -U -n jessie
+149 [t] BEGIN /usr/local/test-20141114155732 prefix/w1-e17.jessie.0.1iH/target.xViXMo CONTENTS
+149 [t] REQUIRES=''
+149 [t] . "${TARGETSDIR:="$PWD"}/common"
+149 [t] ### Append to prepare.sh:
+149 [t] set -x
+149 [t] install --minimal x11-apps imagemagick xautomation
+149 [t] 
+149 [t] set +x
+149 [t] END /usr/local/test-20141114155732 prefix/w1-e17.jessie.0.1iH/target.xViXMo CONTENTS
+227 [t] PASS: crouton -U -n jessie
+227 [t] LAUNCHING: crouton -u -n jessie -t e17
+1365 [t] PASS: crouton -u -n jessie -t e17
+1365 [t] Waiting for VT lock...
+1423 [t] LAUNCHING: starte17 -b -n jessie
+1426 [t] PASS: starte17 -b -n jessie
+1486 [t] LAUNCHING: enter-chroot -n jessie sh -exc 
+1486 [t]         # Test croutoncycle as a bonus
+1486 [t]         export DISPLAY="`croutoncycle display`"
+1486 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1486 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1486 [t]             exit 1
+1486 [t]         fi
+1486 [t]         if [ -n "" ]; then
+1486 [t]             echo "" | tr ";" "
+1486 [t] " | xte
+1486 [t]             sleep 60
+1486 [t]         fi
+1486 [t]         # Snapshot!
+1486 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+1497 [t] PASS: enter-chroot -n jessie sh -exc 
+1497 [t]         # Test croutoncycle as a bonus
+1497 [t]         export DISPLAY="`croutoncycle display`"
+1497 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1497 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1497 [t]             exit 1
+1497 [t]         fi
+1497 [t]         if [ -n "" ]; then
+1497 [t]             echo "" | tr ";" "
+1497 [t] " | xte
+1497 [t]             sleep 60
+1497 [t]         fi
+1497 [t]         # Snapshot!
+1497 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+1497 [t] LAUNCHING: unmount-chroot -f -y jessie
+1543 [t] PASS: unmount-chroot -f -y jessie
+1543 [t] LAUNCHING: delete-chroot -y jessie
+1602 [t] PASS: delete-chroot -y jessie
+1603 [t] TEST PASSED: w1-e17.jessie.0 finished with exit code 0

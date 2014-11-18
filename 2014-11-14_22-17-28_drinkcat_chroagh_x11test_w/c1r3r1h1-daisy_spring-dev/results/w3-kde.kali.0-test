@@ -1,0 +1,52 @@
+2014-11-14 18:51:48: BEGIN TEST w3-kde.kali.0
+5 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/kali-x11-snapshot.tar.gz -n kali
+115 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/kali-x11-snapshot.tar.gz -n kali
+115 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w3-kde.kali.0.7hP/target.kRoyl3 -U -n kali
+115 [t] BEGIN /usr/local/test-20141114155732 prefix/w3-kde.kali.0.7hP/target.kRoyl3 CONTENTS
+115 [t] REQUIRES=''
+115 [t] . "${TARGETSDIR:="$PWD"}/common"
+115 [t] ### Append to prepare.sh:
+115 [t] set -x
+115 [t] install --minimal x11-apps imagemagick xautomation
+115 [t] 
+115 [t] set +x
+115 [t] END /usr/local/test-20141114155732 prefix/w3-kde.kali.0.7hP/target.kRoyl3 CONTENTS
+200 [t] PASS: crouton -U -n kali
+200 [t] LAUNCHING: crouton -u -n kali -t kde
+1554 [t] PASS: crouton -u -n kali -t kde
+1554 [t] Waiting for VT lock...
+1560 [t] LAUNCHING: startkde -b -n kali
+1563 [t] PASS: startkde -b -n kali
+1623 [t] LAUNCHING: enter-chroot -n kali sh -exc 
+1623 [t]         # Test croutoncycle as a bonus
+1623 [t]         export DISPLAY="`croutoncycle display`"
+1623 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1623 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1623 [t]             exit 1
+1623 [t]         fi
+1623 [t]         if [ -n "" ]; then
+1623 [t]             echo "" | tr ";" "
+1623 [t] " | xte
+1623 [t]             sleep 60
+1623 [t]         fi
+1623 [t]         # Snapshot!
+1623 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1626 [t] PASS: enter-chroot -n kali sh -exc 
+1626 [t]         # Test croutoncycle as a bonus
+1626 [t]         export DISPLAY="`croutoncycle display`"
+1626 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1626 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1626 [t]             exit 1
+1626 [t]         fi
+1626 [t]         if [ -n "" ]; then
+1626 [t]             echo "" | tr ";" "
+1626 [t] " | xte
+1626 [t]             sleep 60
+1626 [t]         fi
+1626 [t]         # Snapshot!
+1626 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1626 [t] LAUNCHING: unmount-chroot -f -y kali
+1703 [t] PASS: unmount-chroot -f -y kali
+1703 [t] LAUNCHING: delete-chroot -y kali
+1738 [t] PASS: delete-chroot -y kali
+1739 [t] TEST PASSED: w3-kde.kali.0 finished with exit code 0

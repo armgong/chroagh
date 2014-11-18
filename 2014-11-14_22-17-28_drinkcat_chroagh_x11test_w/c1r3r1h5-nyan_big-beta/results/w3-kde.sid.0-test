@@ -1,0 +1,4 @@
+2014-11-14 17:19:00: BEGIN TEST w3-kde.sid.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/sid-bootstrap.tar.gz -t x11 -n sid
+556 [t] FAIL with code 100: crouton -f /usr/local/test-20141114151908 prefix/sid-bootstrap.tar.gz -t x11 -n sid
+580 [t] TEST FAILED: w3-kde.sid.0 finished with exit code 100

@@ -1,0 +1,51 @@
+2014-11-14 15:59:45: BEGIN TEST w3-kde.precise.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz -n precise
+72 [t] PASS: crouton -f /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz -n precise
+72 [t] LAUNCHING: crouton -T /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/target.tvlWpG -U -n precise
+72 [t] BEGIN /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/target.tvlWpG CONTENTS
+72 [t] REQUIRES=''
+72 [t] . "${TARGETSDIR:="$PWD"}/common"
+72 [t] ### Append to prepare.sh:
+72 [t] set -x
+72 [t] install --minimal x11-apps imagemagick xautomation
+72 [t] 
+72 [t] set +x
+72 [t] END /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/target.tvlWpG CONTENTS
+113 [t] PASS: crouton -U -n precise
+113 [t] LAUNCHING: crouton -u -n precise -t kde
+482 [t] PASS: crouton -u -n precise -t kde
+482 [t] LAUNCHING: startkde -b -n precise
+483 [t] PASS: startkde -b -n precise
+543 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+543 [t]         # Test croutoncycle as a bonus
+543 [t]         export DISPLAY="`croutoncycle display`"
+543 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+543 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+543 [t]             exit 1
+543 [t]         fi
+543 [t]         if [ -n "" ]; then
+543 [t]             echo "" | tr ";" "
+543 [t] " | xte
+543 [t]             sleep 60
+543 [t]         fi
+543 [t]         # Snapshot!
+543 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+545 [t] PASS: enter-chroot -n precise sh -exc 
+545 [t]         # Test croutoncycle as a bonus
+545 [t]         export DISPLAY="`croutoncycle display`"
+545 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+545 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+545 [t]             exit 1
+545 [t]         fi
+545 [t]         if [ -n "" ]; then
+545 [t]             echo "" | tr ";" "
+545 [t] " | xte
+545 [t]             sleep 60
+545 [t]         fi
+545 [t]         # Snapshot!
+545 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+545 [t] LAUNCHING: unmount-chroot -f -y precise
+554 [t] PASS: unmount-chroot -f -y precise
+554 [t] LAUNCHING: delete-chroot -y precise
+561 [t] PASS: delete-chroot -y precise
+562 [t] TEST PASSED: w3-kde.precise.0 finished with exit code 0

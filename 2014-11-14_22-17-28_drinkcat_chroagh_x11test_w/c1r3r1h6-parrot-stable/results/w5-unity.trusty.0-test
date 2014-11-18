@@ -1,0 +1,55 @@
+2014-11-14 18:35:14: BEGIN TEST w5-unity.trusty.0
+1 [t] LAUNCHING: crouton -r trusty -f /usr/local/test-20141114164154 prefix/trusty-bootstrap.tar.gz -d
+83 [t] PASS: crouton -r trusty -f /usr/local/test-20141114164154 prefix/trusty-bootstrap.tar.gz -d
+83 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+1517 [t] PASS: crouton -f /usr/local/test-20141114164154 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+1517 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114164154 prefix/trusty-x11-snapshot.tar.gz trusty
+1673 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114164154 prefix/trusty-x11-snapshot.tar.gz trusty
+1673 [t] LAUNCHING: crouton -T /usr/local/test-20141114164154 prefix/w5-unity.trusty.0.PqE/target.2oKzPM -U -n trusty
+1673 [t] BEGIN /usr/local/test-20141114164154 prefix/w5-unity.trusty.0.PqE/target.2oKzPM CONTENTS
+1673 [t] REQUIRES=''
+1673 [t] . "${TARGETSDIR:="$PWD"}/common"
+1673 [t] ### Append to prepare.sh:
+1673 [t] set -x
+1673 [t] install --minimal x11-apps imagemagick xautomation
+1673 [t] 
+1673 [t] set +x
+1673 [t] END /usr/local/test-20141114164154 prefix/w5-unity.trusty.0.PqE/target.2oKzPM CONTENTS
+1754 [t] PASS: crouton -U -n trusty
+1754 [t] LAUNCHING: crouton -u -n trusty -t unity
+4464 [t] PASS: crouton -u -n trusty -t unity
+4464 [t] LAUNCHING: startunity -b -n trusty
+4465 [t] PASS: startunity -b -n trusty
+4525 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+4525 [t]         # Test croutoncycle as a bonus
+4525 [t]         export DISPLAY="`croutoncycle display`"
+4525 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+4525 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+4525 [t]             exit 1
+4525 [t]         fi
+4525 [t]         if [ -n "" ]; then
+4525 [t]             echo "" | tr ";" "
+4525 [t] " | xte
+4525 [t]             sleep 60
+4525 [t]         fi
+4525 [t]         # Snapshot!
+4525 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-unity.jpg"
+4531 [t] PASS: enter-chroot -n trusty sh -exc 
+4531 [t]         # Test croutoncycle as a bonus
+4531 [t]         export DISPLAY="`croutoncycle display`"
+4531 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+4531 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+4531 [t]             exit 1
+4531 [t]         fi
+4531 [t]         if [ -n "" ]; then
+4531 [t]             echo "" | tr ";" "
+4531 [t] " | xte
+4531 [t]             sleep 60
+4531 [t]         fi
+4531 [t]         # Snapshot!
+4531 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-unity.jpg"
+4531 [t] LAUNCHING: unmount-chroot -f -y trusty
+4544 [t] PASS: unmount-chroot -f -y trusty
+4544 [t] LAUNCHING: delete-chroot -y trusty
+4571 [t] PASS: delete-chroot -y trusty
+4572 [t] TEST PASSED: w5-unity.trusty.0 finished with exit code 0

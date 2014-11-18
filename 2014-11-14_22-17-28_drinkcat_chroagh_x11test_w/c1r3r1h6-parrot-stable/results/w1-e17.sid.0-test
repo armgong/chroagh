@@ -1,0 +1,47 @@
+2014-11-14 17:37:42: BEGIN TEST w1-e17.sid.0
+2 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/sid-x11-snapshot.tar.gz -n sid
+64 [t] PASS: crouton -f /usr/local/test-20141114164154 prefix/sid-x11-snapshot.tar.gz -n sid
+64 [t] LAUNCHING: crouton -T /usr/local/test-20141114164154 prefix/w1-e17.sid.0.Koa/target.cPwHJ0 -U -n sid
+64 [t] BEGIN /usr/local/test-20141114164154 prefix/w1-e17.sid.0.Koa/target.cPwHJ0 CONTENTS
+64 [t] REQUIRES=''
+64 [t] . "${TARGETSDIR:="$PWD"}/common"
+64 [t] ### Append to prepare.sh:
+64 [t] set -x
+64 [t] install --minimal x11-apps imagemagick xautomation
+64 [t] 
+64 [t] set +x
+64 [t] END /usr/local/test-20141114164154 prefix/w1-e17.sid.0.Koa/target.cPwHJ0 CONTENTS
+144 [t] PASS: crouton -U -n sid
+144 [t] LAUNCHING: crouton -u -n sid -t e17
+1664 [t] PASS: crouton -u -n sid -t e17
+1665 [t] LAUNCHING: starte17 -b -n sid
+1666 [t] PASS: starte17 -b -n sid
+1726 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+1726 [t]         # Test croutoncycle as a bonus
+1726 [t]         export DISPLAY="`croutoncycle display`"
+1726 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1726 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1726 [t]             exit 1
+1726 [t]         fi
+1726 [t]         if [ -n "" ]; then
+1726 [t]             echo "" | tr ";" "
+1726 [t] " | xte
+1726 [t]             sleep 60
+1726 [t]         fi
+1726 [t]         # Snapshot!
+1726 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+1727 [t] FAIL with code 32: enter-chroot -n sid sh -exc 
+1727 [t]         # Test croutoncycle as a bonus
+1727 [t]         export DISPLAY="`croutoncycle display`"
+1727 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1727 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1727 [t]             exit 1
+1727 [t]         fi
+1727 [t]         if [ -n "" ]; then
+1727 [t]             echo "" | tr ";" "
+1727 [t] " | xte
+1727 [t]             sleep 60
+1727 [t]         fi
+1727 [t]         # Snapshot!
+1727 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+1745 [t] TEST FAILED: w1-e17.sid.0 finished with exit code 32

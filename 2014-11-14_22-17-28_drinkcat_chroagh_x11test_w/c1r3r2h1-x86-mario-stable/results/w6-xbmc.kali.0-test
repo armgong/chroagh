@@ -1,0 +1,51 @@
+2014-11-14 20:57:43: BEGIN TEST w6-xbmc.kali.0
+3 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/kali-x11-snapshot.tar.gz -n kali
+71 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/kali-x11-snapshot.tar.gz -n kali
+71 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w6-xbmc.kali.0.aBS/target.Drb2Ed -U -n kali
+71 [t] BEGIN /usr/local/test-20141114155905 prefix/w6-xbmc.kali.0.aBS/target.Drb2Ed CONTENTS
+71 [t] REQUIRES=''
+71 [t] . "${TARGETSDIR:="$PWD"}/common"
+71 [t] ### Append to prepare.sh:
+71 [t] set -x
+71 [t] install --minimal x11-apps imagemagick xautomation
+71 [t] 
+71 [t] set +x
+71 [t] END /usr/local/test-20141114155905 prefix/w6-xbmc.kali.0.aBS/target.Drb2Ed CONTENTS
+116 [t] PASS: crouton -U -n kali
+116 [t] LAUNCHING: crouton -u -n kali -t xbmc
+578 [t] PASS: crouton -u -n kali -t xbmc
+578 [t] LAUNCHING: startxbmc -b -n kali
+580 [t] PASS: startxbmc -b -n kali
+640 [t] LAUNCHING: enter-chroot -n kali sh -exc 
+640 [t]         # Test croutoncycle as a bonus
+640 [t]         export DISPLAY="`croutoncycle display`"
+640 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+640 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+640 [t]             exit 1
+640 [t]         fi
+640 [t]         if [ -n "" ]; then
+640 [t]             echo "" | tr ";" "
+640 [t] " | xte
+640 [t]             sleep 60
+640 [t]         fi
+640 [t]         # Snapshot!
+640 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+647 [t] PASS: enter-chroot -n kali sh -exc 
+647 [t]         # Test croutoncycle as a bonus
+647 [t]         export DISPLAY="`croutoncycle display`"
+647 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+647 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+647 [t]             exit 1
+647 [t]         fi
+647 [t]         if [ -n "" ]; then
+647 [t]             echo "" | tr ";" "
+647 [t] " | xte
+647 [t]             sleep 60
+647 [t]         fi
+647 [t]         # Snapshot!
+647 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+647 [t] LAUNCHING: unmount-chroot -f -y kali
+661 [t] PASS: unmount-chroot -f -y kali
+661 [t] LAUNCHING: delete-chroot -y kali
+670 [t] PASS: delete-chroot -y kali
+671 [t] TEST PASSED: w6-xbmc.kali.0 finished with exit code 0

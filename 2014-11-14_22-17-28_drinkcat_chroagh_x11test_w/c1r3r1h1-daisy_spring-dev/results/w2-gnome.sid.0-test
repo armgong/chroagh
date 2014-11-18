@@ -1,0 +1,51 @@
+2014-11-14 16:44:17: BEGIN TEST w2-gnome.sid.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/sid-x11-snapshot.tar.gz -n sid
+99 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/sid-x11-snapshot.tar.gz -n sid
+99 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w2-gnome.sid.0.Nlx/target.xeNl5z -U -n sid
+99 [t] BEGIN /usr/local/test-20141114155732 prefix/w2-gnome.sid.0.Nlx/target.xeNl5z CONTENTS
+99 [t] REQUIRES=''
+99 [t] . "${TARGETSDIR:="$PWD"}/common"
+99 [t] ### Append to prepare.sh:
+99 [t] set -x
+99 [t] install --minimal x11-apps imagemagick xautomation
+99 [t] 
+99 [t] set +x
+99 [t] END /usr/local/test-20141114155732 prefix/w2-gnome.sid.0.Nlx/target.xeNl5z CONTENTS
+177 [t] PASS: crouton -U -n sid
+177 [t] LAUNCHING: crouton -u -n sid -t gnome
+1516 [t] PASS: crouton -u -n sid -t gnome
+1516 [t] LAUNCHING: startgnome -b -n sid
+1522 [t] PASS: startgnome -b -n sid
+1582 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+1582 [t]         # Test croutoncycle as a bonus
+1582 [t]         export DISPLAY="`croutoncycle display`"
+1582 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1582 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1582 [t]             exit 1
+1582 [t]         fi
+1582 [t]         if [ -n "" ]; then
+1582 [t]             echo "" | tr ";" "
+1582 [t] " | xte
+1582 [t]             sleep 60
+1582 [t]         fi
+1582 [t]         # Snapshot!
+1582 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1594 [t] PASS: enter-chroot -n sid sh -exc 
+1594 [t]         # Test croutoncycle as a bonus
+1594 [t]         export DISPLAY="`croutoncycle display`"
+1594 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1594 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1594 [t]             exit 1
+1594 [t]         fi
+1594 [t]         if [ -n "" ]; then
+1594 [t]             echo "" | tr ";" "
+1594 [t] " | xte
+1594 [t]             sleep 60
+1594 [t]         fi
+1594 [t]         # Snapshot!
+1594 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1595 [t] LAUNCHING: unmount-chroot -f -y sid
+1609 [t] PASS: unmount-chroot -f -y sid
+1609 [t] LAUNCHING: delete-chroot -y sid
+1656 [t] PASS: delete-chroot -y sid
+1658 [t] TEST PASSED: w2-gnome.sid.0 finished with exit code 0

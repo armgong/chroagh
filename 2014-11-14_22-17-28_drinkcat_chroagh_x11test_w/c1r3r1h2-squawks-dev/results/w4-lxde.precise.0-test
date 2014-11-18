@@ -1,0 +1,51 @@
+2014-11-14 18:20:22: BEGIN TEST w4-lxde.precise.0
+2 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/precise-x11-snapshot.tar.gz -n precise
+113 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/precise-x11-snapshot.tar.gz -n precise
+113 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w4-lxde.precise.0.lUO/target.Wo1Ch9 -U -n precise
+113 [t] BEGIN /usr/local/test-20141114154527 prefix/w4-lxde.precise.0.lUO/target.Wo1Ch9 CONTENTS
+113 [t] REQUIRES=''
+113 [t] . "${TARGETSDIR:="$PWD"}/common"
+113 [t] ### Append to prepare.sh:
+113 [t] set -x
+113 [t] install --minimal x11-apps imagemagick xautomation
+113 [t] 
+113 [t] set +x
+113 [t] END /usr/local/test-20141114154527 prefix/w4-lxde.precise.0.lUO/target.Wo1Ch9 CONTENTS
+170 [t] PASS: crouton -U -n precise
+170 [t] LAUNCHING: crouton -u -n precise -t lxde
+633 [t] PASS: crouton -u -n precise -t lxde
+633 [t] LAUNCHING: startlxde -b -n precise
+636 [t] PASS: startlxde -b -n precise
+696 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+696 [t]         # Test croutoncycle as a bonus
+696 [t]         export DISPLAY="`croutoncycle display`"
+696 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+696 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+696 [t]             exit 1
+696 [t]         fi
+696 [t]         if [ -n "" ]; then
+696 [t]             echo "" | tr ";" "
+696 [t] " | xte
+696 [t]             sleep 60
+696 [t]         fi
+696 [t]         # Snapshot!
+696 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+699 [t] PASS: enter-chroot -n precise sh -exc 
+699 [t]         # Test croutoncycle as a bonus
+699 [t]         export DISPLAY="`croutoncycle display`"
+699 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+699 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+699 [t]             exit 1
+699 [t]         fi
+699 [t]         if [ -n "" ]; then
+699 [t]             echo "" | tr ";" "
+699 [t] " | xte
+699 [t]             sleep 60
+699 [t]         fi
+699 [t]         # Snapshot!
+699 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+699 [t] LAUNCHING: unmount-chroot -f -y precise
+706 [t] PASS: unmount-chroot -f -y precise
+706 [t] LAUNCHING: delete-chroot -y precise
+715 [t] PASS: delete-chroot -y precise
+716 [t] TEST PASSED: w4-lxde.precise.0 finished with exit code 0

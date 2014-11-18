@@ -1,0 +1,51 @@
+2014-11-14 23:09:18: BEGIN TEST w7-xfce.utopic.2
+7 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+121 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+121 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w7-xfce.utopic.2.c6W/target.bhl2lR -U -n utopic
+121 [t] BEGIN /usr/local/test-20141114155905 prefix/w7-xfce.utopic.2.c6W/target.bhl2lR CONTENTS
+121 [t] REQUIRES=''
+121 [t] . "${TARGETSDIR:="$PWD"}/common"
+121 [t] ### Append to prepare.sh:
+121 [t] set -x
+121 [t] install --minimal x11-apps imagemagick xautomation
+121 [t] 
+121 [t] set +x
+121 [t] END /usr/local/test-20141114155905 prefix/w7-xfce.utopic.2.c6W/target.bhl2lR CONTENTS
+197 [t] PASS: crouton -U -n utopic
+197 [t] LAUNCHING: crouton -u -n utopic -t xfce
+1538 [t] PASS: crouton -u -n utopic -t xfce
+1538 [t] LAUNCHING: startxfce4 -b -n utopic
+1540 [t] PASS: startxfce4 -b -n utopic
+1600 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+1600 [t]         # Test croutoncycle as a bonus
+1600 [t]         export DISPLAY="`croutoncycle display`"
+1600 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1600 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1600 [t]             exit 1
+1600 [t]         fi
+1600 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1600 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1600 [t] " | xte
+1600 [t]             sleep 60
+1600 [t]         fi
+1600 [t]         # Snapshot!
+1600 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1666 [t] PASS: enter-chroot -n utopic sh -exc 
+1666 [t]         # Test croutoncycle as a bonus
+1666 [t]         export DISPLAY="`croutoncycle display`"
+1666 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1666 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1666 [t]             exit 1
+1666 [t]         fi
+1666 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1666 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1666 [t] " | xte
+1666 [t]             sleep 60
+1666 [t]         fi
+1666 [t]         # Snapshot!
+1666 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1666 [t] LAUNCHING: unmount-chroot -f -y utopic
+1670 [t] PASS: unmount-chroot -f -y utopic
+1670 [t] LAUNCHING: delete-chroot -y utopic
+1695 [t] PASS: delete-chroot -y utopic
+1696 [t] TEST PASSED: w7-xfce.utopic.2 finished with exit code 0

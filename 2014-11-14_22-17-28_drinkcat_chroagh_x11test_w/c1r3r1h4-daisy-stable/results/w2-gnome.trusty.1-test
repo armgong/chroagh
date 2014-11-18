@@ -1,0 +1,52 @@
+2014-11-15 00:00:24: BEGIN TEST w2-gnome.trusty.1
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/trusty-x11-snapshot.tar.gz -n trusty
+143 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/trusty-x11-snapshot.tar.gz -n trusty
+143 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w2-gnome.trusty.1.pcS/target.9VUVix -U -n trusty
+143 [t] BEGIN /usr/local/test-20141114160443 prefix/w2-gnome.trusty.1.pcS/target.9VUVix CONTENTS
+143 [t] REQUIRES=''
+143 [t] . "${TARGETSDIR:="$PWD"}/common"
+143 [t] ### Append to prepare.sh:
+143 [t] set -x
+143 [t] install --minimal x11-apps imagemagick xautomation
+143 [t] 
+143 [t] set +x
+143 [t] END /usr/local/test-20141114160443 prefix/w2-gnome.trusty.1.pcS/target.9VUVix CONTENTS
+233 [t] PASS: crouton -U -n trusty
+233 [t] LAUNCHING: crouton -u -n trusty -t gnome
+1556 [t] PASS: crouton -u -n trusty -t gnome
+1556 [t] Waiting for VT lock...
+1569 [t] LAUNCHING: startgnome -b -n trusty
+1571 [t] PASS: startgnome -b -n trusty
+1631 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+1631 [t]         # Test croutoncycle as a bonus
+1631 [t]         export DISPLAY="`croutoncycle display`"
+1631 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1631 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1631 [t]             exit 1
+1631 [t]         fi
+1631 [t]         if [ -n "" ]; then
+1631 [t]             echo "" | tr ";" "
+1631 [t] " | xte
+1631 [t]             sleep 60
+1631 [t]         fi
+1631 [t]         # Snapshot!
+1631 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1642 [t] PASS: enter-chroot -n trusty sh -exc 
+1642 [t]         # Test croutoncycle as a bonus
+1642 [t]         export DISPLAY="`croutoncycle display`"
+1642 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1642 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1642 [t]             exit 1
+1642 [t]         fi
+1642 [t]         if [ -n "" ]; then
+1642 [t]             echo "" | tr ";" "
+1642 [t] " | xte
+1642 [t]             sleep 60
+1642 [t]         fi
+1642 [t]         # Snapshot!
+1642 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1642 [t] LAUNCHING: unmount-chroot -f -y trusty
+1728 [t] PASS: unmount-chroot -f -y trusty
+1728 [t] LAUNCHING: delete-chroot -y trusty
+1749 [t] PASS: delete-chroot -y trusty
+1750 [t] TEST PASSED: w2-gnome.trusty.1 finished with exit code 0

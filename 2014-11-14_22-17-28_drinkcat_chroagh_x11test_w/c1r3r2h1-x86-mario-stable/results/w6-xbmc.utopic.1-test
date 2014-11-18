@@ -1,0 +1,5 @@
+2014-11-14 22:30:00: BEGIN TEST w6-xbmc.utopic.1
+0 [t] Waiting for snapshot for utopic-x11 to complete...
+507 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+508 [t] FAIL with code 2: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+509 [t] TEST FAILED: w6-xbmc.utopic.1 finished with exit code 2

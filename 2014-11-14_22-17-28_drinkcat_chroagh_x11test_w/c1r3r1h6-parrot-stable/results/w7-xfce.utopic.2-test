@@ -1,0 +1,4 @@
+2014-11-15 02:14:14: BEGIN TEST w7-xfce.utopic.2
+9 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1045 [t] FAIL with code 100: crouton -f /usr/local/test-20141114164154 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1048 [t] TEST FAILED: w7-xfce.utopic.2 finished with exit code 100

@@ -1,0 +1,51 @@
+2014-11-14 21:20:49: BEGIN TEST w7-xfce.kali.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/kali-x11-snapshot.tar.gz -n kali
+63 [t] PASS: crouton -f /usr/local/test-20141114164154 prefix/kali-x11-snapshot.tar.gz -n kali
+63 [t] LAUNCHING: crouton -T /usr/local/test-20141114164154 prefix/w7-xfce.kali.0.6ZD/target.YNMlMf -U -n kali
+63 [t] BEGIN /usr/local/test-20141114164154 prefix/w7-xfce.kali.0.6ZD/target.YNMlMf CONTENTS
+63 [t] REQUIRES=''
+63 [t] . "${TARGETSDIR:="$PWD"}/common"
+63 [t] ### Append to prepare.sh:
+63 [t] set -x
+63 [t] install --minimal x11-apps imagemagick xautomation
+63 [t] 
+63 [t] set +x
+63 [t] END /usr/local/test-20141114164154 prefix/w7-xfce.kali.0.6ZD/target.YNMlMf CONTENTS
+126 [t] PASS: crouton -U -n kali
+126 [t] LAUNCHING: crouton -u -n kali -t xfce
+1550 [t] PASS: crouton -u -n kali -t xfce
+1550 [t] LAUNCHING: startxfce4 -b -n kali
+1551 [t] PASS: startxfce4 -b -n kali
+1611 [t] LAUNCHING: enter-chroot -n kali sh -exc 
+1611 [t]         # Test croutoncycle as a bonus
+1611 [t]         export DISPLAY="`croutoncycle display`"
+1611 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1611 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1611 [t]             exit 1
+1611 [t]         fi
+1611 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1611 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1611 [t] " | xte
+1611 [t]             sleep 60
+1611 [t]         fi
+1611 [t]         # Snapshot!
+1611 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1674 [t] PASS: enter-chroot -n kali sh -exc 
+1674 [t]         # Test croutoncycle as a bonus
+1674 [t]         export DISPLAY="`croutoncycle display`"
+1674 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1674 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1674 [t]             exit 1
+1674 [t]         fi
+1674 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1674 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1674 [t] " | xte
+1674 [t]             sleep 60
+1674 [t]         fi
+1674 [t]         # Snapshot!
+1674 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1674 [t] LAUNCHING: unmount-chroot -f -y kali
+1682 [t] PASS: unmount-chroot -f -y kali
+1682 [t] LAUNCHING: delete-chroot -y kali
+1689 [t] PASS: delete-chroot -y kali
+1691 [t] TEST PASSED: w7-xfce.kali.0 finished with exit code 0

@@ -1,0 +1,18 @@
+2014-11-14 20:04:41: BEGIN TEST w5-unity.wheezy.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+141 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+141 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w5-unity.wheezy.0.gaP/target.tHr4BN -U -n wheezy
+141 [t] BEGIN /usr/local/test-20141114160443 prefix/w5-unity.wheezy.0.gaP/target.tHr4BN CONTENTS
+141 [t] REQUIRES=''
+141 [t] . "${TARGETSDIR:="$PWD"}/common"
+141 [t] ### Append to prepare.sh:
+141 [t] set -x
+141 [t] install --minimal x11-apps imagemagick xautomation
+141 [t] 
+141 [t] set +x
+141 [t] END /usr/local/test-20141114160443 prefix/w5-unity.wheezy.0.gaP/target.tHr4BN CONTENTS
+281 [t] PASS: crouton -U -n wheezy
+281 [t] LAUNCHING: crouton -u -n wheezy -t unity
+302 [t] FAIL with code 99: crouton -u -n wheezy -t unity
+302 [t] Target unity failed on wheezy, as expected (unsupported combination).
+308 [t] TEST PASSED: w5-unity.wheezy.0 finished with exit code 0

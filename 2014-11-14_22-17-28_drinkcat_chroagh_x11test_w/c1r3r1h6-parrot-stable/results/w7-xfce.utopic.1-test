@@ -1,0 +1,5 @@
+2014-11-15 01:20:25: BEGIN TEST w7-xfce.utopic.1
+1 [t] Waiting for snapshot for utopic-x11 to complete...
+369 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/utopic-x11-snapshot.tar.gz -n utopic
+369 [t] FAIL with code 2: crouton -f /usr/local/test-20141114164154 prefix/utopic-x11-snapshot.tar.gz -n utopic
+370 [t] TEST FAILED: w7-xfce.utopic.1 finished with exit code 2

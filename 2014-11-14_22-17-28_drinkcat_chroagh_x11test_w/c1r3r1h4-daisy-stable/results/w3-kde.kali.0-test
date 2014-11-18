@@ -1,0 +1,55 @@
+2014-11-14 19:03:12: BEGIN TEST w3-kde.kali.0
+8 [t] LAUNCHING: crouton -r kali -f /usr/local/test-20141114160443 prefix/kali-bootstrap.tar.gz -d
+199 [t] PASS: crouton -r kali -f /usr/local/test-20141114160443 prefix/kali-bootstrap.tar.gz -d
+199 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/kali-bootstrap.tar.gz -t x11 -n kali
+1071 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/kali-bootstrap.tar.gz -t x11 -n kali
+1071 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114160443 prefix/kali-x11-snapshot.tar.gz kali
+1172 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114160443 prefix/kali-x11-snapshot.tar.gz kali
+1172 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w3-kde.kali.0.zpR/target.fkoO6v -U -n kali
+1172 [t] BEGIN /usr/local/test-20141114160443 prefix/w3-kde.kali.0.zpR/target.fkoO6v CONTENTS
+1172 [t] REQUIRES=''
+1172 [t] . "${TARGETSDIR:="$PWD"}/common"
+1172 [t] ### Append to prepare.sh:
+1172 [t] set -x
+1172 [t] install --minimal x11-apps imagemagick xautomation
+1172 [t] 
+1172 [t] set +x
+1172 [t] END /usr/local/test-20141114160443 prefix/w3-kde.kali.0.zpR/target.fkoO6v CONTENTS
+1309 [t] PASS: crouton -U -n kali
+1309 [t] LAUNCHING: crouton -u -n kali -t kde
+2564 [t] PASS: crouton -u -n kali -t kde
+2564 [t] LAUNCHING: startkde -b -n kali
+2566 [t] PASS: startkde -b -n kali
+2626 [t] LAUNCHING: enter-chroot -n kali sh -exc 
+2626 [t]         # Test croutoncycle as a bonus
+2626 [t]         export DISPLAY="`croutoncycle display`"
+2626 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2626 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2626 [t]             exit 1
+2626 [t]         fi
+2626 [t]         if [ -n "" ]; then
+2626 [t]             echo "" | tr ";" "
+2626 [t] " | xte
+2626 [t]             sleep 60
+2626 [t]         fi
+2626 [t]         # Snapshot!
+2626 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+2632 [t] PASS: enter-chroot -n kali sh -exc 
+2632 [t]         # Test croutoncycle as a bonus
+2632 [t]         export DISPLAY="`croutoncycle display`"
+2632 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2632 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2632 [t]             exit 1
+2632 [t]         fi
+2632 [t]         if [ -n "" ]; then
+2632 [t]             echo "" | tr ";" "
+2632 [t] " | xte
+2632 [t]             sleep 60
+2632 [t]         fi
+2632 [t]         # Snapshot!
+2632 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+2633 [t] LAUNCHING: unmount-chroot -f -y kali
+2650 [t] PASS: unmount-chroot -f -y kali
+2650 [t] LAUNCHING: delete-chroot -y kali
+2677 [t] PASS: delete-chroot -y kali
+2678 [t] TEST PASSED: w3-kde.kali.0 finished with exit code 0

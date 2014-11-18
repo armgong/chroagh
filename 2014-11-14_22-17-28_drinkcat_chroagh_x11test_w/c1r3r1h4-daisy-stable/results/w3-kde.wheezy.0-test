@@ -1,0 +1,51 @@
+2014-11-14 19:50:20: BEGIN TEST w3-kde.wheezy.0
+9 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+114 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+114 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w3-kde.wheezy.0.TxH/target.6c7iqH -U -n wheezy
+114 [t] BEGIN /usr/local/test-20141114160443 prefix/w3-kde.wheezy.0.TxH/target.6c7iqH CONTENTS
+114 [t] REQUIRES=''
+114 [t] . "${TARGETSDIR:="$PWD"}/common"
+114 [t] ### Append to prepare.sh:
+114 [t] set -x
+114 [t] install --minimal x11-apps imagemagick xautomation
+114 [t] 
+114 [t] set +x
+114 [t] END /usr/local/test-20141114160443 prefix/w3-kde.wheezy.0.TxH/target.6c7iqH CONTENTS
+242 [t] PASS: crouton -U -n wheezy
+242 [t] LAUNCHING: crouton -u -n wheezy -t kde
+1359 [t] PASS: crouton -u -n wheezy -t kde
+1359 [t] LAUNCHING: startkde -b -n wheezy
+1360 [t] PASS: startkde -b -n wheezy
+1420 [t] LAUNCHING: enter-chroot -n wheezy sh -exc 
+1420 [t]         # Test croutoncycle as a bonus
+1420 [t]         export DISPLAY="`croutoncycle display`"
+1420 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1420 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1420 [t]             exit 1
+1420 [t]         fi
+1420 [t]         if [ -n "" ]; then
+1420 [t]             echo "" | tr ";" "
+1420 [t] " | xte
+1420 [t]             sleep 60
+1420 [t]         fi
+1420 [t]         # Snapshot!
+1420 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1428 [t] PASS: enter-chroot -n wheezy sh -exc 
+1428 [t]         # Test croutoncycle as a bonus
+1428 [t]         export DISPLAY="`croutoncycle display`"
+1428 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1428 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1428 [t]             exit 1
+1428 [t]         fi
+1428 [t]         if [ -n "" ]; then
+1428 [t]             echo "" | tr ";" "
+1428 [t] " | xte
+1428 [t]             sleep 60
+1428 [t]         fi
+1428 [t]         # Snapshot!
+1428 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1428 [t] LAUNCHING: unmount-chroot -f -y wheezy
+1437 [t] PASS: unmount-chroot -f -y wheezy
+1437 [t] LAUNCHING: delete-chroot -y wheezy
+1466 [t] PASS: delete-chroot -y wheezy
+1468 [t] TEST PASSED: w3-kde.wheezy.0 finished with exit code 0

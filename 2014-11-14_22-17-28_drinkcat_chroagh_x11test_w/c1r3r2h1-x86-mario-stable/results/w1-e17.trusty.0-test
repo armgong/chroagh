@@ -1,0 +1,51 @@
+2014-11-14 18:05:11: BEGIN TEST w1-e17.trusty.0
+5 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/trusty-x11-snapshot.tar.gz -n trusty
+117 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/trusty-x11-snapshot.tar.gz -n trusty
+117 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w1-e17.trusty.0.vIk/target.lp3ex4 -U -n trusty
+117 [t] BEGIN /usr/local/test-20141114155905 prefix/w1-e17.trusty.0.vIk/target.lp3ex4 CONTENTS
+117 [t] REQUIRES=''
+117 [t] . "${TARGETSDIR:="$PWD"}/common"
+117 [t] ### Append to prepare.sh:
+117 [t] set -x
+117 [t] install --minimal x11-apps imagemagick xautomation
+117 [t] 
+117 [t] set +x
+117 [t] END /usr/local/test-20141114155905 prefix/w1-e17.trusty.0.vIk/target.lp3ex4 CONTENTS
+222 [t] PASS: crouton -U -n trusty
+222 [t] LAUNCHING: crouton -u -n trusty -t e17
+813 [t] PASS: crouton -u -n trusty -t e17
+813 [t] LAUNCHING: starte17 -b -n trusty
+815 [t] PASS: starte17 -b -n trusty
+875 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+875 [t]         # Test croutoncycle as a bonus
+875 [t]         export DISPLAY="`croutoncycle display`"
+875 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+875 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+875 [t]             exit 1
+875 [t]         fi
+875 [t]         if [ -n "" ]; then
+875 [t]             echo "" | tr ";" "
+875 [t] " | xte
+875 [t]             sleep 60
+875 [t]         fi
+875 [t]         # Snapshot!
+875 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+880 [t] PASS: enter-chroot -n trusty sh -exc 
+880 [t]         # Test croutoncycle as a bonus
+880 [t]         export DISPLAY="`croutoncycle display`"
+880 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+880 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+880 [t]             exit 1
+880 [t]         fi
+880 [t]         if [ -n "" ]; then
+880 [t]             echo "" | tr ";" "
+880 [t] " | xte
+880 [t]             sleep 60
+880 [t]         fi
+880 [t]         # Snapshot!
+880 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+880 [t] LAUNCHING: unmount-chroot -f -y trusty
+897 [t] PASS: unmount-chroot -f -y trusty
+897 [t] LAUNCHING: delete-chroot -y trusty
+915 [t] PASS: delete-chroot -y trusty
+916 [t] TEST PASSED: w1-e17.trusty.0 finished with exit code 0

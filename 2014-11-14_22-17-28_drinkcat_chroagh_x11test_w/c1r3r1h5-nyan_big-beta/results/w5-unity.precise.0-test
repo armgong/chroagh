@@ -1,0 +1,51 @@
+2014-11-14 17:06:25: BEGIN TEST w5-unity.precise.0
+8 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/precise-x11-snapshot.tar.gz -n precise
+77 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/precise-x11-snapshot.tar.gz -n precise
+77 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w5-unity.precise.0.nGt/target.JWmCYK -U -n precise
+77 [t] BEGIN /usr/local/test-20141114151908 prefix/w5-unity.precise.0.nGt/target.JWmCYK CONTENTS
+77 [t] REQUIRES=''
+77 [t] . "${TARGETSDIR:="$PWD"}/common"
+77 [t] ### Append to prepare.sh:
+77 [t] set -x
+77 [t] install --minimal x11-apps imagemagick xautomation
+77 [t] 
+77 [t] set +x
+77 [t] END /usr/local/test-20141114151908 prefix/w5-unity.precise.0.nGt/target.JWmCYK CONTENTS
+121 [t] PASS: crouton -U -n precise
+121 [t] LAUNCHING: crouton -u -n precise -t unity
+1192 [t] PASS: crouton -u -n precise -t unity
+1193 [t] LAUNCHING: startunity -b -n precise
+1194 [t] PASS: startunity -b -n precise
+1254 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+1254 [t]         # Test croutoncycle as a bonus
+1254 [t]         export DISPLAY="`croutoncycle display`"
+1254 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1254 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1254 [t]             exit 1
+1254 [t]         fi
+1254 [t]         if [ -n "" ]; then
+1254 [t]             echo "" | tr ";" "
+1254 [t] " | xte
+1254 [t]             sleep 60
+1254 [t]         fi
+1254 [t]         # Snapshot!
+1254 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-unity.jpg"
+1258 [t] PASS: enter-chroot -n precise sh -exc 
+1258 [t]         # Test croutoncycle as a bonus
+1258 [t]         export DISPLAY="`croutoncycle display`"
+1258 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1258 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1258 [t]             exit 1
+1258 [t]         fi
+1258 [t]         if [ -n "" ]; then
+1258 [t]             echo "" | tr ";" "
+1258 [t] " | xte
+1258 [t]             sleep 60
+1258 [t]         fi
+1258 [t]         # Snapshot!
+1258 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-unity.jpg"
+1258 [t] LAUNCHING: unmount-chroot -f -y precise
+1267 [t] PASS: unmount-chroot -f -y precise
+1267 [t] LAUNCHING: delete-chroot -y precise
+1277 [t] PASS: delete-chroot -y precise
+1278 [t] TEST PASSED: w5-unity.precise.0 finished with exit code 0

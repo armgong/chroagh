@@ -1,0 +1,55 @@
+2014-11-14 17:44:15: BEGIN TEST w7-xfce.kali.0
+2 [t] LAUNCHING: crouton -r kali -f /usr/local/test-20141114151908 prefix/kali-bootstrap.tar.gz -d
+158 [t] PASS: crouton -r kali -f /usr/local/test-20141114151908 prefix/kali-bootstrap.tar.gz -d
+158 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/kali-bootstrap.tar.gz -t x11 -n kali
+742 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/kali-bootstrap.tar.gz -t x11 -n kali
+742 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114151908 prefix/kali-x11-snapshot.tar.gz kali
+866 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114151908 prefix/kali-x11-snapshot.tar.gz kali
+866 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w7-xfce.kali.0.Tzd/target.Q7P3xP -U -n kali
+866 [t] BEGIN /usr/local/test-20141114151908 prefix/w7-xfce.kali.0.Tzd/target.Q7P3xP CONTENTS
+866 [t] REQUIRES=''
+866 [t] . "${TARGETSDIR:="$PWD"}/common"
+866 [t] ### Append to prepare.sh:
+866 [t] set -x
+866 [t] install --minimal x11-apps imagemagick xautomation
+866 [t] 
+866 [t] set +x
+866 [t] END /usr/local/test-20141114151908 prefix/w7-xfce.kali.0.Tzd/target.Q7P3xP CONTENTS
+923 [t] PASS: crouton -U -n kali
+923 [t] LAUNCHING: crouton -u -n kali -t xfce
+1821 [t] PASS: crouton -u -n kali -t xfce
+1821 [t] LAUNCHING: startxfce4 -b -n kali
+1824 [t] PASS: startxfce4 -b -n kali
+1884 [t] LAUNCHING: enter-chroot -n kali sh -exc 
+1884 [t]         # Test croutoncycle as a bonus
+1884 [t]         export DISPLAY="`croutoncycle display`"
+1884 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1884 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1884 [t]             exit 1
+1884 [t]         fi
+1884 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1884 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1884 [t] " | xte
+1884 [t]             sleep 60
+1884 [t]         fi
+1884 [t]         # Snapshot!
+1884 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1947 [t] PASS: enter-chroot -n kali sh -exc 
+1947 [t]         # Test croutoncycle as a bonus
+1947 [t]         export DISPLAY="`croutoncycle display`"
+1947 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1947 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1947 [t]             exit 1
+1947 [t]         fi
+1947 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1947 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1947 [t] " | xte
+1947 [t]             sleep 60
+1947 [t]         fi
+1947 [t]         # Snapshot!
+1947 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1948 [t] LAUNCHING: unmount-chroot -f -y kali
+1976 [t] PASS: unmount-chroot -f -y kali
+1976 [t] LAUNCHING: delete-chroot -y kali
+2005 [t] PASS: delete-chroot -y kali
+2006 [t] TEST PASSED: w7-xfce.kali.0 finished with exit code 0

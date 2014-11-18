@@ -1,0 +1,51 @@
+2014-11-14 20:42:15: BEGIN TEST w2-gnome.wheezy.0
+0 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+69 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+69 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w2-gnome.wheezy.0.82n/target.U2LRYQ -U -n wheezy
+69 [t] BEGIN /usr/local/test-20141114154527 prefix/w2-gnome.wheezy.0.82n/target.U2LRYQ CONTENTS
+69 [t] REQUIRES=''
+69 [t] . "${TARGETSDIR:="$PWD"}/common"
+69 [t] ### Append to prepare.sh:
+69 [t] set -x
+69 [t] install --minimal x11-apps imagemagick xautomation
+69 [t] 
+69 [t] set +x
+69 [t] END /usr/local/test-20141114154527 prefix/w2-gnome.wheezy.0.82n/target.U2LRYQ CONTENTS
+214 [t] PASS: crouton -U -n wheezy
+214 [t] LAUNCHING: crouton -u -n wheezy -t gnome
+925 [t] PASS: crouton -u -n wheezy -t gnome
+925 [t] LAUNCHING: startgnome -b -n wheezy
+927 [t] PASS: startgnome -b -n wheezy
+987 [t] LAUNCHING: enter-chroot -n wheezy sh -exc 
+987 [t]         # Test croutoncycle as a bonus
+987 [t]         export DISPLAY="`croutoncycle display`"
+987 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+987 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+987 [t]             exit 1
+987 [t]         fi
+987 [t]         if [ -n "" ]; then
+987 [t]             echo "" | tr ";" "
+987 [t] " | xte
+987 [t]             sleep 60
+987 [t]         fi
+987 [t]         # Snapshot!
+987 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+990 [t] PASS: enter-chroot -n wheezy sh -exc 
+990 [t]         # Test croutoncycle as a bonus
+990 [t]         export DISPLAY="`croutoncycle display`"
+990 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+990 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+990 [t]             exit 1
+990 [t]         fi
+990 [t]         if [ -n "" ]; then
+990 [t]             echo "" | tr ";" "
+990 [t] " | xte
+990 [t]             sleep 60
+990 [t]         fi
+990 [t]         # Snapshot!
+990 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+990 [t] LAUNCHING: unmount-chroot -f -y wheezy
+998 [t] PASS: unmount-chroot -f -y wheezy
+998 [t] LAUNCHING: delete-chroot -y wheezy
+1023 [t] PASS: delete-chroot -y wheezy
+1024 [t] TEST PASSED: w2-gnome.wheezy.0 finished with exit code 0

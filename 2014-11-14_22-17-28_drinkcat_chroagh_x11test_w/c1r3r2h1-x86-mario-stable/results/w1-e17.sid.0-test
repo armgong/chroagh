@@ -1,0 +1,51 @@
+2014-11-14 19:31:00: BEGIN TEST w1-e17.sid.0
+2 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/sid-x11-snapshot.tar.gz -n sid
+95 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/sid-x11-snapshot.tar.gz -n sid
+95 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w1-e17.sid.0.1LL/target.3SHkBi -U -n sid
+95 [t] BEGIN /usr/local/test-20141114155905 prefix/w1-e17.sid.0.1LL/target.3SHkBi CONTENTS
+95 [t] REQUIRES=''
+95 [t] . "${TARGETSDIR:="$PWD"}/common"
+95 [t] ### Append to prepare.sh:
+95 [t] set -x
+95 [t] install --minimal x11-apps imagemagick xautomation
+95 [t] 
+95 [t] set +x
+95 [t] END /usr/local/test-20141114155905 prefix/w1-e17.sid.0.1LL/target.3SHkBi CONTENTS
+168 [t] PASS: crouton -U -n sid
+168 [t] LAUNCHING: crouton -u -n sid -t e17
+1367 [t] PASS: crouton -u -n sid -t e17
+1367 [t] LAUNCHING: starte17 -b -n sid
+1369 [t] PASS: starte17 -b -n sid
+1429 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+1429 [t]         # Test croutoncycle as a bonus
+1429 [t]         export DISPLAY="`croutoncycle display`"
+1429 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1429 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1429 [t]             exit 1
+1429 [t]         fi
+1429 [t]         if [ -n "" ]; then
+1429 [t]             echo "" | tr ";" "
+1429 [t] " | xte
+1429 [t]             sleep 60
+1429 [t]         fi
+1429 [t]         # Snapshot!
+1429 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+1433 [t] PASS: enter-chroot -n sid sh -exc 
+1433 [t]         # Test croutoncycle as a bonus
+1433 [t]         export DISPLAY="`croutoncycle display`"
+1433 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1433 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1433 [t]             exit 1
+1433 [t]         fi
+1433 [t]         if [ -n "" ]; then
+1433 [t]             echo "" | tr ";" "
+1433 [t] " | xte
+1433 [t]             sleep 60
+1433 [t]         fi
+1433 [t]         # Snapshot!
+1433 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+1433 [t] LAUNCHING: unmount-chroot -f -y sid
+1444 [t] PASS: unmount-chroot -f -y sid
+1444 [t] LAUNCHING: delete-chroot -y sid
+1457 [t] PASS: delete-chroot -y sid
+1458 [t] TEST PASSED: w1-e17.sid.0 finished with exit code 0

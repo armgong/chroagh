@@ -1,0 +1,51 @@
+2014-11-14 18:33:47: BEGIN TEST w6-xbmc.precise.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz -n precise
+57 [t] PASS: crouton -f /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz -n precise
+57 [t] LAUNCHING: crouton -T /usr/local/test-20141114151541 prefix/w6-xbmc.precise.0.VOn/target.y2PYE7 -U -n precise
+57 [t] BEGIN /usr/local/test-20141114151541 prefix/w6-xbmc.precise.0.VOn/target.y2PYE7 CONTENTS
+57 [t] REQUIRES=''
+57 [t] . "${TARGETSDIR:="$PWD"}/common"
+57 [t] ### Append to prepare.sh:
+57 [t] set -x
+57 [t] install --minimal x11-apps imagemagick xautomation
+57 [t] 
+57 [t] set +x
+57 [t] END /usr/local/test-20141114151541 prefix/w6-xbmc.precise.0.VOn/target.y2PYE7 CONTENTS
+88 [t] PASS: crouton -U -n precise
+88 [t] LAUNCHING: crouton -u -n precise -t xbmc
+275 [t] PASS: crouton -u -n precise -t xbmc
+275 [t] LAUNCHING: startxbmc -b -n precise
+276 [t] PASS: startxbmc -b -n precise
+336 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+336 [t]         # Test croutoncycle as a bonus
+336 [t]         export DISPLAY="`croutoncycle display`"
+336 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+336 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+336 [t]             exit 1
+336 [t]         fi
+336 [t]         if [ -n "" ]; then
+336 [t]             echo "" | tr ";" "
+336 [t] " | xte
+336 [t]             sleep 60
+336 [t]         fi
+336 [t]         # Snapshot!
+336 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+345 [t] PASS: enter-chroot -n precise sh -exc 
+345 [t]         # Test croutoncycle as a bonus
+345 [t]         export DISPLAY="`croutoncycle display`"
+345 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+345 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+345 [t]             exit 1
+345 [t]         fi
+345 [t]         if [ -n "" ]; then
+345 [t]             echo "" | tr ";" "
+345 [t] " | xte
+345 [t]             sleep 60
+345 [t]         fi
+345 [t]         # Snapshot!
+345 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+345 [t] LAUNCHING: unmount-chroot -f -y precise
+378 [t] PASS: unmount-chroot -f -y precise
+378 [t] LAUNCHING: delete-chroot -y precise
+386 [t] PASS: delete-chroot -y precise
+388 [t] TEST PASSED: w6-xbmc.precise.0 finished with exit code 0

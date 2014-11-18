@@ -1,0 +1,51 @@
+2014-11-14 18:06:52: BEGIN TEST w4-lxde.jessie.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/jessie-x11-snapshot.tar.gz -n jessie
+123 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/jessie-x11-snapshot.tar.gz -n jessie
+123 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w4-lxde.jessie.0.jkT/target.iHzrvP -U -n jessie
+123 [t] BEGIN /usr/local/test-20141114155732 prefix/w4-lxde.jessie.0.jkT/target.iHzrvP CONTENTS
+123 [t] REQUIRES=''
+123 [t] . "${TARGETSDIR:="$PWD"}/common"
+123 [t] ### Append to prepare.sh:
+123 [t] set -x
+123 [t] install --minimal x11-apps imagemagick xautomation
+123 [t] 
+123 [t] set +x
+123 [t] END /usr/local/test-20141114155732 prefix/w4-lxde.jessie.0.jkT/target.iHzrvP CONTENTS
+291 [t] PASS: crouton -U -n jessie
+291 [t] LAUNCHING: crouton -u -n jessie -t lxde
+2284 [t] PASS: crouton -u -n jessie -t lxde
+2284 [t] LAUNCHING: startlxde -b -n jessie
+2288 [t] PASS: startlxde -b -n jessie
+2348 [t] LAUNCHING: enter-chroot -n jessie sh -exc 
+2348 [t]         # Test croutoncycle as a bonus
+2348 [t]         export DISPLAY="`croutoncycle display`"
+2348 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2348 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2348 [t]             exit 1
+2348 [t]         fi
+2348 [t]         if [ -n "" ]; then
+2348 [t]             echo "" | tr ";" "
+2348 [t] " | xte
+2348 [t]             sleep 60
+2348 [t]         fi
+2348 [t]         # Snapshot!
+2348 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+2360 [t] PASS: enter-chroot -n jessie sh -exc 
+2360 [t]         # Test croutoncycle as a bonus
+2360 [t]         export DISPLAY="`croutoncycle display`"
+2360 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2360 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2360 [t]             exit 1
+2360 [t]         fi
+2360 [t]         if [ -n "" ]; then
+2360 [t]             echo "" | tr ";" "
+2360 [t] " | xte
+2360 [t]             sleep 60
+2360 [t]         fi
+2360 [t]         # Snapshot!
+2360 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+2360 [t] LAUNCHING: unmount-chroot -f -y jessie
+2373 [t] PASS: unmount-chroot -f -y jessie
+2373 [t] LAUNCHING: delete-chroot -y jessie
+2451 [t] FAIL with code 1: delete-chroot -y jessie
+2457 [t] TEST FAILED: w4-lxde.jessie.0 finished with exit code 1

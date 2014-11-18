@@ -1,0 +1,51 @@
+2014-11-14 21:03:48: BEGIN TEST w2-gnome.utopic.0
+6 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/utopic-x11-snapshot.tar.gz -n utopic
+118 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/utopic-x11-snapshot.tar.gz -n utopic
+118 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w2-gnome.utopic.0.2nd/target.hbqhcy -U -n utopic
+118 [t] BEGIN /usr/local/test-20141114160443 prefix/w2-gnome.utopic.0.2nd/target.hbqhcy CONTENTS
+118 [t] REQUIRES=''
+118 [t] . "${TARGETSDIR:="$PWD"}/common"
+118 [t] ### Append to prepare.sh:
+118 [t] set -x
+118 [t] install --minimal x11-apps imagemagick xautomation
+118 [t] 
+118 [t] set +x
+118 [t] END /usr/local/test-20141114160443 prefix/w2-gnome.utopic.0.2nd/target.hbqhcy CONTENTS
+203 [t] PASS: crouton -U -n utopic
+203 [t] LAUNCHING: crouton -u -n utopic -t gnome
+1833 [t] PASS: crouton -u -n utopic -t gnome
+1833 [t] LAUNCHING: startgnome -b -n utopic
+1834 [t] PASS: startgnome -b -n utopic
+1894 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+1894 [t]         # Test croutoncycle as a bonus
+1894 [t]         export DISPLAY="`croutoncycle display`"
+1894 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1894 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1894 [t]             exit 1
+1894 [t]         fi
+1894 [t]         if [ -n "" ]; then
+1894 [t]             echo "" | tr ";" "
+1894 [t] " | xte
+1894 [t]             sleep 60
+1894 [t]         fi
+1894 [t]         # Snapshot!
+1894 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1895 [t] PASS: enter-chroot -n utopic sh -exc 
+1895 [t]         # Test croutoncycle as a bonus
+1895 [t]         export DISPLAY="`croutoncycle display`"
+1895 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1895 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1895 [t]             exit 1
+1895 [t]         fi
+1895 [t]         if [ -n "" ]; then
+1895 [t]             echo "" | tr ";" "
+1895 [t] " | xte
+1895 [t]             sleep 60
+1895 [t]         fi
+1895 [t]         # Snapshot!
+1895 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1895 [t] LAUNCHING: unmount-chroot -f -y utopic
+1907 [t] PASS: unmount-chroot -f -y utopic
+1907 [t] LAUNCHING: delete-chroot -y utopic
+1949 [t] PASS: delete-chroot -y utopic
+1950 [t] TEST PASSED: w2-gnome.utopic.0 finished with exit code 0

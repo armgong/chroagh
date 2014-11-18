@@ -1,0 +1,51 @@
+2014-11-14 19:15:47: BEGIN TEST w3-kde.jessie.0
+7 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/jessie-x11-snapshot.tar.gz -n jessie
+111 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/jessie-x11-snapshot.tar.gz -n jessie
+111 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w3-kde.jessie.0.WJS/target.7uIoQV -U -n jessie
+111 [t] BEGIN /usr/local/test-20141114155905 prefix/w3-kde.jessie.0.WJS/target.7uIoQV CONTENTS
+111 [t] REQUIRES=''
+111 [t] . "${TARGETSDIR:="$PWD"}/common"
+111 [t] ### Append to prepare.sh:
+111 [t] set -x
+111 [t] install --minimal x11-apps imagemagick xautomation
+111 [t] 
+111 [t] set +x
+111 [t] END /usr/local/test-20141114155905 prefix/w3-kde.jessie.0.WJS/target.7uIoQV CONTENTS
+181 [t] PASS: crouton -U -n jessie
+181 [t] LAUNCHING: crouton -u -n jessie -t kde
+1783 [t] PASS: crouton -u -n jessie -t kde
+1783 [t] LAUNCHING: startkde -b -n jessie
+1785 [t] PASS: startkde -b -n jessie
+1845 [t] LAUNCHING: enter-chroot -n jessie sh -exc 
+1845 [t]         # Test croutoncycle as a bonus
+1845 [t]         export DISPLAY="`croutoncycle display`"
+1845 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1845 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1845 [t]             exit 1
+1845 [t]         fi
+1845 [t]         if [ -n "" ]; then
+1845 [t]             echo "" | tr ";" "
+1845 [t] " | xte
+1845 [t]             sleep 60
+1845 [t]         fi
+1845 [t]         # Snapshot!
+1845 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1851 [t] PASS: enter-chroot -n jessie sh -exc 
+1851 [t]         # Test croutoncycle as a bonus
+1851 [t]         export DISPLAY="`croutoncycle display`"
+1851 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1851 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1851 [t]             exit 1
+1851 [t]         fi
+1851 [t]         if [ -n "" ]; then
+1851 [t]             echo "" | tr ";" "
+1851 [t] " | xte
+1851 [t]             sleep 60
+1851 [t]         fi
+1851 [t]         # Snapshot!
+1851 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+1851 [t] LAUNCHING: unmount-chroot -f -y jessie
+1868 [t] PASS: unmount-chroot -f -y jessie
+1868 [t] LAUNCHING: delete-chroot -y jessie
+1887 [t] PASS: delete-chroot -y jessie
+1888 [t] TEST PASSED: w3-kde.jessie.0 finished with exit code 0

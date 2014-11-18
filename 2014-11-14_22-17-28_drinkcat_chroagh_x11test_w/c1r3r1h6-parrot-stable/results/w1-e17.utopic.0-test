@@ -1,0 +1,4 @@
+2014-11-14 21:33:17: BEGIN TEST w1-e17.utopic.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1071 [t] FAIL with code 100: crouton -f /usr/local/test-20141114164154 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1076 [t] TEST FAILED: w1-e17.utopic.0 finished with exit code 100

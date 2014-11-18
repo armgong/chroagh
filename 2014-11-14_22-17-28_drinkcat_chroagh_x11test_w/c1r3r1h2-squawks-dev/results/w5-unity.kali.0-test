@@ -1,0 +1,22 @@
+2014-11-14 15:45:28: BEGIN TEST w5-unity.kali.0
+0 [t] LAUNCHING: crouton -r kali -f /usr/local/test-20141114154527 prefix/kali-bootstrap.tar.gz -d
+187 [t] PASS: crouton -r kali -f /usr/local/test-20141114154527 prefix/kali-bootstrap.tar.gz -d
+187 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/kali-bootstrap.tar.gz -t x11 -n kali
+1031 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/kali-bootstrap.tar.gz -t x11 -n kali
+1031 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114154527 prefix/kali-x11-snapshot.tar.gz kali
+1170 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114154527 prefix/kali-x11-snapshot.tar.gz kali
+1170 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w5-unity.kali.0.6qU/target.DwVhiR -U -n kali
+1170 [t] BEGIN /usr/local/test-20141114154527 prefix/w5-unity.kali.0.6qU/target.DwVhiR CONTENTS
+1170 [t] REQUIRES=''
+1170 [t] . "${TARGETSDIR:="$PWD"}/common"
+1170 [t] ### Append to prepare.sh:
+1170 [t] set -x
+1170 [t] install --minimal x11-apps imagemagick xautomation
+1170 [t] 
+1170 [t] set +x
+1170 [t] END /usr/local/test-20141114154527 prefix/w5-unity.kali.0.6qU/target.DwVhiR CONTENTS
+1215 [t] PASS: crouton -U -n kali
+1215 [t] LAUNCHING: crouton -u -n kali -t unity
+1225 [t] FAIL with code 99: crouton -u -n kali -t unity
+1225 [t] Target unity failed on kali, as expected (unsupported combination).
+1229 [t] TEST PASSED: w5-unity.kali.0 finished with exit code 0

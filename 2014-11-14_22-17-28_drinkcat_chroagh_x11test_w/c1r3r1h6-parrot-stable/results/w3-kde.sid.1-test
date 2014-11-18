@@ -1,0 +1,47 @@
+2014-11-15 00:25:39: BEGIN TEST w3-kde.sid.1
+3 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/sid-x11-snapshot.tar.gz -n sid
+69 [t] PASS: crouton -f /usr/local/test-20141114164154 prefix/sid-x11-snapshot.tar.gz -n sid
+69 [t] LAUNCHING: crouton -T /usr/local/test-20141114164154 prefix/w3-kde.sid.1.lZR/target.YoiLeO -U -n sid
+69 [t] BEGIN /usr/local/test-20141114164154 prefix/w3-kde.sid.1.lZR/target.YoiLeO CONTENTS
+69 [t] REQUIRES=''
+69 [t] . "${TARGETSDIR:="$PWD"}/common"
+69 [t] ### Append to prepare.sh:
+69 [t] set -x
+69 [t] install --minimal x11-apps imagemagick xautomation
+69 [t] 
+69 [t] set +x
+69 [t] END /usr/local/test-20141114164154 prefix/w3-kde.sid.1.lZR/target.YoiLeO CONTENTS
+145 [t] PASS: crouton -U -n sid
+145 [t] LAUNCHING: crouton -u -n sid -t kde
+2152 [t] PASS: crouton -u -n sid -t kde
+2152 [t] LAUNCHING: startkde -b -n sid
+2154 [t] PASS: startkde -b -n sid
+2214 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+2214 [t]         # Test croutoncycle as a bonus
+2214 [t]         export DISPLAY="`croutoncycle display`"
+2214 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2214 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2214 [t]             exit 1
+2214 [t]         fi
+2214 [t]         if [ -n "" ]; then
+2214 [t]             echo "" | tr ";" "
+2214 [t] " | xte
+2214 [t]             sleep 60
+2214 [t]         fi
+2214 [t]         # Snapshot!
+2214 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+2219 [t] FAIL with code 1: enter-chroot -n sid sh -exc 
+2219 [t]         # Test croutoncycle as a bonus
+2219 [t]         export DISPLAY="`croutoncycle display`"
+2219 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2219 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2219 [t]             exit 1
+2219 [t]         fi
+2219 [t]         if [ -n "" ]; then
+2219 [t]             echo "" | tr ";" "
+2219 [t] " | xte
+2219 [t]             sleep 60
+2219 [t]         fi
+2219 [t]         # Snapshot!
+2219 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+2240 [t] TEST FAILED: w3-kde.sid.1 finished with exit code 1

@@ -1,0 +1,47 @@
+2014-11-15 00:06:46: BEGIN TEST w6-xbmc.sid.1
+9 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/sid-x11-snapshot.tar.gz -n sid
+172 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/sid-x11-snapshot.tar.gz -n sid
+172 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w6-xbmc.sid.1.1Hv/target.j3vFQS -U -n sid
+172 [t] BEGIN /usr/local/test-20141114160443 prefix/w6-xbmc.sid.1.1Hv/target.j3vFQS CONTENTS
+172 [t] REQUIRES=''
+172 [t] . "${TARGETSDIR:="$PWD"}/common"
+172 [t] ### Append to prepare.sh:
+172 [t] set -x
+172 [t] install --minimal x11-apps imagemagick xautomation
+172 [t] 
+172 [t] set +x
+172 [t] END /usr/local/test-20141114160443 prefix/w6-xbmc.sid.1.1Hv/target.j3vFQS CONTENTS
+256 [t] PASS: crouton -U -n sid
+256 [t] LAUNCHING: crouton -u -n sid -t xbmc
+708 [t] PASS: crouton -u -n sid -t xbmc
+708 [t] LAUNCHING: startxbmc -b -n sid
+714 [t] PASS: startxbmc -b -n sid
+774 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+774 [t]         # Test croutoncycle as a bonus
+774 [t]         export DISPLAY="`croutoncycle display`"
+774 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+774 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+774 [t]             exit 1
+774 [t]         fi
+774 [t]         if [ -n "" ]; then
+774 [t]             echo "" | tr ";" "
+774 [t] " | xte
+774 [t]             sleep 60
+774 [t]         fi
+774 [t]         # Snapshot!
+774 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+786 [t] FAIL with code 1: enter-chroot -n sid sh -exc 
+786 [t]         # Test croutoncycle as a bonus
+786 [t]         export DISPLAY="`croutoncycle display`"
+786 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+786 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+786 [t]             exit 1
+786 [t]         fi
+786 [t]         if [ -n "" ]; then
+786 [t]             echo "" | tr ";" "
+786 [t] " | xte
+786 [t]             sleep 60
+786 [t]         fi
+786 [t]         # Snapshot!
+786 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+808 [t] TEST FAILED: w6-xbmc.sid.1 finished with exit code 1

@@ -1,0 +1,55 @@
+2014-11-14 15:57:32: BEGIN TEST w7-xfce.sid.0
+2 [t] LAUNCHING: crouton -r sid -f /usr/local/test-20141114155732 prefix/sid-bootstrap.tar.gz -d
+125 [t] PASS: crouton -r sid -f /usr/local/test-20141114155732 prefix/sid-bootstrap.tar.gz -d
+125 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/sid-bootstrap.tar.gz -t x11 -n sid
+1158 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/sid-bootstrap.tar.gz -t x11 -n sid
+1158 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114155732 prefix/sid-x11-snapshot.tar.gz sid
+1343 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114155732 prefix/sid-x11-snapshot.tar.gz sid
+1343 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w7-xfce.sid.0.kV8/target.NMiyWH -U -n sid
+1343 [t] BEGIN /usr/local/test-20141114155732 prefix/w7-xfce.sid.0.kV8/target.NMiyWH CONTENTS
+1343 [t] REQUIRES=''
+1343 [t] . "${TARGETSDIR:="$PWD"}/common"
+1343 [t] ### Append to prepare.sh:
+1343 [t] set -x
+1343 [t] install --minimal x11-apps imagemagick xautomation
+1343 [t] 
+1343 [t] set +x
+1343 [t] END /usr/local/test-20141114155732 prefix/w7-xfce.sid.0.kV8/target.NMiyWH CONTENTS
+1412 [t] PASS: crouton -U -n sid
+1412 [t] LAUNCHING: crouton -u -n sid -t xfce
+2540 [t] PASS: crouton -u -n sid -t xfce
+2540 [t] LAUNCHING: startxfce4 -b -n sid
+2548 [t] PASS: startxfce4 -b -n sid
+2608 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+2608 [t]         # Test croutoncycle as a bonus
+2608 [t]         export DISPLAY="`croutoncycle display`"
+2608 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2608 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2608 [t]             exit 1
+2608 [t]         fi
+2608 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+2608 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+2608 [t] " | xte
+2608 [t]             sleep 60
+2608 [t]         fi
+2608 [t]         # Snapshot!
+2608 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+2676 [t] PASS: enter-chroot -n sid sh -exc 
+2676 [t]         # Test croutoncycle as a bonus
+2676 [t]         export DISPLAY="`croutoncycle display`"
+2676 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2676 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2676 [t]             exit 1
+2676 [t]         fi
+2676 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+2676 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+2676 [t] " | xte
+2676 [t]             sleep 60
+2676 [t]         fi
+2676 [t]         # Snapshot!
+2676 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+2676 [t] LAUNCHING: unmount-chroot -f -y sid
+2684 [t] PASS: unmount-chroot -f -y sid
+2684 [t] LAUNCHING: delete-chroot -y sid
+2705 [t] PASS: delete-chroot -y sid
+2706 [t] TEST PASSED: w7-xfce.sid.0 finished with exit code 0

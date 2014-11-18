@@ -1,0 +1,2588 @@
+2014-11-14 15:59:45: BEGIN TEST w3-kde.precise.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz -n precise
+1 [e]   Restoring /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz to /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+65 [e] Finished restoring /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz to /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise
+65 [e] WARNING: USB booting is enabled; consider disabling it.
+65 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+65 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+70 [e] Preparing chroot environment...
+70 [e] Installing croutonversion into the chroot...
+70 [e] Installing host-dbus into the chroot...
+70 [e] Installing host-x11 into the chroot...
+70 [e] Installing pulseaudio-default.pa into the chroot...
+70 [e] Installing brightness into the chroot...
+70 [e] Installing croutoncycle into the chroot...
+70 [e] Installing croutonpowerd into the chroot...
+70 [e] Installing croutonxinitrc-wrapper into the chroot...
+70 [e] Installing setres into the chroot...
+70 [e] Installing xinit into the chroot...
+70 [e] Installing xbindkeysrc.scm into the chroot...
+70 [e] Installing xserverrc-x11 into the chroot...
+70 [e] Installing xserverrc-local.example into the chroot...
+70 [e] Installing enter-chroot into the host...
+70 [e] Installing delete-chroot into the host...
+70 [e] Installing edit-chroot into the host...
+70 [e] Installing mount-chroot into the host...
+70 [e] Installing unmount-chroot into the host...
+70 [e] Installing crash_reporter_wrapper into the host...
+70 [e] Done! You can enter the chroot using enter-chroot.
+72 [t] PASS: crouton -f /usr/local/test-20141114151541 prefix/precise-x11-snapshot.tar.gz -n precise
+72 [t] LAUNCHING: crouton -T /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/target.tvlWpG -U -n precise
+72 [t] BEGIN /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/target.tvlWpG CONTENTS
+72 [t] REQUIRES=''
+72 [t] . "${TARGETSDIR:="$PWD"}/common"
+72 [t] ### Append to prepare.sh:
+72 [t] set -x
+72 [t] install --minimal x11-apps imagemagick xautomation
+72 [t] 
+72 [t] set +x
+72 [t] END /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/target.tvlWpG CONTENTS
+72 [e] /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise already exists; updating it...
+72 [e] WARNING: USB booting is enabled; consider disabling it.
+72 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+72 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+77 [e] Preparing chroot environment...
+77 [e] Installing enter-chroot into the host...
+77 [e] Installing delete-chroot into the host...
+77 [e] Installing edit-chroot into the host...
+77 [e] Installing mount-chroot into the host...
+77 [e] Installing unmount-chroot into the host...
+77 [e] Installing crash_reporter_wrapper into the host...
+85 [e] stdin: is not a tty
+85 [e] Installing target /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/target.tvlWpG...
+85 [e] + install --minimal x11-apps imagemagick xautomation
+85 [e] + distropkgs --minimal x11-apps imagemagick xautomation
+85 [e] + local descriptor desc pkgname rank option optionname optiondistro optionrel
+85 [e] + pkgname=.
+85 [e] + rank=0
+85 [e] + desc=--minimal,
+85 [e] + [ -n --minimal, ]
+85 [e] + option=--minimal
+85 [e] + optionname=--minimal
+85 [e] + desc=
+85 [e] + [ --minimal = --minimal ]
+85 [e] + [ 0 -lt 1 ]
+85 [e] + rank=1
+85 [e] + pkgname=--minimal
+85 [e] + continue
+85 [e] + [ -n  ]
+85 [e] + [ ! --minimal = . ]
+85 [e] + echo -n --minimal 
+85 [e] + pkgname=.
+85 [e] + rank=0
+85 [e] + desc=x11-apps,
+85 [e] + [ -n x11-apps, ]
+85 [e] + option=x11-apps
+85 [e] + optionname=x11-apps
+85 [e] + desc=
+85 [e] + [ x11-apps = x11-apps ]
+85 [e] + [ 0 -lt 1 ]
+85 [e] + rank=1
+85 [e] + pkgname=x11-apps
+85 [e] + continue
+85 [e] + [ -n  ]
+85 [e] + [ ! x11-apps = . ]
+85 [e] + echo -n x11-apps 
+85 [e] + pkgname=.
+85 [e] + rank=0
+85 [e] + desc=imagemagick,
+85 [e] + [ -n imagemagick, ]
+85 [e] + option=imagemagick
+85 [e] + optionname=imagemagick
+85 [e] + desc=
+85 [e] + [ imagemagick = imagemagick ]
+85 [e] + [ 0 -lt 1 ]
+85 [e] + rank=1
+85 [e] + pkgname=imagemagick
+85 [e] + continue
+85 [e] + [ -n  ]
+85 [e] + [ ! imagemagick = . ]
+85 [e] + echo -n imagemagick 
+85 [e] + pkgname=.
+85 [e] + rank=0
+85 [e] + desc=xautomation,
+85 [e] + [ -n xautomation, ]
+85 [e] + option=xautomation
+85 [e] + optionname=xautomation
+85 [e] + desc=
+85 [e] + [ xautomation = xautomation ]
+85 [e] + [ 0 -lt 1 ]
+85 [e] + rank=1
+85 [e] + pkgname=xautomation
+85 [e] + continue
+85 [e] + [ -n  ]
+85 [e] + [ ! xautomation = . ]
+85 [e] + echo -n xautomation 
+85 [e] + install_dist --minimal x11-apps imagemagick xautomation
+85 [e] + local pkgs= pkgsasdeps= params= asdeps=
+85 [e] + [ ! 4 = 0 ]
+85 [e] + [ --minimal = --minimal ]
+85 [e] + params=--no-install-recommends
+85 [e] + shift
+85 [e] + [ ! 3 = 0 ]
+85 [e] + [ x11-apps = --minimal ]
+85 [e] + [ x11-apps = --asdeps ]
+85 [e] + break
+85 [e] + [ ! 3 = 0 ]
+85 [e] + [ x11-apps = -- ]
+85 [e] + pkgs= x11-apps
+85 [e] + shift
+85 [e] + [ ! 2 = 0 ]
+85 [e] + [ imagemagick = -- ]
+85 [e] + pkgs= x11-apps imagemagick
+85 [e] + shift
+85 [e] + [ ! 1 = 0 ]
+85 [e] + [ xautomation = -- ]
+85 [e] + pkgs= x11-apps imagemagick xautomation
+85 [e] + shift
+85 [e] + [ ! 0 = 0 ]
+85 [e] + [ -n  ]
+85 [e] + list_uninstalled_dist -
+85 [e] + local suffix=- pkg
+85 [e] + shift
+85 [e] + apt-get -y --no-install-recommends install x11-apps imagemagick xautomation
+95 [i] Reading package lists...
+95 [i] Building dependency tree...
+95 [i] Reading state information...
+95 [i] x11-apps is already the newest version.
+95 [i] x11-apps set to manually installed.
+95 [i] xautomation is already the newest version.
+95 [i] The following extra packages will be installed:
+95 [i]   imagemagick-common libjasper1 libjpeg-turbo8 libjpeg8 liblcms1 liblqr-1-0
+95 [i]   libmagickcore4 libmagickwand4 libtiff4 libxml2
+95 [i] Suggested packages:
+95 [i]   imagemagick-doc autotrace cups-bsd lpr lprng curl enscript ffmpeg gimp
+95 [i]   gnuplot grads groff-base hp2xx html2ps libwmf-bin mplayer povray radiance
+95 [i]   sane-utils texlive-base-bin transfig ufraw-batch libjasper-runtime
+95 [i]   liblcms-utils
+95 [i] Recommended packages:
+95 [i]   libmagickcore4-extra ghostscript netpbm gsfonts xml-core
+95 [i] The following NEW packages will be installed:
+95 [i]   imagemagick imagemagick-common libjasper1 libjpeg-turbo8 libjpeg8 liblcms1
+95 [i]   liblqr-1-0 libmagickcore4 libmagickwand4 libtiff4 libxml2
+96 [i] 0 upgraded, 11 newly installed, 0 to remove and 0 not upgraded.
+96 [i] Need to get 3564 kB of archives.
+96 [i] After this operation, 10.9 MB of additional disk space will be used.
+96 [i] Get:1 https://mirrors.kernel.org/ubuntu/ precise-updates/main libxml2 amd64 2.7.8.dfsg-5.1ubuntu4.11 [674 kB]
+96 [i] Get:2 https://mirrors.kernel.org/ubuntu/ precise-updates/main libjpeg-turbo8 amd64 1.1.90+svn733-0ubuntu4.4 [112 kB]
+96 [i] Get:3 https://mirrors.kernel.org/ubuntu/ precise/main libjpeg8 amd64 8c-2ubuntu7 [2112 B]
+96 [i] Get:4 https://mirrors.kernel.org/ubuntu/ precise/main libjasper1 amd64 1.900.1-13 [154 kB]
+96 [i] Get:5 https://mirrors.kernel.org/ubuntu/ precise/main liblcms1 amd64 1.19.dfsg-1ubuntu3 [106 kB]
+96 [i] Get:6 https://mirrors.kernel.org/ubuntu/ precise-updates/main libtiff4 amd64 3.9.5-2ubuntu1.6 [144 kB]
+97 [i] Get:7 https://mirrors.kernel.org/ubuntu/ precise/main liblqr-1-0 amd64 0.4.1-1.1 [39.5 kB]
+97 [i] Get:8 https://mirrors.kernel.org/ubuntu/ precise-updates/main imagemagick-common all 8:6.6.9.7-5ubuntu3.3 [40.3 kB]
+97 [i] Get:9 https://mirrors.kernel.org/ubuntu/ precise-updates/main libmagickcore4 amd64 8:6.6.9.7-5ubuntu3.3 [1879 kB]
+97 [i] Get:10 https://mirrors.kernel.org/ubuntu/ precise-updates/main libmagickwand4 amd64 8:6.6.9.7-5ubuntu3.3 [364 kB]
+97 [i] Get:11 https://mirrors.kernel.org/ubuntu/ precise-updates/main imagemagick amd64 8:6.6.9.7-5ubuntu3.3 [49.2 kB]
+98 [i] Fetched 3564 kB in 1s (1922 kB/s)
+98 [i] Selecting previously unselected package libxml2.
+98 [i] (Reading database ... 15459 files and directories currently installed.)
+98 [i] Unpacking libxml2 (from .../libxml2_2.7.8.dfsg-5.1ubuntu4.11_amd64.deb) ...
+98 [i] Selecting previously unselected package libjpeg-turbo8.
+98 [i] Unpacking libjpeg-turbo8 (from .../libjpeg-turbo8_1.1.90+svn733-0ubuntu4.4_amd64.deb) ...
+98 [i] Selecting previously unselected package libjpeg8.
+98 [i] Unpacking libjpeg8 (from .../libjpeg8_8c-2ubuntu7_amd64.deb) ...
+98 [i] Selecting previously unselected package libjasper1.
+98 [i] Unpacking libjasper1 (from .../libjasper1_1.900.1-13_amd64.deb) ...
+99 [i] Selecting previously unselected package liblcms1.
+99 [i] Unpacking liblcms1 (from .../liblcms1_1.19.dfsg-1ubuntu3_amd64.deb) ...
+99 [i] Selecting previously unselected package libtiff4.
+99 [i] Unpacking libtiff4 (from .../libtiff4_3.9.5-2ubuntu1.6_amd64.deb) ...
+99 [i] Selecting previously unselected package liblqr-1-0.
+99 [i] Unpacking liblqr-1-0 (from .../liblqr-1-0_0.4.1-1.1_amd64.deb) ...
+100 [i] Selecting previously unselected package imagemagick-common.
+100 [i] Unpacking imagemagick-common (from .../imagemagick-common_8%3a6.6.9.7-5ubuntu3.3_all.deb) ...
+101 [i] Selecting previously unselected package libmagickcore4.
+101 [i] Unpacking libmagickcore4 (from .../libmagickcore4_8%3a6.6.9.7-5ubuntu3.3_amd64.deb) ...
+101 [i] Selecting previously unselected package libmagickwand4.
+101 [i] Unpacking libmagickwand4 (from .../libmagickwand4_8%3a6.6.9.7-5ubuntu3.3_amd64.deb) ...
+101 [i] Selecting previously unselected package imagemagick.
+101 [i] Unpacking imagemagick (from .../imagemagick_8%3a6.6.9.7-5ubuntu3.3_amd64.deb) ...
+101 [i] Setting up libxml2 (2.7.8.dfsg-5.1ubuntu4.11) ...
+102 [i] Setting up libjpeg-turbo8 (1.1.90+svn733-0ubuntu4.4) ...
+102 [i] Setting up libjpeg8 (8c-2ubuntu7) ...
+102 [i] Setting up libjasper1 (1.900.1-13) ...
+102 [i] Setting up liblcms1 (1.19.dfsg-1ubuntu3) ...
+102 [i] Setting up libtiff4 (3.9.5-2ubuntu1.6) ...
+102 [i] Setting up liblqr-1-0 (0.4.1-1.1) ...
+102 [i] Setting up imagemagick-common (8:6.6.9.7-5ubuntu3.3) ...
+102 [i] Setting up libmagickcore4 (8:6.6.9.7-5ubuntu3.3) ...
+102 [i] Setting up libmagickwand4 (8:6.6.9.7-5ubuntu3.3) ...
+102 [i] Setting up imagemagick (8:6.6.9.7-5ubuntu3.3) ...
+103 [i] Processing triggers for libc-bin ...
+103 [i] ldconfig deferred processing now taking place
+107 [e] + [ -n  ]
+107 [e] + set +x
+107 [e] Installing target post-common...
+107 [e] Cleaning up...
+107 [i] Reading package lists...
+108 [i] Building dependency tree...
+108 [i] Reading state information...
+108 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+109 [e] Unmounting /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+112 [e] Done! You can enter the chroot using enter-chroot.
+113 [t] PASS: crouton -U -n precise
+113 [t] LAUNCHING: crouton -u -n precise -t kde
+113 [e] /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise already exists; updating it...
+113 [e] WARNING: USB booting is enabled; consider disabling it.
+113 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+113 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+118 [e] Preparing chroot environment...
+119 [e] Installing croutonversion into the chroot...
+119 [e] Installing host-dbus into the chroot...
+119 [e] Installing host-x11 into the chroot...
+119 [e] Installing pulseaudio-default.pa into the chroot...
+119 [e] Installing brightness into the chroot...
+119 [e] Installing croutoncycle into the chroot...
+119 [e] Installing croutonpowerd into the chroot...
+119 [e] Installing croutonxinitrc-wrapper into the chroot...
+119 [e] Installing setres into the chroot...
+119 [e] Installing xinit into the chroot...
+119 [e] Installing xbindkeysrc.scm into the chroot...
+119 [e] Installing xserverrc-x11 into the chroot...
+119 [e] Installing xserverrc-local.example into the chroot...
+119 [e] Installing startkde into the host...
+119 [e] Installing enter-chroot into the host...
+119 [e] Installing delete-chroot into the host...
+119 [e] Installing edit-chroot into the host...
+119 [e] Installing mount-chroot into the host...
+119 [e] Installing unmount-chroot into the host...
+119 [e] Installing crash_reporter_wrapper into the host...
+119 [e] stdin: is not a tty
+119 [e] Installing target core...
+119 [e] Preparing environment...
+119 [e] Preparing software sources...
+120 [i] Hit https://mirrors.kernel.org precise Release.gpg
+120 [i] Get:1 https://mirrors.kernel.org precise-updates Release.gpg [198 B]
+120 [i] Get:2 https://mirrors.kernel.org precise-security Release.gpg [198 B]
+120 [i] Hit https://mirrors.kernel.org precise Release
+120 [i] Get:3 https://mirrors.kernel.org precise-updates Release [194 kB]
+120 [i] Get:4 https://mirrors.kernel.org precise-security Release [53.0 kB]
+120 [i] Hit https://mirrors.kernel.org precise/main Sources
+120 [i] Hit https://mirrors.kernel.org precise/restricted Sources
+120 [i] Hit https://mirrors.kernel.org precise/universe Sources
+120 [i] Hit https://mirrors.kernel.org precise/multiverse Sources
+120 [i] Hit https://mirrors.kernel.org precise/main amd64 Packages
+120 [i] Hit https://mirrors.kernel.org precise/restricted amd64 Packages
+120 [i] Hit https://mirrors.kernel.org precise/universe amd64 Packages
+120 [i] Hit https://mirrors.kernel.org precise/multiverse amd64 Packages
+120 [i] Hit https://mirrors.kernel.org precise/main i386 Packages
+120 [i] Hit https://mirrors.kernel.org precise/restricted i386 Packages
+120 [i] Hit https://mirrors.kernel.org precise/universe i386 Packages
+120 [i] Hit https://mirrors.kernel.org precise/multiverse i386 Packages
+120 [i] Hit https://mirrors.kernel.org precise/main TranslationIndex
+120 [i] Hit https://mirrors.kernel.org precise/multiverse TranslationIndex
+120 [i] Hit https://mirrors.kernel.org precise/restricted TranslationIndex
+120 [i] Hit https://mirrors.kernel.org precise/universe TranslationIndex
+120 [i] Get:5 https://mirrors.kernel.org precise-updates/main Sources [479 kB]
+120 [i] Get:6 https://mirrors.kernel.org precise-updates/restricted Sources [8000 B]
+120 [i] Get:7 https://mirrors.kernel.org precise-updates/universe Sources [111 kB]
+120 [i] Get:8 https://mirrors.kernel.org precise-updates/multiverse Sources [8935 B]
+120 [i] Get:9 https://mirrors.kernel.org precise-updates/main amd64 Packages [842 kB]
+120 [i] Get:10 https://mirrors.kernel.org precise-updates/restricted amd64 Packages [13.2 kB]
+120 [i] Get:11 https://mirrors.kernel.org precise-updates/universe amd64 Packages [249 kB]
+120 [i] Get:12 https://mirrors.kernel.org precise-updates/multiverse amd64 Packages [15.3 kB]
+120 [i] Get:13 https://mirrors.kernel.org precise-updates/main i386 Packages [875 kB]
+120 [i] Get:14 https://mirrors.kernel.org precise-updates/restricted i386 Packages [13.2 kB]
+120 [i] Get:15 https://mirrors.kernel.org precise-updates/universe i386 Packages [256 kB]
+120 [i] Get:16 https://mirrors.kernel.org precise-updates/multiverse i386 Packages [15.5 kB]
+123 [i] Hit https://mirrors.kernel.org precise-updates/main TranslationIndex
+123 [i] Hit https://mirrors.kernel.org precise-updates/multiverse TranslationIndex
+123 [i] Hit https://mirrors.kernel.org precise-updates/restricted TranslationIndex
+123 [i] Hit https://mirrors.kernel.org precise-updates/universe TranslationIndex
+123 [i] Get:17 https://mirrors.kernel.org precise-security/main Sources [114 kB]
+123 [i] Get:18 https://mirrors.kernel.org precise-security/restricted Sources [2494 B]
+123 [i] Get:19 https://mirrors.kernel.org precise-security/universe Sources [33.0 kB]
+123 [i] Get:20 https://mirrors.kernel.org precise-security/multiverse Sources [1801 B]
+123 [i] Get:21 https://mirrors.kernel.org precise-security/main amd64 Packages [440 kB]
+123 [i] Get:22 https://mirrors.kernel.org precise-security/restricted amd64 Packages [4627 B]
+123 [i] Get:23 https://mirrors.kernel.org precise-security/universe amd64 Packages [101 kB]
+123 [i] Get:24 https://mirrors.kernel.org precise-security/multiverse amd64 Packages [2444 B]
+123 [i] Get:25 https://mirrors.kernel.org precise-security/main i386 Packages [474 kB]
+123 [i] Get:26 https://mirrors.kernel.org precise-security/restricted i386 Packages [4620 B]
+123 [i] Get:27 https://mirrors.kernel.org precise-security/universe i386 Packages [107 kB]
+123 [i] Get:28 https://mirrors.kernel.org precise-security/multiverse i386 Packages [2649 B]
+123 [i] Hit https://mirrors.kernel.org precise-security/main TranslationIndex
+123 [i] Hit https://mirrors.kernel.org precise-security/multiverse TranslationIndex
+123 [i] Hit https://mirrors.kernel.org precise-security/restricted TranslationIndex
+123 [i] Hit https://mirrors.kernel.org precise-security/universe TranslationIndex
+123 [i] Hit https://mirrors.kernel.org precise/main Translation-en
+123 [i] Hit https://mirrors.kernel.org precise/multiverse Translation-en
+123 [i] Hit https://mirrors.kernel.org precise/restricted Translation-en
+123 [i] Hit https://mirrors.kernel.org precise/universe Translation-en
+123 [i] Hit https://mirrors.kernel.org precise-updates/main Translation-en
+123 [i] Hit https://mirrors.kernel.org precise-updates/multiverse Translation-en
+123 [i] Hit https://mirrors.kernel.org precise-updates/restricted Translation-en
+123 [i] Hit https://mirrors.kernel.org precise-updates/universe Translation-en
+123 [i] Hit https://mirrors.kernel.org precise-security/main Translation-en
+123 [i] Hit https://mirrors.kernel.org precise-security/multiverse Translation-en
+123 [i] Hit https://mirrors.kernel.org precise-security/restricted Translation-en
+123 [i] Hit https://mirrors.kernel.org precise-security/universe Translation-en
+128 [i] Fetched 4422 kB in 8s (527 kB/s)
+144 [i] Reading package lists...
+144 [e] Ensuring system is up-to-date...
+144 [i] Reading package lists...
+145 [i] Building dependency tree...
+145 [i] Reading state information...
+145 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+145 [i] Reading package lists...
+146 [i] Building dependency tree...
+146 [i] Reading state information...
+146 [i] ca-certificates is already the newest version.
+146 [i] sudo is already the newest version.
+146 [i] wget is already the newest version.
+146 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+146 [e] Syncing timezone...
+146 [e] Installing target audio...
+146 [e] Fetching CRAS (branch 974b876c4a31f00c96fa19e87ae272c524687fc5)...
+146 [i] --2014-11-14 16:02:12--  https://chromium.googlesource.com/chromiumos/third_party/adhd/+archive/974b876c4a31f00c96fa19e87ae272c524687fc5.tar.gz
+146 [i] Resolving chromium.googlesource.com (chromium.googlesource.com)... 74.125.137.82, 2607:f8b0:4002:c07::52
+146 [i] Connecting to chromium.googlesource.com (chromium.googlesource.com)|74.125.137.82|:443... connected.
+147 [i] HTTP request sent, awaiting response... 200 OK
+147 [i] Length: unspecified [application/x-gzip]
+147 [i] Saving to: `/tmp/crouton-cras.UE4GAj/adhd.tar.gz'
+147 [i] 
+147 [i]      0K .......... .......... .......... .......... ..........  420K
+147 [i]     50K .......... .......... .......... .......... ..........  752K
+147 [i]    100K .......... .......... .......... .......... .......... 1.07M
+147 [i]    150K .......... .......... .......... .......... .......... 2.54M
+147 [i]    200K .......... .......... .......... .......... .......... 1.15M
+147 [i]    250K .......... .......... .......... .......... .......... 5.06M
+147 [i]    300K .......... .......... .......... .......... .......... 3.35M
+147 [i]    350K .......... .......... .......... .......... .......... 1.39M
+147 [i]    400K                                                         538G=0.4s
+147 [i] 
+147 [i] 2014-11-14 16:02:13 (1.11 MB/s) - `/tmp/crouton-cras.UE4GAj/adhd.tar.gz' saved [409889]
+147 [i] 
+147 [i] Reading package lists...
+147 [i] Building dependency tree...
+150 [i] Reading state information...
+150 [i] libspeexdsp1:i386 is already the newest version.
+150 [i] alsa-utils is already the newest version.
+150 [i] libasound2:i386 is already the newest version.
+150 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+151 [i] Reading package lists...
+151 [i] Building dependency tree...
+151 [i] Reading state information...
+152 [i] gcc is already the newest version.
+152 [i] gcc-multilib is already the newest version.
+152 [i] gcc-multilib set to manually installed.
+152 [i] pkg-config is already the newest version.
+152 [i] Suggested packages:
+152 [i]   glibc-doc:i386 manpages-dev:i386 speex:i386
+152 [i] Recommended packages:
+152 [i]   gcc:i386 c-compiler:i386
+152 [i] The following NEW packages will be installed:
+152 [i]   libc6-dev:i386 libspeex-dev:i386 libspeex1:i386 libspeexdsp-dev:i386
+152 [i]   linux-libc-dev:i386
+152 [i] 0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+152 [i] Need to get 6199 kB of archives.
+152 [i] After this operation, 23.9 MB of additional disk space will be used.
+152 [i] Get:1 https://mirrors.kernel.org/ubuntu/ precise/main libspeex1 i386 1.2~rc1-3ubuntu2 [120 kB]
+152 [i] Get:2 https://mirrors.kernel.org/ubuntu/ precise-updates/main linux-libc-dev i386 3.2.0-70.105 [859 kB]
+152 [i] Get:3 https://mirrors.kernel.org/ubuntu/ precise-updates/main libc6-dev i386 2.15-0ubuntu10.7 [5102 kB]
+153 [i] Get:4 https://mirrors.kernel.org/ubuntu/ precise/main libspeex-dev i386 1.2~rc1-3ubuntu2 [69.0 kB]
+153 [i] Get:5 https://mirrors.kernel.org/ubuntu/ precise/main libspeexdsp-dev i386 1.2~rc1-3ubuntu2 [49.4 kB]
+153 [i] Fetched 6199 kB in 1s (4911 kB/s)
+153 [i] Selecting previously unselected package libspeex1:i386.
+153 [i] (Reading database ... 15790 files and directories currently installed.)
+153 [i] Unpacking libspeex1:i386 (from .../libspeex1_1.2~rc1-3ubuntu2_i386.deb) ...
+153 [i] Selecting previously unselected package linux-libc-dev:i386.
+153 [i] Unpacking linux-libc-dev:i386 (from .../linux-libc-dev_3.2.0-70.105_i386.deb) ...
+157 [i] Selecting previously unselected package libc6-dev:i386.
+157 [i] Unpacking libc6-dev:i386 (from .../libc6-dev_2.15-0ubuntu10.7_i386.deb) ...
+158 [i] Selecting previously unselected package libspeex-dev:i386.
+158 [i] Unpacking libspeex-dev:i386 (from .../libspeex-dev_1.2~rc1-3ubuntu2_i386.deb) ...
+158 [i] Selecting previously unselected package libspeexdsp-dev:i386.
+158 [i] Unpacking libspeexdsp-dev:i386 (from .../libspeexdsp-dev_1.2~rc1-3ubuntu2_i386.deb) ...
+159 [i] Setting up libspeex1:i386 (1.2~rc1-3ubuntu2) ...
+159 [i] Setting up linux-libc-dev:i386 (3.2.0-70.105) ...
+159 [i] Setting up libc6-dev:i386 (2.15-0ubuntu10.7) ...
+159 [i] Setting up libspeex-dev:i386 (1.2~rc1-3ubuntu2) ...
+159 [i] Setting up libspeexdsp-dev:i386 (1.2~rc1-3ubuntu2) ...
+159 [i] Processing triggers for libc-bin ...
+159 [i] ldconfig deferred processing now taking place
+166 [i] libc6-dev:i386 set to automatically installed.
+166 [i] libspeexdsp-dev:i386 set to automatically installed.
+166 [i] Reading package lists...
+167 [i] Building dependency tree...
+167 [i] Reading state information...
+167 [i] libasound2-dev is already the newest version.
+167 [i] The following packages were automatically installed and are no longer required:
+167 [i]   libspeex-dev:i386 libspeexdsp-dev:i386 libspeex1:i386 libc6-dev:i386
+167 [i]   linux-libc-dev:i386
+167 [i] Use 'apt-get autoremove' to remove them.
+167 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+167 [e] 2014-11-14 16:02:33 URL:https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/ [3714] -> "-" [1]
+167 [i] libsbc1:amd64 is already up to date (libsbc1_1.1-2ubuntu2).
+168 [e] 2014-11-14 16:02:34 URL:https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/ [3714] -> "-" [1]
+168 [e] --2014-11-14 16:02:34--  https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/libsbc1_1.1-2ubuntu2_i386.deb
+168 [e] Resolving mirrors.kernel.org (mirrors.kernel.org)... 198.145.20.143, 149.20.20.135, 2001:4f8:8:10:0:1994:3:14
+168 [e] Connecting to mirrors.kernel.org (mirrors.kernel.org)|198.145.20.143|:443... connected.
+168 [e] HTTP request sent, awaiting response... 200 OK
+168 [e] Length: 28044 (27K) [application/octet-stream]
+168 [e] Saving to: `/tmp/crouton.6D83Lo'
+168 [e] 
+168 [e]      0K .......... .......... .......                         100%  651K=0.04s
+168 [e] 
+168 [e] 2014-11-14 16:02:34 (651 KB/s) - `/tmp/crouton.6D83Lo' saved [28044/28044]
+168 [e] 
+168 [i] (Reading database ... 16160 files and directories currently installed.)
+168 [i] Preparing to replace libsbc1:i386 1.1-2ubuntu2 (using /tmp/crouton.6D83Lo) ...
+168 [i] Unpacking replacement libsbc1:i386 ...
+168 [i] Setting up libsbc1:i386 (1.1-2ubuntu2) ...
+168 [i] Processing triggers for libc-bin ...
+168 [i] ldconfig deferred processing now taking place
+170 [i] Reading package lists...
+171 [i] Building dependency tree...
+171 [i] Reading state information...
+171 [i] The following packages were automatically installed and are no longer required:
+171 [i]   libspeex-dev:i386 libspeexdsp-dev:i386 libspeex1:i386 libc6-dev:i386
+171 [i]   linux-libc-dev:i386
+171 [i] Use 'apt-get autoremove' to remove them.
+171 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+171 [e] 2014-11-14 16:02:37 URL:https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/ [3714] -> "-" [1]
+171 [e] --2014-11-14 16:02:37--  https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/libsbc-dev_1.1-2ubuntu2_amd64.deb
+171 [e] Resolving mirrors.kernel.org (mirrors.kernel.org)... 198.145.20.143, 149.20.20.135, 2001:4f8:8:10:0:1994:3:14
+171 [e] Connecting to mirrors.kernel.org (mirrors.kernel.org)|198.145.20.143|:443... connected.
+172 [e] HTTP request sent, awaiting response... 200 OK
+172 [e] Length: 31708 (31K) [application/octet-stream]
+172 [e] Saving to: `/tmp/crouton.U5lhh3'
+172 [e] 
+172 [e]      0K .......... .......... ..........                      100%  729K=0.04s
+172 [e] 
+172 [e] 2014-11-14 16:02:38 (729 KB/s) - `/tmp/crouton.U5lhh3' saved [31708/31708]
+172 [e] 
+172 [e] 2014-11-14 16:02:38 URL:https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/ [3714] -> "-" [1]
+172 [e] --2014-11-14 16:02:38--  https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/libsbc-dev_1.1-2ubuntu2_i386.deb
+172 [e] Resolving mirrors.kernel.org (mirrors.kernel.org)... 198.145.20.143, 149.20.20.135, 2001:4f8:8:10:0:1994:3:14
+172 [e] Connecting to mirrors.kernel.org (mirrors.kernel.org)|198.145.20.143|:443... connected.
+172 [e] HTTP request sent, awaiting response... 200 OK
+172 [e] Length: 28176 (28K) [application/octet-stream]
+172 [e] Saving to: `/tmp/crouton.DQlhSv'
+172 [e] 
+172 [e]      0K .......... .......... .......                         100%  630K=0.04s
+172 [e] 
+172 [e] 2014-11-14 16:02:38 (630 KB/s) - `/tmp/crouton.DQlhSv' saved [28176/28176]
+172 [e] 
+173 [i] Selecting previously unselected package libsbc-dev.
+173 [i] (Reading database ... 16160 files and directories currently installed.)
+173 [i] Unpacking libsbc-dev (from /tmp/crouton.U5lhh3) ...
+173 [i] Selecting previously unselected package libsbc-dev:i386.
+173 [i] Unpacking libsbc-dev:i386 (from /tmp/crouton.DQlhSv) ...
+173 [i] Setting up libsbc-dev (1.1-2ubuntu2) ...
+173 [i] Setting up libsbc-dev:i386 (1.1-2ubuntu2) ...
+175 [i] Reading package lists...
+175 [i] Building dependency tree...
+175 [i] Reading state information...
+175 [i] The following packages were automatically installed and are no longer required:
+175 [i]   libspeex-dev:i386 libspeexdsp-dev:i386 libspeex1:i386 libc6-dev:i386
+175 [i]   linux-libc-dev:i386
+175 [i] Use 'apt-get autoremove' to remove them.
+176 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+176 [i] libsbc-dev set to automatically installed.
+176 [i] libsbc-dev:i386 set to automatically installed.
+176 [i] Reading package lists...
+177 [i] Building dependency tree...
+177 [i] Reading state information...
+177 [i] patch is already the newest version.
+177 [i] The following packages were automatically installed and are no longer required:
+177 [i]   libspeex-dev:i386 libspeexdsp-dev:i386 libspeex1:i386 libsbc-dev
+177 [i]   libsbc-dev:i386 libc6-dev:i386 linux-libc-dev:i386
+177 [i] Use 'apt-get autoremove' to remove them.
+177 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+177 [e] Compiling CRAS (i386)...
+180 [e] Installing CRAS...
+180 [i] Reading package lists...
+181 [i] Building dependency tree...
+181 [i] Reading state information...
+181 [i] libspeexdsp1 is already the newest version.
+181 [i] alsa-utils is already the newest version.
+181 [i] libasound2 is already the newest version.
+181 [i] The following packages were automatically installed and are no longer required:
+181 [i]   libspeex-dev:i386 libspeexdsp-dev:i386 libspeex1:i386 libsbc-dev
+181 [i]   libsbc-dev:i386 libc6-dev:i386 linux-libc-dev:i386
+181 [i] Use 'apt-get autoremove' to remove them.
+181 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+181 [i] Reading package lists...
+182 [i] Building dependency tree...
+182 [i] Reading state information...
+182 [i] gcc is already the newest version.
+182 [i] pkg-config is already the newest version.
+182 [i] libc6-dev is already the newest version.
+182 [i] The following packages were automatically installed and are no longer required:
+182 [i]   libspeex-dev:i386 libspeexdsp-dev:i386 libspeex1:i386 libsbc-dev
+182 [i]   libsbc-dev:i386 libc6-dev:i386 linux-libc-dev:i386
+182 [i] Use 'apt-get autoremove' to remove them.
+182 [i] The following extra packages will be installed:
+182 [i]   libspeex-dev libspeex1
+182 [i] Suggested packages:
+182 [i]   speex
+182 [i] The following NEW packages will be installed:
+182 [i]   libspeex-dev libspeex1 libspeexdsp-dev
+183 [i] 0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+183 [i] Need to get 189 kB of archives.
+183 [i] After this operation, 624 kB of additional disk space will be used.
+183 [i] Get:1 https://mirrors.kernel.org/ubuntu/ precise/main libspeex1 amd64 1.2~rc1-3ubuntu2 [57.5 kB]
+183 [i] Get:2 https://mirrors.kernel.org/ubuntu/ precise/main libspeex-dev amd64 1.2~rc1-3ubuntu2 [77.6 kB]
+183 [i] Get:3 https://mirrors.kernel.org/ubuntu/ precise/main libspeexdsp-dev amd64 1.2~rc1-3ubuntu2 [53.8 kB]
+183 [i] Fetched 189 kB in 0s (282 kB/s)
+183 [i] Selecting previously unselected package libspeex1.
+183 [i] (Reading database ... 16171 files and directories currently installed.)
+183 [i] Unpacking libspeex1 (from .../libspeex1_1.2~rc1-3ubuntu2_amd64.deb) ...
+183 [i] Selecting previously unselected package libspeex-dev.
+183 [i] Unpacking libspeex-dev (from .../libspeex-dev_1.2~rc1-3ubuntu2_amd64.deb) ...
+184 [i] Selecting previously unselected package libspeexdsp-dev.
+184 [i] Unpacking libspeexdsp-dev (from .../libspeexdsp-dev_1.2~rc1-3ubuntu2_amd64.deb) ...
+184 [i] Setting up libspeex1 (1.2~rc1-3ubuntu2) ...
+184 [i] Setting up libspeex-dev (1.2~rc1-3ubuntu2) ...
+184 [i] Setting up libspeexdsp-dev (1.2~rc1-3ubuntu2) ...
+184 [i] Processing triggers for libc-bin ...
+184 [i] ldconfig deferred processing now taking place
+193 [i] libspeexdsp-dev set to automatically installed.
+194 [i] Reading package lists...
+194 [i] Building dependency tree...
+194 [i] Reading state information...
+194 [i] libasound2-dev is already the newest version.
+194 [i] The following packages were automatically installed and are no longer required:
+194 [i]   libspeex-dev libspeex-dev:i386 libspeexdsp-dev libspeexdsp-dev:i386
+194 [i]   libspeex1 libspeex1:i386 libsbc-dev libsbc-dev:i386 libc6-dev:i386
+194 [i]   linux-libc-dev:i386
+194 [i] Use 'apt-get autoremove' to remove them.
+194 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+195 [e] 2014-11-14 16:03:01 URL:https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/ [3714] -> "-" [1]
+195 [i] libsbc1:amd64 is already up to date (libsbc1_1.1-2ubuntu2).
+195 [e] 2014-11-14 16:03:01 URL:https://mirrors.kernel.org/ubuntu/pool/main/s/sbc/ [3714] -> "-" [1]
+195 [i] libsbc-dev:amd64 is already up to date (libsbc-dev_1.1-2ubuntu2).
+195 [i] Reading package lists...
+196 [i] Building dependency tree...
+196 [i] Reading state information...
+196 [i] patch is already the newest version.
+196 [i] The following packages were automatically installed and are no longer required:
+196 [i]   libspeex-dev libspeex-dev:i386 libspeexdsp-dev libspeexdsp-dev:i386
+196 [i]   libspeex1 libspeex1:i386 libsbc-dev libsbc-dev:i386 libc6-dev:i386
+196 [i]   linux-libc-dev:i386
+196 [i] Use 'apt-get autoremove' to remove them.
+196 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+196 [e] Compiling CRAS (native)...
+199 [e] Installing CRAS...
+199 [e] Installing target xorg...
+199 [i] Reading package lists...
+199 [i] Building dependency tree...
+199 [i] Reading state information...
+200 [i] libgl1-mesa-glx-lts-trusty is already the newest version.
+200 [i] xserver-xorg-input-synaptics-lts-trusty is already the newest version.
+200 [i] xserver-xorg-lts-trusty is already the newest version.
+200 [i] The following packages were automatically installed and are no longer required:
+200 [i]   libspeex-dev libspeex-dev:i386 libspeexdsp-dev libspeexdsp-dev:i386
+200 [i]   libspeex1 libspeex1:i386 libsbc-dev libsbc-dev:i386 libc6-dev:i386
+200 [i]   linux-libc-dev:i386
+200 [i] Use 'apt-get autoremove' to remove them.
+200 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+200 [i] Reading package lists...
+200 [i] Building dependency tree...
+200 [i] Reading state information...
+201 [i] dmz-cursor-theme is already the newest version.
+201 [i] xorg is already the newest version.
+201 [i] The following packages were automatically installed and are no longer required:
+201 [i]   libspeex-dev libspeex-dev:i386 libspeexdsp-dev libspeexdsp-dev:i386
+201 [i]   libspeex1 libspeex1:i386 libsbc-dev libsbc-dev:i386 libc6-dev:i386
+201 [i]   linux-libc-dev:i386
+201 [i] Use 'apt-get autoremove' to remove them.
+201 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+201 [e] Installing dependencies for /usr/local/bin/croutonwmtools...
+201 [i] Reading package lists...
+201 [i] Building dependency tree...
+201 [i] Reading state information...
+202 [i] gcc is already the newest version.
+202 [i] libc6-dev is already the newest version.
+202 [i] libx11-dev is already the newest version.
+202 [i] The following packages were automatically installed and are no longer required:
+202 [i]   libspeex-dev libspeex-dev:i386 libspeexdsp-dev libspeexdsp-dev:i386
+202 [i]   libspeex1 libspeex1:i386 libsbc-dev libsbc-dev:i386 libc6-dev:i386
+202 [i]   linux-libc-dev:i386
+202 [i] Use 'apt-get autoremove' to remove them.
+202 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+202 [e] Compiling /usr/local/bin/croutonwmtools...
+203 [e] Installing dependencies for /usr/local/bin/croutonxi2event...
+203 [i] Reading package lists...
+204 [i] Building dependency tree...
+204 [i] Reading state information...
+204 [i] gcc is already the newest version.
+204 [i] libc6-dev is already the newest version.
+204 [i] libx11-dev is already the newest version.
+204 [i] The following packages were automatically installed and are no longer required:
+204 [i]   libspeex-dev libspeex-dev:i386 libspeexdsp-dev libspeexdsp-dev:i386
+204 [i]   libspeex1 libspeex1:i386 libsbc-dev libsbc-dev:i386 libc6-dev:i386
+204 [i]   linux-libc-dev:i386
+204 [i] Use 'apt-get autoremove' to remove them.
+204 [i] The following extra packages will be installed:
+204 [i]   libxext-dev libxfixes-dev x11proto-fixes-dev x11proto-xext-dev
+204 [i] The following NEW packages will be installed:
+204 [i]   libxext-dev libxfixes-dev libxi-dev x11proto-fixes-dev x11proto-xext-dev
+204 [i] 0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+204 [i] Need to get 681 kB of archives.
+204 [i] After this operation, 2314 kB of additional disk space will be used.
+204 [i] Get:1 https://mirrors.kernel.org/ubuntu/ precise-updates/main x11proto-xext-dev all 7.3.0-1~precise1 [288 kB]
+205 [i] Get:2 https://mirrors.kernel.org/ubuntu/ precise-updates/main libxext-dev amd64 2:1.3.0-3ubuntu0.1 [157 kB]
+205 [i] Get:3 https://mirrors.kernel.org/ubuntu/ precise/main x11proto-fixes-dev all 1:5.0-2ubuntu1 [15.5 kB]
+205 [i] Get:4 https://mirrors.kernel.org/ubuntu/ precise-updates/main libxfixes-dev amd64 1:5.0-4ubuntu4.2 [13.0 kB]
+205 [i] Get:5 https://mirrors.kernel.org/ubuntu/ precise-updates/main libxi-dev amd64 2:1.7.1.901-1ubuntu1~precise1 [208 kB]
+205 [i] Fetched 681 kB in 0s (855 kB/s)
+205 [i] Selecting previously unselected package x11proto-xext-dev.
+205 [i] (Reading database ... 16179 files and directories currently installed.)
+205 [i] Unpacking x11proto-xext-dev (from .../x11proto-xext-dev_7.3.0-1~precise1_all.deb) ...
+205 [i] Selecting previously unselected package libxext-dev.
+205 [i] Unpacking libxext-dev (from .../libxext-dev_2%3a1.3.0-3ubuntu0.1_amd64.deb) ...
+205 [i] Selecting previously unselected package x11proto-fixes-dev.
+205 [i] Unpacking x11proto-fixes-dev (from .../x11proto-fixes-dev_1%3a5.0-2ubuntu1_all.deb) ...
+205 [i] Selecting previously unselected package libxfixes-dev.
+205 [i] Unpacking libxfixes-dev (from .../libxfixes-dev_1%3a5.0-4ubuntu4.2_amd64.deb) ...
+206 [i] Selecting previously unselected package libxi-dev.
+206 [i] Unpacking libxi-dev (from .../libxi-dev_2%3a1.7.1.901-1ubuntu1~precise1_amd64.deb) ...
+206 [i] Setting up x11proto-xext-dev (7.3.0-1~precise1) ...
+206 [i] Setting up libxext-dev (2:1.3.0-3ubuntu0.1) ...
+206 [i] Setting up x11proto-fixes-dev (1:5.0-2ubuntu1) ...
+206 [i] Setting up libxfixes-dev (1:5.0-4ubuntu4.2) ...
+206 [i] Setting up libxi-dev (2:1.7.1.901-1ubuntu1~precise1) ...
+208 [i] libxi-dev set to automatically installed.
+208 [e] Compiling /usr/local/bin/croutonxi2event...
+208 [i] Reading package lists...
+209 [i] Building dependency tree...
+209 [i] Reading state information...
+209 [i] xdg-utils is already the newest version.
+209 [i] dbus is already the newest version.
+209 [i] The following packages were automatically installed and are no longer required:
+209 [i]   libspeex-dev libspeex-dev:i386 libxfixes-dev libspeexdsp-dev
+209 [i]   libspeexdsp-dev:i386 libspeex1 libspeex1:i386 libxi-dev x11proto-fixes-dev
+209 [i]   libsbc-dev libsbc-dev:i386 x11proto-xext-dev libxext-dev libc6-dev:i386
+209 [i]   linux-libc-dev:i386
+209 [i] Use 'apt-get autoremove' to remove them.
+209 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+209 [i] Reading package lists...
+210 [i] Building dependency tree...
+210 [i] Reading state information...
+210 [i] kbd is already the newest version.
+210 [i] xautomation is already the newest version.
+210 [i] xbindkeys is already the newest version.
+210 [i] The following packages were automatically installed and are no longer required:
+210 [i]   libspeex-dev libspeex-dev:i386 libxfixes-dev libspeexdsp-dev
+210 [i]   libspeexdsp-dev:i386 libspeex1 libspeex1:i386 libxi-dev x11proto-fixes-dev
+210 [i]   libsbc-dev libsbc-dev:i386 x11proto-xext-dev libxext-dev libc6-dev:i386
+210 [i]   linux-libc-dev:i386
+210 [i] Use 'apt-get autoremove' to remove them.
+210 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+211 [e] Installing target x11...
+211 [e] Installing target kde...
+211 [i] Reading package lists...
+212 [i] Building dependency tree...
+212 [i] Reading state information...
+212 [i] Package network-manager is not installed, so not removed
+212 [i] The following packages were automatically installed and are no longer required:
+212 [i]   libspeex-dev libspeex-dev:i386 libxfixes-dev libspeexdsp-dev
+212 [i]   libspeexdsp-dev:i386 libspeex1 libspeex1:i386 libxi-dev x11proto-fixes-dev
+212 [i]   libsbc-dev libsbc-dev:i386 x11proto-xext-dev libxext-dev libc6-dev:i386
+212 [i]   linux-libc-dev:i386
+212 [i] Use 'apt-get autoremove' to remove them.
+212 [i] The following extra packages will be installed:
+212 [i]   akonadi-backend-mysql akonadi-server aspell aspell-en dbus-x11
+212 [i]   dictionaries-common docbook-xml docbook-xsl dolphin fontconfig
+212 [i]   freespacenotifier gstreamer0.10-alsa gstreamer0.10-plugins-base
+212 [i]   hicolor-icon-theme install-info iso-codes kate-data katepart kde-baseapps
+212 [i]   kde-baseapps-bin kde-baseapps-data kde-runtime kde-runtime-data
+212 [i]   kde-style-oxygen kde-wallpapers-default kde-window-manager
+212 [i]   kde-window-manager-common kde-workspace kde-workspace-bin kde-workspace-data
+212 [i]   kde-workspace-kgreet-plugins kdelibs-bin kdelibs5-data kdelibs5-plugins
+212 [i]   kdepasswd kdepim-runtime kdepimlibs-kio-plugins kdoctools kfind klipper
+212 [i]   konqueror konsole ksysguard ksysguardd kwrite libakonadi-calendar4
+212 [i]   libakonadi-contact4 libakonadi-kabc4 libakonadi-kcal4 libakonadi-kde4
+212 [i]   libakonadi-kmime4 libakonadi-notes4 libakonadiprotocolinternals1 libaspell15
+212 [i]   libasyncns0 libatasmart4 libattica0.3 libaudio2 libbluetooth3
+212 [i]   libboost-program-options1.46.1 libcanberra0 libcap2 libcdparanoia0
+212 [i]   libclass-isa-perl libcln6 libclucene0ldbl libdbus-glib-1-2 libdbusmenu-qt2
+212 [i]   libdevmapper-event1.02.1 libdlrestrictions1 libdmtx0a libenchant1c2a
+212 [i]   libexiv2-11 libflac8 libgdbm3 libgif4 libgps20
+212 [i]   libgstreamer-plugins-base0.10-0 libgstreamer0.10-0 libgudev-1.0-0
+212 [i]   libhunspell-1.3-0 libical0 libilmbase6 libimobiledevice2 libjson0 libkabc4
+212 [i]   libkactivities-bin libkactivities6 libkalarmcal2 libkatepartinterfaces4
+212 [i]   libkcal4 libkcalcore4 libkcalutils4 libkcmutils4 libkde3support4
+212 [i]   libkdeclarative5 libkdecorations4 libkdecore5 libkdesu5 libkdeui5
+212 [i]   libkdewebkit5 libkdnssd4 libkemoticons4 libkephal4abi1 libkfile4
+212 [i]   libkholidays4 libkhtml5 libkidletime4 libkimap4 libkio5 libkjsapi4
+212 [i]   libkjsembed4 libkldap4 libkmbox4 libkmediaplayer4 libkmime4 libknewstuff3-4
+212 [i]   libknotifyconfig4 libkntlm4 libkonq-common libkonq5-templates libkonq5abi1
+212 [i]   libkonqsidebarplugin4a libkparts4 libkpimidentities4 libkpimtextedit4
+212 [i]   libkpimutils4 libkpty4 libkresources4 libkrosscore4 libkscreensaver5
+212 [i]   libksgrd4 libksignalplotter4 libktexteditor4 libkunitconversion4
+212 [i]   libkwineffects1abi3 libkwinglutils1 libkwinnvidiahack4 libkworkspace4abi1
+212 [i]   liblvm2app2.2 libmailtransport4 libmhash2 libmicroblog4 libmng1
+212 [i]   libmysqlclient18 libnepomuk4 libnepomukdatamanagement4 libnepomukquery4a
+212 [i]   libnepomuksync4 libnepomukutils4 libnl-3-200 libnl-route-3-200
+212 [i]   libntrack-qt4-1 libntrack0 libogg0 libopenexr6 liborc-0.4-0
+212 [i]   libparted0debian1 libphonon4 libplasma-geolocation-interface4 libplasma3
+212 [i]   libplasmaclock4abi3 libplasmagenericshell4 libplist1 libpolkit-agent-1-0
+212 [i]   libpolkit-gobject-1-0 libpolkit-qt-1-1 libprison0 libprocesscore4abi1
+212 [i]   libprocessui4a libpulse-mainloop-glib0 libpulse0 libqalculate5 libqca2
+212 [i]   libqrencode3 libqt4-dbus libqt4-declarative libqt4-designer libqt4-network
+212 [i]   libqt4-opengl libqt4-qt3support libqt4-script libqt4-sql libqt4-sql-mysql
+212 [i]   libqt4-svg libqt4-xml libqt4-xmlpatterns libqtcore4 libqtgui4 libqtwebkit4
+212 [i]   libraptor2-0 librasqal3 librdf0 libsasl2-modules libsensors4 libsgutils2-2
+212 [i]   libsmbclient libsndfile1 libsolid4 libsolidcontrol4abi2
+212 [i]   libsolidcontrolifaces4abi2 libsoprano4 libssh-4 libstreamanalyzer0
+212 [i]   libstreams0 libswitch-perl libsyndication4 libtalloc2 libtaskmanager4abi3
+212 [i]   libtdb1 libtheora0 libthreadweaver4 libupower-glib1 libusb-1.0-0 libusbmuxd1
+212 [i]   libvirtodbc0 libvisual-0.4-0 libvorbis0a libvorbisenc2 libvorbisfile3
+212 [i]   libwbclient0 libweather-ion6 libwrap0 libxml2-utils libxslt1.1 libxss1
+212 [i]   libyajl1 mysql-client-core-5.5 mysql-common mysql-server-core-5.5
+212 [i]   ntrack-module-libnl-0 odbcinst odbcinst1debian2 oxygen-cursor-theme
+212 [i]   oxygen-icon-theme perl perl-modules phonon phonon-backend-gstreamer
+212 [i]   plasma-dataengines-workspace plasma-desktop plasma-scriptengine-javascript
+212 [i]   plasma-widget-folderview plasma-widgets-workspace pm-utils powermgmt-base
+212 [i]   qdbus sgml-base sgml-data shared-desktop-ontologies shared-mime-info
+212 [i]   soprano-daemon sound-theme-freedesktop systemsettings udisks upower usbmuxd
+212 [i]   virtuoso-opensource-6.1-common xml-core
+212 [i] Suggested packages:
+212 [i]   akonadi-backend-sqlite akonadi-backend-postgresql aspell-doc spellutils
+212 [i]   ispell emacsen-common jed-extra docbook docbook-dsssl docbook-defguide
+212 [i]   docbook-xsl-doc-html docbook-xsl-doc-pdf docbook-xsl-doc-text
+212 [i]   docbook-xsl-doc libsaxon-java libxalan2-java libxslthl-java
+212 [i]   docbook-xsl-saxon fop xalan dbtoepub kdesdk-dolphin-plugins ruby kompare
+212 [i]   gvfs isoquery djvulibre-bin finger plasma-scriptengines kde-wallpapers
+212 [i]   konq-plugins nas libcanberra-gtk0 pi libenchant-voikko exiv2
+212 [i]   libvisual-0.4-plugins gstreamer-codec-install gnome-codec-install
+212 [i]   gstreamer0.10-tools hspell parted nparted libparted0-dev libparted0-i18n
+212 [i]   pulseaudio libqca2-plugin-cyrus-sasl libqca2-plugin-gnupg
+212 [i]   libqca2-plugin-ossl libqt4-declarative-folderlistmodel
+212 [i]   libqt4-declarative-gestures libqt4-declarative-particles
+212 [i]   libqt4-declarative-shaders qt4-qmlviewer libqt4-dev libthai0 qt4-qtconfig
+212 [i]   raptor2-utils rasqal-utils librdf-storage-postgresql librdf-storage-mysql
+212 [i]   librdf-storage-sqlite redland-utils libsasl2-modules-otp
+212 [i]   libsasl2-modules-ldap libsasl2-modules-sql libsasl2-modules-gssapi-mit
+212 [i]   libsasl2-modules-gssapi-heimdal lm-sensors sg3-utils perl-doc
+212 [i]   libterm-readline-gnu-perl libterm-readline-perl-perl make
+212 [i]   libpod-plainer-perl phonon-backend-vlc phonon-backend-xine
+212 [i]   phonon-backend-mplayer gstreamer0.10-plugins-ugly cpufrequtils
+212 [i]   wireless-tools ethtool radeontool sgml-base-doc perlsgml doc-html-w3 opensp
+212 [i]   xfsprogs reiserfsprogs mdadm debhelper
+212 [i] Recommended packages:
+212 [i]   alsa-base konqueror-nsplugins kdm virtuoso-minimal kubuntu-debug-installer
+212 [i]   icoutils libcanberra-pulse libcanberra-gstreamer kinfocenter kmenuedit
+212 [i]   polkit-kde-1 policykit-1-gnome enchant gpsd hunspell-en-us
+212 [i]   hunspell-dictionary myspell-dictionary libcups2 tcpd
+212 [i]   gstreamer0.10-plugins-good vbetool hdparm policykit-1 dosfstools mtools
+212 [i]   ntfs-3g cryptsetup-bin
+212 [i] The following NEW packages will be installed:
+212 [i]   akonadi-backend-mysql akonadi-server aspell aspell-en dbus-x11
+212 [i]   dictionaries-common docbook-xml docbook-xsl dolphin fontconfig
+212 [i]   freespacenotifier gstreamer0.10-alsa gstreamer0.10-plugins-base
+212 [i]   hicolor-icon-theme install-info iso-codes kate-data katepart kde-baseapps
+212 [i]   kde-baseapps-bin kde-baseapps-data kde-plasma-desktop kde-runtime
+212 [i]   kde-runtime-data kde-style-oxygen kde-wallpapers-default kde-window-manager
+212 [i]   kde-window-manager-common kde-workspace kde-workspace-bin kde-workspace-data
+212 [i]   kde-workspace-kgreet-plugins kdelibs-bin kdelibs5-data kdelibs5-plugins
+212 [i]   kdepasswd kdepim-runtime kdepimlibs-kio-plugins kdoctools kfind klipper
+212 [i]   konqueror konsole ksysguard ksysguardd kwrite libakonadi-calendar4
+212 [i]   libakonadi-contact4 libakonadi-kabc4 libakonadi-kcal4 libakonadi-kde4
+212 [i]   libakonadi-kmime4 libakonadi-notes4 libakonadiprotocolinternals1 libaspell15
+212 [i]   libasyncns0 libatasmart4 libattica0.3 libaudio2 libbluetooth3
+212 [i]   libboost-program-options1.46.1 libcanberra0 libcap2 libcdparanoia0
+212 [i]   libclass-isa-perl libcln6 libclucene0ldbl libdbus-glib-1-2 libdbusmenu-qt2
+212 [i]   libdevmapper-event1.02.1 libdlrestrictions1 libdmtx0a libenchant1c2a
+212 [i]   libexiv2-11 libflac8 libgdbm3 libgif4 libgps20
+212 [i]   libgstreamer-plugins-base0.10-0 libgstreamer0.10-0 libgudev-1.0-0
+212 [i]   libhunspell-1.3-0 libical0 libilmbase6 libimobiledevice2 libjson0 libkabc4
+212 [i]   libkactivities-bin libkactivities6 libkalarmcal2 libkatepartinterfaces4
+212 [i]   libkcal4 libkcalcore4 libkcalutils4 libkcmutils4 libkde3support4
+212 [i]   libkdeclarative5 libkdecorations4 libkdecore5 libkdesu5 libkdeui5
+212 [i]   libkdewebkit5 libkdnssd4 libkemoticons4 libkephal4abi1 libkfile4
+212 [i]   libkholidays4 libkhtml5 libkidletime4 libkimap4 libkio5 libkjsapi4
+212 [i]   libkjsembed4 libkldap4 libkmbox4 libkmediaplayer4 libkmime4 libknewstuff3-4
+212 [i]   libknotifyconfig4 libkntlm4 libkonq-common libkonq5-templates libkonq5abi1
+212 [i]   libkonqsidebarplugin4a libkparts4 libkpimidentities4 libkpimtextedit4
+212 [i]   libkpimutils4 libkpty4 libkresources4 libkrosscore4 libkscreensaver5
+212 [i]   libksgrd4 libksignalplotter4 libktexteditor4 libkunitconversion4
+212 [i]   libkwineffects1abi3 libkwinglutils1 libkwinnvidiahack4 libkworkspace4abi1
+212 [i]   liblvm2app2.2 libmailtransport4 libmhash2 libmicroblog4 libmng1
+212 [i]   libmysqlclient18 libnepomuk4 libnepomukdatamanagement4 libnepomukquery4a
+212 [i]   libnepomuksync4 libnepomukutils4 libnl-3-200 libnl-route-3-200
+212 [i]   libntrack-qt4-1 libntrack0 libogg0 libopenexr6 liborc-0.4-0
+212 [i]   libparted0debian1 libphonon4 libplasma-geolocation-interface4 libplasma3
+212 [i]   libplasmaclock4abi3 libplasmagenericshell4 libplist1 libpolkit-agent-1-0
+212 [i]   libpolkit-gobject-1-0 libpolkit-qt-1-1 libprison0 libprocesscore4abi1
+212 [i]   libprocessui4a libpulse-mainloop-glib0 libpulse0 libqalculate5 libqca2
+212 [i]   libqrencode3 libqt4-dbus libqt4-declarative libqt4-designer libqt4-network
+212 [i]   libqt4-opengl libqt4-qt3support libqt4-script libqt4-sql libqt4-sql-mysql
+212 [i]   libqt4-svg libqt4-xml libqt4-xmlpatterns libqtcore4 libqtgui4 libqtwebkit4
+212 [i]   libraptor2-0 librasqal3 librdf0 libsasl2-modules libsensors4 libsgutils2-2
+212 [i]   libsmbclient libsndfile1 libsolid4 libsolidcontrol4abi2
+212 [i]   libsolidcontrolifaces4abi2 libsoprano4 libssh-4 libstreamanalyzer0
+212 [i]   libstreams0 libswitch-perl libsyndication4 libtalloc2 libtaskmanager4abi3
+212 [i]   libtdb1 libtheora0 libthreadweaver4 libupower-glib1 libusb-1.0-0 libusbmuxd1
+212 [i]   libvirtodbc0 libvisual-0.4-0 libvorbis0a libvorbisenc2 libvorbisfile3
+212 [i]   libwbclient0 libweather-ion6 libwrap0 libxml2-utils libxslt1.1 libxss1
+212 [i]   libyajl1 mysql-client-core-5.5 mysql-common mysql-server-core-5.5
+212 [i]   ntrack-module-libnl-0 odbcinst odbcinst1debian2 oxygen-cursor-theme
+212 [i]   oxygen-icon-theme perl perl-modules phonon phonon-backend-gstreamer
+212 [i]   plasma-dataengines-workspace plasma-desktop plasma-scriptengine-javascript
+212 [i]   plasma-widget-folderview plasma-widgets-workspace pm-utils powermgmt-base
+212 [i]   qdbus sgml-base sgml-data shared-desktop-ontologies shared-mime-info
+212 [i]   soprano-daemon sound-theme-freedesktop systemsettings udisks upower usbmuxd
+212 [i]   virtuoso-opensource-6.1-common xml-core
+213 [i] 0 upgraded, 260 newly installed, 0 to remove and 0 not upgraded.
+213 [i] Need to get 131 MB of archives.
+213 [i] After this operation, 445 MB of additional disk space will be used.
+213 [i] Get:1 https://mirrors.kernel.org/ubuntu/ precise-updates/main libdbus-glib-1-2 amd64 0.98-1ubuntu1.1 [73.6 kB]
+213 [i] Get:2 https://mirrors.kernel.org/ubuntu/ precise/main install-info amd64 4.13a.dfsg.1-8ubuntu2 [53.0 kB]
+213 [i] Get:3 https://mirrors.kernel.org/ubuntu/ precise/main libgdbm3 amd64 1.8.3-10 [35.3 kB]
+213 [i] Get:4 https://mirrors.kernel.org/ubuntu/ precise-updates/main libparted0debian1 amd64 2.3-8ubuntu5.2 [240 kB]
+213 [i] Get:5 https://mirrors.kernel.org/ubuntu/ precise-updates/main libpolkit-gobject-1-0 amd64 0.104-1ubuntu1.1 [42.4 kB]
+213 [i] Get:6 https://mirrors.kernel.org/ubuntu/ precise/main libusb-1.0-0 amd64 2:1.0.9~rc3-2ubuntu1 [31.0 kB]
+213 [i] Get:7 https://mirrors.kernel.org/ubuntu/ precise/main sgml-base all 1.26+nmu1ubuntu1 [8360 B]
+213 [i] Get:8 https://mirrors.kernel.org/ubuntu/ precise/main xml-core all 0.13 [23.4 kB]
+213 [i] Get:9 https://mirrors.kernel.org/ubuntu/ precise/main sgml-data all 2.0.6 [271 kB]
+213 [i] Get:10 https://mirrors.kernel.org/ubuntu/ precise/main docbook-xml all 4.5-7ubuntu1 [336 kB]
+213 [i] Get:11 https://mirrors.kernel.org/ubuntu/ precise/main libasyncns0 amd64 0.8-4 [13.2 kB]
+213 [i] Get:12 https://mirrors.kernel.org/ubuntu/ precise/main libatasmart4 amd64 0.18-3 [26.9 kB]
+213 [i] Get:13 https://mirrors.kernel.org/ubuntu/ precise-updates/main libaudio2 amd64 1.9.3-4ubuntu0.1 [57.1 kB]
+213 [i] Get:14 https://mirrors.kernel.org/ubuntu/ precise-updates/main libbluetooth3 amd64 4.98-2ubuntu7.2 [63.3 kB]
+213 [i] Get:15 https://mirrors.kernel.org/ubuntu/ precise/main libtdb1 amd64 1.2.9-4 [35.3 kB]
+213 [i] Get:16 https://mirrors.kernel.org/ubuntu/ precise/main libogg0 amd64 1.2.2~dfsg-1ubuntu1 [17.2 kB]
+213 [i] Get:17 https://mirrors.kernel.org/ubuntu/ precise/main libvorbis0a amd64 1.3.2-1ubuntu3 [103 kB]
+213 [i] Get:18 https://mirrors.kernel.org/ubuntu/ precise/main libvorbisfile3 amd64 1.3.2-1ubuntu3 [17.7 kB]
+213 [i] Get:19 https://mirrors.kernel.org/ubuntu/ precise/main sound-theme-freedesktop all 0.7.pristine-2 [412 kB]
+213 [i] Get:20 https://mirrors.kernel.org/ubuntu/ precise/main libcanberra0 amd64 0.28-3ubuntu3 [43.8 kB]
+213 [i] Get:21 https://mirrors.kernel.org/ubuntu/ precise/main libcap2 amd64 1:2.22-1ubuntu3 [12.0 kB]
+213 [i] Get:22 https://mirrors.kernel.org/ubuntu/ precise/main libcdparanoia0 amd64 3.10.2+debian-10ubuntu1 [52.6 kB]
+213 [i] Get:23 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqtcore4 amd64 4:4.8.1-0ubuntu4.8 [2027 kB]
+214 [i] Get:24 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-xml amd64 4:4.8.1-0ubuntu4.8 [95.1 kB]
+214 [i] Get:25 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-dbus amd64 4:4.8.1-0ubuntu4.8 [179 kB]
+214 [i] Get:26 https://mirrors.kernel.org/ubuntu/ precise-updates/main fontconfig amd64 2.8.0-3ubuntu9.1 [156 kB]
+214 [i] Get:27 https://mirrors.kernel.org/ubuntu/ precise/main libmng1 amd64 1.0.10-3 [215 kB]
+214 [i] Get:28 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-network amd64 4:4.8.1-0ubuntu4.8 [535 kB]
+214 [i] Get:29 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-script amd64 4:4.8.1-0ubuntu4.8 [758 kB]
+214 [i] Get:30 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-sql amd64 4:4.8.1-0ubuntu4.8 [97.0 kB]
+214 [i] Get:31 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-xmlpatterns amd64 4:4.8.1-0ubuntu4.8 [1033 kB]
+215 [i] Get:32 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-declarative amd64 4:4.8.1-0ubuntu4.8 [1064 kB]
+215 [i] Get:33 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqtgui4 amd64 4:4.8.1-0ubuntu4.8 [4027 kB]
+215 [i] Get:34 https://mirrors.kernel.org/ubuntu/ precise/main libdbusmenu-qt2 amd64 0.9.2-0ubuntu1 [93.5 kB]
+215 [i] Get:35 https://mirrors.kernel.org/ubuntu/ precise/main libflac8 amd64 1.2.1-6 [144 kB]
+216 [i] Get:36 https://mirrors.kernel.org/ubuntu/ precise/main libgif4 amd64 4.1.6-9ubuntu1 [31.0 kB]
+216 [i] Get:37 https://mirrors.kernel.org/ubuntu/ precise-updates/main libgps20 amd64 3.4-2ubuntu0.1 [189 kB]
+216 [i] Get:38 https://mirrors.kernel.org/ubuntu/ precise/main libgstreamer0.10-0 amd64 0.10.36-1ubuntu1 [781 kB]
+216 [i] Get:39 https://mirrors.kernel.org/ubuntu/ precise/main liborc-0.4-0 amd64 1:0.4.16-1ubuntu2 [176 kB]
+216 [i] Get:40 https://mirrors.kernel.org/ubuntu/ precise/main iso-codes all 3.31-1 [3547 kB]
+216 [i] Get:41 https://mirrors.kernel.org/ubuntu/ precise-updates/main libgstreamer-plugins-base0.10-0 amd64 0.10.36-1ubuntu0.1 [543 kB]
+216 [i] Get:42 https://mirrors.kernel.org/ubuntu/ precise-updates/main libgudev-1.0-0 amd64 1:175-0ubuntu9.6 [14.5 kB]
+216 [i] Get:43 https://mirrors.kernel.org/ubuntu/ precise/main libhunspell-1.3-0 amd64 1.3.2-4 [142 kB]
+216 [i] Get:44 https://mirrors.kernel.org/ubuntu/ precise-updates/main mysql-common all 5.5.40-0ubuntu0.12.04.1 [13.1 kB]
+216 [i] Get:45 https://mirrors.kernel.org/ubuntu/ precise-updates/main libmysqlclient18 amd64 5.5.40-0ubuntu0.12.04.1 [951 kB]
+217 [i] Get:46 https://mirrors.kernel.org/ubuntu/ precise-updates/main libjson0 amd64 0.9-1ubuntu1.1 [17.9 kB]
+217 [i] Get:47 https://mirrors.kernel.org/ubuntu/ precise/main libvorbisenc2 amd64 1.3.2-1ubuntu3 [136 kB]
+217 [i] Get:48 https://mirrors.kernel.org/ubuntu/ precise/main libsndfile1 amd64 1.0.25-4 [163 kB]
+217 [i] Get:49 https://mirrors.kernel.org/ubuntu/ precise/main libwrap0 amd64 7.6.q-21 [49.9 kB]
+217 [i] Get:50 https://mirrors.kernel.org/ubuntu/ precise-updates/main libpulse0 amd64 1:1.1-0ubuntu15.4 [289 kB]
+217 [i] Get:51 https://mirrors.kernel.org/ubuntu/ precise-updates/main libpulse-mainloop-glib0 amd64 1:1.1-0ubuntu15.4 [13.1 kB]
+217 [i] Get:52 https://mirrors.kernel.org/ubuntu/ precise/main libphonon4 amd64 4:4.7.0really4.6.0-0ubuntu1 [139 kB]
+217 [i] Get:53 https://mirrors.kernel.org/ubuntu/ precise-updates/main libpolkit-agent-1-0 amd64 0.104-1ubuntu1.1 [17.7 kB]
+217 [i] Get:54 https://mirrors.kernel.org/ubuntu/ precise/main libdmtx0a amd64 0.7.2-1build2 [55.8 kB]
+217 [i] Get:55 https://mirrors.kernel.org/ubuntu/ precise/main libqrencode3 amd64 3.1.1-1ubuntu1 [21.4 kB]
+217 [i] Get:56 https://mirrors.kernel.org/ubuntu/ precise/main libprison0 amd64 1.0+dfsg-1 [13.3 kB]
+217 [i] Get:57 https://mirrors.kernel.org/ubuntu/ precise/main libcln6 amd64 1.3.2-1.1 [638 kB]
+217 [i] Get:58 https://mirrors.kernel.org/ubuntu/ precise/main libqalculate5 amd64 0.9.7-6ubuntu2 [843 kB]
+217 [i] Get:59 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-designer amd64 4:4.8.1-0ubuntu4.8 [3608 kB]
+218 [i] Get:60 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-opengl amd64 4:4.8.1-0ubuntu4.8 [293 kB]
+218 [i] Get:61 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-qt3support amd64 4:4.8.1-0ubuntu4.8 [1022 kB]
+218 [i] Get:62 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-sql-mysql amd64 4:4.8.1-0ubuntu4.8 [30.0 kB]
+218 [i] Get:63 https://mirrors.kernel.org/ubuntu/ precise-updates/main libqt4-svg amd64 4:4.8.1-0ubuntu4.8 [137 kB]
+218 [i] Get:64 https://mirrors.kernel.org/ubuntu/ precise/main libqtwebkit4 amd64 2.2.1-1ubuntu4 [6229 kB]
+219 [i] Get:65 https://mirrors.kernel.org/ubuntu/ precise/main libsensors4 amd64 1:3.3.1-2ubuntu1 [31.9 kB]
+219 [i] Get:66 https://mirrors.kernel.org/ubuntu/ precise-updates/main libssh-4 amd64 0.5.2-1ubuntu0.12.04.3 [120 kB]
+219 [i] Get:67 https://mirrors.kernel.org/ubuntu/ precise/main libtalloc2 amd64 2.0.7-3 [23.4 kB]
+219 [i] Get:68 https://mirrors.kernel.org/ubuntu/ precise/main libtheora0 amd64 1.1.1+dfsg.1-3ubuntu2 [363 kB]
+220 [i] Get:69 https://mirrors.kernel.org/ubuntu/ precise/main libvisual-0.4-0 amd64 0.4.0-4 [107 kB]
+220 [i] Get:70 https://mirrors.kernel.org/ubuntu/ precise-updates/main libwbclient0 amd64 2:3.6.3-2ubuntu2.11 [29.8 kB]
+220 [i] Get:71 https://mirrors.kernel.org/ubuntu/ precise-updates/main libxslt1.1 amd64 1.1.26-8ubuntu1.3 [167 kB]
+220 [i] Get:72 https://mirrors.kernel.org/ubuntu/ precise/main libxss1 amd64 1:1.2.1-2 [8646 B]
+220 [i] Get:73 https://mirrors.kernel.org/ubuntu/ precise/main odbcinst amd64 2.2.14p2-5ubuntu3 [13.7 kB]
+220 [i] Get:74 https://mirrors.kernel.org/ubuntu/ precise/main odbcinst1debian2 amd64 2.2.14p2-5ubuntu3 [49.5 kB]
+220 [i] Get:75 https://mirrors.kernel.org/ubuntu/ precise-updates/main gstreamer0.10-plugins-base amd64 0.10.36-1ubuntu0.1 [748 kB]
+220 [i] Get:76 https://mirrors.kernel.org/ubuntu/ precise-updates/main gstreamer0.10-alsa amd64 0.10.36-1ubuntu0.1 [37.4 kB]
+220 [i] Get:77 https://mirrors.kernel.org/ubuntu/ precise-updates/main phonon-backend-gstreamer amd64 4:4.7.0really4.6.2-0ubuntu0.1 [108 kB]
+220 [i] Get:78 https://mirrors.kernel.org/ubuntu/ precise-updates/main libsmbclient amd64 2:3.6.3-2ubuntu2.11 [2160 kB]
+220 [i] Get:79 https://mirrors.kernel.org/ubuntu/ precise/main libyajl1 amd64 1.0.12-2 [17.5 kB]
+220 [i] Get:80 https://mirrors.kernel.org/ubuntu/ precise-updates/main libsasl2-modules amd64 2.1.25.dfsg1-3ubuntu0.1 [63.2 kB]
+220 [i] Get:81 https://mirrors.kernel.org/ubuntu/ precise/main powermgmt-base amd64 1.31 [12.1 kB]
+220 [i] Get:82 https://mirrors.kernel.org/ubuntu/ precise/main libaspell15 amd64 0.60.7~20110707-1 [639 kB]
+220 [i] Get:83 https://mirrors.kernel.org/ubuntu/ precise/main dictionaries-common all 1.12.1ubuntu2 [246 kB]
+220 [i] Get:84 https://mirrors.kernel.org/ubuntu/ precise/main aspell amd64 0.60.7~20110707-1 [92.5 kB]
+221 [i] Get:85 https://mirrors.kernel.org/ubuntu/ precise/main aspell-en all 6.0-0-6ubuntu2 [250 kB]
+221 [i] Get:86 https://mirrors.kernel.org/ubuntu/ precise-updates/main dbus-x11 amd64 1.4.18-1ubuntu1.6 [22.0 kB]
+221 [i] Get:87 https://mirrors.kernel.org/ubuntu/ precise/main docbook-xsl all 1.76.1+dfsg-1ubuntu1 [1533 kB]
+221 [i] Get:88 https://mirrors.kernel.org/ubuntu/ precise/main libattica0.3 amd64 0.3.0-0ubuntu2 [298 kB]
+221 [i] Get:89 https://mirrors.kernel.org/ubuntu/ precise/main libexiv2-11 amd64 0.22-2 [770 kB]
+221 [i] Get:90 https://mirrors.kernel.org/ubuntu/ precise/main libdlrestrictions1 amd64 0.14.2ubuntu5 [11.6 kB]
+221 [i] Get:91 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkdecore5 amd64 4:4.8.5-0ubuntu0.4 [915 kB]
+222 [i] Get:92 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkdeui5 amd64 4:4.8.5-0ubuntu0.4 [1281 kB]
+222 [i] Get:93 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkcmutils4 amd64 4:4.8.5-0ubuntu0.4 [93.9 kB]
+222 [i] Get:94 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkdeclarative5 amd64 4:4.8.5-0ubuntu0.4 [37.9 kB]
+222 [i] Get:95 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkpty4 amd64 4:4.8.5-0ubuntu0.4 [33.2 kB]
+222 [i] Get:96 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkdesu5 amd64 4:4.8.5-0ubuntu0.4 [51.9 kB]
+222 [i] Get:97 https://mirrors.kernel.org/ubuntu/ precise/main libclucene0ldbl amd64 0.9.21b-2 [364 kB]
+222 [i] Get:98 https://mirrors.kernel.org/ubuntu/ precise/main virtuoso-opensource-6.1-common amd64 6.1.4+dfsg1-0ubuntu1 [50.8 kB]
+222 [i] Get:99 https://mirrors.kernel.org/ubuntu/ precise/main libvirtodbc0 amd64 6.1.4+dfsg1-0ubuntu1 [810 kB]
+222 [i] Get:100 https://mirrors.kernel.org/ubuntu/ precise-updates/main libraptor2-0 amd64 2.0.6-1ubuntu0.1 [177 kB]
+222 [i] Get:101 https://mirrors.kernel.org/ubuntu/ precise/main libmhash2 amd64 0.9.9.9-1 [105 kB]
+222 [i] Get:102 https://mirrors.kernel.org/ubuntu/ precise/main librasqal3 amd64 0.9.28-1 [197 kB]
+222 [i] Get:103 https://mirrors.kernel.org/ubuntu/ precise/main librdf0 amd64 1.0.14-1 [111 kB]
+222 [i] Get:104 https://mirrors.kernel.org/ubuntu/ precise/main soprano-daemon amd64 2.7.5+dfsg.1-0ubuntu1 [165 kB]
+223 [i] Get:105 https://mirrors.kernel.org/ubuntu/ precise/main libsoprano4 amd64 2.7.5+dfsg.1-0ubuntu1 [423 kB]
+223 [i] Get:106 https://mirrors.kernel.org/ubuntu/ precise-updates/main libnepomuk4 amd64 4:4.8.5-0ubuntu0.4 [213 kB]
+223 [i] Get:107 https://mirrors.kernel.org/ubuntu/ precise-updates/main libsolid4 amd64 4:4.8.5-0ubuntu0.4 [248 kB]
+223 [i] Get:108 https://mirrors.kernel.org/ubuntu/ precise/main libstreams0 amd64 0.7.7-1.1ubuntu3 [94.2 kB]
+223 [i] Get:109 https://mirrors.kernel.org/ubuntu/ precise/main libstreamanalyzer0 amd64 0.7.7-1.1ubuntu3 [383 kB]
+223 [i] Get:110 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkio5 amd64 4:4.8.5-0ubuntu0.4 [832 kB]
+223 [i] Get:111 https://mirrors.kernel.org/ubuntu/ precise-updates/main libnepomukquery4a amd64 4:4.8.5-0ubuntu0.4 [109 kB]
+223 [i] Get:112 https://mirrors.kernel.org/ubuntu/ precise-updates/main libnepomukutils4 amd64 4:4.8.5-0ubuntu0.4 [86.1 kB]
+223 [i] Get:113 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkparts4 amd64 4:4.8.5-0ubuntu0.4 [118 kB]
+223 [i] Get:114 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkdewebkit5 amd64 4:4.8.5-0ubuntu0.4 [61.1 kB]
+223 [i] Get:115 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkdnssd4 amd64 4:4.8.5-0ubuntu0.4 [67.7 kB]
+223 [i] Get:116 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkemoticons4 amd64 4:4.8.5-0ubuntu0.4 [41.4 kB]
+223 [i] Get:117 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkfile4 amd64 4:4.8.5-0ubuntu0.4 [218 kB]
+223 [i] Get:118 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkjsapi4 amd64 4:4.8.5-0ubuntu0.4 [236 kB]
+223 [i] Get:119 https://mirrors.kernel.org/ubuntu/ precise-updates/main libktexteditor4 amd64 4:4.8.5-0ubuntu0.4 [94.1 kB]
+224 [i] Get:120 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkhtml5 amd64 4:4.8.5-0ubuntu0.4 [1890 kB]
+224 [i] Get:121 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkidletime4 amd64 4:4.8.5-0ubuntu0.4 [38.0 kB]
+224 [i] Get:122 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkmediaplayer4 amd64 4:4.8.5-0ubuntu0.4 [29.4 kB]
+224 [i] Get:123 https://mirrors.kernel.org/ubuntu/ precise-updates/main libknewstuff3-4 amd64 4:4.8.5-0ubuntu0.4 [154 kB]
+224 [i] Get:124 https://mirrors.kernel.org/ubuntu/ precise-updates/main libknotifyconfig4 amd64 4:4.8.5-0ubuntu0.4 [39.8 kB]
+224 [i] Get:125 https://mirrors.kernel.org/ubuntu/ precise-updates/main libnepomukdatamanagement4 amd64 4:4.8.5-0ubuntu0.2 [58.4 kB]
+224 [i] Get:126 https://mirrors.kernel.org/ubuntu/ precise-updates/main libnepomuksync4 amd64 4:4.8.5-0ubuntu0.2 [41.3 kB]
+224 [i] Get:127 https://mirrors.kernel.org/ubuntu/ precise/main libnl-3-200 amd64 3.2.3-2ubuntu2 [46.6 kB]
+224 [i] Get:128 https://mirrors.kernel.org/ubuntu/ precise/main libnl-route-3-200 amd64 3.2.3-2ubuntu2 [108 kB]
+224 [i] Get:129 https://mirrors.kernel.org/ubuntu/ precise/main ntrack-module-libnl-0 amd64 016-1ubuntu1 [6756 B]
+224 [i] Get:130 https://mirrors.kernel.org/ubuntu/ precise/main libntrack0 amd64 016-1ubuntu1 [8222 B]
+224 [i] Get:131 https://mirrors.kernel.org/ubuntu/ precise/main libntrack-qt4-1 amd64 016-1ubuntu1 [7356 B]
+224 [i] Get:132 https://mirrors.kernel.org/ubuntu/ precise/main libilmbase6 amd64 1.0.1-3build2 [123 kB]
+224 [i] Get:133 https://mirrors.kernel.org/ubuntu/ precise/main libopenexr6 amd64 1.6.1-4.1 [257 kB]
+224 [i] Get:134 https://mirrors.kernel.org/ubuntu/ precise/main libqca2 amd64 2.0.3-2 [384 kB]
+224 [i] Get:135 https://mirrors.kernel.org/ubuntu/ precise-updates/main libthreadweaver4 amd64 4:4.8.5-0ubuntu0.4 [46.7 kB]
+224 [i] Get:136 https://mirrors.kernel.org/ubuntu/ precise-updates/main libplasma3 amd64 4:4.8.5-0ubuntu0.4 [890 kB]
+225 [i] Get:137 https://mirrors.kernel.org/ubuntu/ precise/main phonon amd64 4:4.7.0really4.6.0-0ubuntu1 [7414 B]
+225 [i] Get:138 https://mirrors.kernel.org/ubuntu/ precise/main libswitch-perl all 2.16-2 [19.2 kB]
+225 [i] Get:139 https://mirrors.kernel.org/ubuntu/ precise/main libclass-isa-perl all 0.36-3 [11.9 kB]
+225 [i] Get:140 https://mirrors.kernel.org/ubuntu/ precise-updates/main perl-modules all 5.14.2-6ubuntu2.4 [3389 kB]
+225 [i] Get:141 https://mirrors.kernel.org/ubuntu/ precise-updates/main perl amd64 5.14.2-6ubuntu2.4 [4411 kB]
+226 [i] Get:142 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-runtime-data all 4:4.8.5-0ubuntu0.2 [4518 kB]
+226 [i] Get:143 https://mirrors.kernel.org/ubuntu/ precise/main libenchant1c2a amd64 1.6.0-7 [79.4 kB]
+226 [i] Get:144 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkde3support4 amd64 4:4.8.5-0ubuntu0.4 [301 kB]
+226 [i] Get:145 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkjsembed4 amd64 4:4.8.5-0ubuntu0.4 [339 kB]
+226 [i] Get:146 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkntlm4 amd64 4:4.8.5-0ubuntu0.4 [28.4 kB]
+226 [i] Get:147 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkrosscore4 amd64 4:4.8.5-0ubuntu0.4 [57.5 kB]
+226 [i] Get:148 https://mirrors.kernel.org/ubuntu/ precise/main libpolkit-qt-1-1 amd64 0.103.0-1 [54.6 kB]
+227 [i] Get:149 https://mirrors.kernel.org/ubuntu/ precise/main hicolor-icon-theme all 0.12-1ubuntu2 [10.2 kB]
+227 [i] Get:150 https://mirrors.kernel.org/ubuntu/ precise-updates/main kdelibs5-data all 4:4.8.5-0ubuntu0.4 [2829 kB]
+227 [i] Get:151 https://mirrors.kernel.org/ubuntu/ precise-updates/main libxml2-utils amd64 2.7.8.dfsg-5.1ubuntu4.11 [40.0 kB]
+227 [i] Get:152 https://mirrors.kernel.org/ubuntu/ precise-updates/main kdoctools amd64 4:4.8.5-0ubuntu0.4 [171 kB]
+227 [i] Get:153 https://mirrors.kernel.org/ubuntu/ precise-updates/main kdelibs-bin amd64 4:4.8.5-0ubuntu0.4 [201 kB]
+227 [i] Get:154 https://mirrors.kernel.org/ubuntu/ precise-updates/main shared-mime-info amd64 1.0-0ubuntu4.1 [496 kB]
+227 [i] Get:155 https://mirrors.kernel.org/ubuntu/ precise-updates/main kate-data all 4:4.8.5-0ubuntu0.1 [1155 kB]
+227 [i] Get:156 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkatepartinterfaces4 amd64 4:4.8.5-0ubuntu0.1 [741 kB]
+227 [i] Get:157 https://mirrors.kernel.org/ubuntu/ precise-updates/main katepart amd64 4:4.8.5-0ubuntu0.1 [88.5 kB]
+227 [i] Get:158 https://mirrors.kernel.org/ubuntu/ precise-updates/main kdelibs5-plugins amd64 4:4.8.5-0ubuntu0.4 [928 kB]
+228 [i] Get:159 https://mirrors.kernel.org/ubuntu/ precise-updates/main oxygen-icon-theme all 4:4.8.3-0ubuntu0.1 [16.9 MB]
+230 [i] Get:160 https://mirrors.kernel.org/ubuntu/ precise/main shared-desktop-ontologies all 0.8.1-1 [124 kB]
+230 [i] Get:161 https://mirrors.kernel.org/ubuntu/ precise-updates/main plasma-scriptengine-javascript amd64 4:4.8.5-0ubuntu0.2 [377 kB]
+230 [i] Get:162 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-runtime amd64 4:4.8.5-0ubuntu0.2 [2076 kB]
+230 [i] Get:163 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkonq5-templates all 4:4.8.5-0ubuntu0.1 [34.6 kB]
+230 [i] Get:164 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkonq-common amd64 4:4.8.5-0ubuntu0.1 [38.7 kB]
+230 [i] Get:165 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkonq5abi1 amd64 4:4.8.5-0ubuntu0.1 [72.3 kB]
+230 [i] Get:166 https://mirrors.kernel.org/ubuntu/ precise-updates/main dolphin amd64 4:4.8.5-0ubuntu0.1 [1165 kB]
+231 [i] Get:167 https://mirrors.kernel.org/ubuntu/ precise-updates/main freespacenotifier amd64 4:4.8.5-0ubuntu0.4 [36.5 kB]
+231 [i] Get:168 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-baseapps-data all 4:4.8.5-0ubuntu0.1 [209 kB]
+231 [i] Get:169 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-baseapps-bin amd64 4:4.8.5-0ubuntu0.1 [292 kB]
+231 [i] Get:170 https://mirrors.kernel.org/ubuntu/ precise-updates/main kdepasswd amd64 4:4.8.5-0ubuntu0.1 [91.7 kB]
+231 [i] Get:171 https://mirrors.kernel.org/ubuntu/ precise-updates/main kfind amd64 4:4.8.5-0ubuntu0.1 [92.2 kB]
+231 [i] Get:172 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkonqsidebarplugin4a amd64 4:4.8.5-0ubuntu0.1 [16.6 kB]
+231 [i] Get:173 https://mirrors.kernel.org/ubuntu/ precise-updates/main konqueror amd64 4:4.8.5-0ubuntu0.1 [1098 kB]
+231 [i] Get:174 https://mirrors.kernel.org/ubuntu/ precise-updates/main konsole amd64 4:4.8.5-0ubuntu0.1 [356 kB]
+231 [i] Get:175 https://mirrors.kernel.org/ubuntu/ precise-updates/main kwrite amd64 4:4.8.5-0ubuntu0.1 [70.0 kB]
+231 [i] Get:176 https://mirrors.kernel.org/ubuntu/ precise-updates/main plasma-widget-folderview amd64 4:4.8.5-0ubuntu0.1 [147 kB]
+231 [i] Get:177 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-baseapps all 4:4.8.5-0ubuntu0.1 [9112 B]
+231 [i] Get:178 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkactivities-bin amd64 4:4.8.5-0ubuntu0.1 [83.8 kB]
+231 [i] Get:179 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkactivities6 amd64 4:4.8.5-0ubuntu0.1 [25.4 kB]
+231 [i] Get:180 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkephal4abi1 amd64 4:4.8.5-0ubuntu0.4 [24.0 kB]
+231 [i] Get:181 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkworkspace4abi1 amd64 4:4.8.5-0ubuntu0.4 [62.3 kB]
+231 [i] Get:182 https://mirrors.kernel.org/ubuntu/ precise-updates/main libplasmagenericshell4 amd64 4:4.8.5-0ubuntu0.4 [137 kB]
+231 [i] Get:183 https://mirrors.kernel.org/ubuntu/ precise-updates/main libprocesscore4abi1 amd64 4:4.8.5-0ubuntu0.4 [44.6 kB]
+231 [i] Get:184 https://mirrors.kernel.org/ubuntu/ precise-updates/main libtaskmanager4abi3 amd64 4:4.8.5-0ubuntu0.4 [122 kB]
+231 [i] Get:185 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkunitconversion4 amd64 4:4.8.5-0ubuntu0.4 [95.2 kB]
+231 [i] Get:186 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkholidays4 amd64 4:4.8.5-0ubuntu0.2 [135 kB]
+231 [i] Get:187 https://mirrors.kernel.org/ubuntu/ precise-updates/main libplasmaclock4abi3 amd64 4:4.8.5-0ubuntu0.4 [74.4 kB]
+231 [i] Get:188 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkmime4 amd64 4:4.8.5-0ubuntu0.2 [156 kB]
+231 [i] Get:189 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkimap4 amd64 4:4.8.5-0ubuntu0.2 [141 kB]
+231 [i] Get:190 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkldap4 amd64 4:4.8.5-0ubuntu0.2 [76.9 kB]
+231 [i] Get:191 https://mirrors.kernel.org/ubuntu/ precise-updates/main kdepimlibs-kio-plugins amd64 4:4.8.5-0ubuntu0.2 [233 kB]
+231 [i] Get:192 https://mirrors.kernel.org/ubuntu/ precise/main libakonadiprotocolinternals1 amd64 1.7.2-0ubuntu1 [40.7 kB]
+231 [i] Get:193 https://mirrors.kernel.org/ubuntu/ precise-updates/main libakonadi-kde4 amd64 4:4.8.5-0ubuntu0.2 [741 kB]
+231 [i] Get:194 https://mirrors.kernel.org/ubuntu/ precise/main libical0 amd64 0.48-1ubuntu3 [207 kB]
+232 [i] Get:195 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkcalcore4 amd64 4:4.8.5-0ubuntu0.2 [243 kB]
+232 [i] Get:196 https://mirrors.kernel.org/ubuntu/ precise-updates/main libakonadi-calendar4 amd64 4:4.8.5-0ubuntu0.2 [31.4 kB]
+232 [i] Get:197 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkresources4 amd64 4:4.8.5-0ubuntu0.2 [64.0 kB]
+232 [i] Get:198 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkabc4 amd64 4:4.8.5-0ubuntu0.2 [283 kB]
+232 [i] Get:199 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkpimutils4 amd64 4:4.8.5-0ubuntu0.2 [37.2 kB]
+232 [i] Get:200 https://mirrors.kernel.org/ubuntu/ precise-updates/main libakonadi-contact4 amd64 4:4.8.5-0ubuntu0.2 [332 kB]
+232 [i] Get:201 https://mirrors.kernel.org/ubuntu/ precise-updates/main libakonadi-kabc4 amd64 4:4.8.5-0ubuntu0.2 [9410 B]
+232 [i] Get:202 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkcal4 amd64 4:4.8.5-0ubuntu0.2 [345 kB]
+232 [i] Get:203 https://mirrors.kernel.org/ubuntu/ precise-updates/main libakonadi-kcal4 amd64 4:4.8.5-0ubuntu0.2 [14.3 kB]
+232 [i] Get:204 https://mirrors.kernel.org/ubuntu/ precise-updates/main libakonadi-kmime4 amd64 4:4.8.5-0ubuntu0.2 [92.8 kB]
+232 [i] Get:205 https://mirrors.kernel.org/ubuntu/ precise-updates/main libakonadi-notes4 amd64 4:4.8.5-0ubuntu0.2 [13.3 kB]
+232 [i] Get:206 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkpimtextedit4 amd64 4:4.8.5-0ubuntu0.2 [28.5 kB]
+232 [i] Get:207 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkpimidentities4 amd64 4:4.8.5-0ubuntu0.2 [57.2 kB]
+232 [i] Get:208 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkalarmcal2 amd64 4:4.8.5-0ubuntu0.2 [106 kB]
+232 [i] Get:209 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkcalutils4 amd64 4:4.8.5-0ubuntu0.2 [123 kB]
+232 [i] Get:210 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkmbox4 amd64 4:4.8.5-0ubuntu0.2 [23.4 kB]
+232 [i] Get:211 https://mirrors.kernel.org/ubuntu/ precise-updates/main libmailtransport4 amd64 4:4.8.5-0ubuntu0.2 [140 kB]
+232 [i] Get:212 https://mirrors.kernel.org/ubuntu/ precise-updates/main libmicroblog4 amd64 4:4.8.5-0ubuntu0.2 [14.6 kB]
+232 [i] Get:213 https://mirrors.kernel.org/ubuntu/ precise/main libboost-program-options1.46.1 amd64 1.46.1-7ubuntu3 [146 kB]
+232 [i] Get:214 https://mirrors.kernel.org/ubuntu/ precise-updates/main mysql-server-core-5.5 amd64 5.5.40-0ubuntu0.12.04.1 [6096 kB]
+233 [i] Get:215 https://mirrors.kernel.org/ubuntu/ precise-updates/main mysql-client-core-5.5 amd64 5.5.40-0ubuntu0.12.04.1 [1939 kB]
+233 [i] Get:216 https://mirrors.kernel.org/ubuntu/ precise/main akonadi-backend-mysql all 1.7.2-0ubuntu1 [9272 B]
+233 [i] Get:217 https://mirrors.kernel.org/ubuntu/ precise/main akonadi-server amd64 1.7.2-0ubuntu1 [579 kB]
+233 [i] Get:218 https://mirrors.kernel.org/ubuntu/ precise-updates/main kdepim-runtime amd64 4:4.8.5-0ubuntu0.1 [2384 kB]
+233 [i] Get:219 https://mirrors.kernel.org/ubuntu/ precise-updates/main libksgrd4 amd64 4:4.8.5-0ubuntu0.4 [41.2 kB]
+234 [i] Get:220 https://mirrors.kernel.org/ubuntu/ precise-updates/main libplasma-geolocation-interface4 amd64 4:4.8.5-0ubuntu0.4 [21.7 kB]
+234 [i] Get:221 https://mirrors.kernel.org/ubuntu/ precise-updates/main libsolidcontrol4abi2 amd64 4:4.8.5-0ubuntu0.4 [68.1 kB]
+234 [i] Get:222 https://mirrors.kernel.org/ubuntu/ precise-updates/main libsyndication4 amd64 4:4.8.5-0ubuntu0.2 [170 kB]
+234 [i] Get:223 https://mirrors.kernel.org/ubuntu/ precise-updates/main libweather-ion6 amd64 4:4.8.5-0ubuntu0.4 [21.8 kB]
+234 [i] Get:224 https://mirrors.kernel.org/ubuntu/ precise-updates/main plasma-dataengines-workspace amd64 4:4.8.5-0ubuntu0.4 [574 kB]
+234 [i] Get:225 https://mirrors.kernel.org/ubuntu/ precise-updates/main plasma-widgets-workspace amd64 4:4.8.5-0ubuntu0.4 [493 kB]
+234 [i] Get:226 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-wallpapers-default all 4:4.8.3-0ubuntu0.1 [3035 kB]
+234 [i] Get:227 https://mirrors.kernel.org/ubuntu/ precise-updates/main plasma-desktop amd64 4:4.8.5-0ubuntu0.4 [817 kB]
+234 [i] Get:228 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-style-oxygen amd64 4:4.8.5-0ubuntu0.4 [310 kB]
+234 [i] Get:229 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkscreensaver5 amd64 4:4.8.5-0ubuntu0.4 [25.3 kB]
+234 [i] Get:230 https://mirrors.kernel.org/ubuntu/ precise-updates/main libprocessui4a amd64 4:4.8.5-0ubuntu0.4 [93.2 kB]
+234 [i] Get:231 https://mirrors.kernel.org/ubuntu/ precise-updates/main libsolidcontrolifaces4abi2 amd64 4:4.8.5-0ubuntu0.4 [26.0 kB]
+234 [i] Get:232 https://mirrors.kernel.org/ubuntu/ precise/main oxygen-cursor-theme all 0.0.2010-05-10-kde4.4.3-1ubuntu1 [101 kB]
+234 [i] Get:233 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-workspace-data all 4:4.8.5-0ubuntu0.4 [8199 kB]
+236 [i] Get:234 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-workspace-kgreet-plugins amd64 4:4.8.5-0ubuntu0.4 [39.8 kB]
+236 [i] Get:235 https://mirrors.kernel.org/ubuntu/ precise-updates/main qdbus amd64 4:4.8.1-0ubuntu4.8 [28.6 kB]
+236 [i] Get:236 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-workspace-bin amd64 4:4.8.5-0ubuntu0.4 [2143 kB]
+236 [i] Get:237 https://mirrors.kernel.org/ubuntu/ precise-updates/main klipper amd64 4:4.8.5-0ubuntu0.4 [103 kB]
+236 [i] Get:238 https://mirrors.kernel.org/ubuntu/ precise-updates/main libksignalplotter4 amd64 4:4.8.5-0ubuntu0.4 [43.5 kB]
+236 [i] Get:239 https://mirrors.kernel.org/ubuntu/ precise-updates/main ksysguardd amd64 4:4.8.5-0ubuntu0.4 [62.6 kB]
+236 [i] Get:240 https://mirrors.kernel.org/ubuntu/ precise-updates/main ksysguard amd64 4:4.8.5-0ubuntu0.4 [216 kB]
+236 [i] Get:241 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkdecorations4 amd64 4:4.8.5-0ubuntu0.4 [49.7 kB]
+236 [i] Get:242 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkwineffects1abi3 amd64 4:4.8.5-0ubuntu0.4 [56.8 kB]
+236 [i] Get:243 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkwinglutils1 amd64 4:4.8.5-0ubuntu0.4 [53.1 kB]
+236 [i] Get:244 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-window-manager-common amd64 4:4.8.5-0ubuntu0.4 [1563 kB]
+236 [i] Get:245 https://mirrors.kernel.org/ubuntu/ precise-updates/main libkwinnvidiahack4 amd64 4:4.8.5-0ubuntu0.4 [17.5 kB]
+236 [i] Get:246 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-window-manager amd64 4:4.8.5-0ubuntu0.4 [657 kB]
+237 [i] Get:247 https://mirrors.kernel.org/ubuntu/ precise-updates/main systemsettings amd64 4:4.8.5-0ubuntu0.4 [239 kB]
+237 [i] Get:248 https://mirrors.kernel.org/ubuntu/ precise-updates/main kde-workspace all 4:4.8.5-0ubuntu0.4 [15.6 kB]
+237 [i] Get:249 https://mirrors.kernel.org/ubuntu/ precise-updates/main libdevmapper-event1.02.1 amd64 2:1.02.48-4ubuntu7.4 [10.4 kB]
+237 [i] Get:250 https://mirrors.kernel.org/ubuntu/ precise-updates/main liblvm2app2.2 amd64 2.02.66-4ubuntu7.4 [223 kB]
+237 [i] Get:251 https://mirrors.kernel.org/ubuntu/ precise/main libsgutils2-2 amd64 1.33-1 [64.4 kB]
+237 [i] Get:252 https://mirrors.kernel.org/ubuntu/ precise-updates/main udisks amd64 1.0.4-5ubuntu2.2 [250 kB]
+237 [i] Get:253 https://mirrors.kernel.org/ubuntu/ precise/main libplist1 amd64 1.8-1 [25.2 kB]
+237 [i] Get:254 https://mirrors.kernel.org/ubuntu/ precise-updates/main libusbmuxd1 amd64 1.0.7-2ubuntu0.1 [14.7 kB]
+237 [i] Get:255 https://mirrors.kernel.org/ubuntu/ precise-updates/main usbmuxd amd64 1.0.7-2ubuntu0.1 [37.1 kB]
+237 [i] Get:256 https://mirrors.kernel.org/ubuntu/ precise/main libimobiledevice2 amd64 1.1.1-4 [55.9 kB]
+237 [i] Get:257 https://mirrors.kernel.org/ubuntu/ precise-updates/main libupower-glib1 amd64 0.9.15-3git1ubuntu0.1 [28.6 kB]
+237 [i] Get:258 https://mirrors.kernel.org/ubuntu/ precise-updates/main pm-utils all 1.4.1-9fix.ubuntu12.04 [58.1 kB]
+237 [i] Get:259 https://mirrors.kernel.org/ubuntu/ precise-updates/main upower amd64 0.9.15-3git1ubuntu0.1 [92.0 kB]
+237 [i] Get:260 https://mirrors.kernel.org/ubuntu/ precise-updates/universe kde-plasma-desktop amd64 5:71~pre15ubuntu12.5 [2634 B]
+238 [e] Extracting templates from packages: 11%Extracting templates from packages: 23%Extracting templates from packages: 34%Extracting templates from packages: 46%Extracting templates from packages: 57%Extracting templates from packages: 69%Extracting templates from packages: 80%Extracting templates from packages: 92%Extracting templates from packages: 100%
+238 [i] Preconfiguring packages ...
+238 [i] Fetched 131 MB in 24s (5301 kB/s)
+238 [i] Selecting previously unselected package libdbus-glib-1-2.
+238 [i] (Reading database ... 16433 files and directories currently installed.)
+238 [i] Unpacking libdbus-glib-1-2 (from .../libdbus-glib-1-2_0.98-1ubuntu1.1_amd64.deb) ...
+238 [i] Selecting previously unselected package install-info.
+238 [i] Unpacking install-info (from .../install-info_4.13a.dfsg.1-8ubuntu2_amd64.deb) ...
+238 [i] Setting up install-info (4.13a.dfsg.1-8ubuntu2) ...
+239 [i] Selecting previously unselected package libgdbm3.
+239 [i] (Reading database ... 16457 files and directories currently installed.)
+239 [i] Unpacking libgdbm3 (from .../libgdbm3_1.8.3-10_amd64.deb) ...
+239 [i] Selecting previously unselected package libparted0debian1.
+239 [i] Unpacking libparted0debian1 (from .../libparted0debian1_2.3-8ubuntu5.2_amd64.deb) ...
+239 [i] Selecting previously unselected package libpolkit-gobject-1-0.
+239 [i] Unpacking libpolkit-gobject-1-0 (from .../libpolkit-gobject-1-0_0.104-1ubuntu1.1_amd64.deb) ...
+239 [i] Selecting previously unselected package libusb-1.0-0.
+239 [i] Unpacking libusb-1.0-0 (from .../libusb-1.0-0_2%3a1.0.9~rc3-2ubuntu1_amd64.deb) ...
+239 [i] Selecting previously unselected package sgml-base.
+239 [i] Unpacking sgml-base (from .../sgml-base_1.26+nmu1ubuntu1_all.deb) ...
+239 [i] Selecting previously unselected package xml-core.
+239 [i] Unpacking xml-core (from .../archives/xml-core_0.13_all.deb) ...
+239 [i] Selecting previously unselected package sgml-data.
+239 [i] Unpacking sgml-data (from .../sgml-data_2.0.6_all.deb) ...
+240 [i] Processing triggers for install-info ...
+240 [i] Setting up sgml-base (1.26+nmu1ubuntu1) ...
+240 [i] Setting up xml-core (0.13) ...
+241 [i] Selecting previously unselected package docbook-xml.
+241 [i] (Reading database ... 16718 files and directories currently installed.)
+241 [i] Unpacking docbook-xml (from .../docbook-xml_4.5-7ubuntu1_all.deb) ...
+241 [i] Selecting previously unselected package libasyncns0.
+241 [i] Unpacking libasyncns0 (from .../libasyncns0_0.8-4_amd64.deb) ...
+241 [i] Selecting previously unselected package libatasmart4.
+241 [i] Unpacking libatasmart4 (from .../libatasmart4_0.18-3_amd64.deb) ...
+241 [i] Selecting previously unselected package libaudio2.
+241 [i] Unpacking libaudio2 (from .../libaudio2_1.9.3-4ubuntu0.1_amd64.deb) ...
+241 [i] Selecting previously unselected package libbluetooth3.
+241 [i] Unpacking libbluetooth3 (from .../libbluetooth3_4.98-2ubuntu7.2_amd64.deb) ...
+241 [i] Selecting previously unselected package libtdb1.
+241 [i] Unpacking libtdb1 (from .../libtdb1_1.2.9-4_amd64.deb) ...
+241 [i] Selecting previously unselected package libogg0.
+241 [i] Unpacking libogg0 (from .../libogg0_1.2.2~dfsg-1ubuntu1_amd64.deb) ...
+241 [i] Selecting previously unselected package libvorbis0a.
+241 [i] Unpacking libvorbis0a (from .../libvorbis0a_1.3.2-1ubuntu3_amd64.deb) ...
+242 [i] Selecting previously unselected package libvorbisfile3.
+242 [i] Unpacking libvorbisfile3 (from .../libvorbisfile3_1.3.2-1ubuntu3_amd64.deb) ...
+242 [i] Selecting previously unselected package sound-theme-freedesktop.
+242 [i] Unpacking sound-theme-freedesktop (from .../sound-theme-freedesktop_0.7.pristine-2_all.deb) ...
+242 [i] Selecting previously unselected package libcanberra0.
+242 [i] Unpacking libcanberra0 (from .../libcanberra0_0.28-3ubuntu3_amd64.deb) ...
+242 [i] Selecting previously unselected package libcap2.
+242 [i] Unpacking libcap2 (from .../libcap2_1%3a2.22-1ubuntu3_amd64.deb) ...
+242 [i] Selecting previously unselected package libcdparanoia0.
+242 [i] Unpacking libcdparanoia0 (from .../libcdparanoia0_3.10.2+debian-10ubuntu1_amd64.deb) ...
+242 [i] Selecting previously unselected package libqtcore4.
+242 [i] Unpacking libqtcore4 (from .../libqtcore4_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+243 [i] Selecting previously unselected package libqt4-xml.
+243 [i] Unpacking libqt4-xml (from .../libqt4-xml_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+243 [i] Selecting previously unselected package libqt4-dbus.
+243 [i] Unpacking libqt4-dbus (from .../libqt4-dbus_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+243 [i] Selecting previously unselected package fontconfig.
+243 [i] Unpacking fontconfig (from .../fontconfig_2.8.0-3ubuntu9.1_amd64.deb) ...
+243 [i] Selecting previously unselected package libmng1.
+243 [i] Unpacking libmng1 (from .../libmng1_1.0.10-3_amd64.deb) ...
+243 [i] Selecting previously unselected package libqt4-network.
+243 [i] Unpacking libqt4-network (from .../libqt4-network_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+244 [i] Selecting previously unselected package libqt4-script.
+244 [i] Unpacking libqt4-script (from .../libqt4-script_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+247 [i] Selecting previously unselected package libqt4-sql.
+247 [i] Unpacking libqt4-sql (from .../libqt4-sql_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+247 [i] Selecting previously unselected package libqt4-xmlpatterns.
+247 [i] Unpacking libqt4-xmlpatterns (from .../libqt4-xmlpatterns_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+248 [i] Selecting previously unselected package libqt4-declarative.
+248 [i] Unpacking libqt4-declarative (from .../libqt4-declarative_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+248 [i] Selecting previously unselected package libqtgui4.
+248 [i] Unpacking libqtgui4 (from .../libqtgui4_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+250 [i] Selecting previously unselected package libdbusmenu-qt2.
+250 [i] Unpacking libdbusmenu-qt2 (from .../libdbusmenu-qt2_0.9.2-0ubuntu1_amd64.deb) ...
+250 [i] Selecting previously unselected package libflac8.
+250 [i] Unpacking libflac8 (from .../libflac8_1.2.1-6_amd64.deb) ...
+250 [i] Selecting previously unselected package libgif4.
+250 [i] Unpacking libgif4 (from .../libgif4_4.1.6-9ubuntu1_amd64.deb) ...
+251 [i] Selecting previously unselected package libgps20.
+251 [i] Unpacking libgps20 (from .../libgps20_3.4-2ubuntu0.1_amd64.deb) ...
+251 [i] Selecting previously unselected package libgstreamer0.10-0.
+251 [i] Unpacking libgstreamer0.10-0 (from .../libgstreamer0.10-0_0.10.36-1ubuntu1_amd64.deb) ...
+251 [i] Selecting previously unselected package liborc-0.4-0.
+251 [i] Unpacking liborc-0.4-0 (from .../liborc-0.4-0_1%3a0.4.16-1ubuntu2_amd64.deb) ...
+251 [i] Selecting previously unselected package iso-codes.
+251 [i] Unpacking iso-codes (from .../iso-codes_3.31-1_all.deb) ...
+252 [i] Selecting previously unselected package libgstreamer-plugins-base0.10-0.
+252 [i] Unpacking libgstreamer-plugins-base0.10-0 (from .../libgstreamer-plugins-base0.10-0_0.10.36-1ubuntu0.1_amd64.deb) ...
+253 [i] Selecting previously unselected package libgudev-1.0-0.
+253 [i] Unpacking libgudev-1.0-0 (from .../libgudev-1.0-0_1%3a175-0ubuntu9.6_amd64.deb) ...
+253 [i] Selecting previously unselected package libhunspell-1.3-0.
+253 [i] Unpacking libhunspell-1.3-0 (from .../libhunspell-1.3-0_1.3.2-4_amd64.deb) ...
+253 [i] Selecting previously unselected package mysql-common.
+253 [i] Unpacking mysql-common (from .../mysql-common_5.5.40-0ubuntu0.12.04.1_all.deb) ...
+253 [i] Selecting previously unselected package libmysqlclient18.
+253 [i] Unpacking libmysqlclient18 (from .../libmysqlclient18_5.5.40-0ubuntu0.12.04.1_amd64.deb) ...
+253 [i] Selecting previously unselected package libjson0.
+253 [i] Unpacking libjson0 (from .../libjson0_0.9-1ubuntu1.1_amd64.deb) ...
+253 [i] Selecting previously unselected package libvorbisenc2.
+253 [i] Unpacking libvorbisenc2 (from .../libvorbisenc2_1.3.2-1ubuntu3_amd64.deb) ...
+254 [i] Selecting previously unselected package libsndfile1.
+254 [i] Unpacking libsndfile1 (from .../libsndfile1_1.0.25-4_amd64.deb) ...
+254 [i] Selecting previously unselected package libwrap0.
+254 [i] Unpacking libwrap0 (from .../libwrap0_7.6.q-21_amd64.deb) ...
+254 [i] Selecting previously unselected package libpulse0.
+254 [i] Unpacking libpulse0 (from .../libpulse0_1%3a1.1-0ubuntu15.4_amd64.deb) ...
+254 [i] Selecting previously unselected package libpulse-mainloop-glib0.
+254 [i] Unpacking libpulse-mainloop-glib0 (from .../libpulse-mainloop-glib0_1%3a1.1-0ubuntu15.4_amd64.deb) ...
+254 [i] Selecting previously unselected package libphonon4.
+254 [i] Unpacking libphonon4 (from .../libphonon4_4%3a4.7.0really4.6.0-0ubuntu1_amd64.deb) ...
+254 [i] Selecting previously unselected package libpolkit-agent-1-0.
+254 [i] Unpacking libpolkit-agent-1-0 (from .../libpolkit-agent-1-0_0.104-1ubuntu1.1_amd64.deb) ...
+254 [i] Selecting previously unselected package libdmtx0a.
+254 [i] Unpacking libdmtx0a (from .../libdmtx0a_0.7.2-1build2_amd64.deb) ...
+255 [i] Selecting previously unselected package libqrencode3.
+255 [i] Unpacking libqrencode3 (from .../libqrencode3_3.1.1-1ubuntu1_amd64.deb) ...
+255 [i] Selecting previously unselected package libprison0.
+255 [i] Unpacking libprison0 (from .../libprison0_1.0+dfsg-1_amd64.deb) ...
+255 [i] Selecting previously unselected package libcln6.
+255 [i] Unpacking libcln6 (from .../libcln6_1.3.2-1.1_amd64.deb) ...
+255 [i] Selecting previously unselected package libqalculate5.
+255 [i] Unpacking libqalculate5 (from .../libqalculate5_0.9.7-6ubuntu2_amd64.deb) ...
+255 [i] Selecting previously unselected package libqt4-designer.
+255 [i] Unpacking libqt4-designer (from .../libqt4-designer_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+256 [i] Selecting previously unselected package libqt4-opengl.
+256 [i] Unpacking libqt4-opengl (from .../libqt4-opengl_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+256 [i] Selecting previously unselected package libqt4-qt3support.
+256 [i] Unpacking libqt4-qt3support (from .../libqt4-qt3support_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+257 [i] Selecting previously unselected package libqt4-sql-mysql.
+257 [i] Unpacking libqt4-sql-mysql (from .../libqt4-sql-mysql_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+257 [i] Selecting previously unselected package libqt4-svg.
+257 [i] Unpacking libqt4-svg (from .../libqt4-svg_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+257 [i] Selecting previously unselected package libqtwebkit4.
+257 [i] Unpacking libqtwebkit4 (from .../libqtwebkit4_2.2.1-1ubuntu4_amd64.deb) ...
+267 [i] Selecting previously unselected package libsensors4.
+267 [i] Unpacking libsensors4 (from .../libsensors4_1%3a3.3.1-2ubuntu1_amd64.deb) ...
+267 [i] Selecting previously unselected package libssh-4.
+267 [i] Unpacking libssh-4 (from .../libssh-4_0.5.2-1ubuntu0.12.04.3_amd64.deb) ...
+267 [i] Selecting previously unselected package libtalloc2.
+267 [i] Unpacking libtalloc2 (from .../libtalloc2_2.0.7-3_amd64.deb) ...
+267 [i] Selecting previously unselected package libtheora0.
+267 [i] Unpacking libtheora0 (from .../libtheora0_1.1.1+dfsg.1-3ubuntu2_amd64.deb) ...
+268 [i] Selecting previously unselected package libvisual-0.4-0.
+268 [i] Unpacking libvisual-0.4-0 (from .../libvisual-0.4-0_0.4.0-4_amd64.deb) ...
+268 [i] Selecting previously unselected package libwbclient0.
+268 [i] Unpacking libwbclient0 (from .../libwbclient0_2%3a3.6.3-2ubuntu2.11_amd64.deb) ...
+268 [i] Selecting previously unselected package libxslt1.1.
+268 [i] Unpacking libxslt1.1 (from .../libxslt1.1_1.1.26-8ubuntu1.3_amd64.deb) ...
+268 [i] Selecting previously unselected package libxss1.
+268 [i] Unpacking libxss1 (from .../libxss1_1%3a1.2.1-2_amd64.deb) ...
+268 [i] Selecting previously unselected package odbcinst.
+268 [i] Unpacking odbcinst (from .../odbcinst_2.2.14p2-5ubuntu3_amd64.deb) ...
+268 [i] Selecting previously unselected package odbcinst1debian2.
+268 [i] Unpacking odbcinst1debian2 (from .../odbcinst1debian2_2.2.14p2-5ubuntu3_amd64.deb) ...
+268 [i] Selecting previously unselected package gstreamer0.10-plugins-base.
+268 [i] Unpacking gstreamer0.10-plugins-base (from .../gstreamer0.10-plugins-base_0.10.36-1ubuntu0.1_amd64.deb) ...
+268 [i] Selecting previously unselected package gstreamer0.10-alsa.
+268 [i] Unpacking gstreamer0.10-alsa (from .../gstreamer0.10-alsa_0.10.36-1ubuntu0.1_amd64.deb) ...
+268 [i] Selecting previously unselected package phonon-backend-gstreamer.
+268 [i] Unpacking phonon-backend-gstreamer (from .../phonon-backend-gstreamer_4%3a4.7.0really4.6.2-0ubuntu0.1_amd64.deb) ...
+269 [i] Selecting previously unselected package libsmbclient.
+269 [i] Unpacking libsmbclient (from .../libsmbclient_2%3a3.6.3-2ubuntu2.11_amd64.deb) ...
+269 [i] Selecting previously unselected package libyajl1.
+269 [i] Unpacking libyajl1 (from .../libyajl1_1.0.12-2_amd64.deb) ...
+269 [i] Selecting previously unselected package libsasl2-modules.
+269 [i] Unpacking libsasl2-modules (from .../libsasl2-modules_2.1.25.dfsg1-3ubuntu0.1_amd64.deb) ...
+269 [i] Selecting previously unselected package powermgmt-base.
+269 [i] Unpacking powermgmt-base (from .../powermgmt-base_1.31_amd64.deb) ...
+269 [i] Selecting previously unselected package libaspell15.
+269 [i] Unpacking libaspell15 (from .../libaspell15_0.60.7~20110707-1_amd64.deb) ...
+270 [i] Selecting previously unselected package dictionaries-common.
+270 [i] Unpacking dictionaries-common (from .../dictionaries-common_1.12.1ubuntu2_all.deb) ...
+270 [i] Adding 'diversion of /usr/share/dict/words to /usr/share/dict/words.pre-dictionaries-common by dictionaries-common'
+270 [i] Selecting previously unselected package aspell.
+270 [i] Unpacking aspell (from .../aspell_0.60.7~20110707-1_amd64.deb) ...
+270 [i] Selecting previously unselected package aspell-en.
+270 [i] Unpacking aspell-en (from .../aspell-en_6.0-0-6ubuntu2_all.deb) ...
+272 [i] Selecting previously unselected package dbus-x11.
+272 [i] Unpacking dbus-x11 (from .../dbus-x11_1.4.18-1ubuntu1.6_amd64.deb) ...
+272 [i] Selecting previously unselected package docbook-xsl.
+272 [i] Unpacking docbook-xsl (from .../docbook-xsl_1.76.1+dfsg-1ubuntu1_all.deb) ...
+273 [i] Selecting previously unselected package libattica0.3.
+273 [i] Unpacking libattica0.3 (from .../libattica0.3_0.3.0-0ubuntu2_amd64.deb) ...
+273 [i] Selecting previously unselected package libexiv2-11.
+273 [i] Unpacking libexiv2-11 (from .../libexiv2-11_0.22-2_amd64.deb) ...
+273 [i] Selecting previously unselected package libdlrestrictions1.
+273 [i] Unpacking libdlrestrictions1 (from .../libdlrestrictions1_0.14.2ubuntu5_amd64.deb) ...
+274 [i] Selecting previously unselected package libkdecore5.
+274 [i] Unpacking libkdecore5 (from .../libkdecore5_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+274 [i] Selecting previously unselected package libkdeui5.
+274 [i] Unpacking libkdeui5 (from .../libkdeui5_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+275 [i] Selecting previously unselected package libkcmutils4.
+275 [i] Unpacking libkcmutils4 (from .../libkcmutils4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+275 [i] Selecting previously unselected package libkdeclarative5.
+275 [i] Unpacking libkdeclarative5 (from .../libkdeclarative5_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+275 [i] Selecting previously unselected package libkpty4.
+275 [i] Unpacking libkpty4 (from .../libkpty4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+275 [i] Selecting previously unselected package libkdesu5.
+275 [i] Unpacking libkdesu5 (from .../libkdesu5_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+276 [i] Selecting previously unselected package libclucene0ldbl.
+276 [i] Unpacking libclucene0ldbl (from .../libclucene0ldbl_0.9.21b-2_amd64.deb) ...
+276 [i] Selecting previously unselected package virtuoso-opensource-6.1-common.
+276 [i] Unpacking virtuoso-opensource-6.1-common (from .../virtuoso-opensource-6.1-common_6.1.4+dfsg1-0ubuntu1_amd64.deb) ...
+276 [i] Selecting previously unselected package libvirtodbc0.
+276 [i] Unpacking libvirtodbc0 (from .../libvirtodbc0_6.1.4+dfsg1-0ubuntu1_amd64.deb) ...
+276 [i] Selecting previously unselected package libraptor2-0.
+276 [i] Unpacking libraptor2-0 (from .../libraptor2-0_2.0.6-1ubuntu0.1_amd64.deb) ...
+276 [i] Selecting previously unselected package libmhash2.
+276 [i] Unpacking libmhash2 (from .../libmhash2_0.9.9.9-1_amd64.deb) ...
+277 [i] Selecting previously unselected package librasqal3.
+277 [i] Unpacking librasqal3 (from .../librasqal3_0.9.28-1_amd64.deb) ...
+277 [i] Selecting previously unselected package librdf0.
+277 [i] Unpacking librdf0 (from .../librdf0_1.0.14-1_amd64.deb) ...
+277 [i] Selecting previously unselected package soprano-daemon.
+277 [i] Unpacking soprano-daemon (from .../soprano-daemon_2.7.5+dfsg.1-0ubuntu1_amd64.deb) ...
+277 [i] Selecting previously unselected package libsoprano4.
+277 [i] Unpacking libsoprano4 (from .../libsoprano4_2.7.5+dfsg.1-0ubuntu1_amd64.deb) ...
+277 [i] Selecting previously unselected package libnepomuk4.
+277 [i] Unpacking libnepomuk4 (from .../libnepomuk4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+278 [i] Selecting previously unselected package libsolid4.
+278 [i] Unpacking libsolid4 (from .../libsolid4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+278 [i] Selecting previously unselected package libstreams0.
+278 [i] Unpacking libstreams0 (from .../libstreams0_0.7.7-1.1ubuntu3_amd64.deb) ...
+278 [i] Selecting previously unselected package libstreamanalyzer0.
+278 [i] Unpacking libstreamanalyzer0 (from .../libstreamanalyzer0_0.7.7-1.1ubuntu3_amd64.deb) ...
+278 [i] Selecting previously unselected package libkio5.
+278 [i] Unpacking libkio5 (from .../libkio5_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+279 [i] Selecting previously unselected package libnepomukquery4a.
+279 [i] Unpacking libnepomukquery4a (from .../libnepomukquery4a_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+279 [i] Selecting previously unselected package libnepomukutils4.
+279 [i] Unpacking libnepomukutils4 (from .../libnepomukutils4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+279 [i] Selecting previously unselected package libkparts4.
+279 [i] Unpacking libkparts4 (from .../libkparts4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+279 [i] Selecting previously unselected package libkdewebkit5.
+279 [i] Unpacking libkdewebkit5 (from .../libkdewebkit5_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+280 [i] Selecting previously unselected package libkdnssd4.
+280 [i] Unpacking libkdnssd4 (from .../libkdnssd4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+280 [i] Selecting previously unselected package libkemoticons4.
+280 [i] Unpacking libkemoticons4 (from .../libkemoticons4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+280 [i] Selecting previously unselected package libkfile4.
+280 [i] Unpacking libkfile4 (from .../libkfile4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+280 [i] Selecting previously unselected package libkjsapi4.
+280 [i] Unpacking libkjsapi4 (from .../libkjsapi4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+280 [i] Selecting previously unselected package libktexteditor4.
+280 [i] Unpacking libktexteditor4 (from .../libktexteditor4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+281 [i] Selecting previously unselected package libkhtml5.
+281 [i] Unpacking libkhtml5 (from .../libkhtml5_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+285 [i] Selecting previously unselected package libkidletime4.
+285 [i] Unpacking libkidletime4 (from .../libkidletime4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+285 [i] Selecting previously unselected package libkmediaplayer4.
+285 [i] Unpacking libkmediaplayer4 (from .../libkmediaplayer4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+285 [i] Selecting previously unselected package libknewstuff3-4.
+285 [i] Unpacking libknewstuff3-4 (from .../libknewstuff3-4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+285 [i] Selecting previously unselected package libknotifyconfig4.
+285 [i] Unpacking libknotifyconfig4 (from .../libknotifyconfig4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+286 [i] Selecting previously unselected package libnepomukdatamanagement4.
+286 [i] Unpacking libnepomukdatamanagement4 (from .../libnepomukdatamanagement4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+286 [i] Selecting previously unselected package libnepomuksync4.
+286 [i] Unpacking libnepomuksync4 (from .../libnepomuksync4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+286 [i] Selecting previously unselected package libnl-3-200.
+286 [i] Unpacking libnl-3-200 (from .../libnl-3-200_3.2.3-2ubuntu2_amd64.deb) ...
+286 [i] Selecting previously unselected package libnl-route-3-200.
+286 [i] Unpacking libnl-route-3-200 (from .../libnl-route-3-200_3.2.3-2ubuntu2_amd64.deb) ...
+286 [i] Selecting previously unselected package ntrack-module-libnl-0.
+286 [i] Unpacking ntrack-module-libnl-0 (from .../ntrack-module-libnl-0_016-1ubuntu1_amd64.deb) ...
+287 [i] Selecting previously unselected package libntrack0.
+287 [i] Unpacking libntrack0 (from .../libntrack0_016-1ubuntu1_amd64.deb) ...
+287 [i] Selecting previously unselected package libntrack-qt4-1.
+287 [i] Unpacking libntrack-qt4-1 (from .../libntrack-qt4-1_016-1ubuntu1_amd64.deb) ...
+287 [i] Selecting previously unselected package libilmbase6.
+287 [i] Unpacking libilmbase6 (from .../libilmbase6_1.0.1-3build2_amd64.deb) ...
+287 [i] Selecting previously unselected package libopenexr6.
+287 [i] Unpacking libopenexr6 (from .../libopenexr6_1.6.1-4.1_amd64.deb) ...
+287 [i] Selecting previously unselected package libqca2.
+287 [i] Unpacking libqca2 (from .../libqca2_2.0.3-2_amd64.deb) ...
+288 [i] Selecting previously unselected package libthreadweaver4.
+288 [i] Unpacking libthreadweaver4 (from .../libthreadweaver4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+288 [i] Selecting previously unselected package libplasma3.
+288 [i] Unpacking libplasma3 (from .../libplasma3_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+291 [i] Selecting previously unselected package phonon.
+291 [i] Unpacking phonon (from .../phonon_4%3a4.7.0really4.6.0-0ubuntu1_amd64.deb) ...
+291 [i] Selecting previously unselected package libswitch-perl.
+291 [i] Unpacking libswitch-perl (from .../libswitch-perl_2.16-2_all.deb) ...
+291 [i] Selecting previously unselected package libclass-isa-perl.
+291 [i] Unpacking libclass-isa-perl (from .../libclass-isa-perl_0.36-3_all.deb) ...
+291 [i] Selecting previously unselected package perl-modules.
+291 [i] Unpacking perl-modules (from .../perl-modules_5.14.2-6ubuntu2.4_all.deb) ...
+292 [i] Selecting previously unselected package perl.
+292 [i] Unpacking perl (from .../perl_5.14.2-6ubuntu2.4_amd64.deb) ...
+293 [i] Selecting previously unselected package kde-runtime-data.
+293 [i] Unpacking kde-runtime-data (from .../kde-runtime-data_4%3a4.8.5-0ubuntu0.2_all.deb) ...
+295 [i] Selecting previously unselected package libenchant1c2a.
+295 [i] Unpacking libenchant1c2a (from .../libenchant1c2a_1.6.0-7_amd64.deb) ...
+295 [i] Selecting previously unselected package libkde3support4.
+295 [i] Unpacking libkde3support4 (from .../libkde3support4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+298 [i] Selecting previously unselected package libkjsembed4.
+298 [i] Unpacking libkjsembed4 (from .../libkjsembed4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+299 [i] Selecting previously unselected package libkntlm4.
+299 [i] Unpacking libkntlm4 (from .../libkntlm4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+299 [i] Selecting previously unselected package libkrosscore4.
+299 [i] Unpacking libkrosscore4 (from .../libkrosscore4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+299 [i] Selecting previously unselected package libpolkit-qt-1-1.
+299 [i] Unpacking libpolkit-qt-1-1 (from .../libpolkit-qt-1-1_0.103.0-1_amd64.deb) ...
+299 [i] Selecting previously unselected package hicolor-icon-theme.
+299 [i] Unpacking hicolor-icon-theme (from .../hicolor-icon-theme_0.12-1ubuntu2_all.deb) ...
+299 [i] Selecting previously unselected package kdelibs5-data.
+299 [i] Unpacking kdelibs5-data (from .../kdelibs5-data_4%3a4.8.5-0ubuntu0.4_all.deb) ...
+300 [i] Selecting previously unselected package libxml2-utils.
+300 [i] Unpacking libxml2-utils (from .../libxml2-utils_2.7.8.dfsg-5.1ubuntu4.11_amd64.deb) ...
+301 [i] Selecting previously unselected package kdoctools.
+301 [i] Unpacking kdoctools (from .../kdoctools_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+303 [i] Selecting previously unselected package kdelibs-bin.
+303 [i] Unpacking kdelibs-bin (from .../kdelibs-bin_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+304 [i] Selecting previously unselected package shared-mime-info.
+304 [i] Unpacking shared-mime-info (from .../shared-mime-info_1.0-0ubuntu4.1_amd64.deb) ...
+304 [i] Selecting previously unselected package kate-data.
+304 [i] Unpacking kate-data (from .../kate-data_4%3a4.8.5-0ubuntu0.1_all.deb) ...
+305 [i] Selecting previously unselected package libkatepartinterfaces4.
+305 [i] Unpacking libkatepartinterfaces4 (from .../libkatepartinterfaces4_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+305 [i] Selecting previously unselected package katepart.
+305 [i] Unpacking katepart (from .../katepart_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+305 [i] Selecting previously unselected package kdelibs5-plugins.
+305 [i] Unpacking kdelibs5-plugins (from .../kdelibs5-plugins_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+306 [i] Selecting previously unselected package oxygen-icon-theme.
+306 [i] Unpacking oxygen-icon-theme (from .../oxygen-icon-theme_4%3a4.8.3-0ubuntu0.1_all.deb) ...
+311 [i] Selecting previously unselected package shared-desktop-ontologies.
+311 [i] Unpacking shared-desktop-ontologies (from .../shared-desktop-ontologies_0.8.1-1_all.deb) ...
+311 [i] Selecting previously unselected package plasma-scriptengine-javascript.
+311 [i] Unpacking plasma-scriptengine-javascript (from .../plasma-scriptengine-javascript_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+311 [i] Selecting previously unselected package kde-runtime.
+311 [i] Unpacking kde-runtime (from .../kde-runtime_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+315 [i] Selecting previously unselected package libkonq5-templates.
+315 [i] Unpacking libkonq5-templates (from .../libkonq5-templates_4%3a4.8.5-0ubuntu0.1_all.deb) ...
+315 [i] Selecting previously unselected package libkonq-common.
+315 [i] Unpacking libkonq-common (from .../libkonq-common_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+315 [i] Selecting previously unselected package libkonq5abi1.
+315 [i] Unpacking libkonq5abi1 (from .../libkonq5abi1_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+315 [i] Selecting previously unselected package dolphin.
+315 [i] Unpacking dolphin (from .../dolphin_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+316 [i] Selecting previously unselected package freespacenotifier.
+316 [i] Unpacking freespacenotifier (from .../freespacenotifier_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+316 [i] Selecting previously unselected package kde-baseapps-data.
+316 [i] Unpacking kde-baseapps-data (from .../kde-baseapps-data_4%3a4.8.5-0ubuntu0.1_all.deb) ...
+316 [i] Selecting previously unselected package kde-baseapps-bin.
+316 [i] Unpacking kde-baseapps-bin (from .../kde-baseapps-bin_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+316 [i] Selecting previously unselected package kdepasswd.
+316 [i] Unpacking kdepasswd (from .../kdepasswd_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+316 [i] Selecting previously unselected package kfind.
+316 [i] Unpacking kfind (from .../kfind_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+317 [i] Selecting previously unselected package libkonqsidebarplugin4a.
+317 [i] Unpacking libkonqsidebarplugin4a (from .../libkonqsidebarplugin4a_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+317 [i] Selecting previously unselected package konqueror.
+317 [i] Unpacking konqueror (from .../konqueror_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+317 [i] Selecting previously unselected package konsole.
+317 [i] Unpacking konsole (from .../konsole_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+318 [i] Selecting previously unselected package kwrite.
+318 [i] Unpacking kwrite (from .../kwrite_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+318 [i] Selecting previously unselected package plasma-widget-folderview.
+318 [i] Unpacking plasma-widget-folderview (from .../plasma-widget-folderview_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+319 [i] Selecting previously unselected package kde-baseapps.
+319 [i] Unpacking kde-baseapps (from .../kde-baseapps_4%3a4.8.5-0ubuntu0.1_all.deb) ...
+319 [i] Selecting previously unselected package libkactivities-bin.
+319 [i] Unpacking libkactivities-bin (from .../libkactivities-bin_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+319 [i] Selecting previously unselected package libkactivities6.
+319 [i] Unpacking libkactivities6 (from .../libkactivities6_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+319 [i] Selecting previously unselected package libkephal4abi1.
+319 [i] Unpacking libkephal4abi1 (from .../libkephal4abi1_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+319 [i] Selecting previously unselected package libkworkspace4abi1.
+319 [i] Unpacking libkworkspace4abi1 (from .../libkworkspace4abi1_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+320 [i] Selecting previously unselected package libplasmagenericshell4.
+320 [i] Unpacking libplasmagenericshell4 (from .../libplasmagenericshell4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+320 [i] Selecting previously unselected package libprocesscore4abi1.
+320 [i] Unpacking libprocesscore4abi1 (from .../libprocesscore4abi1_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+320 [i] Selecting previously unselected package libtaskmanager4abi3.
+320 [i] Unpacking libtaskmanager4abi3 (from .../libtaskmanager4abi3_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+320 [i] Selecting previously unselected package libkunitconversion4.
+320 [i] Unpacking libkunitconversion4 (from .../libkunitconversion4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+321 [i] Selecting previously unselected package libkholidays4.
+321 [i] Unpacking libkholidays4 (from .../libkholidays4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+322 [i] Selecting previously unselected package libplasmaclock4abi3.
+322 [i] Unpacking libplasmaclock4abi3 (from .../libplasmaclock4abi3_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+322 [i] Selecting previously unselected package libkmime4.
+322 [i] Unpacking libkmime4 (from .../libkmime4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+322 [i] Selecting previously unselected package libkimap4.
+322 [i] Unpacking libkimap4 (from .../libkimap4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+322 [i] Selecting previously unselected package libkldap4.
+322 [i] Unpacking libkldap4 (from .../libkldap4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+322 [i] Selecting previously unselected package kdepimlibs-kio-plugins.
+322 [i] Unpacking kdepimlibs-kio-plugins (from .../kdepimlibs-kio-plugins_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+323 [i] Selecting previously unselected package libakonadiprotocolinternals1.
+323 [i] Unpacking libakonadiprotocolinternals1 (from .../libakonadiprotocolinternals1_1.7.2-0ubuntu1_amd64.deb) ...
+323 [i] Selecting previously unselected package libakonadi-kde4.
+323 [i] Unpacking libakonadi-kde4 (from .../libakonadi-kde4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+324 [i] Selecting previously unselected package libical0.
+324 [i] Unpacking libical0 (from .../libical0_0.48-1ubuntu3_amd64.deb) ...
+325 [i] Selecting previously unselected package libkcalcore4.
+325 [i] Unpacking libkcalcore4 (from .../libkcalcore4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+325 [i] Selecting previously unselected package libakonadi-calendar4.
+325 [i] Unpacking libakonadi-calendar4 (from .../libakonadi-calendar4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+327 [i] Selecting previously unselected package libkresources4.
+335 [i] Unpacking libkresources4 (from .../libkresources4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+336 [i] Selecting previously unselected package libkabc4.
+336 [i] Unpacking libkabc4 (from .../libkabc4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+337 [i] Selecting previously unselected package libkpimutils4.
+337 [i] Unpacking libkpimutils4 (from .../libkpimutils4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+337 [i] Selecting previously unselected package libakonadi-contact4.
+337 [i] Unpacking libakonadi-contact4 (from .../libakonadi-contact4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+337 [i] Selecting previously unselected package libakonadi-kabc4.
+337 [i] Unpacking libakonadi-kabc4 (from .../libakonadi-kabc4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+337 [i] Selecting previously unselected package libkcal4.
+337 [i] Unpacking libkcal4 (from .../libkcal4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+338 [i] Selecting previously unselected package libakonadi-kcal4.
+338 [i] Unpacking libakonadi-kcal4 (from .../libakonadi-kcal4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+338 [i] Selecting previously unselected package libakonadi-kmime4.
+338 [i] Unpacking libakonadi-kmime4 (from .../libakonadi-kmime4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+338 [i] Selecting previously unselected package libakonadi-notes4.
+338 [i] Unpacking libakonadi-notes4 (from .../libakonadi-notes4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+339 [i] Selecting previously unselected package libkpimtextedit4.
+339 [i] Unpacking libkpimtextedit4 (from .../libkpimtextedit4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+339 [i] Selecting previously unselected package libkpimidentities4.
+339 [i] Unpacking libkpimidentities4 (from .../libkpimidentities4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+340 [i] Selecting previously unselected package libkalarmcal2.
+340 [i] Unpacking libkalarmcal2 (from .../libkalarmcal2_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+340 [i] Selecting previously unselected package libkcalutils4.
+340 [i] Unpacking libkcalutils4 (from .../libkcalutils4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+340 [i] Selecting previously unselected package libkmbox4.
+340 [i] Unpacking libkmbox4 (from .../libkmbox4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+340 [i] Selecting previously unselected package libmailtransport4.
+340 [i] Unpacking libmailtransport4 (from .../libmailtransport4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+340 [i] Selecting previously unselected package libmicroblog4.
+340 [i] Unpacking libmicroblog4 (from .../libmicroblog4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+340 [i] Selecting previously unselected package libboost-program-options1.46.1.
+341 [i] Unpacking libboost-program-options1.46.1 (from .../libboost-program-options1.46.1_1.46.1-7ubuntu3_amd64.deb) ...
+341 [i] Selecting previously unselected package mysql-server-core-5.5.
+341 [i] Unpacking mysql-server-core-5.5 (from .../mysql-server-core-5.5_5.5.40-0ubuntu0.12.04.1_amd64.deb) ...
+345 [i] Selecting previously unselected package mysql-client-core-5.5.
+345 [i] Unpacking mysql-client-core-5.5 (from .../mysql-client-core-5.5_5.5.40-0ubuntu0.12.04.1_amd64.deb) ...
+345 [i] Selecting previously unselected package akonadi-backend-mysql.
+345 [i] Unpacking akonadi-backend-mysql (from .../akonadi-backend-mysql_1.7.2-0ubuntu1_all.deb) ...
+345 [i] Selecting previously unselected package akonadi-server.
+345 [i] Unpacking akonadi-server (from .../akonadi-server_1.7.2-0ubuntu1_amd64.deb) ...
+346 [i] Selecting previously unselected package kdepim-runtime.
+346 [i] Unpacking kdepim-runtime (from .../kdepim-runtime_4%3a4.8.5-0ubuntu0.1_amd64.deb) ...
+356 [i] Selecting previously unselected package libksgrd4.
+356 [i] Unpacking libksgrd4 (from .../libksgrd4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+357 [i] Selecting previously unselected package libplasma-geolocation-interface4.
+357 [i] Unpacking libplasma-geolocation-interface4 (from .../libplasma-geolocation-interface4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+358 [i] Selecting previously unselected package libsolidcontrol4abi2.
+358 [i] Unpacking libsolidcontrol4abi2 (from .../libsolidcontrol4abi2_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+358 [i] Selecting previously unselected package libsyndication4.
+358 [i] Unpacking libsyndication4 (from .../libsyndication4_4%3a4.8.5-0ubuntu0.2_amd64.deb) ...
+358 [i] Selecting previously unselected package libweather-ion6.
+358 [i] Unpacking libweather-ion6 (from .../libweather-ion6_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+366 [i] Selecting previously unselected package plasma-dataengines-workspace.
+366 [i] Unpacking plasma-dataengines-workspace (from .../plasma-dataengines-workspace_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+366 [i] Selecting previously unselected package plasma-widgets-workspace.
+366 [i] Unpacking plasma-widgets-workspace (from .../plasma-widgets-workspace_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+367 [i] Selecting previously unselected package kde-wallpapers-default.
+367 [i] Unpacking kde-wallpapers-default (from .../kde-wallpapers-default_4%3a4.8.3-0ubuntu0.1_all.deb) ...
+367 [i] Selecting previously unselected package plasma-desktop.
+367 [i] Unpacking plasma-desktop (from .../plasma-desktop_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+368 [i] Selecting previously unselected package kde-style-oxygen.
+368 [i] Unpacking kde-style-oxygen (from .../kde-style-oxygen_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+368 [i] Selecting previously unselected package libkscreensaver5.
+368 [i] Unpacking libkscreensaver5 (from .../libkscreensaver5_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+368 [i] Selecting previously unselected package libprocessui4a.
+368 [i] Unpacking libprocessui4a (from .../libprocessui4a_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+369 [i] Selecting previously unselected package libsolidcontrolifaces4abi2.
+369 [i] Unpacking libsolidcontrolifaces4abi2 (from .../libsolidcontrolifaces4abi2_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+369 [i] Selecting previously unselected package oxygen-cursor-theme.
+369 [i] Unpacking oxygen-cursor-theme (from .../oxygen-cursor-theme_0.0.2010-05-10-kde4.4.3-1ubuntu1_all.deb) ...
+369 [i] Selecting previously unselected package kde-workspace-data.
+369 [i] Unpacking kde-workspace-data (from .../kde-workspace-data_4%3a4.8.5-0ubuntu0.4_all.deb) ...
+371 [i] Selecting previously unselected package kde-workspace-kgreet-plugins.
+371 [i] Unpacking kde-workspace-kgreet-plugins (from .../kde-workspace-kgreet-plugins_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+377 [i] Selecting previously unselected package qdbus.
+377 [i] Unpacking qdbus (from .../qdbus_4%3a4.8.1-0ubuntu4.8_amd64.deb) ...
+377 [i] Selecting previously unselected package kde-workspace-bin.
+377 [i] Unpacking kde-workspace-bin (from .../kde-workspace-bin_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+378 [i] Selecting previously unselected package klipper.
+378 [i] Unpacking klipper (from .../klipper_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+379 [i] Selecting previously unselected package libksignalplotter4.
+379 [i] Unpacking libksignalplotter4 (from .../libksignalplotter4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+379 [i] Selecting previously unselected package ksysguardd.
+379 [i] Unpacking ksysguardd (from .../ksysguardd_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+379 [i] Selecting previously unselected package ksysguard.
+379 [i] Unpacking ksysguard (from .../ksysguard_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+379 [i] Selecting previously unselected package libkdecorations4.
+379 [i] Unpacking libkdecorations4 (from .../libkdecorations4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+380 [i] Selecting previously unselected package libkwineffects1abi3.
+380 [i] Unpacking libkwineffects1abi3 (from .../libkwineffects1abi3_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+380 [i] Selecting previously unselected package libkwinglutils1.
+380 [i] Unpacking libkwinglutils1 (from .../libkwinglutils1_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+380 [i] Selecting previously unselected package kde-window-manager-common.
+380 [i] Unpacking kde-window-manager-common (from .../kde-window-manager-common_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+381 [i] Selecting previously unselected package libkwinnvidiahack4.
+381 [i] Unpacking libkwinnvidiahack4 (from .../libkwinnvidiahack4_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+382 [i] Selecting previously unselected package kde-window-manager.
+382 [i] Unpacking kde-window-manager (from .../kde-window-manager_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+382 [i] Selecting previously unselected package systemsettings.
+382 [i] Unpacking systemsettings (from .../systemsettings_4%3a4.8.5-0ubuntu0.4_amd64.deb) ...
+383 [i] Selecting previously unselected package kde-workspace.
+383 [i] Unpacking kde-workspace (from .../kde-workspace_4%3a4.8.5-0ubuntu0.4_all.deb) ...
+383 [i] Selecting previously unselected package libdevmapper-event1.02.1.
+383 [i] Unpacking libdevmapper-event1.02.1 (from .../libdevmapper-event1.02.1_2%3a1.02.48-4ubuntu7.4_amd64.deb) ...
+383 [i] Selecting previously unselected package liblvm2app2.2.
+383 [i] Unpacking liblvm2app2.2 (from .../liblvm2app2.2_2.02.66-4ubuntu7.4_amd64.deb) ...
+383 [i] Selecting previously unselected package libsgutils2-2.
+383 [i] Unpacking libsgutils2-2 (from .../libsgutils2-2_1.33-1_amd64.deb) ...
+384 [i] Selecting previously unselected package udisks.
+384 [i] Unpacking udisks (from .../udisks_1.0.4-5ubuntu2.2_amd64.deb) ...
+384 [i] Selecting previously unselected package libplist1.
+384 [i] Unpacking libplist1 (from .../libplist1_1.8-1_amd64.deb) ...
+384 [i] Selecting previously unselected package libusbmuxd1.
+384 [i] Unpacking libusbmuxd1 (from .../libusbmuxd1_1.0.7-2ubuntu0.1_amd64.deb) ...
+384 [i] Selecting previously unselected package usbmuxd.
+384 [i] Unpacking usbmuxd (from .../usbmuxd_1.0.7-2ubuntu0.1_amd64.deb) ...
+385 [i] Selecting previously unselected package libimobiledevice2.
+385 [i] Unpacking libimobiledevice2 (from .../libimobiledevice2_1.1.1-4_amd64.deb) ...
+385 [i] Selecting previously unselected package libupower-glib1.
+385 [i] Unpacking libupower-glib1 (from .../libupower-glib1_0.9.15-3git1ubuntu0.1_amd64.deb) ...
+385 [i] Selecting previously unselected package pm-utils.
+385 [i] Unpacking pm-utils (from .../pm-utils_1.4.1-9fix.ubuntu12.04_all.deb) ...
+390 [i] Selecting previously unselected package upower.
+390 [i] Unpacking upower (from .../upower_0.9.15-3git1ubuntu0.1_amd64.deb) ...
+391 [i] Selecting previously unselected package kde-plasma-desktop.
+391 [i] Unpacking kde-plasma-desktop (from .../kde-plasma-desktop_5%3a71~pre15ubuntu12.5_amd64.deb) ...
+391 [i] Setting up libdbus-glib-1-2 (0.98-1ubuntu1.1) ...
+391 [i] Setting up libgdbm3 (1.8.3-10) ...
+391 [i] Setting up libparted0debian1 (2.3-8ubuntu5.2) ...
+391 [i] Setting up libpolkit-gobject-1-0 (0.104-1ubuntu1.1) ...
+391 [i] Setting up libusb-1.0-0 (2:1.0.9~rc3-2ubuntu1) ...
+391 [i] Setting up sgml-data (2.0.6) ...
+392 [i] Setting up docbook-xml (4.5-7ubuntu1) ...
+395 [i] Setting up libasyncns0 (0.8-4) ...
+395 [i] Setting up libatasmart4 (0.18-3) ...
+395 [i] Setting up libaudio2 (1.9.3-4ubuntu0.1) ...
+395 [i] Setting up libbluetooth3 (4.98-2ubuntu7.2) ...
+395 [i] Setting up libtdb1 (1.2.9-4) ...
+396 [i] Setting up libogg0 (1.2.2~dfsg-1ubuntu1) ...
+396 [i] Setting up libvorbis0a (1.3.2-1ubuntu3) ...
+396 [i] Setting up libvorbisfile3 (1.3.2-1ubuntu3) ...
+396 [i] Setting up sound-theme-freedesktop (0.7.pristine-2) ...
+396 [i] Setting up libcanberra0 (0.28-3ubuntu3) ...
+396 [i] Setting up libcap2 (1:2.22-1ubuntu3) ...
+397 [i] Setting up libcdparanoia0 (3.10.2+debian-10ubuntu1) ...
+397 [i] Setting up libqtcore4 (4:4.8.1-0ubuntu4.8) ...
+397 [i] Setting up libqt4-xml (4:4.8.1-0ubuntu4.8) ...
+397 [i] Setting up libqt4-dbus (4:4.8.1-0ubuntu4.8) ...
+397 [i] Setting up fontconfig (2.8.0-3ubuntu9.1) ...
+397 [i] Cleaning up old fontconfig caches... done.
+403 [i] Regenerating fonts cache... done.
+410 [i] Setting up libmng1 (1.0.10-3) ...
+410 [i] Setting up libqt4-network (4:4.8.1-0ubuntu4.8) ...
+410 [i] Setting up libqt4-script (4:4.8.1-0ubuntu4.8) ...
+410 [i] Setting up libqt4-sql (4:4.8.1-0ubuntu4.8) ...
+410 [i] Setting up libqt4-xmlpatterns (4:4.8.1-0ubuntu4.8) ...
+411 [i] Setting up libflac8 (1.2.1-6) ...
+411 [i] Setting up libgif4 (4.1.6-9ubuntu1) ...
+411 [i] Setting up libgps20 (3.4-2ubuntu0.1) ...
+411 [i] Setting up libgstreamer0.10-0 (0.10.36-1ubuntu1) ...
+411 [i] Setting up liborc-0.4-0 (1:0.4.16-1ubuntu2) ...
+411 [i] Setting up iso-codes (3.31-1) ...
+411 [i] Setting up libgstreamer-plugins-base0.10-0 (0.10.36-1ubuntu0.1) ...
+411 [i] Setting up libgudev-1.0-0 (1:175-0ubuntu9.6) ...
+411 [i] Setting up libhunspell-1.3-0 (1.3.2-4) ...
+412 [i] Setting up mysql-common (5.5.40-0ubuntu0.12.04.1) ...
+412 [i] Setting up libmysqlclient18 (5.5.40-0ubuntu0.12.04.1) ...
+412 [i] Setting up libjson0 (0.9-1ubuntu1.1) ...
+412 [i] Setting up libvorbisenc2 (1.3.2-1ubuntu3) ...
+412 [i] Setting up libsndfile1 (1.0.25-4) ...
+412 [i] Setting up libwrap0 (7.6.q-21) ...
+412 [i] Setting up libpulse0 (1:1.1-0ubuntu15.4) ...
+412 [i] Setting up libpulse-mainloop-glib0 (1:1.1-0ubuntu15.4) ...
+413 [i] Setting up libpolkit-agent-1-0 (0.104-1ubuntu1.1) ...
+413 [i] Setting up libdmtx0a (0.7.2-1build2) ...
+413 [i] Setting up libqrencode3 (3.1.1-1ubuntu1) ...
+413 [i] Setting up libcln6 (1.3.2-1.1) ...
+413 [i] Setting up libqalculate5 (0.9.7-6ubuntu2) ...
+413 [i] Setting up libqt4-sql-mysql (4:4.8.1-0ubuntu4.8) ...
+413 [i] Setting up libsensors4 (1:3.3.1-2ubuntu1) ...
+413 [i] Setting up libssh-4 (0.5.2-1ubuntu0.12.04.3) ...
+413 [i] Setting up libtalloc2 (2.0.7-3) ...
+413 [i] Setting up libtheora0 (1.1.1+dfsg.1-3ubuntu2) ...
+414 [i] Setting up libvisual-0.4-0 (0.4.0-4) ...
+414 [i] Setting up libwbclient0 (2:3.6.3-2ubuntu2.11) ...
+414 [i] Setting up libxslt1.1 (1.1.26-8ubuntu1.3) ...
+415 [i] Setting up libxss1 (1:1.2.1-2) ...
+415 [i] Setting up gstreamer0.10-plugins-base (0.10.36-1ubuntu0.1) ...
+415 [i] Setting up gstreamer0.10-alsa (0.10.36-1ubuntu0.1) ...
+415 [i] Setting up libsmbclient (2:3.6.3-2ubuntu2.11) ...
+415 [i] Setting up libyajl1 (1.0.12-2) ...
+415 [i] Setting up libsasl2-modules (2.1.25.dfsg1-3ubuntu0.1) ...
+415 [i] Setting up powermgmt-base (1.31) ...
+415 [i] Setting up libaspell15 (0.60.7~20110707-1) ...
+415 [i] Setting up dictionaries-common (1.12.1ubuntu2) ...
+416 [i] Setting up dbus-x11 (1.4.18-1ubuntu1.6) ...
+416 [i] Setting up docbook-xsl (1.76.1+dfsg-1ubuntu1) ...
+416 [i] Setting up libattica0.3 (0.3.0-0ubuntu2) ...
+416 [i] Setting up libexiv2-11 (0.22-2) ...
+417 [i] Setting up libdlrestrictions1 (0.14.2ubuntu5) ...
+417 [i] Setting up libkdecore5 (4:4.8.5-0ubuntu0.4) ...
+417 [i] Setting up libkpty4 (4:4.8.5-0ubuntu0.4) ...
+417 [i] Setting up libkdesu5 (4:4.8.5-0ubuntu0.4) ...
+417 [i] Setting up libclucene0ldbl (0.9.21b-2) ...
+417 [i] Setting up virtuoso-opensource-6.1-common (6.1.4+dfsg1-0ubuntu1) ...
+417 [i] Setting up libraptor2-0 (2.0.6-1ubuntu0.1) ...
+420 [i] Setting up libmhash2 (0.9.9.9-1) ...
+420 [i] Setting up librasqal3 (0.9.28-1) ...
+420 [i] Setting up librdf0 (1.0.14-1) ...
+420 [i] Setting up libstreams0 (0.7.7-1.1ubuntu3) ...
+420 [i] Setting up libstreamanalyzer0 (0.7.7-1.1ubuntu3) ...
+420 [i] Setting up libkjsapi4 (4:4.8.5-0ubuntu0.4) ...
+421 [i] Setting up libnl-3-200 (3.2.3-2ubuntu2) ...
+421 [i] Setting up libnl-route-3-200 (3.2.3-2ubuntu2) ...
+421 [i] Setting up libilmbase6 (1.0.1-3build2) ...
+421 [i] Setting up libopenexr6 (1.6.1-4.1) ...
+421 [i] Setting up libqca2 (2.0.3-2) ...
+421 [i] Setting up libthreadweaver4 (4:4.8.5-0ubuntu0.4) ...
+421 [i] Setting up libclass-isa-perl (0.36-3) ...
+421 [i] Setting up libkntlm4 (4:4.8.5-0ubuntu0.4) ...
+421 [i] Setting up hicolor-icon-theme (0.12-1ubuntu2) ...
+422 [i] Setting up libxml2-utils (2.7.8.dfsg-5.1ubuntu4.11) ...
+422 [i] Setting up shared-mime-info (1.0-0ubuntu4.1) ...
+423 [i] Unknown media type in type 'all/all'
+423 [i] Unknown media type in type 'all/allfiles'
+423 [i] Unknown media type in type 'uri/mms'
+423 [i] Unknown media type in type 'uri/mmst'
+423 [i] Unknown media type in type 'uri/mmsu'
+423 [i] Unknown media type in type 'uri/pnm'
+423 [i] Unknown media type in type 'uri/rtspt'
+423 [i] Unknown media type in type 'uri/rtspu'
+423 [i] Setting up kate-data (4:4.8.5-0ubuntu0.1) ...
+423 [i] Setting up oxygen-icon-theme (4:4.8.3-0ubuntu0.1) ...
+423 [i] Setting up shared-desktop-ontologies (0.8.1-1) ...
+423 [i] Setting up libkonq5-templates (4:4.8.5-0ubuntu0.1) ...
+423 [i] Setting up kde-baseapps-data (4:4.8.5-0ubuntu0.1) ...
+423 [i] Setting up libprocesscore4abi1 (4:4.8.5-0ubuntu0.4) ...
+423 [i] Setting up libkmime4 (4:4.8.5-0ubuntu0.2) ...
+423 [i] Setting up libkimap4 (4:4.8.5-0ubuntu0.2) ...
+423 [i] Setting up libakonadiprotocolinternals1 (1.7.2-0ubuntu1) ...
+424 [i] Setting up libical0 (0.48-1ubuntu3) ...
+424 [i] Setting up libakonadi-kabc4 (4:4.8.5-0ubuntu0.2) ...
+424 [i] Setting up libkmbox4 (4:4.8.5-0ubuntu0.2) ...
+424 [i] Setting up libboost-program-options1.46.1 (1.46.1-7ubuntu3) ...
+424 [i] Setting up mysql-server-core-5.5 (5.5.40-0ubuntu0.12.04.1) ...
+424 [i] Setting up mysql-client-core-5.5 (5.5.40-0ubuntu0.12.04.1) ...
+424 [i] Setting up akonadi-backend-mysql (1.7.2-0ubuntu1) ...
+424 [i] Setting up libksgrd4 (4:4.8.5-0ubuntu0.4) ...
+425 [i] Setting up libplasma-geolocation-interface4 (4:4.8.5-0ubuntu0.4) ...
+425 [i] Setting up kde-wallpapers-default (4:4.8.3-0ubuntu0.1) ...
+425 [i] Setting up libsolidcontrolifaces4abi2 (4:4.8.5-0ubuntu0.4) ...
+425 [i] Setting up oxygen-cursor-theme (0.0.2010-05-10-kde4.4.3-1ubuntu1) ...
+425 [i] Setting up qdbus (4:4.8.1-0ubuntu4.8) ...
+425 [i] Setting up ksysguardd (4:4.8.5-0ubuntu0.4) ...
+425 [i] Setting up libkwinnvidiahack4 (4:4.8.5-0ubuntu0.4) ...
+425 [i] Setting up libdevmapper-event1.02.1 (2:1.02.48-4ubuntu7.4) ...
+425 [i] Setting up liblvm2app2.2 (2.02.66-4ubuntu7.4) ...
+425 [i] Setting up libsgutils2-2 (1.33-1) ...
+426 [i] Setting up udisks (1.0.4-5ubuntu2.2) ...
+427 [i] Setting up libplist1 (1.8-1) ...
+427 [i] Setting up libusbmuxd1 (1.0.7-2ubuntu0.1) ...
+427 [i] Setting up usbmuxd (1.0.7-2ubuntu0.1) ...
+427 [i] Adding system user `usbmux' (UID 103) ...
+427 [i] Adding new user `usbmux' (UID 103) with group `plugdev' ...
+427 [i] Not creating home directory `/home/usbmux'.
+427 [i] Setting up libimobiledevice2 (1.1.1-4) ...
+428 [i] Setting up libupower-glib1 (0.9.15-3git1ubuntu0.1) ...
+428 [i] Setting up pm-utils (1.4.1-9fix.ubuntu12.04) ...
+428 [i] Setting up upower (0.9.15-3git1ubuntu0.1) ...
+428 [i] Processing triggers for dictionaries-common ...
+429 [e] aspell-autobuildhash: processing: en [en-common]
+429 [e] aspell-autobuildhash: processing: en [en-variant_0]
+429 [e] aspell-autobuildhash: processing: en [en-variant_1]
+429 [e] aspell-autobuildhash: processing: en [en-variant_2]
+429 [e] aspell-autobuildhash: processing: en [en_CA-w_accents-only]
+429 [e] aspell-autobuildhash: processing: en [en_CA-wo_accents-only]
+429 [e] aspell-autobuildhash: processing: en [en_GB-ise-w_accents-only]
+429 [e] aspell-autobuildhash: processing: en [en_GB-ise-wo_accents-only]
+429 [e] aspell-autobuildhash: processing: en [en_GB-ize-w_accents-only]
+429 [e] aspell-autobuildhash: processing: en [en_GB-ize-wo_accents-only]
+429 [e] aspell-autobuildhash: processing: en [en_US-w_accents-only]
+429 [e] aspell-autobuildhash: processing: en [en_US-wo_accents-only]
+430 [i] Setting up aspell (0.60.7~20110707-1) ...
+432 [i] Processing triggers for dictionaries-common ...
+433 [i] Setting up aspell-en (6.0-0-6ubuntu2) ...
+433 [i] Processing triggers for dictionaries-common ...
+434 [i] Setting up libenchant1c2a (1.6.0-7) ...
+434 [i] Setting up libqtgui4 (4:4.8.1-0ubuntu4.8) ...
+434 [i] Setting up libdbusmenu-qt2 (0.9.2-0ubuntu1) ...
+434 [i] Setting up libphonon4 (4:4.7.0really4.6.0-0ubuntu1) ...
+435 [i] Setting up libprison0 (1.0+dfsg-1) ...
+435 [i] Setting up libqt4-designer (4:4.8.1-0ubuntu4.8) ...
+435 [i] Setting up libqt4-opengl (4:4.8.1-0ubuntu4.8) ...
+435 [i] Setting up libqt4-qt3support (4:4.8.1-0ubuntu4.8) ...
+435 [i] Setting up libqt4-svg (4:4.8.1-0ubuntu4.8) ...
+437 [i] Setting up libqtwebkit4 (2.2.1-1ubuntu4) ...
+437 [i] Setting up odbcinst (2.2.14p2-5ubuntu3) ...
+437 [i] Setting up odbcinst1debian2 (2.2.14p2-5ubuntu3) ...
+437 [i] Setting up phonon-backend-gstreamer (4:4.7.0really4.6.2-0ubuntu0.1) ...
+437 [i] Setting up libkdeui5 (4:4.8.5-0ubuntu0.4) ...
+438 [i] Setting up libkcmutils4 (4:4.8.5-0ubuntu0.4) ...
+438 [i] Setting up libvirtodbc0 (6.1.4+dfsg1-0ubuntu1) ...
+438 [i] Setting up soprano-daemon (2.7.5+dfsg.1-0ubuntu1) ...
+438 [i] Setting up libsoprano4 (2.7.5+dfsg.1-0ubuntu1) ...
+438 [i] Setting up libnepomuk4 (4:4.8.5-0ubuntu0.4) ...
+438 [i] Setting up libsolid4 (4:4.8.5-0ubuntu0.4) ...
+438 [i] Setting up libkio5 (4:4.8.5-0ubuntu0.4) ...
+438 [i] Setting up libnepomukquery4a (4:4.8.5-0ubuntu0.4) ...
+439 [i] Setting up libnepomukutils4 (4:4.8.5-0ubuntu0.4) ...
+439 [i] Setting up libkparts4 (4:4.8.5-0ubuntu0.4) ...
+439 [i] Setting up libkdewebkit5 (4:4.8.5-0ubuntu0.4) ...
+439 [i] Setting up libkdnssd4 (4:4.8.5-0ubuntu0.4) ...
+439 [i] Setting up libkemoticons4 (4:4.8.5-0ubuntu0.4) ...
+439 [i] Setting up libkfile4 (4:4.8.5-0ubuntu0.4) ...
+440 [i] Setting up libktexteditor4 (4:4.8.5-0ubuntu0.4) ...
+440 [i] Setting up libkhtml5 (4:4.8.5-0ubuntu0.4) ...
+440 [i] Setting up libkidletime4 (4:4.8.5-0ubuntu0.4) ...
+440 [i] Setting up libkmediaplayer4 (4:4.8.5-0ubuntu0.4) ...
+440 [i] Setting up libknewstuff3-4 (4:4.8.5-0ubuntu0.4) ...
+440 [i] Setting up libknotifyconfig4 (4:4.8.5-0ubuntu0.4) ...
+440 [i] Setting up libnepomukdatamanagement4 (4:4.8.5-0ubuntu0.2) ...
+441 [i] Setting up libnepomuksync4 (4:4.8.5-0ubuntu0.2) ...
+441 [i] Setting up libntrack0 (016-1ubuntu1) ...
+441 [i] Setting up libntrack-qt4-1 (016-1ubuntu1) ...
+441 [i] Setting up phonon (4:4.7.0really4.6.0-0ubuntu1) ...
+441 [i] Setting up libswitch-perl (2.16-2) ...
+441 [i] Setting up perl-modules (5.14.2-6ubuntu2.4) ...
+442 [i] Setting up libkde3support4 (4:4.8.5-0ubuntu0.4) ...
+442 [i] Setting up libkjsembed4 (4:4.8.5-0ubuntu0.4) ...
+442 [i] Setting up libkrosscore4 (4:4.8.5-0ubuntu0.4) ...
+442 [i] Setting up libpolkit-qt-1-1 (0.103.0-1) ...
+442 [i] Setting up kdoctools (4:4.8.5-0ubuntu0.4) ...
+442 [i] Setting up kdelibs-bin (4:4.8.5-0ubuntu0.4) ...
+442 [i] Setting up libkatepartinterfaces4 (4:4.8.5-0ubuntu0.1) ...
+442 [i] Setting up katepart (4:4.8.5-0ubuntu0.1) ...
+442 [i] Setting up libkonq-common (4:4.8.5-0ubuntu0.1) ...
+442 [i] Setting up libkonq5abi1 (4:4.8.5-0ubuntu0.1) ...
+443 [i] Setting up freespacenotifier (4:4.8.5-0ubuntu0.4) ...
+443 [i] Setting up libkonqsidebarplugin4a (4:4.8.5-0ubuntu0.1) ...
+443 [i] Setting up libkactivities-bin (4:4.8.5-0ubuntu0.1) ...
+443 [i] Setting up libkactivities6 (4:4.8.5-0ubuntu0.1) ...
+443 [i] Setting up libkephal4abi1 (4:4.8.5-0ubuntu0.4) ...
+443 [i] Setting up libtaskmanager4abi3 (4:4.8.5-0ubuntu0.4) ...
+443 [i] Setting up libkunitconversion4 (4:4.8.5-0ubuntu0.4) ...
+443 [i] Setting up libkholidays4 (4:4.8.5-0ubuntu0.2) ...
+444 [i] Setting up libkldap4 (4:4.8.5-0ubuntu0.2) ...
+444 [i] Setting up kdepimlibs-kio-plugins (4:4.8.5-0ubuntu0.2) ...
+444 [i] Setting up libakonadi-kde4 (4:4.8.5-0ubuntu0.2) ...
+444 [i] Setting up libkcalcore4 (4:4.8.5-0ubuntu0.2) ...
+444 [i] Setting up libakonadi-calendar4 (4:4.8.5-0ubuntu0.2) ...
+444 [i] Setting up libkresources4 (4:4.8.5-0ubuntu0.2) ...
+445 [i] Setting up libkabc4 (4:4.8.5-0ubuntu0.2) ...
+445 [i] Setting up libkpimutils4 (4:4.8.5-0ubuntu0.2) ...
+445 [i] Setting up libakonadi-contact4 (4:4.8.5-0ubuntu0.2) ...
+445 [i] Setting up libkcal4 (4:4.8.5-0ubuntu0.2) ...
+445 [i] Setting up libakonadi-kcal4 (4:4.8.5-0ubuntu0.2) ...
+446 [i] Setting up libakonadi-kmime4 (4:4.8.5-0ubuntu0.2) ...
+446 [i] Setting up libakonadi-notes4 (4:4.8.5-0ubuntu0.2) ...
+446 [i] Setting up libkpimtextedit4 (4:4.8.5-0ubuntu0.2) ...
+446 [i] Setting up libkpimidentities4 (4:4.8.5-0ubuntu0.2) ...
+446 [i] Setting up libkalarmcal2 (4:4.8.5-0ubuntu0.2) ...
+446 [i] Setting up libkcalutils4 (4:4.8.5-0ubuntu0.2) ...
+446 [i] Setting up libmicroblog4 (4:4.8.5-0ubuntu0.2) ...
+447 [i] Setting up akonadi-server (1.7.2-0ubuntu1) ...
+447 [i] Setting up libsolidcontrol4abi2 (4:4.8.5-0ubuntu0.4) ...
+447 [i] Setting up libsyndication4 (4:4.8.5-0ubuntu0.2) ...
+447 [i] Setting up libkscreensaver5 (4:4.8.5-0ubuntu0.4) ...
+447 [i] Setting up libprocessui4a (4:4.8.5-0ubuntu0.4) ...
+447 [i] Setting up kde-workspace-kgreet-plugins (4:4.8.5-0ubuntu0.4) ...
+447 [i] Setting up libksignalplotter4 (4:4.8.5-0ubuntu0.4) ...
+448 [i] Setting up libkdecorations4 (4:4.8.5-0ubuntu0.4) ...
+448 [i] Setting up libkwineffects1abi3 (4:4.8.5-0ubuntu0.4) ...
+448 [i] Setting up libkwinglutils1 (4:4.8.5-0ubuntu0.4) ...
+448 [i] Setting up libqt4-declarative (4:4.8.1-0ubuntu4.8) ...
+448 [i] Setting up libkdeclarative5 (4:4.8.5-0ubuntu0.4) ...
+448 [i] Setting up ntrack-module-libnl-0 (016-1ubuntu1) ...
+448 [i] Setting up libplasma3 (4:4.8.5-0ubuntu0.4) ...
+449 [i] Setting up perl (5.14.2-6ubuntu2.4) ...
+449 [i] update-alternatives: using /usr/bin/prename to provide /usr/bin/rename (rename) in auto mode.
+449 [i] Setting up kde-runtime-data (4:4.8.5-0ubuntu0.2) ...
+449 [i] Setting up kdelibs5-data (4:4.8.5-0ubuntu0.4) ...
+449 [i] Setting up kdelibs5-plugins (4:4.8.5-0ubuntu0.4) ...
+449 [i] Setting up plasma-scriptengine-javascript (4:4.8.5-0ubuntu0.2) ...
+449 [i] Setting up kde-runtime (4:4.8.5-0ubuntu0.2) ...
+449 [i] update-alternatives: using /usr/lib/kde4/libexec/kdesu-distrib/kdesu to provide /usr/lib/kde4/libexec/kdesu (kdesu) in auto mode.
+450 [i] Setting up dolphin (4:4.8.5-0ubuntu0.1) ...
+450 [i] Setting up kde-baseapps-bin (4:4.8.5-0ubuntu0.1) ...
+450 [i] Setting up kdepasswd (4:4.8.5-0ubuntu0.1) ...
+450 [i] Setting up kfind (4:4.8.5-0ubuntu0.1) ...
+450 [i] Setting up konqueror (4:4.8.5-0ubuntu0.1) ...
+450 [i] update-alternatives: using /usr/bin/konqueror to provide /usr/bin/x-www-browser (x-www-browser) in auto mode.
+450 [i] Setting up konsole (4:4.8.5-0ubuntu0.1) ...
+451 [i] update-alternatives: using /usr/bin/konsole to provide /usr/bin/x-terminal-emulator (x-terminal-emulator) in auto mode.
+451 [i] Setting up kwrite (4:4.8.5-0ubuntu0.1) ...
+451 [i] Setting up plasma-widget-folderview (4:4.8.5-0ubuntu0.1) ...
+451 [i] Setting up kde-baseapps (4:4.8.5-0ubuntu0.1) ...
+451 [i] Setting up libkworkspace4abi1 (4:4.8.5-0ubuntu0.4) ...
+451 [i] Setting up libplasmagenericshell4 (4:4.8.5-0ubuntu0.4) ...
+451 [i] Setting up libplasmaclock4abi3 (4:4.8.5-0ubuntu0.4) ...
+451 [i] Setting up libmailtransport4 (4:4.8.5-0ubuntu0.2) ...
+451 [i] Setting up kdepim-runtime (4:4.8.5-0ubuntu0.1) ...
+452 [i] Setting up libweather-ion6 (4:4.8.5-0ubuntu0.4) ...
+452 [i] Setting up plasma-dataengines-workspace (4:4.8.5-0ubuntu0.4) ...
+452 [i] Setting up plasma-widgets-workspace (4:4.8.5-0ubuntu0.4) ...
+452 [i] Setting up plasma-desktop (4:4.8.5-0ubuntu0.4) ...
+452 [i] Setting up kde-style-oxygen (4:4.8.5-0ubuntu0.4) ...
+452 [i] Setting up kde-workspace-data (4:4.8.5-0ubuntu0.4) ...
+453 [i] Setting up kde-workspace-bin (4:4.8.5-0ubuntu0.4) ...
+453 [i] update-alternatives: using /usr/bin/startkde to provide /usr/bin/x-session-manager (x-session-manager) in auto mode.
+453 [i] Setting up klipper (4:4.8.5-0ubuntu0.4) ...
+453 [i] Setting up ksysguard (4:4.8.5-0ubuntu0.4) ...
+454 [i] Setting up kde-window-manager-common (4:4.8.5-0ubuntu0.4) ...
+454 [i] Setting up kde-window-manager (4:4.8.5-0ubuntu0.4) ...
+454 [i] update-alternatives: using /usr/bin/kwin to provide /usr/bin/x-window-manager (x-window-manager) in auto mode.
+454 [i] Setting up systemsettings (4:4.8.5-0ubuntu0.4) ...
+454 [i] Setting up kde-workspace (4:4.8.5-0ubuntu0.4) ...
+454 [i] Setting up kde-plasma-desktop (5:71~pre15ubuntu12.5) ...
+461 [i] Processing triggers for libc-bin ...
+461 [i] ldconfig deferred processing now taking place
+468 [e] Installing target post-common...
+468 [e] Cleaning up...
+468 [i] Reading package lists...
+468 [i] Building dependency tree...
+468 [i] Reading state information...
+469 [i] The following packages will be REMOVED:
+469 [i]   libc6-dev:i386* libsbc-dev* libsbc-dev:i386* libspeex-dev*
+469 [i]   libspeex-dev:i386* libspeex1* libspeex1:i386* libspeexdsp-dev*
+469 [i]   libspeexdsp-dev:i386* libxext-dev* libxfixes-dev* libxi-dev*
+469 [i]   linux-libc-dev:i386* x11proto-fixes-dev* x11proto-xext-dev*
+469 [i] 0 upgraded, 0 newly installed, 15 to remove and 0 not upgraded.
+469 [i] After this operation, 27.1 MB disk space will be freed.
+470 [i] (Reading database ... 34813 files and directories currently installed.)
+470 [i] Removing libc6-dev:i386 ...
+470 [i] Removing libsbc-dev ...
+471 [i] Removing libsbc-dev:i386 ...
+471 [i] Removing libspeexdsp-dev ...
+471 [i] Removing libspeex-dev ...
+472 [i] Removing libspeexdsp-dev:i386 ...
+473 [i] Removing libspeex-dev:i386 ...
+473 [i] Removing libspeex1 ...
+473 [i] Purging configuration files for libspeex1 ...
+473 [i] Removing libspeex1:i386 ...
+474 [i] Purging configuration files for libspeex1:i386 ...
+474 [i] Removing libxi-dev ...
+474 [i] Removing libxext-dev ...
+474 [i] Removing libxfixes-dev ...
+474 [i] Removing linux-libc-dev:i386 ...
+475 [i] Removing x11proto-fixes-dev ...
+475 [i] Removing x11proto-xext-dev ...
+475 [i] Processing triggers for libc-bin ...
+475 [i] ldconfig deferred processing now taking place
+480 [e] 
+480 [e] Here's some tips:
+480 [e] 
+480 [e] Audio from the chroot will now be forwarded to CRAS (Chromium OS audio server),
+480 [e] through an ALSA plugin.
+480 [e] 
+480 [e] Future Chromium OS upgrades may break compatibility with the installed version
+480 [e] of CRAS. Should this happen, simply update your chroot.
+480 [e] 
+480 [e] You can flip through your running chroot desktops and Chromium OS by hitting
+480 [e] Ctrl+Alt+Shift+Back and Ctrl+Alt+Shift+Forward.
+480 [e] 
+480 [e] You can start KDE via the startkde host command: sudo startkde
+480 [e] 
+480 [e] Unmounting /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+481 [e] Done! You can enter the chroot using enter-chroot.
+482 [t] PASS: crouton -u -n precise -t kde
+482 [t] LAUNCHING: startkde -b -n precise
+482 [e] Entering /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+483 [e] stdin: is not a tty
+483 [e] stdin: is not a tty
+483 [t] PASS: startkde -b -n precise
+483 [e] 
+483 [e] 
+483 [e] X.Org X Server 1.15.1
+483 [e] Release Date: 2014-04-13
+483 [e] X Protocol Version 11, Revision 0
+483 [e] Build Operating System: Linux 2.6.42-61-generic x86_64 Ubuntu
+483 [e] Current Operating System: Linux localhost 3.8.11 #1 SMP Wed Nov 5 22:14:30 PST 2014 x86_64
+483 [e] Kernel command line: cros_secure console= loglevel=7 init=/sbin/init cros_secure oops=panic panic=-1 root=/dev/dm-0 rootwait ro dm_verity.error_behavior=3 dm_verity.max_bios=-1 dm_verity.dev_wait=1 dm="1 vroot none ro 1,0 2506752 verity payload=PARTUUID=e3531494-2a43-8446-bf41-28d17f96f24a/PARTNROFF=1 hashtree=PARTUUID=e3531494-2a43-8446-bf41-28d17f96f24a/PARTNROFF=1 hashstart=2506752 alg=sha1 root_hexdigest=c64b04b498574803b039f4fe292952bbb3ee90bc salt=ddbc5a1dbaab27c52105893f3d15e477f905e6c08b27ef63b231543f25606169" noinitrd cros_debug vt.global_cursor_default=0 kern_guid=e3531494-2a43-8446-bf41-28d17f96f24a add_efi_memmap boot=local noresume noswap i915.modeset=1 tpm_tis.force=1 tpm_tis.interrupts=0 nmi_watchdog=panic,lapic iTCO_vendor_support.vendorsupport=3 
+483 [e] Build Date: 07 August 2014  11:49:36AM
+483 [e] xorg-server 2:1.15.1-0ubuntu2~precise2 (For technical support please see http://www.ubuntu.com/support) 
+483 [e] Current version of pixman: 0.30.2
+483 [e] 	Before reporting problems, check http://wiki.x.org
+483 [e] 	to make sure that you have the latest version.
+483 [e] Markers: (--) probed, (**) from config file, (==) default setting,
+483 [e] 	(++) from command line, (!!) notice, (II) informational,
+483 [e] 	(WW) warning, (EE) error, (NI) not implemented, (??) unknown.
+483 [e] (==) Log file: "/var/log/Xorg.2.log", Time: Fri Nov 14 16:07:49 2014
+483 [e] (==) Using system config directory "/usr/share/X11/xorg.conf.d"
+483 [e] Initializing built-in extension Generic Event Extension
+483 [e] Initializing built-in extension SHAPE
+483 [e] Initializing built-in extension MIT-SHM
+483 [e] Initializing built-in extension XInputExtension
+483 [e] Initializing built-in extension XTEST
+483 [e] Initializing built-in extension BIG-REQUESTS
+483 [e] Initializing built-in extension SYNC
+483 [e] Initializing built-in extension XKEYBOARD
+483 [e] Initializing built-in extension XC-MISC
+483 [e] Initializing built-in extension SECURITY
+483 [e] Initializing built-in extension XINERAMA
+483 [e] Initializing built-in extension XFIXES
+483 [e] Initializing built-in extension RENDER
+483 [e] Initializing built-in extension RANDR
+483 [e] Initializing built-in extension COMPOSITE
+483 [e] Initializing built-in extension DAMAGE
+483 [e] Initializing built-in extension MIT-SCREEN-SAVER
+483 [e] Initializing built-in extension DOUBLE-BUFFER
+483 [e] Initializing built-in extension RECORD
+483 [e] Initializing built-in extension DPMS
+483 [e] Initializing built-in extension X-Resource
+483 [e] Initializing built-in extension XVideo
+483 [e] Initializing built-in extension XVideo-MotionCompensation
+483 [e] Initializing built-in extension XFree86-VidModeExtension
+483 [e] Initializing built-in extension XFree86-DGA
+483 [e] Initializing built-in extension XFree86-DRI
+483 [e] Initializing built-in extension DRI2
+483 [e] Loading extension GLX
+484 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+484 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+484 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+484 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+484 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+484 [e] startkde: Starting up...
+484 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+484 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+484 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+484 [e] Connecting to deprecated signal QDBusConnectionInterface::serviceOwnerChanged(QString,QString,QString)
+484 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+484 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+485 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+485 [e] kbuildsycoca4 running...
+487 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+487 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+487 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+488 [e] kded(3852) LayoutMemoryPersister::restoreFromFile: Failed to open layout memory xml file for reading "/home/test/.kde/share/apps/kded/session/keyboard/layout_memory.xml" error: 5 
+488 [e] kded(3852)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+488 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+488 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+488 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+488 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+488 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+488 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+488 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+488 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+488 [e] QDBusConnection: name 'org.kde.kglobalaccel' had owner '' but we thought it was ':1.10'
+488 [e] OpenGL vendor string:                   Intel Open Source Technology Center
+488 [e] OpenGL renderer string:                 Mesa DRI Intel(R) Haswell Mobile 
+488 [e] OpenGL version string:                  3.0 Mesa 10.1.3
+488 [e] OpenGL shading language version string: 1.30
+488 [e] Driver:                                 Intel
+488 [e] GPU class:                              Unknown
+488 [e] OpenGL version:                         3.0
+488 [e] GLSL version:                           1.30
+488 [e] Mesa version:                           10.1.3
+488 [e] X server version:                       1.15.1
+488 [e] Linux kernel version:                   3.8.11
+488 [e] Direct rendering:                       yes
+488 [e] Requires strict binding:                yes
+488 [e] GLSL shaders:                           yes
+488 [e] Texture NPOT support:                   yes
+489 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+489 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+489 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+492 [e] QDBusObjectPath: invalid path ""
+492 [e] QDBusObjectPath: invalid path ""
+492 [e] plasma-desktop(6456)/kdecore (services) KServiceFactory::findServiceByDesktopPath: "kde4-kmenuedit.desktop" not found
+492 [e] plasma-desktop(6456)/kdecore (services) KServiceFactory::findServiceByDesktopPath: "kde4-KMail2.desktop" not found
+493 [e] plasma-desktop(6456)/kdecore (services) KServiceFactory::findServiceByDesktopPath: "systemsettings" not found
+493 [e] plasma-desktop(6456)/libplasma Plasma::isPluginVersionCompatible: unversioned plugin detected, may result in instability 
+493 [e] link XMLID_34_ hasn't been detected!
+493 [e] link XMLID_34_ hasn't been detected!
+493 [e] link XMLID_36_ hasn't been detected!
+494 [e] plasma-desktop(6456)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+494 [e] plasma-desktop(6456)/kdecore (services) KServiceFactory::findServiceByDesktopPath: "" not found
+494 [e] file:///usr/share/kde4/apps/plasma/plasmoids/notifier/contents/ui/devicenotifier.qml:166:5: QML QDeclarativeListView_QML_20: Possible anchor loop detected on vertical anchor.
+494 [e] QGraphicsScene::addItem: item has already been added to this scene
+494 [e] X Error: BadPixmap (invalid Pixmap parameter) 4
+494 [e]   Major opcode: 54 (X_FreePixmap)
+494 [e]   Resource id:  0x200005a
+494 [e] X Error: BadPixmap (invalid Pixmap parameter) 4
+494 [e]   Major opcode: 54 (X_FreePixmap)
+494 [e]   Resource id:  0x2000051
+494 [e] X Error: BadPixmap (invalid Pixmap parameter) 4
+494 [e]   Major opcode: 54 (X_FreePixmap)
+494 [e]   Resource id:  0x2000048
+494 [e] X Error: BadPixmap (invalid Pixmap parameter) 4
+494 [e]   Major opcode: 54 (X_FreePixmap)
+494 [e]   Resource id:  0x200003f
+494 [e] X Error: BadPixmap (invalid Pixmap parameter) 4
+494 [e]   Major opcode: 54 (X_FreePixmap)
+494 [e]   Resource id:  0x2000036
+494 [e] X Error: BadPixmap (invalid Pixmap parameter) 4
+494 [e]   Major opcode: 54 (X_FreePixmap)
+494 [e]   Resource id:  0x200002d
+494 [e] X Error: BadPixmap (invalid Pixmap parameter) 4
+494 [e]   Major opcode: 54 (X_FreePixmap)
+494 [e]   Resource id:  0x2000024
+494 [e] X Error: BadPixmap (invalid Pixmap parameter) 4
+494 [e]   Major opcode: 54 (X_FreePixmap)
+494 [e]   Resource id:  0x200001b
+494 [e] link XMLID_34_ hasn't been detected!
+494 [e] link XMLID_34_ hasn't been detected!
+494 [e] link XMLID_36_ hasn't been detected!
+495 [e] plasma-desktop(6456)/libakonadi Akonadi::AgentManagerPrivate::createDBusInterface: AgentManager failed to get a valid AgentManager DBus interface. Error is: 1 "org.freedesktop.DBus.Error.NameHasNoOwner" "Could not get owner of name 'org.freedesktop.Akonadi.Control': no such name" 
+495 [e] plasma-desktop(6456)/libakonadi Akonadi::SessionPrivate::socketError: Socket error occurred: "QLocalSocket::connectToServer: Invalid name" 
+495 [e] plasma-desktop(6456)/libakonadi Akonadi::SessionPrivate::socketError: Socket error occurred: "QLocalSocket::connectToServer: Invalid name" 
+495 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+495 [e] Connecting to deprecated signal QDBusConnectionInterface::serviceOwnerChanged(QString,QString,QString)
+495 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+495 [e] search paths:  ("/usr/local/bin", "/usr/bin", "/bin", "/usr/local/games", "/usr/games", "/usr/sbin", "/usr/local/sbin", "/usr/local/libexec", "/usr/libexec", "/opt/mysql/libexec", "/opt/local/lib/mysql5/bin", "/opt/mysql/sbin") 
+495 [e] Found mysql_install_db:  "/usr/bin/mysql_install_db" 
+495 [e] Found mysqlcheck:  "/usr/bin/mysqlcheck" 
+495 [e] Installing MySQL system tables...
+495 [e] QGridLayoutEngine::addItem: Cell (0, 1) already taken
+495 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+495 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+495 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+496 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] Object::connect: No such signal QDBusAbstractInterface::StateChanged(uint)
+496 [e] [/usr/bin/nepomukservicestub] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)"
+496 [e] OK
+496 [e] Filling help tables...
+496 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+496 [e] plasma-desktop(6456)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+496 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+496 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+496 [e] "/usr/bin/kactivitymanagerd(5817)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+496 [e] "/usr/bin/kactivitymanagerd(5817)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+496 [e] "/usr/bin/kactivitymanagerd(5817)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+496 [e] OK
+496 [e] 
+496 [e] To start mysqld at boot time you have to copy
+496 [e] support-files/mysql.server to the right place for your system
+496 [e] 
+496 [e] PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+496 [e] To do so, start the server, then issue the following commands:
+496 [e] 
+496 [e] /usr/bin/mysqladmin -u root password 'new-password'
+496 [e] /usr/bin/mysqladmin -u root -h localhost password 'new-password'
+496 [e] 
+496 [e] Alternatively you can run:
+496 [e] /usr/bin/mysql_secure_installation
+496 [e] 
+496 [e] which will also give you the option of removing the test
+496 [e] databases and anonymous user created by default.  This is
+496 [e] strongly recommended for production servers.
+496 [e] 
+496 [e] See the manual for more instructions.
+496 [e] 
+496 [e] You can start the MySQL daemon with:
+496 [e] cd /usr ; /usr/bin/mysqld_safe &
+496 [e] 
+496 [e] You can test the MySQL daemon with mysql-test-run.pl
+496 [e] cd /usr/mysql-test ; perl mysql-test-run.pl
+496 [e] 
+496 [e] Please report any problems at http://bugs.mysql.com/
+496 [e] 
+497 [e] akonaditray(8440)/libakonadi Akonadi::AgentManagerPrivate::createDBusInterface: AgentManager failed to get a valid AgentManager DBus interface. Error is: 1 "org.freedesktop.DBus.Error.NameHasNoOwner" "Could not get owner of name 'org.freedesktop.Akonadi.Control': no such name" 
+497 [e] QGridLayoutEngine::addItem: Cell (0, 1) already taken
+497 [e] QGridLayoutEngine::addItem: Cell (1, 1) already taken
+497 [e] QGridLayoutEngine::addItem: Cell (2, 1) already taken
+497 [e] plasma-desktop(6456)/plasma StatusNotifierItemSource::refreshCallback: DBusMenu disabled for this application 
+500 [e] plasma-desktop(6456)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+503 [e] "/usr/bin/krunner(8471)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+503 [e] "/usr/bin/krunner(8471)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+503 [e] "/usr/bin/krunner(8471)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+504 [e] QGraphicsLinearLayout::removeAt: invalid index 1
+504 [e] krunner(8471)/kdecore (services) KServiceFactory::findServiceByDesktopPath: "searchproviders/wikit.desktop" not found
+504 [e] krunner(8471)/libplasma Plasma::Package::isValid: Could not find required file mainscript 
+507 [e] I/O warning : failed to load external entity "/home/test/.qalculate/eurofxref-daily.xml"
+507 [e] I/O warning : failed to load external entity "/home/test/.qalculate/eurofxref-daily.xml"
+508 [e] [/usr/bin/nepomukservicestub] virtual bool Soprano::Virtuoso::BackendPlugin::isAvailable() const could not find virtuoso-t binary
+508 [e] [/usr/bin/nepomukservicestub] (Soprano::PluginManager) plugin  "virtuosobackend" is not available.
+508 [e] Application '/usr/bin/nepomukservicestub nepomukstorage' exited normally...
+509 [e] mysql.columns_priv                                 OK
+509 [e] mysql.db                                           OK
+509 [e] mysql.event                                        OK
+509 [e] mysql.func                                         OK
+509 [e] mysql.general_log                                  OK
+509 [e] mysql.help_category                                OK
+509 [e] mysql.help_keyword                                 OK
+509 [e] mysql.help_relation                                OK
+509 [e] mysql.help_topic                                   OK
+509 [e] mysql.host                                         OK
+509 [e] mysql.ndb_binlog_index                             OK
+509 [e] mysql.plugin                                       OK
+509 [e] mysql.proc                                         OK
+509 [e] mysql.procs_priv                                   OK
+509 [e] mysql.proxies_priv                                 OK
+509 [e] mysql.servers                                      OK
+509 [e] mysql.slow_log                                     OK
+509 [e] mysql.tables_priv                                  OK
+509 [e] mysql.time_zone                                    OK
+509 [e] mysql.time_zone_leap_second                        OK
+509 [e] mysql.time_zone_name                               OK
+509 [e] mysql.time_zone_transition                         OK
+509 [e] mysql.time_zone_transition_type                    OK
+509 [e] mysql.user                                         OK
+509 [e] Failed to use database "akonadi" 
+509 [e] Query error: "Unknown database 'akonadi' QMYSQL: Unable to execute query" 
+509 [e] Database error: "Can't connect to local MySQL server through socket '/home/test/.local/share/akonadi/socket-localhost/mysql.socket' (2) QMYSQL: Unable to connect" 
+509 [e] Trying to create database now... 
+509 [e] Database "akonadi" opened using driver "QMYSQL" 
+509 [e] DbInitializer::run() 
+509 [e] checking table  "SchemaVersionTable" 
+509 [e] "CREATE TABLE SchemaVersionTable (version INTEGER NOT NULL DEFAULT 0)  COLLATE=utf8_general_ci DEFAULT CHARSET=utf8" 
+509 [e] "INSERT INTO SchemaVersionTable (version) VALUES (20)" 
+509 [e] checking table  "ResourceTable" 
+509 [e] "CREATE TABLE ResourceTable (id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARBINARY(255) NOT NULL UNIQUE, isVirtual BOOL DEFAULT false)  COLLATE=utf8_general_ci DEFAULT CHARSET=utf8" 
+509 [e] "INSERT INTO ResourceTable (name,isVirtual) VALUES ('akonadi_search_resource',true)" 
+509 [e] checking table  "CollectionTable" 
+509 [e] "CREATE TABLE CollectionTable (id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, remoteId VARBINARY(255), remoteRevision VARBINARY(255), name VARBINARY(255) NOT NULL, parentId BIGINT, resourceId BIGINT NOT NULL, subscribed BOOL NOT NULL DEFAULT true, cachePolicyInherit BOOL NOT NULL DEFAULT true, cachePolicyCheckInterval INTEGER NOT NULL DEFAULT -1, cachePolicyCacheTimeout INTEGER NOT NULL DEFAULT -1, cachePolicySyncOnDemand BOOL NOT NULL DEFAULT false, cachePolicyLocalParts VARBINARY(255), queryString VARBINARY(1024), queryLanguage VARBINARY(255), FOREIGN KEY (parentId) REFERENCES CollectionTable(id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (resourceId) REFERENCES ResourceTable(id) ON DELETE CASCADE ON UPDATE CASCADE)  COLLATE=utf8_general_ci DEFAULT CHARSET=utf8" 
+509 [e] adding index "CREATE UNIQUE INDEX CollectionTable_parentAndNameIndex ON CollectionTable (parentId,name)" 
+509 [e] "INSERT INTO CollectionTable (resourceId,name,parentId) VALUES (1,'Search',NULL)" 
+509 [e] checking table  "MimeTypeTable" 
+509 [e] "CREATE TABLE MimeTypeTable (id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARBINARY(255) NOT NULL UNIQUE)  COLLATE=utf8_general_ci DEFAULT CHARSET=utf8" 
+509 [e] "INSERT INTO MimeTypeTable (name) VALUES ('application/octet-stream')" 
+509 [e] "INSERT INTO MimeTypeTable (name) VALUES ('message/rfc822')" 
+509 [e] "INSERT INTO MimeTypeTable (name) VALUES ('text/calendar')" 
+509 [e] "INSERT INTO MimeTypeTable (name) VALUES ('text/vcard')" 
+509 [e] "INSERT INTO MimeTypeTable (name) VALUES ('inode/directory')" 
+509 [e] checking table  "PimItemTable" 
+509 [e] "CREATE TABLE PimItemTable (id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, rev INTEGER NOT NULL DEFAULT 0, remoteId VARBINARY(255), remoteRevision VARBINARY(255), collectionId BIGINT, mimeTypeId BIGINT, datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, atime TIMESTAMP, dirty BOOL, size BIGINT NOT NULL DEFAULT 0, FOREIGN KEY (collectionId) REFERENCES CollectionTable(id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (mimeTypeId) REFERENCES MimeTypeTable(id) ON DELETE CASCADE ON UPDATE CASCADE)  COLLATE=utf8_general_ci DEFAULT CHARSET=utf8" 
+509 [e] adding index "CREATE  INDEX PimItemTable_collectionIndex ON PimItemTable (collectionId)" 
+509 [e] checking table  "FlagTable" 
+509 [e] "CREATE TABLE FlagTable (id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARBINARY(255) NOT NULL UNIQUE)  COLLATE=utf8_general_ci DEFAULT CHARSET=utf8" 
+509 [e] "INSERT INTO FlagTable (name) VALUES ('important')" 
+509 [e] "INSERT INTO FlagTable (name) VALUES ('has_attachment')" 
+509 [e] "INSERT INTO FlagTable (name) VALUES ('spam')" 
+509 [e] "INSERT INTO FlagTable (name) VALUES ('\\ANSWERED')" 
+509 [e] "INSERT INTO FlagTable (name) VALUES ('\\FLAGGED')" 
+509 [e] "INSERT INTO FlagTable (name) VALUES ('\\DELETED')" 
+509 [e] "INSERT INTO FlagTable (name) VALUES ('\\SEEN')" 
+509 [e] "INSERT INTO FlagTable (name) VALUES ('\\DRAFT')" 
+509 [e] checking table  "PartTable" 
+509 [e] "CREATE TABLE PartTable (id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, pimItemId BIGINT NOT NULL, name VARBINARY(255) NOT NULL, data LONGBLOB, datasize BIGINT NOT NULL, version INTEGER DEFAULT 0, external BOOL DEFAULT false, FOREIGN KEY (pimItemId) REFERENCES PimItemTable(id) ON DELETE CASCADE ON UPDATE CASCADE)  COLLATE=utf8_general_ci DEFAULT CHARSET=utf8" 
+509 [e] adding index "CREATE UNIQUE INDEX PartTable_pimItemIdNameIndex ON PartTable (pimItemId,name)" 
+509 [e] adding index "CREATE  INDEX PartTable_pimItemNameIndex ON PartTable (name)" 
+510 [e] checking table  "CollectionAttributeTable" 
+510 [e] "CREATE TABLE CollectionAttributeTable (id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, collectionId BIGINT NOT NULL, type LONGBLOB NOT NULL, value LONGBLOB, FOREIGN KEY (collectionId) REFERENCES CollectionTable(id) ON DELETE CASCADE ON UPDATE CASCADE)  COLLATE=utf8_general_ci DEFAULT CHARSET=utf8" 
+510 [e] adding index "CREATE  INDEX CollectionAttributeTable_collectionIndex ON CollectionAttributeTable (collectionId)" 
+510 [e] checking relation  "PimItemFlagRelation" 
+510 [e] "CREATE TABLE PimItemFlagRelation (PimItem_id INTEGER REFERENCES PimItemTable(id), Flag_id INTEGER REFERENCES FlagTable(id), PRIMARY KEY (PimItem_id, Flag_id))" 
+510 [e] checking relation  "CollectionMimeTypeRelation" 
+510 [e] "CREATE TABLE CollectionMimeTypeRelation (Collection_id INTEGER REFERENCES CollectionTable(id), MimeType_id INTEGER REFERENCES MimeTypeTable(id), PRIMARY KEY (Collection_id, MimeType_id))" 
+510 [e] checking relation  "CollectionPimItemRelation" 
+510 [e] "CREATE TABLE CollectionPimItemRelation (Collection_id INTEGER REFERENCES CollectionTable(id), PimItem_id INTEGER REFERENCES PimItemTable(id), PRIMARY KEY (Collection_id, PimItem_id))" 
+510 [e] DbInitializer::run() done 
+510 [e] skipping update 2 
+510 [e] skipping update 3 
+510 [e] skipping update 4 
+510 [e] skipping update 8 
+510 [e] skipping update 10 
+510 [e] skipping update 12 
+510 [e] skipping update 13 
+510 [e] skipping update 14 
+510 [e] skipping update 15 
+510 [e] skipping update 16 
+510 [e] skipping update 17 
+510 [e] skipping update 18 
+510 [e] skipping update 19 
+510 [e] skipping update 20 
+510 [e] Database "akonadi" opened using driver "QMYSQL" 
+510 [e] Database "akonadi" opened using driver "QMYSQL" 
+510 [e] Nepomuk Query Server not available 
+510 [e] DataStore::unhideAllPimItems() 
+510 [e] Connecting to deprecated signal QDBusConnectionInterface::serviceOwnerChanged(QString,QString,QString)
+510 [e] Database "akonadi" opened using driver "QMYSQL" 
+510 [e] PLUGINS:  "/usr/share/akonadi/agents" 
+510 [e] PLUGINS:  ("akonadinepomukfeederagent.desktop", "akonotesresource.desktop", "birthdaysresource.desktop", "calendarsearchagent.desktop", "contactsresource.desktop", "davgroupwareresource.desktop", "icalresource.desktop", "imapresource.desktop", "invitationsagent.desktop", "kabcresource.desktop", "kalarmdirresource.desktop", "kalarmresource.desktop", "kcalresource.desktop", "kdeaccountsresource.desktop", "knutresource.desktop", "kolabproxyresource.desktop", "localbookmarksresource.desktop", "maildirresource.desktop", "maildispatcheragent.desktop", "mboxresource.desktop", "microblog.desktop", "mixedmaildirresource.desktop", "mtdummyresource.desktop", "nepomuktagresource.desktop", "nntpresource.desktop", "notesresource.desktop", "openxchangeresource.desktop", "pop3resource.desktop", "vcarddirresource.desktop", "vcardresource.desktop") 
+510 [e] search paths:  ("/usr/local/bin", "/usr/bin", "/bin", "/usr/local/games", "/usr/games") 
+510 [e] PLUGINS inserting:  "akonadi_nepomuk_feeder" 0 ("Unique", "Autostart", "NoConfig") 
+510 [e] PLUGINS inserting:  "akonadi_akonotes_resource" 0 ("Resource", "Notes") 
+510 [e] PLUGINS inserting:  "akonadi_birthdays_resource" 0 ("Resource", "Unique") 
+510 [e] PLUGINS inserting:  "akonadi_calendarsearch_agent" 0 ("Unique", "NoConfig") 
+510 [e] PLUGINS inserting:  "akonadi_contacts_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_davgroupware_resource" 0 ("Resource", "FreeBusyProvider") 
+510 [e] PLUGINS inserting:  "akonadi_ical_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_imap_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_invitations_agent" 0 ("NoConfig") 
+510 [e] PLUGINS inserting:  "akonadi_kabc_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_kalarm_dir_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_kalarm_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_kcal_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_kdeaccounts_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_knut_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_kolabproxy_resource" 0 ("Resource", "Unique") 
+510 [e] PLUGINS inserting:  "akonadi_localbookmarks_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_maildir_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_maildispatcher_agent" 0 ("Unique", "Autostart") 
+510 [e] PLUGINS inserting:  "akonadi_mbox_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_microblog_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_mixedmaildir_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_mailtransport_dummy_resource" 0 ("Resource", "MailTransport") 
+510 [e] PLUGINS inserting:  "akonadi_nepomuktag_resource" 0 ("Resource", "Virtual", "Unique", "NoConfig") 
+510 [e] PLUGINS inserting:  "akonadi_nntp_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_notes_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_openxchange_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_pop3_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_vcarddir_resource" 0 ("Resource") 
+510 [e] PLUGINS inserting:  "akonadi_vcard_resource" 0 ("Resource") 
+510 [e] Akonadi server is now operational. 
+510 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+510 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+510 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+510 [e] Database "akonadi" opened using driver "QMYSQL" 
+510 [e] Database "akonadi" opened using driver "QMYSQL" 
+510 [e] search paths:  ("/home/test/.kde/lib/kde4/plugins/", "/usr/lib/kde4/plugins/", "/usr/lib/x86_64-linux-gnu/qt4/plugins", "/usr/lib/qt4/plugins", "/usr/bin", "/usr/lib/kde4/plugins", "/home/test/.kde/lib/kde4/", "/usr/lib/kde4/") 
+510 [e] "/usr/bin/akonadi_nepomuk_feeder(10111)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+510 [e] "/usr/bin/akonadi_nepomuk_feeder(10111)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+510 [e] "/usr/bin/akonadi_nepomuk_feeder(10111)" Soprano: "QLocalSocket::connectToServer: Invalid name"
+510 [e] Known subscriber "akonadi_nepomuk_feeder" subscribes again 
+510 [e] Agent instance created in separate process. 
+510 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+510 [e] Database "akonadi" opened using driver "QMYSQL" 
+510 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+510 [e] AkonadiAgentServer(10145)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+510 [e] Database "akonadi" opened using driver "QMYSQL" 
+510 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+510 [e] Nepomuk server already running.
+510 [e] Known subscriber "akonadi_maildispatcher_agent" subscribes again 
+510 [e] Known subscriber "akonadi_maildispatcher_agent" subscribes again 
+510 [e] Known subscriber "akonadi_maildispatcher_agent" subscribes again 
+510 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+511 [e] Database "akonadi" opened using driver "QMYSQL" 
+511 [e] search paths:  ("/home/test/.kde/lib/kde4/plugins/", "/usr/lib/kde4/plugins/", "/usr/lib/x86_64-linux-gnu/qt4/plugins", "/usr/lib/qt4/plugins", "/usr/bin", "/usr/lib/kde4/plugins", "/home/test/.kde/lib/kde4/", "/usr/lib/kde4/") 
+511 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+511 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+511 [e] void Akonadi::NotificationSource::addClientServiceName(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.45", ":1.47") 
+511 [e] Agent instance created in separate process. 
+511 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+511 [e] search paths:  ("/home/test/.kde/lib/kde4/plugins/", "/usr/lib/kde4/plugins/", "/usr/lib/x86_64-linux-gnu/qt4/plugins", "/usr/lib/qt4/plugins", "/usr/bin", "/usr/lib/kde4/plugins", "/home/test/.kde/lib/kde4/", "/usr/lib/kde4/") 
+511 [e] Database "akonadi" opened using driver "QMYSQL" 
+511 [e] AkonadiAgentServer(10225)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+511 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+511 [e] void Akonadi::NotificationSource::addClientServiceName(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.45", ":1.47", ":1.48") 
+511 [e] AkonadiAgentServer(10225)/kio (KDirWatch) KDirWatchPrivate::removeEntry: doesn't know "/home/test/.kde/share/apps/korganizer" 
+511 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+511 [e] Agent instance created in separate process. 
+511 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+511 [e] search paths:  ("/home/test/.kde/lib/kde4/plugins/", "/usr/lib/kde4/plugins/", "/usr/lib/x86_64-linux-gnu/qt4/plugins", "/usr/lib/qt4/plugins", "/usr/bin", "/usr/lib/kde4/plugins", "/home/test/.kde/lib/kde4/", "/usr/lib/kde4/") 
+511 [e] Database "akonadi" opened using driver "QMYSQL" 
+511 [e] AkonadiAgentServer(10240)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+511 [e] AkonadiAgentServer(10240)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+511 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+511 [e] void Akonadi::NotificationSource::addClientServiceName(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.45", ":1.47", ":1.48", ":1.49") 
+511 [e] akonadi_maildispatcher_agent(10113)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+511 [e] Agent instance created in separate process. 
+511 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+511 [e] Database "akonadi" opened using driver "QMYSQL" 
+511 [e] AkonadiAgentServer(10290)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+511 [e] AkonadiAgentServer(10290)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+511 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+511 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+511 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+511 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+511 [e] unnamed app(10420) main: Migrator instance already running for type  "contact" 
+512 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+512 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+512 [e] QDBusConnection: session D-Bus connection created before QCoreApplication. Application may misbehave.
+512 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+512 [e] unnamed app(10572) main: Migrator instance already running for type  "calendar" 
+512 [e] X Error: BadWindow (invalid Window parameter) 3
+512 [e]   Major opcode: 20 (X_GetProperty)
+512 [e]   Resource id:  0x3600012
+543 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+543 [t]         # Test croutoncycle as a bonus
+543 [t]         export DISPLAY="`croutoncycle display`"
+543 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+543 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+543 [t]             exit 1
+543 [t]         fi
+543 [t]         if [ -n "" ]; then
+543 [t]             echo "" | tr ";" "
+543 [t] " | xte
+543 [t]             sleep 60
+543 [t]         fi
+543 [t]         # Snapshot!
+543 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+544 [e] Entering /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+544 [e] stdin: is not a tty
+544 [e] + croutoncycle display
+544 [e] + export DISPLAY=:2
+544 [e] + [ :2 = :0 -o :2 = aura ]
+544 [e] + [ -n  ]
+544 [e] + xwd -root
+544 [e] + convert -quality 75 xwd:- /home/test/screenshot-kde.jpg
+545 [e] Not unmounting /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise as another instance is using it.
+545 [t] PASS: enter-chroot -n precise sh -exc 
+545 [t]         # Test croutoncycle as a bonus
+545 [t]         export DISPLAY="`croutoncycle display`"
+545 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+545 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+545 [t]             exit 1
+545 [t]         fi
+545 [t]         if [ -n "" ]; then
+545 [t]             echo "" | tr ";" "
+545 [t] " | xte
+545 [t]             sleep 60
+545 [t]         fi
+545 [t]         # Snapshot!
+545 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+545 [t] LAUNCHING: unmount-chroot -f -y precise
+545 [e] Unmounting /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+549 [e] Failed to open connection to "system" message bus: Failed to connect to socket /var/host/dbus/system_bus_socket: No such file or directory
+551 [e] Sending SIGTERM to processes under /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+551 [e] void Akonadi::NotificationSource::serviceUnregistered(const QString&) Notification source "akonadi_nepomuk_feeder" now serving: () 
+551 [e] void Akonadi::NotificationSource::unsubscribe() "akonadi_nepomuk_feeder" 
+551 [e] ProcessControl: Application '/usr/bin/akonadi_nepomuk_feeder' stopped unexpectedly (Process crashed)
+551 [e] Application '/usr/bin/akonadi_nepomuk_feeder' crashed! 1 restarts left.
+551 [e] void Akonadi::NotificationSource::serviceUnregistered(const QString&) Notification source "akonadi_maildispatcher_agent" now serving: () 
+551 [e] void Akonadi::NotificationSource::unsubscribe() "akonadi_maildispatcher_agent" 
+551 [e] ProcessControl: Application '/usr/bin/akonadi_maildispatcher_agent' stopped unexpectedly (Process crashed)
+551 [e] Application '/usr/bin/akonadi_maildispatcher_agent' crashed! 1 restarts left.
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' stopped unexpectedly (Process crashed)
+551 [e] Lost connection to resource "org.freedesktop.Akonadi.Resource.akonadi_contacts_resource_0" , discarding cached interface 
+551 [e] Application '/usr/bin/akonadi_agent_launcher' crashed! 1 restarts left.
+551 [e] void Akonadi::NotificationSource::serviceUnregistered(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.47", ":1.48", ":1.49") 
+551 [e] Lost connection to resource "org.freedesktop.Akonadi.Resource.akonadi_ical_resource_0" , discarding cached interface 
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' stopped unexpectedly (Process crashed)
+551 [e] Application '/usr/bin/akonadi_agent_launcher' crashed! 1 restarts left.
+551 [e] void Akonadi::NotificationSource::serviceUnregistered(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.48", ":1.49") 
+551 [e] Lost connection to resource "org.freedesktop.Akonadi.Resource.akonadi_maildir_resource_0" , discarding cached interface 
+551 [e] void Akonadi::NotificationSource::serviceUnregistered(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.49") 
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' stopped unexpectedly (Process crashed)
+551 [e] Application '/usr/bin/akonadi_agent_launcher' crashed! 1 restarts left.
+551 [e] Lost connection to resource "org.freedesktop.Akonadi.Resource.akonadi_akonotes_resource_0" , discarding cached interface 
+551 [e] void Akonadi::NotificationSource::serviceUnregistered(const QString&) Notification source "AkonadiAgentServer" now serving: () 
+551 [e] void Akonadi::NotificationSource::unsubscribe() "AkonadiAgentServer" 
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' stopped unexpectedly (Process crashed)
+551 [e] Application '/usr/bin/akonadi_agent_launcher' crashed! 1 restarts left.
+551 [e] Terminated
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] search paths:  ("/home/test/.kde/lib/kde4/plugins/", "/usr/lib/kde4/plugins/", "/usr/lib/x86_64-linux-gnu/qt4/plugins", "/usr/lib/qt4/plugins", "/usr/bin", "/usr/lib/kde4/plugins", "/home/test/.kde/lib/kde4/", "/usr/lib/kde4/") 
+551 [e] search paths:  ("/home/test/.kde/lib/kde4/plugins/", "/usr/lib/kde4/plugins/", "/usr/lib/x86_64-linux-gnu/qt4/plugins", "/usr/lib/qt4/plugins", "/usr/bin", "/usr/lib/kde4/plugins", "/home/test/.kde/lib/kde4/", "/usr/lib/kde4/") 
+551 [e] search paths:  ("/home/test/.kde/lib/kde4/plugins/", "/usr/lib/kde4/plugins/", "/usr/lib/x86_64-linux-gnu/qt4/plugins", "/usr/lib/qt4/plugins", "/usr/bin", "/usr/lib/kde4/plugins", "/home/test/.kde/lib/kde4/", "/usr/lib/kde4/") 
+551 [e] search paths:  ("/home/test/.kde/lib/kde4/plugins/", "/usr/lib/kde4/plugins/", "/usr/lib/x86_64-linux-gnu/qt4/plugins", "/usr/lib/qt4/plugins", "/usr/bin", "/usr/lib/kde4/plugins", "/home/test/.kde/lib/kde4/", "/usr/lib/kde4/") 
+551 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+551 [e] void Akonadi::NotificationSource::addClientServiceName(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.59", ":1.57") 
+551 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+551 [e] void Akonadi::NotificationSource::addClientServiceName(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.59", ":1.57", ":1.60") 
+551 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+551 [e] void Akonadi::NotificationSource::addClientServiceName(const QString&) Notification source "AkonadiAgentServer" now serving: (":1.59", ":1.57", ":1.60", ":1.62") 
+551 [e] Agent instance created in separate process. 
+551 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+551 [e] Database "akonadi" opened using driver "QMYSQL" 
+551 [e] Agent instance created in separate process. 
+551 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+551 [e] Database "akonadi" opened using driver "QMYSQL" 
+551 [e] Agent instance created in separate process. 
+551 [e] Agent instance created in separate process. 
+551 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+551 [e] Known subscriber "AkonadiAgentServer" subscribes again 
+551 [e] Database "akonadi" opened using driver "QMYSQL" 
+551 [e] Database "akonadi" opened using driver "QMYSQL" 
+551 [e] 
+551 [e] Session terminated, terminating shell.../usr/bin/xinit: connection to X server lost
+551 [e] 
+551 [i] GOT SIGHUP
+551 [e] waiting for X server to shut down Hangup
+551 [e] akonadi_agent_launcher: Fatal IO error: client killed
+551 [e] kdeinit4: Fatal IO error: client killed
+551 [e] kdeinit4: sending SIGHUP to children.
+551 [e] NepomukServer(8407)/kdecore (KConfigSkeleton) KCoreConfigSkeleton::writeConfig:
+551 [e] klauncher: Exiting on signal 1
+551 [e] kdeinit4: sending SIGTERM to children.
+551 [e] kdeinit4: Exit.
+551 [e] QProcess: Destroyed while process is still running.
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+551 [e] kded4: Fatal IO error: client killed
+551 [e] kglobalaccel: Fatal IO error: client killed
+551 [e] ksmserver: Fatal IO error: client killed
+551 [e] kdeinit4: Fatal IO error: client killed
+551 [e] kdeinit4: sending SIGHUP to children.
+551 [e] ICE default IO error handler doing an exit(), pid = 18035, errno = 11
+551 [e] ICE default IO error handler doing an exit(), pid = 18039, errno = 11
+551 [e] ICE default IO error handler doing an exit(), pid = 18042, errno = 11
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] void Akonadi::NotificationSource::serviceUnregistered(const QString&) Notification source "plasma-desktop" now serving: () 
+551 [e] void Akonadi::NotificationSource::unsubscribe() "plasma-desktop" 
+551 [e] Control process died, committing suicide!
+551 [e] terminating service threads 
+551 [e] Could not connect to D-Bus server: org.freedesktop.DBus.Error.NoServer: Failed to connect to socket /tmp/dbus-VBWlFSclI0: Connection refused
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+551 [e] startkde: Shutting down...
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+551 [e] KCrash: Application 'akonadi_maildispatcher_agent' crashing...
+551 [e] KCrash: Application 'akonadi_nepomuk_feeder' crashing...
+551 [e] KCrash: Attempting to start /usr/lib/kde4/libexec/drkonqi from kdeinit
+551 [e] Warning: connect() failed: : No such file or directory
+551 [e] KCrash: Attempting to start /usr/lib/kde4/libexec/drkonqi directly
+551 [e] KCrash: Attempting to start /usr/lib/kde4/libexec/drkonqi from kdeinit
+551 [e] Warning: connect() failed: : No such file or directory
+551 [e] KCrash: Attempting to start /usr/lib/kde4/libexec/drkonqi directly
+551 [e] kdeinit4_wrapper: Warning: connect(/home/test/.kde/socket-localhost/kdeinit4__2) failed: : No such file or directory
+551 [e] Error: Can not contact kdeinit4!
+551 [e] startkde: Running shutdown scripts...
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] Terminated
+551 [e] Running exit commands...
+551 [e] akonadi_agent_launcher: cannot connect to X server :2
+551 [e] akonadi_agent_launcher: cannot connect to X server :2
+551 [e] akonadi_agent_launcher: cannot connect to X server :2
+551 [e] akonadi_agent_launcher: cannot connect to X server :2
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+551 [e] drkonqi: cannot connect to X server :2
+551 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+551 [e] (EE) Server terminated successfully (0). Closing log file.
+551 [e] akonadi_agent_launcher: cannot connect to X server :2
+551 [e] terminating connection threads 
+551 [e] stopping db process 
+551 [e] ProcessControl: Application '/usr/bin/akonadi_maildispatcher_agent' returned with exit code 253 (Unknown error)
+551 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+552 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+552 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+552 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+552 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+552 [e] "/usr/bin/akonadi_agent_launcher" crashed too often and will not be restarted! 
+552 [e] akonadi_agent_launcher: cannot connect to X server :2
+552 [e] drkonqi: cannot connect to X server :2
+552 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+552 [e] "/usr/bin/akonadi_agent_launcher" crashed too often and will not be restarted! 
+552 [e] ProcessControl: Application '/usr/bin/akonadi_nepomuk_feeder' returned with exit code 253 (Unknown error)
+552 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+552 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+552 [e] akonadi_agent_launcher: cannot connect to X server :2
+552 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+552 [e] "/usr/bin/akonadi_agent_launcher" crashed too often and will not be restarted! 
+552 [e] akonadi_agent_launcher: cannot connect to X server :2
+552 [e] ProcessControl: Application '/usr/bin/akonadi_agent_launcher' returned with exit code 1 (Unknown error)
+552 [e] "/usr/bin/akonadi_agent_launcher" crashed too often and will not be restarted! 
+552 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+552 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+552 [e] akonadi_maildispatcher_agent: cannot connect to X server :2
+552 [e] ProcessControl: Application '/usr/bin/akonadi_maildispatcher_agent' returned with exit code 1 (Unknown error)
+552 [e] akonadi_nepomuk_feeder: cannot connect to X server :2
+552 [e] ProcessControl: Application '/usr/bin/akonadi_nepomuk_feeder' returned with exit code 1 (Unknown error)
+552 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+552 [e] Unable to load library icui18n "Cannot load library icui18n: (libicui18n.so.48: cannot open shared object file: No such file or directory)" 
+552 [e] akonadi_nepomuk_feeder: cannot connect to X server :2
+552 [e] ProcessControl: Application '/usr/bin/akonadi_nepomuk_feeder' returned with exit code 1 (Unknown error)
+552 [e] "/usr/bin/akonadi_nepomuk_feeder" crashed too often and will not be restarted! 
+552 [e] akonadi_maildispatcher_agent: cannot connect to X server :2
+552 [e] ProcessControl: Application '/usr/bin/akonadi_maildispatcher_agent' returned with exit code 1 (Unknown error)
+552 [e] "/usr/bin/akonadi_maildispatcher_agent" crashed too often and will not be restarted! 
+552 [e] Shutting down AkonadiServer...
+552 [e] 
+552 [e] /usr/bin/xinit: unexpected signal 15
+552 [e]  ...terminated.
+553 [e] Unmounting /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+553 [e] kdeinit4: sending SIGTERM to children.
+553 [e] kdeinit4: Exit.
+554 [t] PASS: unmount-chroot -f -y precise
+554 [t] LAUNCHING: delete-chroot -y precise
+554 [e] Unmounting /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+555 [e]   Deleting /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise...
+561 [e] Finished deleting /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots/precise
+561 [t] PASS: delete-chroot -y precise
+561 [e] + echo Running trap...
+561 [e] + [ -d /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots ]
+561 [e] + sh -e /usr/local/autotest/tmp/tmpzWAhXx_platform_Crouton/host-bin/unmount-chroot -a -f -y -c /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC/chroots
+561 [i] Running trap...
+561 [e] + pkill -9 -P 6125
+561 [e] + umount -l /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC
+561 [e] + rm -rf --one-file-system /usr/local/test-20141114151541 prefix/w3-kde.precise.0.iXC
+562 [t] TEST PASSED: w3-kde.precise.0 finished with exit code 0

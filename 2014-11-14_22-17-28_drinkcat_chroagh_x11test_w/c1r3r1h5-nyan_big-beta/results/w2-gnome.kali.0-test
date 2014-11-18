@@ -1,0 +1,51 @@
+2014-11-14 18:54:21: BEGIN TEST w2-gnome.kali.0
+6 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/kali-x11-snapshot.tar.gz -n kali
+48 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/kali-x11-snapshot.tar.gz -n kali
+48 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w2-gnome.kali.0.f2g/target.5J5wB8 -U -n kali
+48 [t] BEGIN /usr/local/test-20141114151908 prefix/w2-gnome.kali.0.f2g/target.5J5wB8 CONTENTS
+48 [t] REQUIRES=''
+48 [t] . "${TARGETSDIR:="$PWD"}/common"
+48 [t] ### Append to prepare.sh:
+48 [t] set -x
+48 [t] install --minimal x11-apps imagemagick xautomation
+48 [t] 
+48 [t] set +x
+48 [t] END /usr/local/test-20141114151908 prefix/w2-gnome.kali.0.f2g/target.5J5wB8 CONTENTS
+162 [t] PASS: crouton -U -n kali
+162 [t] LAUNCHING: crouton -u -n kali -t gnome
+1037 [t] PASS: crouton -u -n kali -t gnome
+1037 [t] LAUNCHING: startgnome -b -n kali
+1039 [t] PASS: startgnome -b -n kali
+1099 [t] LAUNCHING: enter-chroot -n kali sh -exc 
+1099 [t]         # Test croutoncycle as a bonus
+1099 [t]         export DISPLAY="`croutoncycle display`"
+1099 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1099 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1099 [t]             exit 1
+1099 [t]         fi
+1099 [t]         if [ -n "" ]; then
+1099 [t]             echo "" | tr ";" "
+1099 [t] " | xte
+1099 [t]             sleep 60
+1099 [t]         fi
+1099 [t]         # Snapshot!
+1099 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1101 [t] PASS: enter-chroot -n kali sh -exc 
+1101 [t]         # Test croutoncycle as a bonus
+1101 [t]         export DISPLAY="`croutoncycle display`"
+1101 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1101 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1101 [t]             exit 1
+1101 [t]         fi
+1101 [t]         if [ -n "" ]; then
+1101 [t]             echo "" | tr ";" "
+1101 [t] " | xte
+1101 [t]             sleep 60
+1101 [t]         fi
+1101 [t]         # Snapshot!
+1101 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+1101 [t] LAUNCHING: unmount-chroot -f -y kali
+1111 [t] PASS: unmount-chroot -f -y kali
+1111 [t] LAUNCHING: delete-chroot -y kali
+1128 [t] PASS: delete-chroot -y kali
+1129 [t] TEST PASSED: w2-gnome.kali.0 finished with exit code 0

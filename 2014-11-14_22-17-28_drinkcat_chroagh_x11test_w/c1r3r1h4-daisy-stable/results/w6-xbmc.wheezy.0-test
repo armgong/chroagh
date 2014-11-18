@@ -1,0 +1,55 @@
+2014-11-14 17:20:05: BEGIN TEST w6-xbmc.wheezy.0
+0 [t] LAUNCHING: crouton -r wheezy -f /usr/local/test-20141114160443 prefix/wheezy-bootstrap.tar.gz -d
+103 [t] PASS: crouton -r wheezy -f /usr/local/test-20141114160443 prefix/wheezy-bootstrap.tar.gz -d
+103 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/wheezy-bootstrap.tar.gz -t x11 -n wheezy
+1094 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/wheezy-bootstrap.tar.gz -t x11 -n wheezy
+1094 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114160443 prefix/wheezy-x11-snapshot.tar.gz wheezy
+1253 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114160443 prefix/wheezy-x11-snapshot.tar.gz wheezy
+1253 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w6-xbmc.wheezy.0.k1R/target.hmBfvE -U -n wheezy
+1253 [t] BEGIN /usr/local/test-20141114160443 prefix/w6-xbmc.wheezy.0.k1R/target.hmBfvE CONTENTS
+1253 [t] REQUIRES=''
+1253 [t] . "${TARGETSDIR:="$PWD"}/common"
+1253 [t] ### Append to prepare.sh:
+1253 [t] set -x
+1253 [t] install --minimal x11-apps imagemagick xautomation
+1253 [t] 
+1253 [t] set +x
+1253 [t] END /usr/local/test-20141114160443 prefix/w6-xbmc.wheezy.0.k1R/target.hmBfvE CONTENTS
+1308 [t] PASS: crouton -U -n wheezy
+1308 [t] LAUNCHING: crouton -u -n wheezy -t xbmc
+1699 [t] PASS: crouton -u -n wheezy -t xbmc
+1699 [t] LAUNCHING: startxbmc -b -n wheezy
+1701 [t] PASS: startxbmc -b -n wheezy
+1761 [t] LAUNCHING: enter-chroot -n wheezy sh -exc 
+1761 [t]         # Test croutoncycle as a bonus
+1761 [t]         export DISPLAY="`croutoncycle display`"
+1761 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1761 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1761 [t]             exit 1
+1761 [t]         fi
+1761 [t]         if [ -n "" ]; then
+1761 [t]             echo "" | tr ";" "
+1761 [t] " | xte
+1761 [t]             sleep 60
+1761 [t]         fi
+1761 [t]         # Snapshot!
+1761 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+1768 [t] PASS: enter-chroot -n wheezy sh -exc 
+1768 [t]         # Test croutoncycle as a bonus
+1768 [t]         export DISPLAY="`croutoncycle display`"
+1768 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1768 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1768 [t]             exit 1
+1768 [t]         fi
+1768 [t]         if [ -n "" ]; then
+1768 [t]             echo "" | tr ";" "
+1768 [t] " | xte
+1768 [t]             sleep 60
+1768 [t]         fi
+1768 [t]         # Snapshot!
+1768 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+1768 [t] LAUNCHING: unmount-chroot -f -y wheezy
+1783 [t] PASS: unmount-chroot -f -y wheezy
+1783 [t] LAUNCHING: delete-chroot -y wheezy
+1811 [t] PASS: delete-chroot -y wheezy
+1812 [t] TEST PASSED: w6-xbmc.wheezy.0 finished with exit code 0

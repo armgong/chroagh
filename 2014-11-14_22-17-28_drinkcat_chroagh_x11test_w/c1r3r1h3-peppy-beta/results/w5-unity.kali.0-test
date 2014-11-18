@@ -1,0 +1,18 @@
+2014-11-14 18:13:41: BEGIN TEST w5-unity.kali.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114151541 prefix/kali-x11-snapshot.tar.gz -n kali
+63 [t] PASS: crouton -f /usr/local/test-20141114151541 prefix/kali-x11-snapshot.tar.gz -n kali
+63 [t] LAUNCHING: crouton -T /usr/local/test-20141114151541 prefix/w5-unity.kali.0.Ssu/target.xrM5zc -U -n kali
+63 [t] BEGIN /usr/local/test-20141114151541 prefix/w5-unity.kali.0.Ssu/target.xrM5zc CONTENTS
+63 [t] REQUIRES=''
+63 [t] . "${TARGETSDIR:="$PWD"}/common"
+63 [t] ### Append to prepare.sh:
+63 [t] set -x
+63 [t] install --minimal x11-apps imagemagick xautomation
+63 [t] 
+63 [t] set +x
+63 [t] END /usr/local/test-20141114151541 prefix/w5-unity.kali.0.Ssu/target.xrM5zc CONTENTS
+152 [t] PASS: crouton -U -n kali
+152 [t] LAUNCHING: crouton -u -n kali -t unity
+158 [t] FAIL with code 99: crouton -u -n kali -t unity
+158 [t] Target unity failed on kali, as expected (unsupported combination).
+160 [t] TEST PASSED: w5-unity.kali.0 finished with exit code 0

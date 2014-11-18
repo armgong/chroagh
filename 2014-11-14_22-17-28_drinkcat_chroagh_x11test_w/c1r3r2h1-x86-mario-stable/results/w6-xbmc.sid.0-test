@@ -1,0 +1,51 @@
+2014-11-14 21:26:23: BEGIN TEST w6-xbmc.sid.0
+3 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/sid-x11-snapshot.tar.gz -n sid
+151 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/sid-x11-snapshot.tar.gz -n sid
+151 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w6-xbmc.sid.0.PGu/target.3UjXKE -U -n sid
+151 [t] BEGIN /usr/local/test-20141114155905 prefix/w6-xbmc.sid.0.PGu/target.3UjXKE CONTENTS
+151 [t] REQUIRES=''
+151 [t] . "${TARGETSDIR:="$PWD"}/common"
+151 [t] ### Append to prepare.sh:
+151 [t] set -x
+151 [t] install --minimal x11-apps imagemagick xautomation
+151 [t] 
+151 [t] set +x
+151 [t] END /usr/local/test-20141114155905 prefix/w6-xbmc.sid.0.PGu/target.3UjXKE CONTENTS
+261 [t] PASS: crouton -U -n sid
+261 [t] LAUNCHING: crouton -u -n sid -t xbmc
+803 [t] PASS: crouton -u -n sid -t xbmc
+803 [t] LAUNCHING: startxbmc -b -n sid
+806 [t] PASS: startxbmc -b -n sid
+866 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+866 [t]         # Test croutoncycle as a bonus
+866 [t]         export DISPLAY="`croutoncycle display`"
+866 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+866 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+866 [t]             exit 1
+866 [t]         fi
+866 [t]         if [ -n "" ]; then
+866 [t]             echo "" | tr ";" "
+866 [t] " | xte
+866 [t]             sleep 60
+866 [t]         fi
+866 [t]         # Snapshot!
+866 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+869 [t] PASS: enter-chroot -n sid sh -exc 
+869 [t]         # Test croutoncycle as a bonus
+869 [t]         export DISPLAY="`croutoncycle display`"
+869 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+869 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+869 [t]             exit 1
+869 [t]         fi
+869 [t]         if [ -n "" ]; then
+869 [t]             echo "" | tr ";" "
+869 [t] " | xte
+869 [t]             sleep 60
+869 [t]         fi
+869 [t]         # Snapshot!
+869 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+869 [t] LAUNCHING: unmount-chroot -f -y sid
+881 [t] PASS: unmount-chroot -f -y sid
+881 [t] LAUNCHING: delete-chroot -y sid
+900 [t] PASS: delete-chroot -y sid
+901 [t] TEST PASSED: w6-xbmc.sid.0 finished with exit code 0

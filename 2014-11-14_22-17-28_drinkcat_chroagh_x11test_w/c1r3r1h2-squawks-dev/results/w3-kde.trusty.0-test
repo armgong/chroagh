@@ -1,0 +1,55 @@
+2014-11-14 16:05:58: BEGIN TEST w3-kde.trusty.0
+4 [t] LAUNCHING: crouton -r trusty -f /usr/local/test-20141114154527 prefix/trusty-bootstrap.tar.gz -d
+114 [t] PASS: crouton -r trusty -f /usr/local/test-20141114154527 prefix/trusty-bootstrap.tar.gz -d
+114 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+1056 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+1056 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114154527 prefix/trusty-x11-snapshot.tar.gz trusty
+1145 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114154527 prefix/trusty-x11-snapshot.tar.gz trusty
+1146 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w3-kde.trusty.0.oYX/target.ycnQpX -U -n trusty
+1146 [t] BEGIN /usr/local/test-20141114154527 prefix/w3-kde.trusty.0.oYX/target.ycnQpX CONTENTS
+1146 [t] REQUIRES=''
+1146 [t] . "${TARGETSDIR:="$PWD"}/common"
+1146 [t] ### Append to prepare.sh:
+1146 [t] set -x
+1146 [t] install --minimal x11-apps imagemagick xautomation
+1146 [t] 
+1146 [t] set +x
+1146 [t] END /usr/local/test-20141114154527 prefix/w3-kde.trusty.0.oYX/target.ycnQpX CONTENTS
+1261 [t] PASS: crouton -U -n trusty
+1261 [t] LAUNCHING: crouton -u -n trusty -t kde
+1961 [t] PASS: crouton -u -n trusty -t kde
+1961 [t] LAUNCHING: startkde -b -n trusty
+1963 [t] PASS: startkde -b -n trusty
+2023 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+2023 [t]         # Test croutoncycle as a bonus
+2023 [t]         export DISPLAY="`croutoncycle display`"
+2023 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2023 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2023 [t]             exit 1
+2023 [t]         fi
+2023 [t]         if [ -n "" ]; then
+2023 [t]             echo "" | tr ";" "
+2023 [t] " | xte
+2023 [t]             sleep 60
+2023 [t]         fi
+2023 [t]         # Snapshot!
+2023 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+2025 [t] PASS: enter-chroot -n trusty sh -exc 
+2025 [t]         # Test croutoncycle as a bonus
+2025 [t]         export DISPLAY="`croutoncycle display`"
+2025 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2025 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2025 [t]             exit 1
+2025 [t]         fi
+2025 [t]         if [ -n "" ]; then
+2025 [t]             echo "" | tr ";" "
+2025 [t] " | xte
+2025 [t]             sleep 60
+2025 [t]         fi
+2025 [t]         # Snapshot!
+2025 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+2025 [t] LAUNCHING: unmount-chroot -f -y trusty
+2035 [t] PASS: unmount-chroot -f -y trusty
+2035 [t] LAUNCHING: delete-chroot -y trusty
+2042 [t] PASS: delete-chroot -y trusty
+2043 [t] TEST PASSED: w3-kde.trusty.0 finished with exit code 0

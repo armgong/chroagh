@@ -1,0 +1,55 @@
+2014-11-14 15:59:07: BEGIN TEST w7-xfce.precise.0
+0 [t] LAUNCHING: crouton -r precise -f /usr/local/test-20141114155905 prefix/precise-bootstrap.tar.gz -d
+149 [t] PASS: crouton -r precise -f /usr/local/test-20141114155905 prefix/precise-bootstrap.tar.gz -d
+149 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/precise-bootstrap.tar.gz -t x11 -n precise
+1354 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/precise-bootstrap.tar.gz -t x11 -n precise
+1354 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114155905 prefix/precise-x11-snapshot.tar.gz precise
+1539 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114155905 prefix/precise-x11-snapshot.tar.gz precise
+1539 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w7-xfce.precise.0.0on/target.sVJxS3 -U -n precise
+1539 [t] BEGIN /usr/local/test-20141114155905 prefix/w7-xfce.precise.0.0on/target.sVJxS3 CONTENTS
+1539 [t] REQUIRES=''
+1539 [t] . "${TARGETSDIR:="$PWD"}/common"
+1539 [t] ### Append to prepare.sh:
+1539 [t] set -x
+1539 [t] install --minimal x11-apps imagemagick xautomation
+1539 [t] 
+1539 [t] set +x
+1539 [t] END /usr/local/test-20141114155905 prefix/w7-xfce.precise.0.0on/target.sVJxS3 CONTENTS
+1591 [t] PASS: crouton -U -n precise
+1591 [t] LAUNCHING: crouton -u -n precise -t xfce
+2343 [t] PASS: crouton -u -n precise -t xfce
+2343 [t] LAUNCHING: startxfce4 -b -n precise
+2345 [t] PASS: startxfce4 -b -n precise
+2405 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+2405 [t]         # Test croutoncycle as a bonus
+2405 [t]         export DISPLAY="`croutoncycle display`"
+2405 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2405 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2405 [t]             exit 1
+2405 [t]         fi
+2405 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+2405 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+2405 [t] " | xte
+2405 [t]             sleep 60
+2405 [t]         fi
+2405 [t]         # Snapshot!
+2405 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+2470 [t] PASS: enter-chroot -n precise sh -exc 
+2470 [t]         # Test croutoncycle as a bonus
+2470 [t]         export DISPLAY="`croutoncycle display`"
+2470 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2470 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2470 [t]             exit 1
+2470 [t]         fi
+2470 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+2470 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+2470 [t] " | xte
+2470 [t]             sleep 60
+2470 [t]         fi
+2470 [t]         # Snapshot!
+2470 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+2470 [t] LAUNCHING: unmount-chroot -f -y precise
+2481 [t] PASS: unmount-chroot -f -y precise
+2481 [t] LAUNCHING: delete-chroot -y precise
+2512 [t] PASS: delete-chroot -y precise
+2513 [t] TEST PASSED: w7-xfce.precise.0 finished with exit code 0

@@ -1,0 +1,55 @@
+2014-11-14 16:40:02: BEGIN TEST w4-lxde.utopic.0
+2 [t] LAUNCHING: crouton -r utopic -f /usr/local/test-20141114154527 prefix/utopic-bootstrap.tar.gz -d
+108 [t] PASS: crouton -r utopic -f /usr/local/test-20141114154527 prefix/utopic-bootstrap.tar.gz -d
+108 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1334 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1334 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz utopic
+1425 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz utopic
+1426 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w4-lxde.utopic.0.yva/target.jYSDLJ -U -n utopic
+1426 [t] BEGIN /usr/local/test-20141114154527 prefix/w4-lxde.utopic.0.yva/target.jYSDLJ CONTENTS
+1426 [t] REQUIRES=''
+1426 [t] . "${TARGETSDIR:="$PWD"}/common"
+1426 [t] ### Append to prepare.sh:
+1426 [t] set -x
+1426 [t] install --minimal x11-apps imagemagick xautomation
+1426 [t] 
+1426 [t] set +x
+1426 [t] END /usr/local/test-20141114154527 prefix/w4-lxde.utopic.0.yva/target.jYSDLJ CONTENTS
+1483 [t] PASS: crouton -U -n utopic
+1483 [t] LAUNCHING: crouton -u -n utopic -t lxde
+2276 [t] PASS: crouton -u -n utopic -t lxde
+2276 [t] LAUNCHING: startlxde -b -n utopic
+2280 [t] PASS: startlxde -b -n utopic
+2340 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+2340 [t]         # Test croutoncycle as a bonus
+2340 [t]         export DISPLAY="`croutoncycle display`"
+2340 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2340 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2340 [t]             exit 1
+2340 [t]         fi
+2340 [t]         if [ -n "" ]; then
+2340 [t]             echo "" | tr ";" "
+2340 [t] " | xte
+2340 [t]             sleep 60
+2340 [t]         fi
+2340 [t]         # Snapshot!
+2340 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+2342 [t] PASS: enter-chroot -n utopic sh -exc 
+2342 [t]         # Test croutoncycle as a bonus
+2342 [t]         export DISPLAY="`croutoncycle display`"
+2342 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2342 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2342 [t]             exit 1
+2342 [t]         fi
+2342 [t]         if [ -n "" ]; then
+2342 [t]             echo "" | tr ";" "
+2342 [t] " | xte
+2342 [t]             sleep 60
+2342 [t]         fi
+2342 [t]         # Snapshot!
+2342 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+2342 [t] LAUNCHING: unmount-chroot -f -y utopic
+2358 [t] PASS: unmount-chroot -f -y utopic
+2358 [t] LAUNCHING: delete-chroot -y utopic
+2375 [t] PASS: delete-chroot -y utopic
+2376 [t] TEST PASSED: w4-lxde.utopic.0 finished with exit code 0

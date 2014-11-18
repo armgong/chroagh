@@ -1,0 +1,6 @@
+2014-11-14 16:04:45: BEGIN TEST w5-unity.jessie.0
+0 [t] LAUNCHING: crouton -r jessie -f /usr/local/test-20141114160443 prefix/jessie-bootstrap.tar.gz -d
+115 [t] PASS: crouton -r jessie -f /usr/local/test-20141114160443 prefix/jessie-bootstrap.tar.gz -d
+115 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/jessie-bootstrap.tar.gz -t x11 -n jessie
+958 [t] FAIL with code 100: crouton -f /usr/local/test-20141114160443 prefix/jessie-bootstrap.tar.gz -t x11 -n jessie
+963 [t] TEST FAILED: w5-unity.jessie.0 finished with exit code 100

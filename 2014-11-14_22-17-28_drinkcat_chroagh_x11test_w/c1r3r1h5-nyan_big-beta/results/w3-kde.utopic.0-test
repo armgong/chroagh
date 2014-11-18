@@ -1,0 +1,18 @@
+2014-11-14 16:50:02: BEGIN TEST w3-kde.utopic.0
+0 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/utopic-x11-snapshot.tar.gz -n utopic
+56 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/utopic-x11-snapshot.tar.gz -n utopic
+56 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w3-kde.utopic.0.g4J/target.EkGQ2g -U -n utopic
+56 [t] BEGIN /usr/local/test-20141114151908 prefix/w3-kde.utopic.0.g4J/target.EkGQ2g CONTENTS
+56 [t] REQUIRES=''
+56 [t] . "${TARGETSDIR:="$PWD"}/common"
+56 [t] ### Append to prepare.sh:
+56 [t] set -x
+56 [t] install --minimal x11-apps imagemagick xautomation
+56 [t] 
+56 [t] set +x
+56 [t] END /usr/local/test-20141114151908 prefix/w3-kde.utopic.0.g4J/target.EkGQ2g CONTENTS
+120 [t] PASS: crouton -U -n utopic
+120 [t] LAUNCHING: crouton -u -n utopic -t kde
+150 [t] FAIL with code 100: crouton -u -n utopic -t kde
+150 [t] Target kde failed on utopic.
+155 [t] TEST FAILED: w3-kde.utopic.0 finished with exit code 100

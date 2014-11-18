@@ -1,0 +1,11 @@
+2014-11-14 22:30:01: BEGIN TEST w2-gnome.utopic.1
+0 [t] Waiting for snapshot for utopic-x11 to complete...
+506 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+507 [i] Running trap...
+507 [e] + echo Running trap...
+507 [e] + [ -d /usr/local/test-20141114155905 prefix/w2-gnome.utopic.1.lfu/chroots ]
+507 [e] + pkill -9 -P 12274
+507 [t] FAIL with code 2: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+507 [e] + umount -l /usr/local/test-20141114155905 prefix/w2-gnome.utopic.1.lfu
+507 [e] + rm -rf --one-file-system /usr/local/test-20141114155905 prefix/w2-gnome.utopic.1.lfu
+508 [t] TEST FAILED: w2-gnome.utopic.1 finished with exit code 2

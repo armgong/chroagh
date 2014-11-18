@@ -1,0 +1,269 @@
+2014-11-14 20:59:14: BEGIN TEST w1-e17.kali.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/kali-x11-snapshot.tar.gz -n kali
+4 [e]   Restoring /usr/local/test-20141114155732 prefix/kali-x11-snapshot.tar.gz to /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/chroots/kali...
+77 [e] Finished restoring /usr/local/test-20141114155732 prefix/kali-x11-snapshot.tar.gz to /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/chroots/kali
+77 [e] WARNING: USB booting is enabled; consider disabling it.
+77 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+77 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+82 [e] Preparing chroot environment...
+83 [e] Installing croutonversion into the chroot...
+83 [e] Installing host-dbus into the chroot...
+83 [e] Installing host-x11 into the chroot...
+83 [e] Installing pulseaudio-default.pa into the chroot...
+83 [e] Installing brightness into the chroot...
+83 [e] Installing croutoncycle into the chroot...
+83 [e] Installing croutonpowerd into the chroot...
+83 [e] Installing croutonwheel into the chroot...
+83 [e] Installing croutonxinitrc-wrapper into the chroot...
+83 [e] Installing xinit into the chroot...
+83 [e] Installing xbindkeysrc.scm into the chroot...
+83 [e] Installing xserverrc-xephyr into the chroot...
+83 [e] Installing xserverrc-local.example into the chroot...
+83 [e] Installing enter-chroot into the host...
+83 [e] Installing delete-chroot into the host...
+83 [e] Installing edit-chroot into the host...
+83 [e] Installing mount-chroot into the host...
+83 [e] Installing unmount-chroot into the host...
+84 [e] Installing crash_reporter_wrapper into the host...
+84 [e] Done! You can enter the chroot using enter-chroot.
+87 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/kali-x11-snapshot.tar.gz -n kali
+87 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/target.5iEw3p -U -n kali
+87 [t] BEGIN /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/target.5iEw3p CONTENTS
+87 [t] REQUIRES=''
+87 [t] . "${TARGETSDIR:="$PWD"}/common"
+87 [t] ### Append to prepare.sh:
+87 [t] set -x
+87 [t] install --minimal x11-apps imagemagick xautomation
+87 [t] 
+87 [t] set +x
+87 [t] END /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/target.5iEw3p CONTENTS
+87 [e] /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/chroots/kali already exists; updating it...
+91 [e] WARNING: USB booting is enabled; consider disabling it.
+91 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+91 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+96 [e] Preparing chroot environment...
+97 [e] Installing enter-chroot into the host...
+97 [e] Installing delete-chroot into the host...
+97 [e] Installing edit-chroot into the host...
+97 [e] Installing mount-chroot into the host...
+97 [e] Installing unmount-chroot into the host...
+97 [e] Installing crash_reporter_wrapper into the host...
+98 [e] stdin: is not a tty
+99 [e] Installing target /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/target.5iEw3p...
+99 [e] + install --minimal x11-apps imagemagick xautomation
+99 [e] + distropkgs --minimal x11-apps imagemagick xautomation
+99 [e] + local descriptor desc pkgname rank option optionname optiondistro optionrel
+99 [e] + pkgname=.
+99 [e] + rank=0
+99 [e] + desc=--minimal,
+99 [e] + [ -n --minimal, ]
+99 [e] + option=--minimal
+99 [e] + optionname=--minimal
+99 [e] + desc=
+99 [e] + [ --minimal = --minimal ]
+99 [e] + [ 0 -lt 1 ]
+99 [e] + rank=1
+99 [e] + pkgname=--minimal
+99 [e] + continue
+99 [e] + [ -n  ]
+99 [e] + [ ! --minimal = . ]
+99 [e] + echo -n --minimal 
+99 [e] + pkgname=.
+99 [e] + rank=0
+99 [e] + desc=x11-apps,
+99 [e] + [ -n x11-apps, ]
+99 [e] + option=x11-apps
+99 [e] + optionname=x11-apps
+99 [e] + desc=
+99 [e] + [ x11-apps = x11-apps ]
+99 [e] + [ 0 -lt 1 ]
+99 [e] + rank=1
+99 [e] + pkgname=x11-apps
+99 [e] + continue
+99 [e] + [ -n  ]
+99 [e] + [ ! x11-apps = . ]
+99 [e] + echo -n x11-apps 
+99 [e] + pkgname=.
+99 [e] + rank=0
+99 [e] + desc=imagemagick,
+99 [e] + [ -n imagemagick, ]
+99 [e] + option=imagemagick
+99 [e] + optionname=imagemagick
+99 [e] + desc=
+99 [e] + [ imagemagick = imagemagick ]
+99 [e] + [ 0 -lt 1 ]
+99 [e] + rank=1
+99 [e] + pkgname=imagemagick
+99 [e] + continue
+99 [e] + [ -n  ]
+99 [e] + [ ! imagemagick = . ]
+99 [e] + echo -n imagemagick 
+99 [e] + pkgname=.
+99 [e] + rank=0
+99 [e] + desc=xautomation,
+99 [e] + [ -n xautomation, ]
+99 [e] + option=xautomation
+99 [e] + optionname=xautomation
+99 [e] + desc=
+99 [e] + [ xautomation = xautomation ]
+99 [e] + [ 0 -lt 1 ]
+99 [e] + rank=1
+99 [e] + pkgname=xautomation
+99 [e] + continue
+99 [e] + [ -n  ]
+99 [e] + [ ! xautomation = . ]
+99 [e] + echo -n xautomation 
+99 [e] + install_dist --minimal x11-apps imagemagick xautomation
+99 [e] + local pkgs= pkgsasdeps= params= asdeps=
+99 [e] + [ ! 4 = 0 ]
+99 [e] + [ --minimal = --minimal ]
+99 [e] + params=--no-install-recommends
+99 [e] + shift
+99 [e] + [ ! 3 = 0 ]
+99 [e] + [ x11-apps = --minimal ]
+99 [e] + [ x11-apps = --asdeps ]
+99 [e] + break
+99 [e] + [ ! 3 = 0 ]
+99 [e] + [ x11-apps = -- ]
+99 [e] + pkgs= x11-apps
+99 [e] + shift
+99 [e] + [ ! 2 = 0 ]
+99 [e] + [ imagemagick = -- ]
+99 [e] + pkgs= x11-apps imagemagick
+99 [e] + shift
+99 [e] + [ ! 1 = 0 ]
+99 [e] + [ xautomation = -- ]
+99 [e] + pkgs= x11-apps imagemagick xautomation
+99 [e] + shift
+99 [e] + [ ! 0 = 0 ]
+99 [e] + [ -n  ]
+99 [e] + list_uninstalled_dist -
+99 [e] + local suffix=- pkg
+99 [e] + shift
+99 [e] + apt-get -y --no-install-recommends install x11-apps imagemagick xautomation
+111 [i] Reading package lists...
+112 [i] Building dependency tree...
+112 [i] Reading state information...
+112 [i] xautomation is already the newest version.
+112 [i] The following extra packages will be installed:
+112 [i]   hicolor-icon-theme imagemagick-common libffi5 libglib2.0-0 libjasper1
+112 [i]   libjbig0 libjpeg8 liblcms2-2 liblqr-1-0 libmagickcore5 libmagickwand5
+112 [i]   libtiff4 libxml2
+112 [i] Suggested packages:
+112 [i]   imagemagick-doc autotrace cups-bsd lpr lprng curl enscript ffmpeg gimp
+112 [i]   gnuplot grads hp2xx html2ps libwmf-bin mplayer povray radiance sane-utils
+112 [i]   texlive-base-bin transfig libjasper-runtime liblcms2-utils mesa-utils
+112 [i] Recommended packages:
+112 [i]   libmagickcore5-extra ghostscript netpbm ufraw-batch libglib2.0-data
+112 [i]   shared-mime-info gsfonts xml-core
+112 [i] The following NEW packages will be installed:
+112 [i]   hicolor-icon-theme imagemagick imagemagick-common libffi5 libglib2.0-0
+112 [i]   libjasper1 libjbig0 libjpeg8 liblcms2-2 liblqr-1-0 libmagickcore5
+112 [i]   libmagickwand5 libtiff4 libxml2 x11-apps
+113 [i] 0 upgraded, 15 newly installed, 0 to remove and 0 not upgraded.
+113 [i] Need to get 6578 kB of archives.
+113 [i] After this operation, 15.3 MB of additional disk space will be used.
+113 [i] Get:1 http://http.kali.org/ kali/main imagemagick-common all 8:6.7.7.10-5+deb7u3 [128 kB]
+114 [i] Get:2 http://security.kali.org/kali-security/ kali/updates/main libxml2 armhf 2.8.0+dfsg1-7+wheezy2 [786 kB]
+115 [i] Get:3 http://http.kali.org/ kali/main libffi5 armhf 3.0.10-3+b1 [22.3 kB]
+115 [i] Get:4 http://http.kali.org/ kali/main libglib2.0-0 armhf 2.33.12+really2.32.4-5 [1709 kB]
+116 [i] Get:5 http://http.kali.org/ kali/main libjpeg8 armhf 8d-1+deb7u1 [122 kB]
+117 [i] Get:6 http://http.kali.org/ kali/main libjasper1 armhf 1.900.1-13 [133 kB]
+117 [i] Get:7 http://http.kali.org/ kali/main liblcms2-2 armhf 2.2+git20110628-2.2+deb7u1 [112 kB]
+118 [i] Get:8 http://http.kali.org/ kali/main liblqr-1-0 armhf 0.4.1-2 [24.9 kB]
+118 [i] Get:9 http://http.kali.org/ kali/main libjbig0 armhf 2.0-2+deb7u1 [29.4 kB]
+118 [i] Get:10 http://http.kali.org/ kali/main libtiff4 armhf 3.9.6-11 [178 kB]
+118 [i] Get:11 http://http.kali.org/ kali/main libmagickcore5 armhf 8:6.7.7.10-5+deb7u3 [1955 kB]
+120 [i] Get:12 http://http.kali.org/ kali/main libmagickwand5 armhf 8:6.7.7.10-5+deb7u3 [444 kB]
+120 [i] Get:13 http://http.kali.org/ kali/main hicolor-icon-theme all 0.12-1 [11.7 kB]
+120 [i] Get:14 http://http.kali.org/ kali/main imagemagick armhf 8:6.7.7.10-5+deb7u3 [284 kB]
+120 [i] Get:15 http://http.kali.org/ kali/main x11-apps armhf 7.7~2 [638 kB]
+122 [i] Fetched 6578 kB in 8s (797 kB/s)
+123 [i] Selecting previously unselected package imagemagick-common.
+123 [i] (Reading database ... 13478 files and directories currently installed.)
+123 [i] Unpacking imagemagick-common (from .../imagemagick-common_8%3a6.7.7.10-5+deb7u3_all.deb) ...
+123 [i] Selecting previously unselected package libffi5:armhf.
+123 [i] Unpacking libffi5:armhf (from .../libffi5_3.0.10-3+b1_armhf.deb) ...
+124 [i] Selecting previously unselected package libglib2.0-0:armhf.
+124 [i] Unpacking libglib2.0-0:armhf (from .../libglib2.0-0_2.33.12+really2.32.4-5_armhf.deb) ...
+125 [i] Selecting previously unselected package libjpeg8:armhf.
+125 [i] Unpacking libjpeg8:armhf (from .../libjpeg8_8d-1+deb7u1_armhf.deb) ...
+128 [i] Selecting previously unselected package libjasper1:armhf.
+128 [i] Unpacking libjasper1:armhf (from .../libjasper1_1.900.1-13_armhf.deb) ...
+128 [i] Selecting previously unselected package liblcms2-2:armhf.
+128 [i] Unpacking liblcms2-2:armhf (from .../liblcms2-2_2.2+git20110628-2.2+deb7u1_armhf.deb) ...
+129 [i] Selecting previously unselected package liblqr-1-0:armhf.
+129 [i] Unpacking liblqr-1-0:armhf (from .../liblqr-1-0_0.4.1-2_armhf.deb) ...
+129 [i] Selecting previously unselected package libjbig0:armhf.
+129 [i] Unpacking libjbig0:armhf (from .../libjbig0_2.0-2+deb7u1_armhf.deb) ...
+132 [i] Selecting previously unselected package libtiff4:armhf.
+132 [i] Unpacking libtiff4:armhf (from .../libtiff4_3.9.6-11_armhf.deb) ...
+133 [i] Selecting previously unselected package libxml2:armhf.
+133 [i] Unpacking libxml2:armhf (from .../libxml2_2.8.0+dfsg1-7+wheezy2_armhf.deb) ...
+133 [i] Selecting previously unselected package libmagickcore5:armhf.
+133 [i] Unpacking libmagickcore5:armhf (from .../libmagickcore5_8%3a6.7.7.10-5+deb7u3_armhf.deb) ...
+135 [i] Selecting previously unselected package libmagickwand5:armhf.
+135 [i] Unpacking libmagickwand5:armhf (from .../libmagickwand5_8%3a6.7.7.10-5+deb7u3_armhf.deb) ...
+135 [i] Selecting previously unselected package hicolor-icon-theme.
+135 [i] Unpacking hicolor-icon-theme (from .../hicolor-icon-theme_0.12-1_all.deb) ...
+140 [i] Selecting previously unselected package imagemagick.
+140 [i] Unpacking imagemagick (from .../imagemagick_8%3a6.7.7.10-5+deb7u3_armhf.deb) ...
+142 [i] Selecting previously unselected package x11-apps.
+142 [i] Unpacking x11-apps (from .../x11-apps_7.7~2_armhf.deb) ...
+143 [i] Processing triggers for man-db ...
+147 [i] Setting up imagemagick-common (8:6.7.7.10-5+deb7u3) ...
+148 [i] Setting up libffi5:armhf (3.0.10-3+b1) ...
+148 [i] Setting up libglib2.0-0:armhf (2.33.12+really2.32.4-5) ...
+148 [i] No schema files found: doing nothing.
+148 [i] Setting up libjpeg8:armhf (8d-1+deb7u1) ...
+148 [i] Setting up libjasper1:armhf (1.900.1-13) ...
+148 [i] Setting up liblcms2-2:armhf (2.2+git20110628-2.2+deb7u1) ...
+148 [i] Setting up liblqr-1-0:armhf (0.4.1-2) ...
+149 [i] Setting up libjbig0:armhf (2.0-2+deb7u1) ...
+149 [i] Setting up libtiff4:armhf (3.9.6-11) ...
+149 [i] Setting up libxml2:armhf (2.8.0+dfsg1-7+wheezy2) ...
+149 [i] Setting up libmagickcore5:armhf (8:6.7.7.10-5+deb7u3) ...
+149 [i] Setting up libmagickwand5:armhf (8:6.7.7.10-5+deb7u3) ...
+149 [i] Setting up hicolor-icon-theme (0.12-1) ...
+149 [i] Setting up imagemagick (8:6.7.7.10-5+deb7u3) ...
+149 [i] update-alternatives: using /usr/bin/compare.im6 to provide /usr/bin/compare (compare) in auto mode
+149 [i] update-alternatives: using /usr/bin/animate.im6 to provide /usr/bin/animate (animate) in auto mode
+149 [i] update-alternatives: using /usr/bin/convert.im6 to provide /usr/bin/convert (convert) in auto mode
+150 [i] update-alternatives: using /usr/bin/composite.im6 to provide /usr/bin/composite (composite) in auto mode
+150 [i] update-alternatives: using /usr/bin/conjure.im6 to provide /usr/bin/conjure (conjure) in auto mode
+150 [i] update-alternatives: using /usr/bin/import.im6 to provide /usr/bin/import (import) in auto mode
+150 [i] update-alternatives: using /usr/bin/identify.im6 to provide /usr/bin/identify (identify) in auto mode
+150 [i] update-alternatives: using /usr/bin/stream.im6 to provide /usr/bin/stream (stream) in auto mode
+150 [i] update-alternatives: using /usr/bin/display.im6 to provide /usr/bin/display (display) in auto mode
+150 [i] update-alternatives: using /usr/bin/montage.im6 to provide /usr/bin/montage (montage) in auto mode
+150 [i] update-alternatives: using /usr/bin/mogrify.im6 to provide /usr/bin/mogrify (mogrify) in auto mode
+150 [i] Setting up x11-apps (7.7~2) ...
+152 [e] + [ -n  ]
+152 [e] + set +x
+152 [e] Installing target post-common...
+152 [e] Cleaning up...
+152 [i] Reading package lists...
+153 [i] Building dependency tree...
+153 [i] Reading state information...
+154 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+156 [e] Unmounting /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/chroots/kali...
+160 [e] Done! You can enter the chroot using enter-chroot.
+169 [t] PASS: crouton -U -n kali
+169 [t] LAUNCHING: crouton -u -n kali -t e17
+169 [e] /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/chroots/kali already exists; updating it...
+170 [e] WARNING: USB booting is enabled; consider disabling it.
+170 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+170 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+175 [e] Preparing chroot environment...
+175 [e] e17 target is not supported on wheezy/kali.
+180 [e] + echo Running trap...
+180 [e] + [ -d /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/chroots ]
+180 [e] + sh -e /usr/local/autotest/tmp/tmpyXo1iR_platform_Crouton/host-bin/unmount-chroot -a -f -y -c /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/chroots
+180 [i] Running trap...
+180 [t] FAIL with code 99: crouton -u -n kali -t e17
+180 [t] Target e17 failed on kali, as expected (unsupported combination).
+180 [e] Unmounting /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd/chroots/kali...
+183 [e] + pkill -9 -P 2414
+183 [e] + umount -l /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd
+183 [e] + rm -rf --one-file-system /usr/local/test-20141114155732 prefix/w1-e17.kali.0.6sd
+193 [t] TEST PASSED: w1-e17.kali.0 finished with exit code 0

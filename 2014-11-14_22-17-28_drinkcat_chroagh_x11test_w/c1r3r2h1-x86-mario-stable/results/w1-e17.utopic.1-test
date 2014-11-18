@@ -1,0 +1,5 @@
+2014-11-14 22:28:59: BEGIN TEST w1-e17.utopic.1
+3 [t] Waiting for snapshot for utopic-x11 to complete...
+56 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+57 [t] FAIL with code 2: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+58 [t] TEST FAILED: w1-e17.utopic.1 finished with exit code 2

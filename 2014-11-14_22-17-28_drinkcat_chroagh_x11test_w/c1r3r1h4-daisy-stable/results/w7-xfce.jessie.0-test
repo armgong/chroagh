@@ -1,0 +1,51 @@
+2014-11-14 18:47:02: BEGIN TEST w7-xfce.jessie.0
+2 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/jessie-x11-snapshot.tar.gz -n jessie
+129 [t] PASS: crouton -f /usr/local/test-20141114160443 prefix/jessie-x11-snapshot.tar.gz -n jessie
+129 [t] LAUNCHING: crouton -T /usr/local/test-20141114160443 prefix/w7-xfce.jessie.0.xyp/target.7PXNTe -U -n jessie
+129 [t] BEGIN /usr/local/test-20141114160443 prefix/w7-xfce.jessie.0.xyp/target.7PXNTe CONTENTS
+129 [t] REQUIRES=''
+129 [t] . "${TARGETSDIR:="$PWD"}/common"
+129 [t] ### Append to prepare.sh:
+129 [t] set -x
+129 [t] install --minimal x11-apps imagemagick xautomation
+129 [t] 
+129 [t] set +x
+129 [t] END /usr/local/test-20141114160443 prefix/w7-xfce.jessie.0.xyp/target.7PXNTe CONTENTS
+219 [t] PASS: crouton -U -n jessie
+219 [t] LAUNCHING: crouton -u -n jessie -t xfce
+1666 [t] PASS: crouton -u -n jessie -t xfce
+1666 [t] LAUNCHING: startxfce4 -b -n jessie
+1669 [t] PASS: startxfce4 -b -n jessie
+1729 [t] LAUNCHING: enter-chroot -n jessie sh -exc 
+1729 [t]         # Test croutoncycle as a bonus
+1729 [t]         export DISPLAY="`croutoncycle display`"
+1729 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1729 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1729 [t]             exit 1
+1729 [t]         fi
+1729 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1729 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1729 [t] " | xte
+1729 [t]             sleep 60
+1729 [t]         fi
+1729 [t]         # Snapshot!
+1729 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1796 [t] PASS: enter-chroot -n jessie sh -exc 
+1796 [t]         # Test croutoncycle as a bonus
+1796 [t]         export DISPLAY="`croutoncycle display`"
+1796 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1796 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1796 [t]             exit 1
+1796 [t]         fi
+1796 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1796 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1796 [t] " | xte
+1796 [t]             sleep 60
+1796 [t]         fi
+1796 [t]         # Snapshot!
+1796 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1797 [t] LAUNCHING: unmount-chroot -f -y jessie
+1806 [t] PASS: unmount-chroot -f -y jessie
+1806 [t] LAUNCHING: delete-chroot -y jessie
+1853 [t] PASS: delete-chroot -y jessie
+1855 [t] TEST PASSED: w7-xfce.jessie.0 finished with exit code 0

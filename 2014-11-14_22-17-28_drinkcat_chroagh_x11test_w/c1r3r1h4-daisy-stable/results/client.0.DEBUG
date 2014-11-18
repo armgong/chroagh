@@ -1,0 +1,719 @@
+11/14 16:04:41.248 INFO |       job:0184| Writing results to /usr/local/autotest/results/default
+11/14 16:04:41.250 DEBUG|  base_job:0244| Importing client.sysinfo from state file /usr/local/autotest/control.autoserv.state
+11/14 16:04:41.251 DEBUG|  base_job:0244| Importing global_properties.tag from state file /usr/local/autotest/control.autoserv.state
+11/14 16:04:41.251 DEBUG|  base_job:0244| Importing global_properties.test_retry from state file /usr/local/autotest/control.autoserv.state
+11/14 16:04:41.251 DEBUG|  base_job:0244| Importing global_properties.last_boot_tag from state file /usr/local/autotest/control.autoserv.state
+11/14 16:04:41.260 DEBUG|       job:0993| Initializing the state engine
+11/14 16:04:41.262 DEBUG|  base_job:0348| Persistent state client.steps now set to []
+11/14 16:04:41.266 DEBUG|  base_job:0348| Persistent state client.harness now set to 'autoserv'
+11/14 16:04:41.268 DEBUG|       job:1016| Persistent option harness now set to autoserv
+11/14 16:04:41.277 DEBUG|       job:1016| Persistent option harness_args now set to None
+11/14 16:04:41.277 DEBUG|   harness:0090| Selected harness: autoserv
+11/14 16:04:41.308 DEBUG|base_utils:0148| Running 'mkdir -p /usr/local/autotest/results/default/sysinfo/var/spool'
+11/14 16:04:41.327 DEBUG|base_utils:0148| Running 'rsync --no-perms --chmod=ugo+r -a --exclude=autoserv* --exclude=*.core /var/spool/crash /usr/local/autotest/results/default/sysinfo/var/spool'
+11/14 16:04:41.385 DEBUG|base_utils:0148| Running 'rm -rf /var/spool/crash/*'
+11/14 16:04:41.523 DEBUG|base_utils:0148| Running 'gzip -9 "/usr/local/autotest/results/default/sysinfo/dmesg"'
+11/14 16:04:41.593 INFO |       job:0211| START	----	----	timestamp=1416009881	localtime=Nov 14 16:04:41	
+11/14 16:04:41.613 DEBUG|  base_job:0348| Persistent state client._record_indent now set to 1
+11/14 16:04:41.617 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest'
+11/14 16:04:41.630 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest/packages.checksum'
+11/14 16:04:41.641 INFO |base_packa:0164| Fetching packages.checksum from http://172.19.140.1:8082/static/daisy-release/R38-6158.70.0/autotest/packages to /usr/local/autotest/packages.checksum
+11/14 16:04:41.643 DEBUG|base_utils:0148| Running 'wget --connect-timeout=15 --retry-connrefused --wait=5 -nv http://172.19.140.1:8082/static/daisy-release/R38-6158.70.0/autotest/packages/packages.checksum -O /usr/local/autotest/packages.checksum'
+11/14 16:04:41.663 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest/packages.checksum'
+11/14 16:04:41.680 DEBUG|base_packa:0184| Successfully fetched packages.checksum from http://172.19.140.1:8082/static/daisy-release/R38-6158.70.0/autotest/packages/packages.checksum
+11/14 16:04:41.681 DEBUG|base_utils:0148| Running 'cat /etc/lsb-release'
+11/14 16:04:41.691 DEBUG|base_utils:0238| [stdout] CHROMEOS_RELEASE_APPID={D851316B-7E57-4805-A7CE-01829AC1443E}
+11/14 16:04:41.693 DEBUG|base_utils:0238| [stdout] CHROMEOS_BOARD_APPID={D851316B-7E57-4805-A7CE-01829AC1443E}
+11/14 16:04:41.693 DEBUG|base_utils:0238| [stdout] CHROMEOS_CANARY_APPID={90F229CE-83E2-4FAF-8479-E368A34938B1}
+11/14 16:04:41.694 DEBUG|base_utils:0238| [stdout] CHROMEOS_RELEASE_BOARD=daisy
+11/14 16:04:41.694 DEBUG|base_utils:0238| [stdout] CHROMEOS_RELEASE_DESCRIPTION=6158.70.0 (Official Build) dev-channel daisy test
+11/14 16:04:41.694 DEBUG|base_utils:0238| [stdout] CHROMEOS_RELEASE_NAME=Chrome OS
+11/14 16:04:41.695 DEBUG|base_utils:0238| [stdout] CHROMEOS_RELEASE_TRACK=testimage-channel
+11/14 16:04:41.695 DEBUG|base_utils:0238| [stdout] CHROMEOS_RELEASE_VERSION=6158.70.0
+11/14 16:04:41.696 DEBUG|base_utils:0238| [stdout] GOOGLE_RELEASE=6158.70.0
+11/14 16:04:41.696 DEBUG|base_utils:0238| [stdout] CHROMEOS_AUSERVER=https://tools.google.com/service/update2
+11/14 16:04:41.696 DEBUG|base_utils:0238| [stdout] CHROMEOS_DEVSERVER=
+11/14 16:04:41.697 DEBUG|base_utils:0148| Running 'curl 'http://172.19.140.1:8082/stage?archive_url=gs://drinkcat-crouton/crouton-test/packages-8fa5ee0b3fb59bc8da2b84768f2ab43e&files=packages.checksum,test-platform_Crouton.tar.bz2''
+11/14 16:04:41.728 ERROR|base_utils:0238| [stderr]   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+11/14 16:04:41.729 ERROR|base_utils:0238| [stderr]                                  Dload  Upload   Total   Spent    Left  Speed
+11/14 16:04:41.735 ERROR|base_utils:0238| [stderr]   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100     7  100     7    0     0    560      0 --:--:-- --:--:-- --:--:--   583
+11/14 16:04:41.738 DEBUG|base_utils:0257| [stdout] Success
+11/14 16:04:41.739 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest'
+11/14 16:04:41.755 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest/packages.checksum'
+11/14 16:04:41.775 INFO |base_packa:0164| Fetching packages.checksum from http://172.19.140.1:8082/static/crouton-test/packages-8fa5ee0b3fb59bc8da2b84768f2ab43e to /usr/local/autotest/packages.checksum
+11/14 16:04:41.777 DEBUG|base_utils:0148| Running 'wget --connect-timeout=15 --retry-connrefused --wait=5 -nv http://172.19.140.1:8082/static/crouton-test/packages-8fa5ee0b3fb59bc8da2b84768f2ab43e/packages.checksum -O /usr/local/autotest/packages.checksum'
+11/14 16:04:41.799 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest/packages.checksum'
+11/14 16:04:41.820 DEBUG|base_packa:0184| Successfully fetched packages.checksum from http://172.19.140.1:8082/static/crouton-test/packages-8fa5ee0b3fb59bc8da2b84768f2ab43e/packages.checksum
+11/14 16:04:41.822 DEBUG|base_utils:0148| Running '[ -r /var/lib/cleanup_logs_paused ]'
+11/14 16:04:41.835 DEBUG|base_utils:0148| Running 'touch /var/lib/cleanup_logs_paused'
+11/14 16:04:41.900 INFO |       job:0211| 	START	platform_Crouton	platform_Crouton	timestamp=1416009881	localtime=Nov 14 16:04:41	
+11/14 16:04:41.930 DEBUG|  base_job:0348| Persistent state client._record_indent now set to 2
+11/14 16:04:41.935 DEBUG|  base_job:0348| Persistent state client.unexpected_reboot now set to ('platform_Crouton', 'platform_Crouton')
+11/14 16:04:41.943 DEBUG|base_utils:0148| Running 'mkdir -p /usr/local/autotest/packages'
+11/14 16:04:41.960 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest/packages'
+11/14 16:04:41.980 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest/packages/test-platform_Crouton.tar.bz2'
+11/14 16:04:41.995 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest/packages.checksum'
+11/14 16:04:42.006 DEBUG|base_utils:0148| Running 'cat /usr/local/autotest/packages.checksum'
+11/14 16:04:42.025 DEBUG|base_utils:0148| Running 'md5sum /usr/local/autotest/packages/test-platform_Crouton.tar.bz2 '
+11/14 16:04:42.037 DEBUG|base_utils:0148| Running 'ls /usr/local/autotest/tests/platform_Crouton'
+11/14 16:04:42.055 DEBUG|base_utils:0148| Running 'rm -rf /usr/local/autotest/tests/platform_Crouton'
+11/14 16:04:42.075 DEBUG|base_utils:0148| Running 'mkdir -p /usr/local/autotest/tests/platform_Crouton'
+11/14 16:04:42.095 DEBUG|base_utils:0148| Running 'tar --no-same-owner -xjf /usr/local/autotest/packages/test-platform_Crouton.tar.bz2 -C /usr/local/autotest/tests/platform_Crouton'
+11/14 16:04:42.115 DEBUG|base_utils:0148| Running 'md5sum /usr/local/autotest/packages/test-platform_Crouton.tar.bz2 '
+11/14 16:04:42.135 DEBUG|base_utils:0148| Running 'echo "8fa5ee0b3fb59bc8da2b84768f2ab43e" > /usr/local/autotest/tests/platform_Crouton/.checksum '
+11/14 16:04:42.276 INFO |platform_C:0040| Running crouton test:
+11/14 16:04:42.277 INFO |platform_C:0041|  - repo: drinkcat/chroagh
+11/14 16:04:42.278 INFO |platform_C:0042|  - branch: x11test
+11/14 16:04:42.279 INFO |platform_C:0043|  - runargs: w
+11/14 16:04:42.279 INFO |platform_C:0044|  - env:;CROUTON_MIRROR_debian=https://mirrors.kernel.org/debian;CROUTON_MIRROR_ubuntu_x86=https://mirrors.kernel.org/ubuntu;CROUTON_MIRROR_ubuntu_arm=http://ports.ubuntu.com/ubuntu-ports;CROUTON_MIRROR_alarm=http://ca.us.mirror.archlinuxarm.org/armv7h/$repo;
+11/14 16:04:42.280 DEBUG|platform_C:0045|  - resultsdir: /usr/local/autotest/results/default/platform_Crouton/results
+11/14 16:04:42.281 DEBUG|platform_C:0046|  - tmpdir: /usr/local/autotest/tmp/tmpFwph6Q_platform_Crouton
+11/14 16:04:42.281 INFO |platform_C:0052| Downloading crouton tarball: "https://github.com/drinkcat/chroagh/archive/x11test.tar.gz".
+11/14 16:04:43.658 DEBUG|base_utils:0148| Running 'tar xvf /usr/local/autotest/tmp/tmpFwph6Q_platform_Crouton/archive.tar.gz --strip-components 1'
+11/14 16:04:43.686 DEBUG|base_utils:0238| [stdout] chroagh-x11test/.gitignore
+11/14 16:04:43.687 DEBUG|base_utils:0238| [stdout] chroagh-x11test/AUTHORS
+11/14 16:04:43.688 DEBUG|base_utils:0238| [stdout] chroagh-x11test/CONTRIBUTORS
+11/14 16:04:43.688 DEBUG|base_utils:0238| [stdout] chroagh-x11test/LICENSE
+11/14 16:04:43.689 DEBUG|base_utils:0238| [stdout] chroagh-x11test/Makefile
+11/14 16:04:43.689 DEBUG|base_utils:0238| [stdout] chroagh-x11test/README.md
+11/14 16:04:43.690 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/
+11/14 16:04:43.690 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/CONTRIBUTORS.sed
+11/14 16:04:43.691 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/genversion.sh
+11/14 16:04:43.692 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/release.sh
+11/14 16:04:43.692 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/wrapper.sh
+11/14 16:04:43.693 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/
+11/14 16:04:43.694 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/brightness
+11/14 16:04:43.694 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/crouton-unity-autostart
+11/14 16:04:43.695 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonclip
+11/14 16:04:43.696 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutoncycle
+11/14 16:04:43.697 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonpowerd
+11/14 16:04:43.698 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonurlhandler
+11/14 16:04:43.699 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonversion
+11/14 16:04:43.700 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonwheel
+11/14 16:04:43.701 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonxinitrc-wrapper
+11/14 16:04:43.701 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/gnome-session-wrapper
+11/14 16:04:43.702 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/host-dbus
+11/14 16:04:43.703 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/host-x11
+11/14 16:04:43.703 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/setres
+11/14 16:04:43.704 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/startgnome
+11/14 16:04:43.705 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/startunity
+11/14 16:04:43.706 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/xinit
+11/14 16:04:43.706 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/
+11/14 16:04:43.707 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/pulseaudio-default.pa
+11/14 16:04:43.708 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/unity-autostart.desktop
+11/14 16:04:43.708 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/unity-profiled
+11/14 16:04:43.709 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/xbindkeysrc.scm
+11/14 16:04:43.710 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/xserverrc-local.example
+11/14 16:04:43.711 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/xserverrc-x11
+11/14 16:04:43.711 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/xserverrc-xephyr
+11/14 16:04:43.712 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/
+11/14 16:04:43.713 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/crash_reporter_wrapper
+11/14 16:04:43.713 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/delete-chroot
+11/14 16:04:43.714 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/edit-chroot
+11/14 16:04:43.715 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/enter-chroot
+11/14 16:04:43.715 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/mount-chroot
+11/14 16:04:43.716 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startcli
+11/14 16:04:43.717 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/starte17
+11/14 16:04:43.717 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startgnome
+11/14 16:04:43.718 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startkde
+11/14 16:04:43.719 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startlxde
+11/14 16:04:43.720 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startunity
+11/14 16:04:43.720 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startxbmc
+11/14 16:04:43.721 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startxfce4
+11/14 16:04:43.722 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/unmount-chroot
+11/14 16:04:43.722 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/
+11/14 16:04:43.723 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/.gitignore
+11/14 16:04:43.724 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/
+11/14 16:04:43.724 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/background.html
+11/14 16:04:43.725 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/background.js
+11/14 16:04:43.725 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/connected-19.png
+11/14 16:04:43.726 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/connected-38.png
+11/14 16:04:43.727 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/disabled-19.png
+11/14 16:04:43.727 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/disabled-38.png
+11/14 16:04:43.728 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/disconnected-19.png
+11/14 16:04:43.728 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/disconnected-38.png
+11/14 16:04:43.729 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/error-19.png
+11/14 16:04:43.729 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/error-38.png
+11/14 16:04:43.730 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/first.html
+11/14 16:04:43.731 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/icon-128.png
+11/14 16:04:43.731 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/icon-48.png
+11/14 16:04:43.732 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/manifest.json
+11/14 16:04:43.732 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/popup.html
+11/14 16:04:43.733 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/popup.js
+11/14 16:04:43.733 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/gencrx.sh
+11/14 16:04:43.734 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/logo.svg
+11/14 16:04:43.734 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/
+11/14 16:04:43.735 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/.gitattributes
+11/14 16:04:43.735 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/crouton
+11/14 16:04:43.736 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/
+11/14 16:04:43.737 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/ar
+11/14 16:04:43.737 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/bootstrap
+11/14 16:04:43.738 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/defaults
+11/14 16:04:43.739 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/getrelease.sh
+11/14 16:04:43.739 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/pkgdetails
+11/14 16:04:43.740 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/prepare
+11/14 16:04:43.740 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/releases
+11/14 16:04:43.741 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/functions
+11/14 16:04:43.741 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/
+11/14 16:04:43.742 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/ar
+11/14 16:04:43.743 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/bootstrap
+11/14 16:04:43.743 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/defaults
+11/14 16:04:43.744 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/getrelease.sh
+11/14 16:04:43.744 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/pkgdetails
+11/14 16:04:43.745 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/prepare
+11/14 16:04:43.745 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/releases
+11/14 16:04:43.746 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/main.sh
+11/14 16:04:43.746 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/prepare.sh
+11/14 16:04:43.747 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/
+11/14 16:04:43.747 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/ar
+11/14 16:04:43.748 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/bootstrap
+11/14 16:04:43.749 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/defaults
+11/14 16:04:43.749 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/getrelease.sh
+11/14 16:04:43.750 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/pkgdetails
+11/14 16:04:43.750 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/prepare
+11/14 16:04:43.751 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/releases
+11/14 16:04:43.751 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/
+11/14 16:04:43.752 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/cursor.c
+11/14 16:04:43.752 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/vtmonitor.c
+11/14 16:04:43.753 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/websocket.c
+11/14 16:04:43.754 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/wmtools.c
+11/14 16:04:43.754 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/xi2event.c
+11/14 16:04:43.755 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/
+11/14 16:04:43.755 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/audio
+11/14 16:04:43.756 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chrome
+11/14 16:04:43.756 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chrome-beta
+11/14 16:04:43.757 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chrome-common
+11/14 16:04:43.757 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chrome-dev
+11/14 16:04:43.758 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chromium
+11/14 16:04:43.758 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/cli-extra
+11/14 16:04:43.759 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/common
+11/14 16:04:43.760 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/core
+11/14 16:04:43.760 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/e17
+11/14 16:04:43.761 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/extension
+11/14 16:04:43.761 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/gnome
+11/14 16:04:43.762 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/gtk-extra
+11/14 16:04:43.762 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/kde
+11/14 16:04:43.763 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/keyboard
+11/14 16:04:43.763 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/lxde
+11/14 16:04:43.764 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/post-common
+11/14 16:04:43.765 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/touch
+11/14 16:04:43.765 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/unity
+11/14 16:04:43.766 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/x11
+11/14 16:04:43.766 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/x11-common
+11/14 16:04:43.767 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/xbmc
+11/14 16:04:43.767 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/xephyr
+11/14 16:04:43.768 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/xfce
+11/14 16:04:43.768 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/xorg
+11/14 16:04:43.769 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/
+11/14 16:04:43.770 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/autotest_control.template
+11/14 16:04:43.770 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/daemon.sh
+11/14 16:04:43.771 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/genreport.sh
+11/14 16:04:43.771 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/reports/
+11/14 16:04:43.772 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/reports/00-all.sh
+11/14 16:04:43.772 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/reports/35-xorg.sh
+11/14 16:04:43.773 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/reports/w0-common.sh
+11/14 16:04:43.773 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/run.sh
+11/14 16:04:43.774 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/
+11/14 16:04:43.774 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/00-tester
+11/14 16:04:43.775 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/10-basic
+11/14 16:04:43.776 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/11-32-on-64
+11/14 16:04:43.776 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/12-edit-chroot
+11/14 16:04:43.777 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/14-background
+11/14 16:04:43.777 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/15-media
+11/14 16:04:43.778 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/16-targetsfile
+11/14 16:04:43.778 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/17-encryption
+11/14 16:04:43.779 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/18-upgrade
+11/14 16:04:43.779 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/20-logind
+11/14 16:04:43.780 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/30-audio
+11/14 16:04:43.781 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/35-xorg
+11/14 16:04:43.781 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/36-xephyr
+11/14 16:04:43.782 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w0-common
+11/14 16:04:43.782 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w1-e17
+11/14 16:04:43.783 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w2-gnome
+11/14 16:04:43.783 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w3-kde
+11/14 16:04:43.784 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w4-lxde
+11/14 16:04:43.784 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w5-unity
+11/14 16:04:43.785 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w6-xbmc
+11/14 16:04:43.785 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w7-xfce
+11/14 16:04:43.786 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/x0-alltargets
+11/14 16:04:43.787 DEBUG|platform_C:0064| Setting env CROUTON_MIRROR_debian=https://mirrors.kernel.org/debian
+11/14 16:04:43.787 DEBUG|platform_C:0064| Setting env CROUTON_MIRROR_ubuntu_x86=https://mirrors.kernel.org/ubuntu
+11/14 16:04:43.788 DEBUG|platform_C:0064| Setting env CROUTON_MIRROR_ubuntu_arm=http://ports.ubuntu.com/ubuntu-ports
+11/14 16:04:43.789 DEBUG|platform_C:0064| Setting env CROUTON_MIRROR_alarm=http://ca.us.mirror.archlinuxarm.org/armv7h/$repo
+11/14 16:04:43.789 DEBUG|base_utils:0148| Running 'sh "test/run.sh" "-l" "/usr/local/autotest/results/default/platform_Crouton/results" "w"'
+11/14 16:04:43.822 INFO |base_utils:0238| Running tests in /usr/local/test-20141114160443 prefix
+11/14 16:04:43.824 INFO |base_utils:0238| Logging to /usr/local/autotest/results/default/platform_Crouton/results
+11/14 16:04:43.824 INFO |base_utils:0238| System: 6158.70.0 (Official Build) dev-channel daisy test
+11/14 16:04:43.825 INFO |base_utils:0238| Supported releases: wheezy jessie sid kali precise trusty utopic
+11/14 16:04:43.826 INFO |base_utils:0238| Default release for this run: kali
+11/14 16:04:43.863 INFO |base_utils:0238| 2014-11-14 16:04:43: BEGIN TEST w1-e17.trusty.0
+11/14 16:04:44.890 INFO |base_utils:0238| 2014-11-14 16:04:44: BEGIN TEST w5-unity.sid.0
+11/14 16:04:46.159 INFO |base_utils:0238| 2014-11-14 16:04:45: BEGIN TEST w5-unity.jessie.0
+11/14 16:20:50.012 INFO |base_utils:0238| 963 [t] TEST FAILED: w5-unity.jessie.0 finished with exit code 100
+11/14 16:20:51.123 INFO |base_utils:0238| 2014-11-14 16:20:51: BEGIN TEST w5-unity.utopic.0
+11/14 16:21:02.631 INFO |base_utils:0238| 978 [t] TEST FAILED: w5-unity.sid.0 finished with exit code 100
+11/14 16:21:04.201 INFO |base_utils:0238| 2014-11-14 16:21:04: BEGIN TEST w2-gnome.jessie.0
+11/14 16:43:44.879 INFO |base_utils:0238| 2341 [t] TEST PASSED: w1-e17.trusty.0 finished with exit code 0
+11/14 16:43:48.636 INFO |base_utils:0238| 2014-11-14 16:43:48: BEGIN TEST w4-lxde.jessie.0
+11/14 16:57:40.435 INFO |base_utils:0238| 2196 [t] TEST FAILED: w2-gnome.jessie.0 finished with exit code 100
+11/14 16:57:42.460 INFO |base_utils:0238| 2014-11-14 16:57:42: BEGIN TEST w4-lxde.precise.0
+11/14 17:20:03.840 INFO |base_utils:0238| 2175 [t] TEST FAILED: w4-lxde.jessie.0 finished with exit code 1
+11/14 17:20:05.317 INFO |base_utils:0238| 2014-11-14 17:20:05: BEGIN TEST w6-xbmc.wheezy.0
+11/14 17:30:14.685 INFO |base_utils:0238| 4163 [t] TEST PASSED: w5-unity.utopic.0 finished with exit code 0
+11/14 17:30:15.992 INFO |base_utils:0238| 2014-11-14 17:30:15: BEGIN TEST w4-lxde.sid.0
+11/14 17:32:36.731 INFO |base_utils:0238| 2094 [t] TEST PASSED: w4-lxde.precise.0 finished with exit code 0
+11/14 17:32:38.340 INFO |base_utils:0238| 2014-11-14 17:32:38: BEGIN TEST w5-unity.precise.0
+11/14 17:50:17.851 INFO |base_utils:0238| 1812 [t] TEST PASSED: w6-xbmc.wheezy.0 finished with exit code 0
+11/14 17:50:19.419 INFO |base_utils:0238| 2014-11-14 17:50:19: BEGIN TEST w3-kde.utopic.0
+11/14 17:59:33.658 INFO |base_utils:0238| 1615 [t] TEST PASSED: w5-unity.precise.0 finished with exit code 0
+11/14 17:59:35.508 INFO |base_utils:0238| 2014-11-14 17:59:35: BEGIN TEST w3-kde.trusty.0
+11/14 18:20:32.575 INFO |base_utils:0238| 1813 [t] TEST PASSED: w3-kde.utopic.0 finished with exit code 0
+11/14 18:20:33.745 INFO |base_utils:0238| 2014-11-14 18:20:33: BEGIN TEST w1-e17.sid.0
+11/14 18:26:03.716 INFO |base_utils:0238| 1588 [t] TEST PASSED: w3-kde.trusty.0 finished with exit code 0
+11/14 18:26:05.116 INFO |base_utils:0238| 2014-11-14 18:26:05: BEGIN TEST w2-gnome.sid.0
+11/14 18:33:00.400 INFO |base_utils:0238| 3763 [t] TEST PASSED: w4-lxde.sid.0 finished with exit code 0
+11/14 18:33:02.398 INFO |base_utils:0238| 2014-11-14 18:33:02: BEGIN TEST w3-kde.jessie.0
+11/14 18:47:00.770 INFO |base_utils:0238| 1587 [t] TEST PASSED: w1-e17.sid.0 finished with exit code 0
+11/14 18:47:02.346 INFO |base_utils:0238| 2014-11-14 18:47:02: BEGIN TEST w7-xfce.jessie.0
+11/14 19:03:10.775 INFO |base_utils:0238| 1808 [t] TEST PASSED: w3-kde.jessie.0 finished with exit code 0
+11/14 19:03:12.909 INFO |base_utils:0238| 2014-11-14 19:03:12: BEGIN TEST w3-kde.kali.0
+11/14 19:04:32.258 INFO |base_utils:0238| 2307 [t] TEST PASSED: w2-gnome.sid.0 finished with exit code 0
+11/14 19:04:34.317 INFO |base_utils:0238| 2014-11-14 19:04:34: BEGIN TEST w3-kde.sid.0
+11/14 19:17:57.685 INFO |base_utils:0238| 1855 [t] TEST PASSED: w7-xfce.jessie.0 finished with exit code 0
+11/14 19:17:59.132 INFO |base_utils:0238| 2014-11-14 19:17:59: BEGIN TEST w6-xbmc.kali.0
+11/14 19:28:46.696 INFO |base_utils:0238| 1452 [t] TEST PASSED: w3-kde.sid.0 finished with exit code 0
+11/14 19:28:48.038 INFO |base_utils:0238| 2014-11-14 19:28:48: BEGIN TEST w3-kde.precise.0
+11/14 19:39:00.968 INFO |base_utils:0238| 1261 [t] TEST PASSED: w6-xbmc.kali.0 finished with exit code 0
+11/14 19:39:03.221 INFO |base_utils:0238| 2014-11-14 19:39:02: BEGIN TEST w1-e17.jessie.0
+11/14 19:47:50.711 INFO |base_utils:0238| 2678 [t] TEST PASSED: w3-kde.kali.0 finished with exit code 0
+11/14 19:47:51.966 INFO |base_utils:0238| 2014-11-14 19:47:51: BEGIN TEST w1-e17.wheezy.0
+11/14 19:50:18.140 INFO |base_utils:0238| 1290 [t] TEST PASSED: w3-kde.precise.0 finished with exit code 0
+11/14 19:50:20.114 INFO |base_utils:0238| 2014-11-14 19:50:20: BEGIN TEST w3-kde.wheezy.0
+11/14 19:52:45.326 INFO |base_utils:0238| 294 [t] TEST PASSED: w1-e17.wheezy.0 finished with exit code 0
+11/14 19:52:47.135 INFO |base_utils:0238| 2014-11-14 19:52:47: BEGIN TEST w6-xbmc.precise.0
+11/14 20:04:40.766 INFO |base_utils:0238| 713 [t] TEST PASSED: w6-xbmc.precise.0 finished with exit code 0
+11/14 20:04:41.949 INFO |base_utils:0238| 2014-11-14 20:04:41: BEGIN TEST w5-unity.wheezy.0
+11/14 20:07:24.835 INFO |base_utils:0238| 1701 [t] TEST PASSED: w1-e17.jessie.0 finished with exit code 0
+11/14 20:07:26.103 INFO |base_utils:0238| 2014-11-14 20:07:26: BEGIN TEST w7-xfce.trusty.0
+11/14 20:09:49.670 INFO |base_utils:0238| 308 [t] TEST PASSED: w5-unity.wheezy.0 finished with exit code 0
+11/14 20:09:51.242 INFO |base_utils:0238| 2014-11-14 20:09:51: BEGIN TEST w1-e17.precise.0
+11/14 20:14:48.527 INFO |base_utils:0238| 1468 [t] TEST PASSED: w3-kde.wheezy.0 finished with exit code 0
+11/14 20:14:50.310 INFO |base_utils:0238| 2014-11-14 20:14:50: BEGIN TEST w7-xfce.wheezy.0
+11/14 20:24:47.383 INFO |base_utils:0238| 896 [t] TEST PASSED: w1-e17.precise.0 finished with exit code 0
+11/14 20:24:49.021 INFO |base_utils:0238| 2014-11-14 20:24:49: BEGIN TEST w5-unity.trusty.0
+11/14 20:36:10.105 INFO |base_utils:0238| 1723 [t] TEST PASSED: w7-xfce.trusty.0 finished with exit code 0
+11/14 20:36:11.513 INFO |base_utils:0238| 2014-11-14 20:36:11: BEGIN TEST w5-unity.kali.0
+11/14 20:38:57.743 INFO |base_utils:0238| 166 [t] TEST PASSED: w5-unity.kali.0 finished with exit code 0
+11/14 20:38:59.580 INFO |base_utils:0238| 2014-11-14 20:38:59: BEGIN TEST w4-lxde.kali.0
+11/14 20:41:23.060 INFO |base_utils:0238| 1593 [t] TEST PASSED: w7-xfce.wheezy.0 finished with exit code 0
+11/14 20:41:24.861 INFO |base_utils:0238| 2014-11-14 20:41:24: BEGIN TEST w4-lxde.trusty.0
+11/14 21:01:01.286 INFO |base_utils:0238| 1322 [t] TEST PASSED: w4-lxde.kali.0 finished with exit code 0
+11/14 21:01:02.395 INFO |base_utils:0238| 2014-11-14 21:01:02: BEGIN TEST w6-xbmc.trusty.0
+11/14 21:03:46.622 INFO |base_utils:0238| 1342 [t] TEST PASSED: w4-lxde.trusty.0 finished with exit code 0
+11/14 21:03:48.671 INFO |base_utils:0238| 2014-11-14 21:03:48: BEGIN TEST w2-gnome.utopic.0
+11/14 21:08:33.272 INFO |base_utils:0238| 2624 [t] TEST PASSED: w5-unity.trusty.0 finished with exit code 0
+11/14 21:08:34.559 INFO |base_utils:0238| 2014-11-14 21:08:34: BEGIN TEST w7-xfce.precise.0
+11/14 21:15:16.637 INFO |base_utils:0238| 854 [t] TEST PASSED: w6-xbmc.trusty.0 finished with exit code 0
+11/14 21:15:18.388 INFO |base_utils:0238| 2014-11-14 21:15:18: BEGIN TEST w6-xbmc.jessie.0
+11/14 21:26:54.881 INFO |base_utils:0238| 1100 [t] TEST FAILED: w7-xfce.precise.0 finished with exit code 1
+11/14 21:26:56.711 INFO |base_utils:0238| 2014-11-14 21:26:56: BEGIN TEST w1-e17.kali.0
+11/14 21:29:29.714 INFO |base_utils:0238| 851 [t] TEST FAILED: w6-xbmc.jessie.0 finished with exit code 1
+11/14 21:29:31.620 INFO |base_utils:0238| 2014-11-14 21:29:31: BEGIN TEST w2-gnome.precise.0
+11/14 21:31:43.023 INFO |base_utils:0238| 286 [t] TEST PASSED: w1-e17.kali.0 finished with exit code 0
+11/14 21:31:44.660 INFO |base_utils:0238| 2014-11-14 21:31:44: BEGIN TEST w4-lxde.utopic.0
+11/14 21:36:18.674 INFO |base_utils:0238| 1950 [t] TEST PASSED: w2-gnome.utopic.0 finished with exit code 0
+11/14 21:36:20.385 INFO |base_utils:0238| 2014-11-14 21:36:20: BEGIN TEST w2-gnome.kali.0
+11/14 21:49:24.627 INFO |base_utils:0238| 1193 [t] TEST FAILED: w2-gnome.precise.0 finished with exit code 1
+11/14 21:49:26.520 INFO |base_utils:0238| 2014-11-14 21:49:26: BEGIN TEST w7-xfce.sid.0
+11/14 22:02:13.396 INFO |base_utils:0238| 1829 [t] TEST PASSED: w4-lxde.utopic.0 finished with exit code 0
+11/14 22:02:15.223 INFO |base_utils:0238| 2014-11-14 22:02:15: BEGIN TEST w4-lxde.wheezy.0
+11/14 22:06:02.586 INFO |base_utils:0238| 1782 [t] TEST PASSED: w2-gnome.kali.0 finished with exit code 0
+11/14 22:06:04.479 INFO |base_utils:0238| 2014-11-14 22:06:04: BEGIN TEST w6-xbmc.utopic.0
+11/14 22:21:07.087 INFO |base_utils:0238| 1901 [t] TEST PASSED: w7-xfce.sid.0 finished with exit code 0
+11/14 22:21:08.794 INFO |base_utils:0238| 2014-11-14 22:21:08: BEGIN TEST w7-xfce.kali.0
+11/14 22:23:40.677 INFO |base_utils:0238| 1056 [t] TEST FAILED: w6-xbmc.utopic.0 finished with exit code 1
+11/14 22:23:41.820 INFO |base_utils:0238| 2014-11-14 22:23:41: BEGIN TEST w1-e17.utopic.0
+11/14 22:26:39.902 INFO |base_utils:0238| 1464 [t] TEST PASSED: w4-lxde.wheezy.0 finished with exit code 0
+11/14 22:26:41.454 INFO |base_utils:0238| 2014-11-14 22:26:41: BEGIN TEST w7-xfce.utopic.0
+11/14 22:46:33.511 INFO |base_utils:0238| 1372 [t] TEST PASSED: w1-e17.utopic.0 finished with exit code 0
+11/14 22:46:34.658 INFO |base_utils:0238| 2014-11-14 22:46:34: BEGIN TEST w2-gnome.trusty.0
+11/14 22:50:44.823 INFO |base_utils:0238| 1776 [t] TEST PASSED: w7-xfce.kali.0 finished with exit code 0
+11/14 22:50:46.307 INFO |base_utils:0238| 2014-11-14 22:50:46: BEGIN TEST w6-xbmc.sid.0
+11/14 22:51:22.950 INFO |base_utils:0238| 288 [t] TEST FAILED: w2-gnome.trusty.0 finished with exit code 100
+11/14 22:51:24.578 INFO |base_utils:0238| 2014-11-14 22:51:24: BEGIN TEST w2-gnome.wheezy.0
+11/14 22:56:35.629 INFO |base_utils:0238| 1794 [t] TEST PASSED: w7-xfce.utopic.0 finished with exit code 0
+11/14 22:56:36.754 INFO |base_utils:0238| 2014-11-14 22:56:36: BEGIN TEST w5-unity.jessie.1
+11/14 23:01:33.372 INFO |base_utils:0238| 297 [t] TEST PASSED: w5-unity.jessie.1 finished with exit code 0
+11/14 23:01:34.919 INFO |base_utils:0238| 2014-11-14 23:01:34: BEGIN TEST w5-unity.sid.1
+11/14 23:05:54.797 INFO |base_utils:0238| 260 [t] TEST PASSED: w5-unity.sid.1 finished with exit code 0
+11/14 23:05:56.690 INFO |base_utils:0238| 2014-11-14 23:05:56: BEGIN TEST w2-gnome.jessie.1
+11/14 23:11:07.484 INFO |base_utils:0238| 1221 [t] TEST FAILED: w6-xbmc.sid.0 finished with exit code 1
+11/14 23:11:10.029 INFO |base_utils:0238| 2014-11-14 23:11:08: BEGIN TEST w4-lxde.jessie.1
+11/14 23:24:52.811 INFO |base_utils:0238| 2008 [t] TEST PASSED: w2-gnome.wheezy.0 finished with exit code 0
+11/14 23:24:54.475 INFO |base_utils:0238| 2014-11-14 23:24:54: BEGIN TEST w7-xfce.precise.1
+11/14 23:42:28.361 INFO |base_utils:0238| 1054 [t] TEST PASSED: w7-xfce.precise.1 finished with exit code 0
+11/14 23:42:29.492 INFO |base_utils:0238| 2014-11-14 23:42:29: BEGIN TEST w6-xbmc.jessie.1
+11/14 23:45:48.592 INFO |base_utils:0238| 2392 [t] TEST PASSED: w2-gnome.jessie.1 finished with exit code 0
+11/14 23:45:49.854 INFO |base_utils:0238| 2014-11-14 23:45:49: BEGIN TEST w2-gnome.precise.1
+11/14 23:55:04.176 INFO |base_utils:0238| 2634 [t] TEST PASSED: w4-lxde.jessie.1 finished with exit code 0
+11/14 23:55:05.582 INFO |base_utils:0238| 2014-11-14 23:55:05: BEGIN TEST w6-xbmc.utopic.1
+11/15 00:00:23.199 INFO |base_utils:0238| 1074 [t] TEST FAILED: w6-xbmc.jessie.1 finished with exit code 1
+11/15 00:00:29.649 INFO |base_utils:0238| 2014-11-15 00:00:24: BEGIN TEST w2-gnome.trusty.1
+11/15 00:06:44.641 INFO |base_utils:0238| 1255 [t] TEST PASSED: w2-gnome.precise.1 finished with exit code 0
+11/15 00:06:46.095 INFO |base_utils:0238| 2014-11-15 00:06:46: BEGIN TEST w6-xbmc.sid.1
+11/15 00:12:22.485 INFO |base_utils:0238| 1037 [t] TEST FAILED: w6-xbmc.utopic.1 finished with exit code 1
+11/15 00:12:24.389 INFO |base_utils:0238| 2014-11-15 00:12:24: BEGIN TEST w6-xbmc.jessie.2
+11/15 00:20:14.782 INFO |base_utils:0238| 808 [t] TEST FAILED: w6-xbmc.sid.1 finished with exit code 1
+11/15 00:20:16.526 INFO |base_utils:0238| 2014-11-15 00:20:16: BEGIN TEST w6-xbmc.utopic.2
+11/15 00:26:45.155 INFO |base_utils:0238| 861 [t] TEST FAILED: w6-xbmc.jessie.2 finished with exit code 1
+11/15 00:26:47.098 INFO |base_utils:0238| 2014-11-15 00:26:47: BEGIN TEST w6-xbmc.sid.2
+11/15 00:29:39.390 INFO |base_utils:0238| 1750 [t] TEST PASSED: w2-gnome.trusty.1 finished with exit code 0
+11/15 00:34:21.608 INFO |base_utils:0238| 845 [t] TEST FAILED: w6-xbmc.utopic.2 finished with exit code 1
+11/15 00:36:31.644 INFO |base_utils:0238| 584 [t] TEST FAILED: w6-xbmc.sid.2 finished with exit code 1
+11/15 00:36:39.298 INFO |base_utils:0238| 3 test(s) failed.
+11/15 00:36:39.299 INFO |base_utils:0238| Cleaning up...
+11/15 00:36:43.311 DEBUG|base_utils:0148| Running 'mkdir -p /usr/local/autotest/results/default/platform_Crouton/sysinfo/iteration.1/var/spool'
+11/15 00:36:43.331 DEBUG|base_utils:0148| Running 'rsync --no-perms --chmod=ugo+r -a --exclude=autoserv* --exclude=*.core /var/spool/crash /usr/local/autotest/results/default/platform_Crouton/sysinfo/iteration.1/var/spool'
+11/15 00:36:43.410 DEBUG|base_utils:0148| Running 'rm -rf /var/spool/crash/*'
+11/15 00:36:43.445 DEBUG|base_utils:0148| Running 'pgrep -o ^X$'
+11/15 00:36:43.489 INFO |site_utils:0341| Saving screenshot to /usr/local/autotest/results/default/platform_Crouton/debug/platform_Crouton-fail-0.png.
+11/15 00:36:43.491 DEBUG|base_utils:0148| Running 'DISPLAY=:0.0 XAUTHORITY=/home/chronos/.Xauthority /usr/local/bin/import -window root -depth 8 /usr/local/autotest/results/default/platform_Crouton/debug/platform_Crouton-fail-0.png'
+11/15 00:36:45.990 DEBUG|base_utils:0148| Running 'echo 1 > /proc/sys/kernel/hung_task_panic'
+11/15 00:36:46.010 DEBUG|logging_ma:0580| Logging subprocess finished
+11/15 00:36:46.018 DEBUG|logging_ma:0580| Logging subprocess finished
+11/15 00:36:46.056 DEBUG|base_utils:0148| Running 'gzip -9 "/usr/local/autotest/results/default/platform_Crouton/sysinfo/dmesg"'
+11/15 00:36:46.093 DEBUG|base_utils:0148| Running 'mkdir -p /usr/local/autotest/results/default/platform_Crouton/sysinfo/var/spool'
+11/15 00:36:46.110 DEBUG|base_utils:0148| Running 'rsync --no-perms --chmod=ugo+r -a --exclude=autoserv* --exclude=*.core /var/spool/crash /usr/local/autotest/results/default/platform_Crouton/sysinfo/var/spool'
+11/15 00:36:46.170 DEBUG|base_utils:0148| Running 'rm -rf /var/spool/crash/*'
+11/15 00:36:46.208 DEBUG|base_utils:0148| Running 'grep MemTotal /proc/meminfo'
+11/15 00:36:46.226 DEBUG|base_utils:0148| Running 'cat /etc/lsb-release'
+11/15 00:36:46.240 DEBUG|base_utils:0148| Running 'crossystem hwid'
+11/15 00:36:46.251 DEBUG|base_utils:0148| Running '/opt/google/chrome/chrome --version'
+11/15 00:36:46.553 DEBUG|base_utils:0148| Running 'status cryptohomed'
+11/15 00:36:46.594 DEBUG|base_utils:0148| Running 'stop cryptohomed'
+11/15 00:36:46.634 DEBUG|base_utils:0238| [stdout] cryptohomed stop/waiting
+11/15 00:36:46.640 DEBUG|base_utils:0148| Running 'status chapsd'
+11/15 00:36:46.660 DEBUG|base_utils:0148| Running 'stop chapsd'
+11/15 00:36:46.680 DEBUG|base_utils:0238| [stdout] chapsd stop/waiting
+11/15 00:36:46.682 DEBUG|base_utils:0148| Running 'status tcsd'
+11/15 00:36:46.706 DEBUG|base_utils:0148| Running 'stop tcsd'
+11/15 00:36:46.734 DEBUG|base_utils:0238| [stdout] tcsd stop/waiting
+11/15 00:36:46.735 DEBUG|base_utils:0148| Running 'tpmc raw 00 c1 00 00 00 16 00 00 00 65 00 00 00 10 00 00 00 04 00 00 08 02'
+11/15 00:36:46.810 DEBUG|base_utils:0148| Running 'start tcsd'
+11/15 00:36:47.478 DEBUG|base_utils:0238| [stdout] tcsd start/running, process 17803
+11/15 00:36:47.480 DEBUG|base_utils:0148| Running 'start chapsd'
+11/15 00:36:47.505 DEBUG|base_utils:0238| [stdout] chapsd start/running, process 17805
+11/15 00:36:47.512 DEBUG|base_utils:0148| Running 'start cryptohomed'
+11/15 00:36:47.683 DEBUG|base_utils:0238| [stdout] cryptohomed start/running, process 17814
+11/15 00:36:47.693 DEBUG|base_utils:0148| Running 'mkdir -p /usr/local/autotest/results/default/platform_Crouton/sysinfo/var'
+11/15 00:36:47.706 DEBUG|base_utils:0148| Running 'rsync --no-perms --chmod=ugo+r -a --exclude=autoserv*  /var/log /usr/local/autotest/results/default/platform_Crouton/sysinfo/var'
+11/15 00:36:57.704 ERROR|  parallel:0026| child process failed
+11/15 00:36:57.840 DEBUG|  parallel:0030| Traceback (most recent call last):
+11/15 00:36:57.842 DEBUG|  parallel:0030|   File "/usr/local/autotest/bin/parallel.py", line 18, in fork_start
+11/15 00:36:57.844 DEBUG|  parallel:0030|     l()
+11/15 00:36:57.845 DEBUG|  parallel:0030|   File "/usr/local/autotest/bin/job.py", line 531, in <lambda>
+11/15 00:36:57.845 DEBUG|  parallel:0030|     l = lambda : test.runtest(self, url, tag, args, dargs)
+11/15 00:36:57.846 DEBUG|  parallel:0030|   File "/usr/local/autotest/bin/test.py", line 115, in runtest
+11/15 00:36:57.846 DEBUG|  parallel:0030|     job.sysinfo.log_after_each_iteration)
+11/15 00:36:57.847 DEBUG|  parallel:0030|   File "/usr/local/autotest/common_lib/test.py", line 813, in runtest
+11/15 00:36:57.847 DEBUG|  parallel:0030|     mytest._exec(args, dargs)
+11/15 00:36:57.848 DEBUG|  parallel:0030|   File "/usr/local/autotest/common_lib/test.py", line 525, in _exec
+11/15 00:36:57.848 DEBUG|  parallel:0030|     _call_test_function(self.execute, *p_args, **p_dargs)
+11/15 00:36:57.848 DEBUG|  parallel:0030|   File "/usr/local/autotest/common_lib/test.py", line 727, in _call_test_function
+11/15 00:36:57.849 DEBUG|  parallel:0030|     return func(*args, **dargs)
+11/15 00:36:57.849 DEBUG|  parallel:0030|   File "/usr/local/autotest/common_lib/test.py", line 386, in execute
+11/15 00:36:57.850 DEBUG|  parallel:0030|     dargs)
+11/15 00:36:57.850 DEBUG|  parallel:0030|   File "/usr/local/autotest/common_lib/test.py", line 275, in _call_run_once_with_retry
+11/15 00:36:57.851 DEBUG|  parallel:0030|     postprocess_profiled_run, args, dargs)
+11/15 00:36:57.851 DEBUG|  parallel:0030|   File "/usr/local/autotest/common_lib/test.py", line 304, in _call_run_once
+11/15 00:36:57.852 DEBUG|  parallel:0030|     self.run_once(*args, **dargs)
+11/15 00:36:57.852 DEBUG|  parallel:0030|   File "/usr/local/autotest/tests/platform_Crouton/platform_Crouton.py", line 71, in run_once
+11/15 00:36:57.852 DEBUG|  parallel:0030|     stderr_tee=logging_manager.LoggingFile(level=logging.INFO))
+11/15 00:36:57.853 DEBUG|  parallel:0030|   File "/usr/local/autotest/common_lib/base_utils.py", line 857, in run
+11/15 00:36:57.853 DEBUG|  parallel:0030|     "Command returned non-zero exit status")
+11/15 00:36:57.854 DEBUG|  parallel:0030| CmdError: Command <sh "test/run.sh" "-l" "/usr/local/autotest/results/default/platform_Crouton/results" "w"> failed, rc=1, Command returned non-zero exit status
+11/15 00:36:57.854 DEBUG|  parallel:0030| * Command: 
+11/15 00:36:57.854 DEBUG|  parallel:0030|     sh "test/run.sh" "-l"
+11/15 00:36:57.855 DEBUG|  parallel:0030|     "/usr/local/autotest/results/default/platform_Crouton/results" "w"
+11/15 00:36:57.855 DEBUG|  parallel:0030| Exit status: 1
+11/15 00:36:57.856 DEBUG|  parallel:0030| Duration: 30719.5069029
+11/15 00:36:57.856 DEBUG|  parallel:0030| 
+11/15 00:36:57.856 DEBUG|  parallel:0030| stderr:
+11/15 00:36:57.857 DEBUG|  parallel:0030| Running tests in /usr/local/test-20141114160443 prefix
+11/15 00:36:57.857 DEBUG|  parallel:0030| Logging to /usr/local/autotest/results/default/platform_Crouton/results
+11/15 00:36:57.858 DEBUG|  parallel:0030| System: 6158.70.0 (Official Build) dev-channel daisy test
+11/15 00:36:57.858 DEBUG|  parallel:0030| Supported releases: wheezy jessie sid kali precise trusty utopic
+11/15 00:36:57.858 DEBUG|  parallel:0030| Default release for this run: kali
+11/15 00:36:57.859 DEBUG|  parallel:0030| 2014-11-14 16:04:43: BEGIN TEST w1-e17.trusty.0
+11/15 00:36:57.859 DEBUG|  parallel:0030| 2014-11-14 16:04:44: BEGIN TEST w5-unity.sid.0
+11/15 00:36:57.860 DEBUG|  parallel:0030| 2014-11-14 16:04:45: BEGIN TEST w5-unity.jessie.0
+11/15 00:36:57.860 DEBUG|  parallel:0030| 963 [t] TEST FAILED: w5-unity.jessie.0 finished with exit code 100
+11/15 00:36:57.860 DEBUG|  parallel:0030| 2014-11-14 16:20:51: BEGIN TEST w5-unity.utopic.0
+11/15 00:36:57.861 DEBUG|  parallel:0030| 978 [t] TEST FAILED: w5-unity.sid.0 finished with exit code 100
+11/15 00:36:57.861 DEBUG|  parallel:0030| 2014-11-14 16:21:04: BEGIN TEST w2-gnome.jessie.0
+11/15 00:36:57.862 DEBUG|  parallel:0030| 2341 [t] TEST PASSED: w1-e17.trusty.0 finished with exit code 0
+11/15 00:36:57.862 DEBUG|  parallel:0030| 2014-11-14 16:43:48: BEGIN TEST w4-lxde.jessie.0
+11/15 00:36:57.862 DEBUG|  parallel:0030| 2196 [t] TEST FAILED: w2-gnome.jessie.0 finished with exit code 100
+11/15 00:36:57.863 DEBUG|  parallel:0030| 2014-11-14 16:57:42: BEGIN TEST w4-lxde.precise.0
+11/15 00:36:57.863 DEBUG|  parallel:0030| 2175 [t] TEST FAILED: w4-lxde.jessie.0 finished with exit code 1
+11/15 00:36:57.863 DEBUG|  parallel:0030| 2014-11-14 17:20:05: BEGIN TEST w6-xbmc.wheezy.0
+11/15 00:36:57.864 DEBUG|  parallel:0030| 4163 [t] TEST PASSED: w5-unity.utopic.0 finished with exit code 0
+11/15 00:36:57.864 DEBUG|  parallel:0030| 2014-11-14 17:30:15: BEGIN TEST w4-lxde.sid.0
+11/15 00:36:57.865 DEBUG|  parallel:0030| 2094 [t] TEST PASSED: w4-lxde.precise.0 finished with exit code 0
+11/15 00:36:57.865 DEBUG|  parallel:0030| 2014-11-14 17:32:38: BEGIN TEST w5-unity.precise.0
+11/15 00:36:57.866 DEBUG|  parallel:0030| 1812 [t] TEST PASSED: w6-xbmc.wheezy.0 finished with exit code 0
+11/15 00:36:57.866 DEBUG|  parallel:0030| 2014-11-14 17:50:19: BEGIN TEST w3-kde.utopic.0
+11/15 00:36:57.866 DEBUG|  parallel:0030| 1615 [t] TEST PASSED: w5-unity.precise.0 finished with exit code 0
+11/15 00:36:57.867 DEBUG|  parallel:0030| 2014-11-14 17:59:35: BEGIN TEST w3-kde.trusty.0
+11/15 00:36:57.867 DEBUG|  parallel:0030| 1813 [t] TEST PASSED: w3-kde.utopic.0 finished with exit code 0
+11/15 00:36:57.867 DEBUG|  parallel:0030| 2014-11-14 18:20:33: BEGIN TEST w1-e17.sid.0
+11/15 00:36:57.868 DEBUG|  parallel:0030| 1588 [t] TEST PASSED: w3-kde.trusty.0 finished with exit code 0
+11/15 00:36:57.868 DEBUG|  parallel:0030| 2014-11-14 18:26:05: BEGIN TEST w2-gnome.sid.0
+11/15 00:36:57.869 DEBUG|  parallel:0030| 3763 [t] TEST PASSED: w4-lxde.sid.0 finished with exit code 0
+11/15 00:36:57.869 DEBUG|  parallel:0030| 2014-11-14 18:33:02: BEGIN TEST w3-kde.jessie.0
+11/15 00:36:57.870 DEBUG|  parallel:0030| 1587 [t] TEST PASSED: w1-e17.sid.0 finished with exit code 0
+11/15 00:36:57.870 DEBUG|  parallel:0030| 2014-11-14 18:47:02: BEGIN TEST w7-xfce.jessie.0
+11/15 00:36:57.870 DEBUG|  parallel:0030| 1808 [t] TEST PASSED: w3-kde.jessie.0 finished with exit code 0
+11/15 00:36:57.871 DEBUG|  parallel:0030| 2014-11-14 19:03:12: BEGIN TEST w3-kde.kali.0
+11/15 00:36:57.871 DEBUG|  parallel:0030| 2307 [t] TEST PASSED: w2-gnome.sid.0 finished with exit code 0
+11/15 00:36:57.872 DEBUG|  parallel:0030| 2014-11-14 19:04:34: BEGIN TEST w3-kde.sid.0
+11/15 00:36:57.872 DEBUG|  parallel:0030| 1855 [t] TEST PASSED: w7-xfce.jessie.0 finished with exit code 0
+11/15 00:36:57.872 DEBUG|  parallel:0030| 2014-11-14 19:17:59: BEGIN TEST w6-xbmc.kali.0
+11/15 00:36:57.873 DEBUG|  parallel:0030| 1452 [t] TEST PASSED: w3-kde.sid.0 finished with exit code 0
+11/15 00:36:57.873 DEBUG|  parallel:0030| 2014-11-14 19:28:48: BEGIN TEST w3-kde.precise.0
+11/15 00:36:57.874 DEBUG|  parallel:0030| 1261 [t] TEST PASSED: w6-xbmc.kali.0 finished with exit code 0
+11/15 00:36:57.874 DEBUG|  parallel:0030| 2014-11-14 19:39:02: BEGIN TEST w1-e17.jessie.0
+11/15 00:36:57.874 DEBUG|  parallel:0030| 2678 [t] TEST PASSED: w3-kde.kali.0 finished with exit code 0
+11/15 00:36:57.875 DEBUG|  parallel:0030| 2014-11-14 19:47:51: BEGIN TEST w1-e17.wheezy.0
+11/15 00:36:57.875 DEBUG|  parallel:0030| 1290 [t] TEST PASSED: w3-kde.precise.0 finished with exit code 0
+11/15 00:36:57.876 DEBUG|  parallel:0030| 2014-11-14 19:50:20: BEGIN TEST w3-kde.wheezy.0
+11/15 00:36:57.876 DEBUG|  parallel:0030| 294 [t] TEST PASSED: w1-e17.wheezy.0 finished with exit code 0
+11/15 00:36:57.876 DEBUG|  parallel:0030| 2014-11-14 19:52:47: BEGIN TEST w6-xbmc.precise.0
+11/15 00:36:57.877 DEBUG|  parallel:0030| 713 [t] TEST PASSED: w6-xbmc.precise.0 finished with exit code 0
+11/15 00:36:57.877 DEBUG|  parallel:0030| 2014-11-14 20:04:41: BEGIN TEST w5-unity.wheezy.0
+11/15 00:36:57.878 DEBUG|  parallel:0030| 1701 [t] TEST PASSED: w1-e17.jessie.0 finished with exit code 0
+11/15 00:36:57.878 DEBUG|  parallel:0030| 2014-11-14 20:07:26: BEGIN TEST w7-xfce.trusty.0
+11/15 00:36:57.878 DEBUG|  parallel:0030| 308 [t] TEST PASSED: w5-unity.wheezy.0 finished with exit code 0
+11/15 00:36:57.879 DEBUG|  parallel:0030| 2014-11-14 20:09:51: BEGIN TEST w1-e17.precise.0
+11/15 00:36:57.879 DEBUG|  parallel:0030| 1468 [t] TEST PASSED: w3-kde.wheezy.0 finished with exit code 0
+11/15 00:36:57.880 DEBUG|  parallel:0030| 2014-11-14 20:14:50: BEGIN TEST w7-xfce.wheezy.0
+11/15 00:36:57.880 DEBUG|  parallel:0030| 896 [t] TEST PASSED: w1-e17.precise.0 finished with exit code 0
+11/15 00:36:57.880 DEBUG|  parallel:0030| 2014-11-14 20:24:49: BEGIN TEST w5-unity.trusty.0
+11/15 00:36:57.881 DEBUG|  parallel:0030| 1723 [t] TEST PASSED: w7-xfce.trusty.0 finished with exit code 0
+11/15 00:36:57.881 DEBUG|  parallel:0030| 2014-11-14 20:36:11: BEGIN TEST w5-unity.kali.0
+11/15 00:36:57.881 DEBUG|  parallel:0030| 166 [t] TEST PASSED: w5-unity.kali.0 finished with exit code 0
+11/15 00:36:57.882 DEBUG|  parallel:0030| 2014-11-14 20:38:59: BEGIN TEST w4-lxde.kali.0
+11/15 00:36:57.882 DEBUG|  parallel:0030| 1593 [t] TEST PASSED: w7-xfce.wheezy.0 finished with exit code 0
+11/15 00:36:57.883 DEBUG|  parallel:0030| 2014-11-14 20:41:24: BEGIN TEST w4-lxde.trusty.0
+11/15 00:36:57.883 DEBUG|  parallel:0030| 1322 [t] TEST PASSED: w4-lxde.kali.0 finished with exit code 0
+11/15 00:36:57.883 DEBUG|  parallel:0030| 2014-11-14 21:01:02: BEGIN TEST w6-xbmc.trusty.0
+11/15 00:36:57.884 DEBUG|  parallel:0030| 1342 [t] TEST PASSED: w4-lxde.trusty.0 finished with exit code 0
+11/15 00:36:57.884 DEBUG|  parallel:0030| 2014-11-14 21:03:48: BEGIN TEST w2-gnome.utopic.0
+11/15 00:36:57.885 DEBUG|  parallel:0030| 2624 [t] TEST PASSED: w5-unity.trusty.0 finished with exit code 0
+11/15 00:36:57.885 DEBUG|  parallel:0030| 2014-11-14 21:08:34: BEGIN TEST w7-xfce.precise.0
+11/15 00:36:57.885 DEBUG|  parallel:0030| 854 [t] TEST PASSED: w6-xbmc.trusty.0 finished with exit code 0
+11/15 00:36:57.886 DEBUG|  parallel:0030| 2014-11-14 21:15:18: BEGIN TEST w6-xbmc.jessie.0
+11/15 00:36:57.886 DEBUG|  parallel:0030| 1100 [t] TEST FAILED: w7-xfce.precise.0 finished with exit code 1
+11/15 00:36:57.887 DEBUG|  parallel:0030| 2014-11-14 21:26:56: BEGIN TEST w1-e17.kali.0
+11/15 00:36:57.887 DEBUG|  parallel:0030| 851 [t] TEST FAILED: w6-xbmc.jessie.0 finished with exit code 1
+11/15 00:36:57.887 DEBUG|  parallel:0030| 2014-11-14 21:29:31: BEGIN TEST w2-gnome.precise.0
+11/15 00:36:57.888 DEBUG|  parallel:0030| 286 [t] TEST PASSED: w1-e17.kali.0 finished with exit code 0
+11/15 00:36:57.888 DEBUG|  parallel:0030| 2014-11-14 21:31:44: BEGIN TEST w4-lxde.utopic.0
+11/15 00:36:57.888 DEBUG|  parallel:0030| 1950 [t] TEST PASSED: w2-gnome.utopic.0 finished with exit code 0
+11/15 00:36:57.889 DEBUG|  parallel:0030| 2014-11-14 21:36:20: BEGIN TEST w2-gnome.kali.0
+11/15 00:36:57.889 DEBUG|  parallel:0030| 1193 [t] TEST FAILED: w2-gnome.precise.0 finished with exit code 1
+11/15 00:36:57.890 DEBUG|  parallel:0030| 2014-11-14 21:49:26: BEGIN TEST w7-xfce.sid.0
+11/15 00:36:57.890 DEBUG|  parallel:0030| 1829 [t] TEST PASSED: w4-lxde.utopic.0 finished with exit code 0
+11/15 00:36:57.890 DEBUG|  parallel:0030| 2014-11-14 22:02:15: BEGIN TEST w4-lxde.wheezy.0
+11/15 00:36:57.891 DEBUG|  parallel:0030| 1782 [t] TEST PASSED: w2-gnome.kali.0 finished with exit code 0
+11/15 00:36:57.891 DEBUG|  parallel:0030| 2014-11-14 22:06:04: BEGIN TEST w6-xbmc.utopic.0
+11/15 00:36:57.892 DEBUG|  parallel:0030| 1901 [t] TEST PASSED: w7-xfce.sid.0 finished with exit code 0
+11/15 00:36:57.892 DEBUG|  parallel:0030| 2014-11-14 22:21:08: BEGIN TEST w7-xfce.kali.0
+11/15 00:36:57.892 DEBUG|  parallel:0030| 1056 [t] TEST FAILED: w6-xbmc.utopic.0 finished with exit code 1
+11/15 00:36:57.893 DEBUG|  parallel:0030| 2014-11-14 22:23:41: BEGIN TEST w1-e17.utopic.0
+11/15 00:36:57.893 DEBUG|  parallel:0030| 1464 [t] TEST PASSED: w4-lxde.wheezy.0 finished with exit code 0
+11/15 00:36:57.894 DEBUG|  parallel:0030| 2014-11-14 22:26:41: BEGIN TEST w7-xfce.utopic.0
+11/15 00:36:57.894 DEBUG|  parallel:0030| 1372 [t] TEST PASSED: w1-e17.utopic.0 finished with exit code 0
+11/15 00:36:57.894 DEBUG|  parallel:0030| 2014-11-14 22:46:34: BEGIN TEST w2-gnome.trusty.0
+11/15 00:36:57.895 DEBUG|  parallel:0030| 1776 [t] TEST PASSED: w7-xfce.kali.0 finished with exit code 0
+11/15 00:36:57.895 DEBUG|  parallel:0030| 2014-11-14 22:50:46: BEGIN TEST w6-xbmc.sid.0
+11/15 00:36:57.895 DEBUG|  parallel:0030| 288 [t] TEST FAILED: w2-gnome.trusty.0 finished with exit code 100
+11/15 00:36:57.896 DEBUG|  parallel:0030| 2014-11-14 22:51:24: BEGIN TEST w2-gnome.wheezy.0
+11/15 00:36:57.896 DEBUG|  parallel:0030| 1794 [t] TEST PASSED: w7-xfce.utopic.0 finished with exit code 0
+11/15 00:36:57.897 DEBUG|  parallel:0030| 2014-11-14 22:56:36: BEGIN TEST w5-unity.jessie.1
+11/15 00:36:57.897 DEBUG|  parallel:0030| 297 [t] TEST PASSED: w5-unity.jessie.1 finished with exit code 0
+11/15 00:36:57.897 DEBUG|  parallel:0030| 2014-11-14 23:01:34: BEGIN TEST w5-unity.sid.1
+11/15 00:36:57.898 DEBUG|  parallel:0030| 260 [t] TEST PASSED: w5-unity.sid.1 finished with exit code 0
+11/15 00:36:57.898 DEBUG|  parallel:0030| 2014-11-14 23:05:56: BEGIN TEST w2-gnome.jessie.1
+11/15 00:36:57.899 DEBUG|  parallel:0030| 1221 [t] TEST FAILED: w6-xbmc.sid.0 finished with exit code 1
+11/15 00:36:57.899 DEBUG|  parallel:0030| 2014-11-14 23:11:08: BEGIN TEST w4-lxde.jessie.1
+11/15 00:36:57.899 DEBUG|  parallel:0030| 2008 [t] TEST PASSED: w2-gnome.wheezy.0 finished with exit code 0
+11/15 00:36:57.900 DEBUG|  parallel:0030| 2014-11-14 23:24:54: BEGIN TEST w7-xfce.precise.1
+11/15 00:36:57.900 DEBUG|  parallel:0030| 1054 [t] TEST PASSED: w7-xfce.precise.1 finished with exit code 0
+11/15 00:36:57.901 DEBUG|  parallel:0030| 2014-11-14 23:42:29: BEGIN TEST w6-xbmc.jessie.1
+11/15 00:36:57.901 DEBUG|  parallel:0030| 2392 [t] TEST PASSED: w2-gnome.jessie.1 finished with exit code 0
+11/15 00:36:57.901 DEBUG|  parallel:0030| 2014-11-14 23:45:49: BEGIN TEST w2-gnome.precise.1
+11/15 00:36:57.902 DEBUG|  parallel:0030| 2634 [t] TEST PASSED: w4-lxde.jessie.1 finished with exit code 0
+11/15 00:36:57.902 DEBUG|  parallel:0030| 2014-11-14 23:55:05: BEGIN TEST w6-xbmc.utopic.1
+11/15 00:36:57.902 DEBUG|  parallel:0030| 1074 [t] TEST FAILED: w6-xbmc.jessie.1 finished with exit code 1
+11/15 00:36:57.903 DEBUG|  parallel:0030| 2014-11-15 00:00:24: BEGIN TEST w2-gnome.trusty.1
+11/15 00:36:57.903 DEBUG|  parallel:0030| 1255 [t] TEST PASSED: w2-gnome.precise.1 finished with exit code 0
+11/15 00:36:57.904 DEBUG|  parallel:0030| 2014-11-15 00:06:46: BEGIN TEST w6-xbmc.sid.1
+11/15 00:36:57.904 DEBUG|  parallel:0030| 1037 [t] TEST FAILED: w6-xbmc.utopic.1 finished with exit code 1
+11/15 00:36:57.904 DEBUG|  parallel:0030| 2014-11-15 00:12:24: BEGIN TEST w6-xbmc.jessie.2
+11/15 00:36:57.905 DEBUG|  parallel:0030| 808 [t] TEST FAILED: w6-xbmc.sid.1 finished with exit code 1
+11/15 00:36:57.905 DEBUG|  parallel:0030| 2014-11-15 00:20:16: BEGIN TEST w6-xbmc.utopic.2
+11/15 00:36:57.906 DEBUG|  parallel:0030| 861 [t] TEST FAILED: w6-xbmc.jessie.2 finished with exit code 1
+11/15 00:36:57.906 DEBUG|  parallel:0030| 2014-11-15 00:26:47: BEGIN TEST w6-xbmc.sid.2
+11/15 00:36:57.906 DEBUG|  parallel:0030| 1750 [t] TEST PASSED: w2-gnome.trusty.1 finished with exit code 0
+11/15 00:36:57.907 DEBUG|  parallel:0030| 845 [t] TEST FAILED: w6-xbmc.utopic.2 finished with exit code 1
+11/15 00:36:57.907 DEBUG|  parallel:0030| 584 [t] TEST FAILED: w6-xbmc.sid.2 finished with exit code 1
+11/15 00:36:57.907 DEBUG|  parallel:0030| 3 test(s) failed.
+11/15 00:36:57.908 DEBUG|  parallel:0030| Cleaning up...
+11/15 00:36:59.901 INFO |       job:0211| 		ERROR	platform_Crouton	platform_Crouton	timestamp=1416040618	localtime=Nov 15 00:36:58	Command <sh "test/run.sh" "-l" "/usr/local/autotest/results/default/platform_Crouton/results" "w"> failed, rc=1, Command returned non-zero exit status
+  * Command: 
+      sh "test/run.sh" "-l"
+      "/usr/local/autotest/results/default/platform_Crouton/results" "w"
+  Exit status: 1
+  Duration: 30719.5069029
+  
+  stderr:
+  Running tests in /usr/local/test-20141114160443 prefix
+  Logging to /usr/local/autotest/results/default/platform_Crouton/results
+  System: 6158.70.0 (Official Build) dev-channel daisy test
+  Supported releases: wheezy jessie sid kali precise trusty utopic
+  Default release for this run: kali
+  2014-11-14 16:04:43: BEGIN TEST w1-e17.trusty.0
+  2014-11-14 16:04:44: BEGIN TEST w5-unity.sid.0
+  2014-11-14 16:04:45: BEGIN TEST w5-unity.jessie.0
+  963 [t] TEST FAILED: w5-unity.jessie.0 finished with exit code 100
+  2014-11-14 16:20:51: BEGIN TEST w5-unity.utopic.0
+  978 [t] TEST FAILED: w5-unity.sid.0 finished with exit code 100
+  2014-11-14 16:21:04: BEGIN TEST w2-gnome.jessie.0
+  2341 [t] TEST PASSED: w1-e17.trusty.0 finished with exit code 0
+  2014-11-14 16:43:48: BEGIN TEST w4-lxde.jessie.0
+  2196 [t] TEST FAILED: w2-gnome.jessie.0 finished with exit code 100
+  2014-11-14 16:57:42: BEGIN TEST w4-lxde.precise.0
+  2175 [t] TEST FAILED: w4-lxde.jessie.0 finished with exit code 1
+  2014-11-14 17:20:05: BEGIN TEST w6-xbmc.wheezy.0
+  4163 [t] TEST PASSED: w5-unity.utopic.0 finished with exit code 0
+  2014-11-14 17:30:15: BEGIN TEST w4-lxde.sid.0
+  2094 [t] TEST PASSED: w4-lxde.precise.0 finished with exit code 0
+  2014-11-14 17:32:38: BEGIN TEST w5-unity.precise.0
+  1812 [t] TEST PASSED: w6-xbmc.wheezy.0 finished with exit code 0
+  2014-11-14 17:50:19: BEGIN TEST w3-kde.utopic.0
+  1615 [t] TEST PASSED: w5-unity.precise.0 finished with exit code 0
+  2014-11-14 17:59:35: BEGIN TEST w3-kde.trusty.0
+  1813 [t] TEST PASSED: w3-kde.utopic.0 finished with exit code 0
+  2014-11-14 18:20:33: BEGIN TEST w1-e17.sid.0
+  1588 [t] TEST PASSED: w3-kde.trusty.0 finished with exit code 0
+  2014-11-14 18:26:05: BEGIN TEST w2-gnome.sid.0
+  3763 [t] TEST PASSED: w4-lxde.sid.0 finished with exit code 0
+  2014-11-14 18:33:02: BEGIN TEST w3-kde.jessie.0
+  1587 [t] TEST PASSED: w1-e17.sid.0 finished with exit code 0
+  2014-11-14 18:47:02: BEGIN TEST w7-xfce.jessie.0
+  1808 [t] TEST PASSED: w3-kde.jessie.0 finished with exit code 0
+  2014-11-14 19:03:12: BEGIN TEST w3-kde.kali.0
+  2307 [t] TEST PASSED: w2-gnome.sid.0 finished with exit code 0
+  2014-11-14 19:04:34: BEGIN TEST w3-kde.sid.0
+  1855 [t] TEST PASSED: w7-xfce.jessie.0 finished with exit code 0
+  2014-11-14 19:17:59: BEGIN TEST w6-xbmc.kali.0
+  1452 [t] TEST PASSED: w3-kde.sid.0 finished with exit code 0
+  2014-11-14 19:28:48: BEGIN TEST w3-kde.precise.0
+  1261 [t] TEST PASSED: w6-xbmc.kali.0 finished with exit code 0
+  2014-11-14 19:39:02: BEGIN TEST w1-e17.jessie.0
+  2678 [t] TEST PASSED: w3-kde.kali.0 finished with exit code 0
+  2014-11-14 19:47:51: BEGIN TEST w1-e17.wheezy.0
+  1290 [t] TEST PASSED: w3-kde.precise.0 finished with exit code 0
+  2014-11-14 19:50:20: BEGIN TEST w3-kde.wheezy.0
+  294 [t] TEST PASSED: w1-e17.wheezy.0 finished with exit code 0
+  2014-11-14 19:52:47: BEGIN TEST w6-xbmc.precise.0
+  713 [t] TEST PASSED: w6-xbmc.precise.0 finished with exit code 0
+  2014-11-14 20:04:41: BEGIN TEST w5-unity.wheezy.0
+  1701 [t] TEST PASSED: w1-e17.jessie.0 finished with exit code 0
+  2014-11-14 20:07:26: BEGIN TEST w7-xfce.trusty.0
+  308 [t] TEST PASSED: w5-unity.wheezy.0 finished with exit code 0
+  2014-11-14 20:09:51: BEGIN TEST w1-e17.precise.0
+  1468 [t] TEST PASSED: w3-kde.wheezy.0 finished with exit code 0
+  2014-11-14 20:14:50: BEGIN TEST w7-xfce.wheezy.0
+  896 [t] TEST PASSED: w1-e17.precise.0 finished with exit code 0
+  2014-11-14 20:24:49: BEGIN TEST w5-unity.trusty.0
+  1723 [t] TEST PASSED: w7-xfce.trusty.0 finished with exit code 0
+  2014-11-14 20:36:11: BEGIN TEST w5-unity.kali.0
+  166 [t] TEST PASSED: w5-unity.kali.0 finished with exit code 0
+  2014-11-14 20:38:59: BEGIN TEST w4-lxde.kali.0
+  1593 [t] TEST PASSED: w7-xfce.wheezy.0 finished with exit code 0
+  2014-11-14 20:41:24: BEGIN TEST w4-lxde.trusty.0
+  1322 [t] TEST PASSED: w4-lxde.kali.0 finished with exit code 0
+  2014-11-14 21:01:02: BEGIN TEST w6-xbmc.trusty.0
+  1342 [t] TEST PASSED: w4-lxde.trusty.0 finished with exit code 0
+  2014-11-14 21:03:48: BEGIN TEST w2-gnome.utopic.0
+  2624 [t] TEST PASSED: w5-unity.trusty.0 finished with exit code 0
+  2014-11-14 21:08:34: BEGIN TEST w7-xfce.precise.0
+  854 [t] TEST PASSED: w6-xbmc.trusty.0 finished with exit code 0
+  2014-11-14 21:15:18: BEGIN TEST w6-xbmc.jessie.0
+  1100 [t] TEST FAILED: w7-xfce.precise.0 finished with exit code 1
+  2014-11-14 21:26:56: BEGIN TEST w1-e17.kali.0
+  851 [t] TEST FAILED: w6-xbmc.jessie.0 finished with exit code 1
+  2014-11-14 21:29:31: BEGIN TEST w2-gnome.precise.0
+  286 [t] TEST PASSED: w1-e17.kali.0 finished with exit code 0
+  2014-11-14 21:31:44: BEGIN TEST w4-lxde.utopic.0
+  1950 [t] TEST PASSED: w2-gnome.utopic.0 finished with exit code 0
+  2014-11-14 21:36:20: BEGIN TEST w2-gnome.kali.0
+  1193 [t] TEST FAILED: w2-gnome.precise.0 finished with exit code 1
+  2014-11-14 21:49:26: BEGIN TEST w7-xfce.sid.0
+  1829 [t] TEST PASSED: w4-lxde.utopic.0 finished with exit code 0
+  2014-11-14 22:02:15: BEGIN TEST w4-lxde.wheezy.0
+  1782 [t] TEST PASSED: w2-gnome.kali.0 finished with exit code 0
+  2014-11-14 22:06:04: BEGIN TEST w6-xbmc.utopic.0
+  1901 [t] TEST PASSED: w7-xfce.sid.0 finished with exit code 0
+  2014-11-14 22:21:08: BEGIN TEST w7-xfce.kali.0
+  1056 [t] TEST FAILED: w6-xbmc.utopic.0 finished with exit code 1
+  2014-11-14 22:23:41: BEGIN TEST w1-e17.utopic.0
+  1464 [t] TEST PASSED: w4-lxde.wheezy.0 finished with exit code 0
+  2014-11-14 22:26:41: BEGIN TEST w7-xfce.utopic.0
+  1372 [t] TEST PASSED: w1-e17.utopic.0 finished with exit code 0
+  2014-11-14 22:46:34: BEGIN TEST w2-gnome.trusty.0
+  1776 [t] TEST PASSED: w7-xfce.kali.0 finished with exit code 0
+  2014-11-14 22:50:46: BEGIN TEST w6-xbmc.sid.0
+  288 [t] TEST FAILED: w2-gnome.trusty.0 finished with exit code 100
+  2014-11-14 22:51:24: BEGIN TEST w2-gnome.wheezy.0
+  1794 [t] TEST PASSED: w7-xfce.utopic.0 finished with exit code 0
+  2014-11-14 22:56:36: BEGIN TEST w5-unity.jessie.1
+  297 [t] TEST PASSED: w5-unity.jessie.1 finished with exit code 0
+  2014-11-14 23:01:34: BEGIN TEST w5-unity.sid.1
+  260 [t] TEST PASSED: w5-unity.sid.1 finished with exit code 0
+  2014-11-14 23:05:56: BEGIN TEST w2-gnome.jessie.1
+  1221 [t] TEST FAILED: w6-xbmc.sid.0 finished with exit code 1
+  2014-11-14 23:11:08: BEGIN TEST w4-lxde.jessie.1
+  2008 [t] TEST PASSED: w2-gnome.wheezy.0 finished with exit code 0
+  2014-11-14 23:24:54: BEGIN TEST w7-xfce.precise.1
+  1054 [t] TEST PASSED: w7-xfce.precise.1 finished with exit code 0
+  2014-11-14 23:42:29: BEGIN TEST w6-xbmc.jessie.1
+  2392 [t] TEST PASSED: w2-gnome.jessie.1 finished with exit code 0
+  2014-11-14 23:45:49: BEGIN TEST w2-gnome.precise.1
+  2634 [t] TEST PASSED: w4-lxde.jessie.1 finished with exit code 0
+  2014-11-14 23:55:05: BEGIN TEST w6-xbmc.utopic.1
+  1074 [t] TEST FAILED: w6-xbmc.jessie.1 finished with exit code 1
+  2014-11-15 00:00:24: BEGIN TEST w2-gnome.trusty.1
+  1255 [t] TEST PASSED: w2-gnome.precise.1 finished with exit code 0
+  2014-11-15 00:06:46: BEGIN TEST w6-xbmc.sid.1
+  1037 [t] TEST FAILED: w6-xbmc.utopic.1 finished with exit code 1
+  2014-11-15 00:12:24: BEGIN TEST w6-xbmc.jessie.2
+  808 [t] TEST FAILED: w6-xbmc.sid.1 finished with exit code 1
+  2014-11-15 00:20:16: BEGIN TEST w6-xbmc.utopic.2
+  861 [t] TEST FAILED: w6-xbmc.jessie.2 finished with exit code 1
+  2014-11-15 00:26:47: BEGIN TEST w6-xbmc.sid.2
+  1750 [t] TEST PASSED: w2-gnome.trusty.1 finished with exit code 0
+  845 [t] TEST FAILED: w6-xbmc.utopic.2 finished with exit code 1
+  584 [t] TEST FAILED: w6-xbmc.sid.2 finished with exit code 1
+  3 test(s) failed.
+  Cleaning up...
+11/15 00:36:59.924 INFO |       job:0211| 	END ERROR	platform_Crouton	platform_Crouton	timestamp=1416040619	localtime=Nov 15 00:36:59	
+11/15 00:36:59.958 DEBUG|  base_job:0348| Persistent state client._record_indent now set to 1
+11/15 00:36:59.968 DEBUG|  base_job:0375| Persistent state client.unexpected_reboot deleted
+11/15 00:37:07.389 DEBUG|base_utils:0148| Running 'rm -f /var/lib/cleanup_logs_paused'
+11/15 00:37:07.432 INFO |       job:0211| END GOOD	----	----	timestamp=1416040627	localtime=Nov 15 00:37:07	
+11/15 00:37:07.454 DEBUG|  base_job:0348| Persistent state client._record_indent now set to 0
+11/15 00:37:07.546 DEBUG|logging_ma:0580| Logging subprocess finished
+11/15 00:37:07.547 DEBUG|logging_ma:0580| Logging subprocess finished

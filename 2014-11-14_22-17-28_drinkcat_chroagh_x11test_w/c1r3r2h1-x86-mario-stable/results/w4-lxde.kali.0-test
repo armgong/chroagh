@@ -1,0 +1,51 @@
+2014-11-14 20:22:00: BEGIN TEST w4-lxde.kali.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/kali-x11-snapshot.tar.gz -n kali
+88 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/kali-x11-snapshot.tar.gz -n kali
+88 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w4-lxde.kali.0.zRq/target.voTFwb -U -n kali
+88 [t] BEGIN /usr/local/test-20141114155905 prefix/w4-lxde.kali.0.zRq/target.voTFwb CONTENTS
+88 [t] REQUIRES=''
+88 [t] . "${TARGETSDIR:="$PWD"}/common"
+88 [t] ### Append to prepare.sh:
+88 [t] set -x
+88 [t] install --minimal x11-apps imagemagick xautomation
+88 [t] 
+88 [t] set +x
+88 [t] END /usr/local/test-20141114155905 prefix/w4-lxde.kali.0.zRq/target.voTFwb CONTENTS
+149 [t] PASS: crouton -U -n kali
+149 [t] LAUNCHING: crouton -u -n kali -t lxde
+1240 [t] PASS: crouton -u -n kali -t lxde
+1240 [t] LAUNCHING: startlxde -b -n kali
+1241 [t] PASS: startlxde -b -n kali
+1301 [t] LAUNCHING: enter-chroot -n kali sh -exc 
+1301 [t]         # Test croutoncycle as a bonus
+1301 [t]         export DISPLAY="`croutoncycle display`"
+1301 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1301 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1301 [t]             exit 1
+1301 [t]         fi
+1301 [t]         if [ -n "" ]; then
+1301 [t]             echo "" | tr ";" "
+1301 [t] " | xte
+1301 [t]             sleep 60
+1301 [t]         fi
+1301 [t]         # Snapshot!
+1301 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1306 [t] PASS: enter-chroot -n kali sh -exc 
+1306 [t]         # Test croutoncycle as a bonus
+1306 [t]         export DISPLAY="`croutoncycle display`"
+1306 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1306 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1306 [t]             exit 1
+1306 [t]         fi
+1306 [t]         if [ -n "" ]; then
+1306 [t]             echo "" | tr ";" "
+1306 [t] " | xte
+1306 [t]             sleep 60
+1306 [t]         fi
+1306 [t]         # Snapshot!
+1306 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1306 [t] LAUNCHING: unmount-chroot -f -y kali
+1319 [t] PASS: unmount-chroot -f -y kali
+1319 [t] LAUNCHING: delete-chroot -y kali
+1347 [t] PASS: delete-chroot -y kali
+1349 [t] TEST PASSED: w4-lxde.kali.0 finished with exit code 0

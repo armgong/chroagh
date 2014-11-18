@@ -1,0 +1,55 @@
+2014-11-14 16:19:08: BEGIN TEST w7-xfce.jessie.0
+3 [t] LAUNCHING: crouton -r jessie -f /usr/local/test-20141114155905 prefix/jessie-bootstrap.tar.gz -d
+205 [t] PASS: crouton -r jessie -f /usr/local/test-20141114155905 prefix/jessie-bootstrap.tar.gz -d
+205 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/jessie-bootstrap.tar.gz -t x11 -n jessie
+1422 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/jessie-bootstrap.tar.gz -t x11 -n jessie
+1422 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114155905 prefix/jessie-x11-snapshot.tar.gz jessie
+1657 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114155905 prefix/jessie-x11-snapshot.tar.gz jessie
+1657 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w7-xfce.jessie.0.LSi/target.GvvlvT -U -n jessie
+1657 [t] BEGIN /usr/local/test-20141114155905 prefix/w7-xfce.jessie.0.LSi/target.GvvlvT CONTENTS
+1657 [t] REQUIRES=''
+1657 [t] . "${TARGETSDIR:="$PWD"}/common"
+1657 [t] ### Append to prepare.sh:
+1657 [t] set -x
+1657 [t] install --minimal x11-apps imagemagick xautomation
+1657 [t] 
+1657 [t] set +x
+1657 [t] END /usr/local/test-20141114155905 prefix/w7-xfce.jessie.0.LSi/target.GvvlvT CONTENTS
+1711 [t] PASS: crouton -U -n jessie
+1711 [t] LAUNCHING: crouton -u -n jessie -t xfce
+2931 [t] PASS: crouton -u -n jessie -t xfce
+2931 [t] LAUNCHING: startxfce4 -b -n jessie
+2934 [t] PASS: startxfce4 -b -n jessie
+2994 [t] LAUNCHING: enter-chroot -n jessie sh -exc 
+2994 [t]         # Test croutoncycle as a bonus
+2994 [t]         export DISPLAY="`croutoncycle display`"
+2994 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2994 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2994 [t]             exit 1
+2994 [t]         fi
+2994 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+2994 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+2994 [t] " | xte
+2994 [t]             sleep 60
+2994 [t]         fi
+2994 [t]         # Snapshot!
+2994 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+3061 [t] PASS: enter-chroot -n jessie sh -exc 
+3061 [t]         # Test croutoncycle as a bonus
+3061 [t]         export DISPLAY="`croutoncycle display`"
+3061 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+3061 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+3061 [t]             exit 1
+3061 [t]         fi
+3061 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+3061 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+3061 [t] " | xte
+3061 [t]             sleep 60
+3061 [t]         fi
+3061 [t]         # Snapshot!
+3061 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+3061 [t] LAUNCHING: unmount-chroot -f -y jessie
+3065 [t] PASS: unmount-chroot -f -y jessie
+3065 [t] LAUNCHING: delete-chroot -y jessie
+3081 [t] PASS: delete-chroot -y jessie
+3082 [t] TEST PASSED: w7-xfce.jessie.0 finished with exit code 0

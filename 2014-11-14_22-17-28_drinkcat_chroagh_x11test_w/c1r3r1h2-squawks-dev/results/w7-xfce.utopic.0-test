@@ -1,0 +1,18 @@
+2014-11-14 19:01:29: BEGIN TEST w7-xfce.utopic.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+64 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/utopic-x11-snapshot.tar.gz -n utopic
+65 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w7-xfce.utopic.0.x20/target.4okAJx -U -n utopic
+65 [t] BEGIN /usr/local/test-20141114154527 prefix/w7-xfce.utopic.0.x20/target.4okAJx CONTENTS
+65 [t] REQUIRES=''
+65 [t] . "${TARGETSDIR:="$PWD"}/common"
+65 [t] ### Append to prepare.sh:
+65 [t] set -x
+65 [t] install --minimal x11-apps imagemagick xautomation
+65 [t] 
+65 [t] set +x
+65 [t] END /usr/local/test-20141114154527 prefix/w7-xfce.utopic.0.x20/target.4okAJx CONTENTS
+140 [t] PASS: crouton -U -n utopic
+140 [t] LAUNCHING: crouton -u -n utopic -t xfce
+703 [t] FAIL with code 100: crouton -u -n utopic -t xfce
+703 [t] Target xfce failed on utopic.
+713 [t] TEST FAILED: w7-xfce.utopic.0 finished with exit code 100

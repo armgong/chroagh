@@ -1,0 +1,51 @@
+2014-11-14 19:11:03: BEGIN TEST w6-xbmc.wheezy.0
+1 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+77 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+77 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w6-xbmc.wheezy.0.Mg4/target.Oxv6Dr -U -n wheezy
+77 [t] BEGIN /usr/local/test-20141114155905 prefix/w6-xbmc.wheezy.0.Mg4/target.Oxv6Dr CONTENTS
+77 [t] REQUIRES=''
+77 [t] . "${TARGETSDIR:="$PWD"}/common"
+77 [t] ### Append to prepare.sh:
+77 [t] set -x
+77 [t] install --minimal x11-apps imagemagick xautomation
+77 [t] 
+77 [t] set +x
+77 [t] END /usr/local/test-20141114155905 prefix/w6-xbmc.wheezy.0.Mg4/target.Oxv6Dr CONTENTS
+135 [t] PASS: crouton -U -n wheezy
+135 [t] LAUNCHING: crouton -u -n wheezy -t xbmc
+552 [t] PASS: crouton -u -n wheezy -t xbmc
+552 [t] LAUNCHING: startxbmc -b -n wheezy
+554 [t] PASS: startxbmc -b -n wheezy
+614 [t] LAUNCHING: enter-chroot -n wheezy sh -exc 
+614 [t]         # Test croutoncycle as a bonus
+614 [t]         export DISPLAY="`croutoncycle display`"
+614 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+614 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+614 [t]             exit 1
+614 [t]         fi
+614 [t]         if [ -n "" ]; then
+614 [t]             echo "" | tr ";" "
+614 [t] " | xte
+614 [t]             sleep 60
+614 [t]         fi
+614 [t]         # Snapshot!
+614 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+619 [t] PASS: enter-chroot -n wheezy sh -exc 
+619 [t]         # Test croutoncycle as a bonus
+619 [t]         export DISPLAY="`croutoncycle display`"
+619 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+619 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+619 [t]             exit 1
+619 [t]         fi
+619 [t]         if [ -n "" ]; then
+619 [t]             echo "" | tr ";" "
+619 [t] " | xte
+619 [t]             sleep 60
+619 [t]         fi
+619 [t]         # Snapshot!
+619 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+619 [t] LAUNCHING: unmount-chroot -f -y wheezy
+631 [t] PASS: unmount-chroot -f -y wheezy
+631 [t] LAUNCHING: delete-chroot -y wheezy
+642 [t] PASS: delete-chroot -y wheezy
+643 [t] TEST PASSED: w6-xbmc.wheezy.0 finished with exit code 0

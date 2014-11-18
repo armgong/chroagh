@@ -1,0 +1,4 @@
++ atest job create -m chromeos1-row3-rack1-host1 -w cautotest -f /mnt/ssd/drinkcat/crouton-testing/daemon/status/2014-11-14_22-17-28_drinkcat_chroagh_x11test_w/c1r3r1h1-daisy_spring-dev/control -d cros-version:daisy_spring-release/R40-6415.1.0 -B always --max_runtime=1440 2014-11-14_22-17-28_drinkcat_chroagh_x11test_w-c1r3r1h1-daisy_spring-dev
+Created job: 
+	'2014-11-14_22-17-28_drinkcat_chroagh_x11test_w-c1r3r1h1
+	-daisy_spring-dev (id 20697193)'

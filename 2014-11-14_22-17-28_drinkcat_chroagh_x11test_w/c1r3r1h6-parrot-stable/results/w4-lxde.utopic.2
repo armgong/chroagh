@@ -1,0 +1,11 @@
+2014-11-15 01:45:00: BEGIN TEST w4-lxde.utopic.2
+1 [t] Waiting for snapshot for utopic-x11 to complete...
+380 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/utopic-x11-snapshot.tar.gz -n utopic
+380 [t] FAIL with code 2: crouton -f /usr/local/test-20141114164154 prefix/utopic-x11-snapshot.tar.gz -n utopic
+380 [i] Running trap...
+380 [e] + echo Running trap...
+380 [e] + [ -d /usr/local/test-20141114164154 prefix/w4-lxde.utopic.2.mMg/chroots ]
+380 [e] + pkill -9 -P 10501
+381 [e] + umount -l /usr/local/test-20141114164154 prefix/w4-lxde.utopic.2.mMg
+381 [e] + rm -rf --one-file-system /usr/local/test-20141114164154 prefix/w4-lxde.utopic.2.mMg
+382 [t] TEST FAILED: w4-lxde.utopic.2 finished with exit code 2

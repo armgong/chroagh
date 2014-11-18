@@ -1,0 +1,51 @@
+2014-11-14 18:58:35: BEGIN TEST w7-xfce.sid.0
+4 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/sid-x11-snapshot.tar.gz -n sid
+81 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/sid-x11-snapshot.tar.gz -n sid
+81 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w7-xfce.sid.0.qCD/target.sXp4ab -U -n sid
+81 [t] BEGIN /usr/local/test-20141114151908 prefix/w7-xfce.sid.0.qCD/target.sXp4ab CONTENTS
+81 [t] REQUIRES=''
+81 [t] . "${TARGETSDIR:="$PWD"}/common"
+81 [t] ### Append to prepare.sh:
+81 [t] set -x
+81 [t] install --minimal x11-apps imagemagick xautomation
+81 [t] 
+81 [t] set +x
+81 [t] END /usr/local/test-20141114151908 prefix/w7-xfce.sid.0.qCD/target.sXp4ab CONTENTS
+138 [t] PASS: crouton -U -n sid
+138 [t] LAUNCHING: crouton -u -n sid -t xfce
+1018 [t] PASS: crouton -u -n sid -t xfce
+1018 [t] LAUNCHING: startxfce4 -b -n sid
+1019 [t] PASS: startxfce4 -b -n sid
+1079 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+1079 [t]         # Test croutoncycle as a bonus
+1079 [t]         export DISPLAY="`croutoncycle display`"
+1079 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1079 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1079 [t]             exit 1
+1079 [t]         fi
+1079 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1079 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1079 [t] " | xte
+1079 [t]             sleep 60
+1079 [t]         fi
+1079 [t]         # Snapshot!
+1079 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1142 [t] PASS: enter-chroot -n sid sh -exc 
+1142 [t]         # Test croutoncycle as a bonus
+1142 [t]         export DISPLAY="`croutoncycle display`"
+1142 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1142 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1142 [t]             exit 1
+1142 [t]         fi
+1142 [t]         if [ -n "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" ]; then
+1142 [t]             echo "keydown Alt_L;key Tab;key Tab;keyup Alt_L;key Left;key Left;keydown Return;sleep 1;keyup Return" | tr ";" "
+1142 [t] " | xte
+1142 [t]             sleep 60
+1142 [t]         fi
+1142 [t]         # Snapshot!
+1142 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xfce.jpg"
+1142 [t] LAUNCHING: unmount-chroot -f -y sid
+1146 [t] PASS: unmount-chroot -f -y sid
+1146 [t] LAUNCHING: delete-chroot -y sid
+1176 [t] PASS: delete-chroot -y sid
+1177 [t] TEST PASSED: w7-xfce.sid.0 finished with exit code 0

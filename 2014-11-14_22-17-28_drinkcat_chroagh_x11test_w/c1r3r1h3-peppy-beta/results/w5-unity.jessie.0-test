@@ -1,0 +1,18 @@
+2014-11-14 18:31:11: BEGIN TEST w5-unity.jessie.0
+0 [t] LAUNCHING: crouton -f /usr/local/test-20141114151541 prefix/jessie-x11-snapshot.tar.gz -n jessie
+88 [t] PASS: crouton -f /usr/local/test-20141114151541 prefix/jessie-x11-snapshot.tar.gz -n jessie
+88 [t] LAUNCHING: crouton -T /usr/local/test-20141114151541 prefix/w5-unity.jessie.0.J38/target.PqPec9 -U -n jessie
+88 [t] BEGIN /usr/local/test-20141114151541 prefix/w5-unity.jessie.0.J38/target.PqPec9 CONTENTS
+88 [t] REQUIRES=''
+88 [t] . "${TARGETSDIR:="$PWD"}/common"
+88 [t] ### Append to prepare.sh:
+88 [t] set -x
+88 [t] install --minimal x11-apps imagemagick xautomation
+88 [t] 
+88 [t] set +x
+88 [t] END /usr/local/test-20141114151541 prefix/w5-unity.jessie.0.J38/target.PqPec9 CONTENTS
+142 [t] PASS: crouton -U -n jessie
+142 [t] LAUNCHING: crouton -u -n jessie -t unity
+149 [t] FAIL with code 99: crouton -u -n jessie -t unity
+149 [t] Target unity failed on jessie, as expected (unsupported combination).
+151 [t] TEST PASSED: w5-unity.jessie.0 finished with exit code 0

@@ -1,0 +1,52 @@
+2014-11-14 22:38:32: BEGIN TEST w4-lxde.utopic.2
+0 [t] Waiting for snapshot for utopic-x11 to complete...
+763 [t] LAUNCHING: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+865 [t] PASS: crouton -f /usr/local/test-20141114155905 prefix/utopic-x11-snapshot.tar.gz -n utopic
+865 [t] LAUNCHING: crouton -T /usr/local/test-20141114155905 prefix/w4-lxde.utopic.2.hl9/target.DqFqs0 -U -n utopic
+865 [t] BEGIN /usr/local/test-20141114155905 prefix/w4-lxde.utopic.2.hl9/target.DqFqs0 CONTENTS
+865 [t] REQUIRES=''
+865 [t] . "${TARGETSDIR:="$PWD"}/common"
+865 [t] ### Append to prepare.sh:
+865 [t] set -x
+865 [t] install --minimal x11-apps imagemagick xautomation
+865 [t] 
+865 [t] set +x
+865 [t] END /usr/local/test-20141114155905 prefix/w4-lxde.utopic.2.hl9/target.DqFqs0 CONTENTS
+946 [t] PASS: crouton -U -n utopic
+946 [t] LAUNCHING: crouton -u -n utopic -t lxde
+2026 [t] PASS: crouton -u -n utopic -t lxde
+2026 [t] LAUNCHING: startlxde -b -n utopic
+2027 [t] PASS: startlxde -b -n utopic
+2088 [t] LAUNCHING: enter-chroot -n utopic sh -exc 
+2088 [t]         # Test croutoncycle as a bonus
+2088 [t]         export DISPLAY="`croutoncycle display`"
+2088 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2088 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2088 [t]             exit 1
+2088 [t]         fi
+2088 [t]         if [ -n "" ]; then
+2088 [t]             echo "" | tr ";" "
+2088 [t] " | xte
+2088 [t]             sleep 60
+2088 [t]         fi
+2088 [t]         # Snapshot!
+2088 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+2092 [t] PASS: enter-chroot -n utopic sh -exc 
+2092 [t]         # Test croutoncycle as a bonus
+2092 [t]         export DISPLAY="`croutoncycle display`"
+2092 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2092 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2092 [t]             exit 1
+2092 [t]         fi
+2092 [t]         if [ -n "" ]; then
+2092 [t]             echo "" | tr ";" "
+2092 [t] " | xte
+2092 [t]             sleep 60
+2092 [t]         fi
+2092 [t]         # Snapshot!
+2092 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+2092 [t] LAUNCHING: unmount-chroot -f -y utopic
+2101 [t] PASS: unmount-chroot -f -y utopic
+2101 [t] LAUNCHING: delete-chroot -y utopic
+2118 [t] FAIL with code 1: delete-chroot -y utopic
+2123 [t] TEST FAILED: w4-lxde.utopic.2 finished with exit code 1

@@ -1,0 +1,47 @@
+2014-11-14 18:04:19: BEGIN TEST w6-xbmc.jessie.0
+2 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/jessie-x11-snapshot.tar.gz -n jessie
+127 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/jessie-x11-snapshot.tar.gz -n jessie
+127 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w6-xbmc.jessie.0.Kds/target.C8vAnT -U -n jessie
+127 [t] BEGIN /usr/local/test-20141114155732 prefix/w6-xbmc.jessie.0.Kds/target.C8vAnT CONTENTS
+127 [t] REQUIRES=''
+127 [t] . "${TARGETSDIR:="$PWD"}/common"
+127 [t] ### Append to prepare.sh:
+127 [t] set -x
+127 [t] install --minimal x11-apps imagemagick xautomation
+127 [t] 
+127 [t] set +x
+127 [t] END /usr/local/test-20141114155732 prefix/w6-xbmc.jessie.0.Kds/target.C8vAnT CONTENTS
+299 [t] PASS: crouton -U -n jessie
+299 [t] LAUNCHING: crouton -u -n jessie -t xbmc
+786 [t] PASS: crouton -u -n jessie -t xbmc
+786 [t] LAUNCHING: startxbmc -b -n jessie
+789 [t] PASS: startxbmc -b -n jessie
+849 [t] LAUNCHING: enter-chroot -n jessie sh -exc 
+849 [t]         # Test croutoncycle as a bonus
+849 [t]         export DISPLAY="`croutoncycle display`"
+849 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+849 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+849 [t]             exit 1
+849 [t]         fi
+849 [t]         if [ -n "" ]; then
+849 [t]             echo "" | tr ";" "
+849 [t] " | xte
+849 [t]             sleep 60
+849 [t]         fi
+849 [t]         # Snapshot!
+849 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+860 [t] FAIL with code 1: enter-chroot -n jessie sh -exc 
+860 [t]         # Test croutoncycle as a bonus
+860 [t]         export DISPLAY="`croutoncycle display`"
+860 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+860 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+860 [t]             exit 1
+860 [t]         fi
+860 [t]         if [ -n "" ]; then
+860 [t]             echo "" | tr ";" "
+860 [t] " | xte
+860 [t]             sleep 60
+860 [t]         fi
+860 [t]         # Snapshot!
+860 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+894 [t] TEST FAILED: w6-xbmc.jessie.0 finished with exit code 1

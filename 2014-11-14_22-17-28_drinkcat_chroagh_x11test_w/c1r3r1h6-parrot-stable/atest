@@ -1,0 +1,4 @@
++ atest job create -m chromeos1-row3-rack1-host6 -w cautotest -f /mnt/ssd/drinkcat/crouton-testing/daemon/status/2014-11-14_22-17-28_drinkcat_chroagh_x11test_w/c1r3r1h6-parrot-stable/control -d cros-version:parrot-release/R38-6158.70.0 -B always --max_runtime=1440 2014-11-14_22-17-28_drinkcat_chroagh_x11test_w-c1r3r1h6-parrot-stable
+Created job: 
+	'2014-11-14_22-17-28_drinkcat_chroagh_x11test_w-c1r3r1h6-parrot-
+	stable (id 20697198)'

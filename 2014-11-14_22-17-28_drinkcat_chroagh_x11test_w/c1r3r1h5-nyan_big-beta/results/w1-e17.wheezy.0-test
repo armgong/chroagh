@@ -1,0 +1,19 @@
+2014-11-14 15:59:06: BEGIN TEST w1-e17.wheezy.0
+10 [t] Waiting for snapshot for wheezy-x11 to complete...
+367 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+428 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+428 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w1-e17.wheezy.0.Vzr/target.tIMaVQ -U -n wheezy
+428 [t] BEGIN /usr/local/test-20141114151908 prefix/w1-e17.wheezy.0.Vzr/target.tIMaVQ CONTENTS
+428 [t] REQUIRES=''
+428 [t] . "${TARGETSDIR:="$PWD"}/common"
+428 [t] ### Append to prepare.sh:
+428 [t] set -x
+428 [t] install --minimal x11-apps imagemagick xautomation
+428 [t] 
+428 [t] set +x
+428 [t] END /usr/local/test-20141114151908 prefix/w1-e17.wheezy.0.Vzr/target.tIMaVQ CONTENTS
+478 [t] PASS: crouton -U -n wheezy
+478 [t] LAUNCHING: crouton -u -n wheezy -t e17
+486 [t] FAIL with code 99: crouton -u -n wheezy -t e17
+486 [t] Target e17 failed on wheezy, as expected (unsupported combination).
+492 [t] TEST PASSED: w1-e17.wheezy.0 finished with exit code 0

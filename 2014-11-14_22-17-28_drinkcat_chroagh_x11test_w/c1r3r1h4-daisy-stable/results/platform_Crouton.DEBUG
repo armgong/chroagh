@@ -1,0 +1,320 @@
+11/14 16:04:42.276 INFO |platform_C:0040| Running crouton test:
+11/14 16:04:42.277 INFO |platform_C:0041|  - repo: drinkcat/chroagh
+11/14 16:04:42.278 INFO |platform_C:0042|  - branch: x11test
+11/14 16:04:42.279 INFO |platform_C:0043|  - runargs: w
+11/14 16:04:42.279 INFO |platform_C:0044|  - env:;CROUTON_MIRROR_debian=https://mirrors.kernel.org/debian;CROUTON_MIRROR_ubuntu_x86=https://mirrors.kernel.org/ubuntu;CROUTON_MIRROR_ubuntu_arm=http://ports.ubuntu.com/ubuntu-ports;CROUTON_MIRROR_alarm=http://ca.us.mirror.archlinuxarm.org/armv7h/$repo;
+11/14 16:04:42.280 DEBUG|platform_C:0045|  - resultsdir: /usr/local/autotest/results/default/platform_Crouton/results
+11/14 16:04:42.281 DEBUG|platform_C:0046|  - tmpdir: /usr/local/autotest/tmp/tmpFwph6Q_platform_Crouton
+11/14 16:04:42.281 INFO |platform_C:0052| Downloading crouton tarball: "https://github.com/drinkcat/chroagh/archive/x11test.tar.gz".
+11/14 16:04:43.658 DEBUG|base_utils:0148| Running 'tar xvf /usr/local/autotest/tmp/tmpFwph6Q_platform_Crouton/archive.tar.gz --strip-components 1'
+11/14 16:04:43.686 DEBUG|base_utils:0238| [stdout] chroagh-x11test/.gitignore
+11/14 16:04:43.687 DEBUG|base_utils:0238| [stdout] chroagh-x11test/AUTHORS
+11/14 16:04:43.688 DEBUG|base_utils:0238| [stdout] chroagh-x11test/CONTRIBUTORS
+11/14 16:04:43.688 DEBUG|base_utils:0238| [stdout] chroagh-x11test/LICENSE
+11/14 16:04:43.689 DEBUG|base_utils:0238| [stdout] chroagh-x11test/Makefile
+11/14 16:04:43.689 DEBUG|base_utils:0238| [stdout] chroagh-x11test/README.md
+11/14 16:04:43.690 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/
+11/14 16:04:43.690 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/CONTRIBUTORS.sed
+11/14 16:04:43.691 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/genversion.sh
+11/14 16:04:43.692 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/release.sh
+11/14 16:04:43.692 DEBUG|base_utils:0238| [stdout] chroagh-x11test/build/wrapper.sh
+11/14 16:04:43.693 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/
+11/14 16:04:43.694 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/brightness
+11/14 16:04:43.694 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/crouton-unity-autostart
+11/14 16:04:43.695 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonclip
+11/14 16:04:43.696 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutoncycle
+11/14 16:04:43.697 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonpowerd
+11/14 16:04:43.698 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonurlhandler
+11/14 16:04:43.699 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonversion
+11/14 16:04:43.700 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonwheel
+11/14 16:04:43.701 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/croutonxinitrc-wrapper
+11/14 16:04:43.701 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/gnome-session-wrapper
+11/14 16:04:43.702 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/host-dbus
+11/14 16:04:43.703 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/host-x11
+11/14 16:04:43.703 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/setres
+11/14 16:04:43.704 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/startgnome
+11/14 16:04:43.705 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/startunity
+11/14 16:04:43.706 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-bin/xinit
+11/14 16:04:43.706 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/
+11/14 16:04:43.707 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/pulseaudio-default.pa
+11/14 16:04:43.708 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/unity-autostart.desktop
+11/14 16:04:43.708 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/unity-profiled
+11/14 16:04:43.709 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/xbindkeysrc.scm
+11/14 16:04:43.710 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/xserverrc-local.example
+11/14 16:04:43.711 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/xserverrc-x11
+11/14 16:04:43.711 DEBUG|base_utils:0238| [stdout] chroagh-x11test/chroot-etc/xserverrc-xephyr
+11/14 16:04:43.712 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/
+11/14 16:04:43.713 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/crash_reporter_wrapper
+11/14 16:04:43.713 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/delete-chroot
+11/14 16:04:43.714 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/edit-chroot
+11/14 16:04:43.715 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/enter-chroot
+11/14 16:04:43.715 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/mount-chroot
+11/14 16:04:43.716 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startcli
+11/14 16:04:43.717 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/starte17
+11/14 16:04:43.717 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startgnome
+11/14 16:04:43.718 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startkde
+11/14 16:04:43.719 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startlxde
+11/14 16:04:43.720 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startunity
+11/14 16:04:43.720 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startxbmc
+11/14 16:04:43.721 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/startxfce4
+11/14 16:04:43.722 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-bin/unmount-chroot
+11/14 16:04:43.722 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/
+11/14 16:04:43.723 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/.gitignore
+11/14 16:04:43.724 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/
+11/14 16:04:43.724 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/background.html
+11/14 16:04:43.725 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/background.js
+11/14 16:04:43.725 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/connected-19.png
+11/14 16:04:43.726 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/connected-38.png
+11/14 16:04:43.727 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/disabled-19.png
+11/14 16:04:43.727 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/disabled-38.png
+11/14 16:04:43.728 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/disconnected-19.png
+11/14 16:04:43.728 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/disconnected-38.png
+11/14 16:04:43.729 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/error-19.png
+11/14 16:04:43.729 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/error-38.png
+11/14 16:04:43.730 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/first.html
+11/14 16:04:43.731 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/icon-128.png
+11/14 16:04:43.731 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/icon-48.png
+11/14 16:04:43.732 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/manifest.json
+11/14 16:04:43.732 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/popup.html
+11/14 16:04:43.733 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/crouton/popup.js
+11/14 16:04:43.733 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/gencrx.sh
+11/14 16:04:43.734 DEBUG|base_utils:0238| [stdout] chroagh-x11test/host-ext/logo.svg
+11/14 16:04:43.734 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/
+11/14 16:04:43.735 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/.gitattributes
+11/14 16:04:43.735 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/crouton
+11/14 16:04:43.736 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/
+11/14 16:04:43.737 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/ar
+11/14 16:04:43.737 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/bootstrap
+11/14 16:04:43.738 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/defaults
+11/14 16:04:43.739 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/getrelease.sh
+11/14 16:04:43.739 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/pkgdetails
+11/14 16:04:43.740 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/prepare
+11/14 16:04:43.740 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/debian/releases
+11/14 16:04:43.741 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/functions
+11/14 16:04:43.741 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/
+11/14 16:04:43.742 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/ar
+11/14 16:04:43.743 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/bootstrap
+11/14 16:04:43.743 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/defaults
+11/14 16:04:43.744 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/getrelease.sh
+11/14 16:04:43.744 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/pkgdetails
+11/14 16:04:43.745 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/prepare
+11/14 16:04:43.745 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/kali/releases
+11/14 16:04:43.746 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/main.sh
+11/14 16:04:43.746 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/prepare.sh
+11/14 16:04:43.747 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/
+11/14 16:04:43.747 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/ar
+11/14 16:04:43.748 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/bootstrap
+11/14 16:04:43.749 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/defaults
+11/14 16:04:43.749 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/getrelease.sh
+11/14 16:04:43.750 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/pkgdetails
+11/14 16:04:43.750 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/prepare
+11/14 16:04:43.751 DEBUG|base_utils:0238| [stdout] chroagh-x11test/installer/ubuntu/releases
+11/14 16:04:43.751 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/
+11/14 16:04:43.752 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/cursor.c
+11/14 16:04:43.752 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/vtmonitor.c
+11/14 16:04:43.753 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/websocket.c
+11/14 16:04:43.754 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/wmtools.c
+11/14 16:04:43.754 DEBUG|base_utils:0238| [stdout] chroagh-x11test/src/xi2event.c
+11/14 16:04:43.755 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/
+11/14 16:04:43.755 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/audio
+11/14 16:04:43.756 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chrome
+11/14 16:04:43.756 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chrome-beta
+11/14 16:04:43.757 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chrome-common
+11/14 16:04:43.757 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chrome-dev
+11/14 16:04:43.758 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/chromium
+11/14 16:04:43.758 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/cli-extra
+11/14 16:04:43.759 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/common
+11/14 16:04:43.760 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/core
+11/14 16:04:43.760 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/e17
+11/14 16:04:43.761 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/extension
+11/14 16:04:43.761 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/gnome
+11/14 16:04:43.762 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/gtk-extra
+11/14 16:04:43.762 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/kde
+11/14 16:04:43.763 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/keyboard
+11/14 16:04:43.763 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/lxde
+11/14 16:04:43.764 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/post-common
+11/14 16:04:43.765 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/touch
+11/14 16:04:43.765 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/unity
+11/14 16:04:43.766 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/x11
+11/14 16:04:43.766 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/x11-common
+11/14 16:04:43.767 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/xbmc
+11/14 16:04:43.767 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/xephyr
+11/14 16:04:43.768 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/xfce
+11/14 16:04:43.768 DEBUG|base_utils:0238| [stdout] chroagh-x11test/targets/xorg
+11/14 16:04:43.769 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/
+11/14 16:04:43.770 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/autotest_control.template
+11/14 16:04:43.770 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/daemon.sh
+11/14 16:04:43.771 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/genreport.sh
+11/14 16:04:43.771 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/reports/
+11/14 16:04:43.772 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/reports/00-all.sh
+11/14 16:04:43.772 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/reports/35-xorg.sh
+11/14 16:04:43.773 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/reports/w0-common.sh
+11/14 16:04:43.773 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/run.sh
+11/14 16:04:43.774 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/
+11/14 16:04:43.774 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/00-tester
+11/14 16:04:43.775 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/10-basic
+11/14 16:04:43.776 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/11-32-on-64
+11/14 16:04:43.776 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/12-edit-chroot
+11/14 16:04:43.777 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/14-background
+11/14 16:04:43.777 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/15-media
+11/14 16:04:43.778 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/16-targetsfile
+11/14 16:04:43.778 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/17-encryption
+11/14 16:04:43.779 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/18-upgrade
+11/14 16:04:43.779 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/20-logind
+11/14 16:04:43.780 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/30-audio
+11/14 16:04:43.781 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/35-xorg
+11/14 16:04:43.781 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/36-xephyr
+11/14 16:04:43.782 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w0-common
+11/14 16:04:43.782 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w1-e17
+11/14 16:04:43.783 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w2-gnome
+11/14 16:04:43.783 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w3-kde
+11/14 16:04:43.784 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w4-lxde
+11/14 16:04:43.784 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w5-unity
+11/14 16:04:43.785 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w6-xbmc
+11/14 16:04:43.785 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/w7-xfce
+11/14 16:04:43.786 DEBUG|base_utils:0238| [stdout] chroagh-x11test/test/tests/x0-alltargets
+11/14 16:04:43.787 DEBUG|platform_C:0064| Setting env CROUTON_MIRROR_debian=https://mirrors.kernel.org/debian
+11/14 16:04:43.787 DEBUG|platform_C:0064| Setting env CROUTON_MIRROR_ubuntu_x86=https://mirrors.kernel.org/ubuntu
+11/14 16:04:43.788 DEBUG|platform_C:0064| Setting env CROUTON_MIRROR_ubuntu_arm=http://ports.ubuntu.com/ubuntu-ports
+11/14 16:04:43.789 DEBUG|platform_C:0064| Setting env CROUTON_MIRROR_alarm=http://ca.us.mirror.archlinuxarm.org/armv7h/$repo
+11/14 16:04:43.789 DEBUG|base_utils:0148| Running 'sh "test/run.sh" "-l" "/usr/local/autotest/results/default/platform_Crouton/results" "w"'
+11/14 16:04:43.822 INFO |base_utils:0238| Running tests in /usr/local/test-20141114160443 prefix
+11/14 16:04:43.824 INFO |base_utils:0238| Logging to /usr/local/autotest/results/default/platform_Crouton/results
+11/14 16:04:43.824 INFO |base_utils:0238| System: 6158.70.0 (Official Build) dev-channel daisy test
+11/14 16:04:43.825 INFO |base_utils:0238| Supported releases: wheezy jessie sid kali precise trusty utopic
+11/14 16:04:43.826 INFO |base_utils:0238| Default release for this run: kali
+11/14 16:04:43.863 INFO |base_utils:0238| 2014-11-14 16:04:43: BEGIN TEST w1-e17.trusty.0
+11/14 16:04:44.890 INFO |base_utils:0238| 2014-11-14 16:04:44: BEGIN TEST w5-unity.sid.0
+11/14 16:04:46.159 INFO |base_utils:0238| 2014-11-14 16:04:45: BEGIN TEST w5-unity.jessie.0
+11/14 16:20:50.012 INFO |base_utils:0238| 963 [t] TEST FAILED: w5-unity.jessie.0 finished with exit code 100
+11/14 16:20:51.123 INFO |base_utils:0238| 2014-11-14 16:20:51: BEGIN TEST w5-unity.utopic.0
+11/14 16:21:02.631 INFO |base_utils:0238| 978 [t] TEST FAILED: w5-unity.sid.0 finished with exit code 100
+11/14 16:21:04.201 INFO |base_utils:0238| 2014-11-14 16:21:04: BEGIN TEST w2-gnome.jessie.0
+11/14 16:43:44.879 INFO |base_utils:0238| 2341 [t] TEST PASSED: w1-e17.trusty.0 finished with exit code 0
+11/14 16:43:48.636 INFO |base_utils:0238| 2014-11-14 16:43:48: BEGIN TEST w4-lxde.jessie.0
+11/14 16:57:40.435 INFO |base_utils:0238| 2196 [t] TEST FAILED: w2-gnome.jessie.0 finished with exit code 100
+11/14 16:57:42.460 INFO |base_utils:0238| 2014-11-14 16:57:42: BEGIN TEST w4-lxde.precise.0
+11/14 17:20:03.840 INFO |base_utils:0238| 2175 [t] TEST FAILED: w4-lxde.jessie.0 finished with exit code 1
+11/14 17:20:05.317 INFO |base_utils:0238| 2014-11-14 17:20:05: BEGIN TEST w6-xbmc.wheezy.0
+11/14 17:30:14.685 INFO |base_utils:0238| 4163 [t] TEST PASSED: w5-unity.utopic.0 finished with exit code 0
+11/14 17:30:15.992 INFO |base_utils:0238| 2014-11-14 17:30:15: BEGIN TEST w4-lxde.sid.0
+11/14 17:32:36.731 INFO |base_utils:0238| 2094 [t] TEST PASSED: w4-lxde.precise.0 finished with exit code 0
+11/14 17:32:38.340 INFO |base_utils:0238| 2014-11-14 17:32:38: BEGIN TEST w5-unity.precise.0
+11/14 17:50:17.851 INFO |base_utils:0238| 1812 [t] TEST PASSED: w6-xbmc.wheezy.0 finished with exit code 0
+11/14 17:50:19.419 INFO |base_utils:0238| 2014-11-14 17:50:19: BEGIN TEST w3-kde.utopic.0
+11/14 17:59:33.658 INFO |base_utils:0238| 1615 [t] TEST PASSED: w5-unity.precise.0 finished with exit code 0
+11/14 17:59:35.508 INFO |base_utils:0238| 2014-11-14 17:59:35: BEGIN TEST w3-kde.trusty.0
+11/14 18:20:32.575 INFO |base_utils:0238| 1813 [t] TEST PASSED: w3-kde.utopic.0 finished with exit code 0
+11/14 18:20:33.745 INFO |base_utils:0238| 2014-11-14 18:20:33: BEGIN TEST w1-e17.sid.0
+11/14 18:26:03.716 INFO |base_utils:0238| 1588 [t] TEST PASSED: w3-kde.trusty.0 finished with exit code 0
+11/14 18:26:05.116 INFO |base_utils:0238| 2014-11-14 18:26:05: BEGIN TEST w2-gnome.sid.0
+11/14 18:33:00.400 INFO |base_utils:0238| 3763 [t] TEST PASSED: w4-lxde.sid.0 finished with exit code 0
+11/14 18:33:02.398 INFO |base_utils:0238| 2014-11-14 18:33:02: BEGIN TEST w3-kde.jessie.0
+11/14 18:47:00.770 INFO |base_utils:0238| 1587 [t] TEST PASSED: w1-e17.sid.0 finished with exit code 0
+11/14 18:47:02.346 INFO |base_utils:0238| 2014-11-14 18:47:02: BEGIN TEST w7-xfce.jessie.0
+11/14 19:03:10.775 INFO |base_utils:0238| 1808 [t] TEST PASSED: w3-kde.jessie.0 finished with exit code 0
+11/14 19:03:12.909 INFO |base_utils:0238| 2014-11-14 19:03:12: BEGIN TEST w3-kde.kali.0
+11/14 19:04:32.258 INFO |base_utils:0238| 2307 [t] TEST PASSED: w2-gnome.sid.0 finished with exit code 0
+11/14 19:04:34.317 INFO |base_utils:0238| 2014-11-14 19:04:34: BEGIN TEST w3-kde.sid.0
+11/14 19:17:57.685 INFO |base_utils:0238| 1855 [t] TEST PASSED: w7-xfce.jessie.0 finished with exit code 0
+11/14 19:17:59.132 INFO |base_utils:0238| 2014-11-14 19:17:59: BEGIN TEST w6-xbmc.kali.0
+11/14 19:28:46.696 INFO |base_utils:0238| 1452 [t] TEST PASSED: w3-kde.sid.0 finished with exit code 0
+11/14 19:28:48.038 INFO |base_utils:0238| 2014-11-14 19:28:48: BEGIN TEST w3-kde.precise.0
+11/14 19:39:00.968 INFO |base_utils:0238| 1261 [t] TEST PASSED: w6-xbmc.kali.0 finished with exit code 0
+11/14 19:39:03.221 INFO |base_utils:0238| 2014-11-14 19:39:02: BEGIN TEST w1-e17.jessie.0
+11/14 19:47:50.711 INFO |base_utils:0238| 2678 [t] TEST PASSED: w3-kde.kali.0 finished with exit code 0
+11/14 19:47:51.966 INFO |base_utils:0238| 2014-11-14 19:47:51: BEGIN TEST w1-e17.wheezy.0
+11/14 19:50:18.140 INFO |base_utils:0238| 1290 [t] TEST PASSED: w3-kde.precise.0 finished with exit code 0
+11/14 19:50:20.114 INFO |base_utils:0238| 2014-11-14 19:50:20: BEGIN TEST w3-kde.wheezy.0
+11/14 19:52:45.326 INFO |base_utils:0238| 294 [t] TEST PASSED: w1-e17.wheezy.0 finished with exit code 0
+11/14 19:52:47.135 INFO |base_utils:0238| 2014-11-14 19:52:47: BEGIN TEST w6-xbmc.precise.0
+11/14 20:04:40.766 INFO |base_utils:0238| 713 [t] TEST PASSED: w6-xbmc.precise.0 finished with exit code 0
+11/14 20:04:41.949 INFO |base_utils:0238| 2014-11-14 20:04:41: BEGIN TEST w5-unity.wheezy.0
+11/14 20:07:24.835 INFO |base_utils:0238| 1701 [t] TEST PASSED: w1-e17.jessie.0 finished with exit code 0
+11/14 20:07:26.103 INFO |base_utils:0238| 2014-11-14 20:07:26: BEGIN TEST w7-xfce.trusty.0
+11/14 20:09:49.670 INFO |base_utils:0238| 308 [t] TEST PASSED: w5-unity.wheezy.0 finished with exit code 0
+11/14 20:09:51.242 INFO |base_utils:0238| 2014-11-14 20:09:51: BEGIN TEST w1-e17.precise.0
+11/14 20:14:48.527 INFO |base_utils:0238| 1468 [t] TEST PASSED: w3-kde.wheezy.0 finished with exit code 0
+11/14 20:14:50.310 INFO |base_utils:0238| 2014-11-14 20:14:50: BEGIN TEST w7-xfce.wheezy.0
+11/14 20:24:47.383 INFO |base_utils:0238| 896 [t] TEST PASSED: w1-e17.precise.0 finished with exit code 0
+11/14 20:24:49.021 INFO |base_utils:0238| 2014-11-14 20:24:49: BEGIN TEST w5-unity.trusty.0
+11/14 20:36:10.105 INFO |base_utils:0238| 1723 [t] TEST PASSED: w7-xfce.trusty.0 finished with exit code 0
+11/14 20:36:11.513 INFO |base_utils:0238| 2014-11-14 20:36:11: BEGIN TEST w5-unity.kali.0
+11/14 20:38:57.743 INFO |base_utils:0238| 166 [t] TEST PASSED: w5-unity.kali.0 finished with exit code 0
+11/14 20:38:59.580 INFO |base_utils:0238| 2014-11-14 20:38:59: BEGIN TEST w4-lxde.kali.0
+11/14 20:41:23.060 INFO |base_utils:0238| 1593 [t] TEST PASSED: w7-xfce.wheezy.0 finished with exit code 0
+11/14 20:41:24.861 INFO |base_utils:0238| 2014-11-14 20:41:24: BEGIN TEST w4-lxde.trusty.0
+11/14 21:01:01.286 INFO |base_utils:0238| 1322 [t] TEST PASSED: w4-lxde.kali.0 finished with exit code 0
+11/14 21:01:02.395 INFO |base_utils:0238| 2014-11-14 21:01:02: BEGIN TEST w6-xbmc.trusty.0
+11/14 21:03:46.622 INFO |base_utils:0238| 1342 [t] TEST PASSED: w4-lxde.trusty.0 finished with exit code 0
+11/14 21:03:48.671 INFO |base_utils:0238| 2014-11-14 21:03:48: BEGIN TEST w2-gnome.utopic.0
+11/14 21:08:33.272 INFO |base_utils:0238| 2624 [t] TEST PASSED: w5-unity.trusty.0 finished with exit code 0
+11/14 21:08:34.559 INFO |base_utils:0238| 2014-11-14 21:08:34: BEGIN TEST w7-xfce.precise.0
+11/14 21:15:16.637 INFO |base_utils:0238| 854 [t] TEST PASSED: w6-xbmc.trusty.0 finished with exit code 0
+11/14 21:15:18.388 INFO |base_utils:0238| 2014-11-14 21:15:18: BEGIN TEST w6-xbmc.jessie.0
+11/14 21:26:54.881 INFO |base_utils:0238| 1100 [t] TEST FAILED: w7-xfce.precise.0 finished with exit code 1
+11/14 21:26:56.711 INFO |base_utils:0238| 2014-11-14 21:26:56: BEGIN TEST w1-e17.kali.0
+11/14 21:29:29.714 INFO |base_utils:0238| 851 [t] TEST FAILED: w6-xbmc.jessie.0 finished with exit code 1
+11/14 21:29:31.620 INFO |base_utils:0238| 2014-11-14 21:29:31: BEGIN TEST w2-gnome.precise.0
+11/14 21:31:43.023 INFO |base_utils:0238| 286 [t] TEST PASSED: w1-e17.kali.0 finished with exit code 0
+11/14 21:31:44.660 INFO |base_utils:0238| 2014-11-14 21:31:44: BEGIN TEST w4-lxde.utopic.0
+11/14 21:36:18.674 INFO |base_utils:0238| 1950 [t] TEST PASSED: w2-gnome.utopic.0 finished with exit code 0
+11/14 21:36:20.385 INFO |base_utils:0238| 2014-11-14 21:36:20: BEGIN TEST w2-gnome.kali.0
+11/14 21:49:24.627 INFO |base_utils:0238| 1193 [t] TEST FAILED: w2-gnome.precise.0 finished with exit code 1
+11/14 21:49:26.520 INFO |base_utils:0238| 2014-11-14 21:49:26: BEGIN TEST w7-xfce.sid.0
+11/14 22:02:13.396 INFO |base_utils:0238| 1829 [t] TEST PASSED: w4-lxde.utopic.0 finished with exit code 0
+11/14 22:02:15.223 INFO |base_utils:0238| 2014-11-14 22:02:15: BEGIN TEST w4-lxde.wheezy.0
+11/14 22:06:02.586 INFO |base_utils:0238| 1782 [t] TEST PASSED: w2-gnome.kali.0 finished with exit code 0
+11/14 22:06:04.479 INFO |base_utils:0238| 2014-11-14 22:06:04: BEGIN TEST w6-xbmc.utopic.0
+11/14 22:21:07.087 INFO |base_utils:0238| 1901 [t] TEST PASSED: w7-xfce.sid.0 finished with exit code 0
+11/14 22:21:08.794 INFO |base_utils:0238| 2014-11-14 22:21:08: BEGIN TEST w7-xfce.kali.0
+11/14 22:23:40.677 INFO |base_utils:0238| 1056 [t] TEST FAILED: w6-xbmc.utopic.0 finished with exit code 1
+11/14 22:23:41.820 INFO |base_utils:0238| 2014-11-14 22:23:41: BEGIN TEST w1-e17.utopic.0
+11/14 22:26:39.902 INFO |base_utils:0238| 1464 [t] TEST PASSED: w4-lxde.wheezy.0 finished with exit code 0
+11/14 22:26:41.454 INFO |base_utils:0238| 2014-11-14 22:26:41: BEGIN TEST w7-xfce.utopic.0
+11/14 22:46:33.511 INFO |base_utils:0238| 1372 [t] TEST PASSED: w1-e17.utopic.0 finished with exit code 0
+11/14 22:46:34.658 INFO |base_utils:0238| 2014-11-14 22:46:34: BEGIN TEST w2-gnome.trusty.0
+11/14 22:50:44.823 INFO |base_utils:0238| 1776 [t] TEST PASSED: w7-xfce.kali.0 finished with exit code 0
+11/14 22:50:46.307 INFO |base_utils:0238| 2014-11-14 22:50:46: BEGIN TEST w6-xbmc.sid.0
+11/14 22:51:22.950 INFO |base_utils:0238| 288 [t] TEST FAILED: w2-gnome.trusty.0 finished with exit code 100
+11/14 22:51:24.578 INFO |base_utils:0238| 2014-11-14 22:51:24: BEGIN TEST w2-gnome.wheezy.0
+11/14 22:56:35.629 INFO |base_utils:0238| 1794 [t] TEST PASSED: w7-xfce.utopic.0 finished with exit code 0
+11/14 22:56:36.754 INFO |base_utils:0238| 2014-11-14 22:56:36: BEGIN TEST w5-unity.jessie.1
+11/14 23:01:33.372 INFO |base_utils:0238| 297 [t] TEST PASSED: w5-unity.jessie.1 finished with exit code 0
+11/14 23:01:34.919 INFO |base_utils:0238| 2014-11-14 23:01:34: BEGIN TEST w5-unity.sid.1
+11/14 23:05:54.797 INFO |base_utils:0238| 260 [t] TEST PASSED: w5-unity.sid.1 finished with exit code 0
+11/14 23:05:56.690 INFO |base_utils:0238| 2014-11-14 23:05:56: BEGIN TEST w2-gnome.jessie.1
+11/14 23:11:07.484 INFO |base_utils:0238| 1221 [t] TEST FAILED: w6-xbmc.sid.0 finished with exit code 1
+11/14 23:11:10.029 INFO |base_utils:0238| 2014-11-14 23:11:08: BEGIN TEST w4-lxde.jessie.1
+11/14 23:24:52.811 INFO |base_utils:0238| 2008 [t] TEST PASSED: w2-gnome.wheezy.0 finished with exit code 0
+11/14 23:24:54.475 INFO |base_utils:0238| 2014-11-14 23:24:54: BEGIN TEST w7-xfce.precise.1
+11/14 23:42:28.361 INFO |base_utils:0238| 1054 [t] TEST PASSED: w7-xfce.precise.1 finished with exit code 0
+11/14 23:42:29.492 INFO |base_utils:0238| 2014-11-14 23:42:29: BEGIN TEST w6-xbmc.jessie.1
+11/14 23:45:48.592 INFO |base_utils:0238| 2392 [t] TEST PASSED: w2-gnome.jessie.1 finished with exit code 0
+11/14 23:45:49.854 INFO |base_utils:0238| 2014-11-14 23:45:49: BEGIN TEST w2-gnome.precise.1
+11/14 23:55:04.176 INFO |base_utils:0238| 2634 [t] TEST PASSED: w4-lxde.jessie.1 finished with exit code 0
+11/14 23:55:05.582 INFO |base_utils:0238| 2014-11-14 23:55:05: BEGIN TEST w6-xbmc.utopic.1
+11/15 00:00:23.199 INFO |base_utils:0238| 1074 [t] TEST FAILED: w6-xbmc.jessie.1 finished with exit code 1
+11/15 00:00:29.649 INFO |base_utils:0238| 2014-11-15 00:00:24: BEGIN TEST w2-gnome.trusty.1
+11/15 00:06:44.641 INFO |base_utils:0238| 1255 [t] TEST PASSED: w2-gnome.precise.1 finished with exit code 0
+11/15 00:06:46.095 INFO |base_utils:0238| 2014-11-15 00:06:46: BEGIN TEST w6-xbmc.sid.1
+11/15 00:12:22.485 INFO |base_utils:0238| 1037 [t] TEST FAILED: w6-xbmc.utopic.1 finished with exit code 1
+11/15 00:12:24.389 INFO |base_utils:0238| 2014-11-15 00:12:24: BEGIN TEST w6-xbmc.jessie.2
+11/15 00:20:14.782 INFO |base_utils:0238| 808 [t] TEST FAILED: w6-xbmc.sid.1 finished with exit code 1
+11/15 00:20:16.526 INFO |base_utils:0238| 2014-11-15 00:20:16: BEGIN TEST w6-xbmc.utopic.2
+11/15 00:26:45.155 INFO |base_utils:0238| 861 [t] TEST FAILED: w6-xbmc.jessie.2 finished with exit code 1
+11/15 00:26:47.098 INFO |base_utils:0238| 2014-11-15 00:26:47: BEGIN TEST w6-xbmc.sid.2
+11/15 00:29:39.390 INFO |base_utils:0238| 1750 [t] TEST PASSED: w2-gnome.trusty.1 finished with exit code 0
+11/15 00:34:21.608 INFO |base_utils:0238| 845 [t] TEST FAILED: w6-xbmc.utopic.2 finished with exit code 1
+11/15 00:36:31.644 INFO |base_utils:0238| 584 [t] TEST FAILED: w6-xbmc.sid.2 finished with exit code 1
+11/15 00:36:39.298 INFO |base_utils:0238| 3 test(s) failed.
+11/15 00:36:39.299 INFO |base_utils:0238| Cleaning up...
+11/15 00:36:43.311 DEBUG|base_utils:0148| Running 'mkdir -p /usr/local/autotest/results/default/platform_Crouton/sysinfo/iteration.1/var/spool'
+11/15 00:36:43.331 DEBUG|base_utils:0148| Running 'rsync --no-perms --chmod=ugo+r -a --exclude=autoserv* --exclude=*.core /var/spool/crash /usr/local/autotest/results/default/platform_Crouton/sysinfo/iteration.1/var/spool'
+11/15 00:36:43.410 DEBUG|base_utils:0148| Running 'rm -rf /var/spool/crash/*'
+11/15 00:36:43.445 DEBUG|base_utils:0148| Running 'pgrep -o ^X$'
+11/15 00:36:43.489 INFO |site_utils:0341| Saving screenshot to /usr/local/autotest/results/default/platform_Crouton/debug/platform_Crouton-fail-0.png.
+11/15 00:36:43.491 DEBUG|base_utils:0148| Running 'DISPLAY=:0.0 XAUTHORITY=/home/chronos/.Xauthority /usr/local/bin/import -window root -depth 8 /usr/local/autotest/results/default/platform_Crouton/debug/platform_Crouton-fail-0.png'
+11/15 00:36:45.990 DEBUG|base_utils:0148| Running 'echo 1 > /proc/sys/kernel/hung_task_panic'
+11/15 00:36:46.010 DEBUG|logging_ma:0580| Logging subprocess finished
+11/15 00:36:46.018 DEBUG|logging_ma:0580| Logging subprocess finished

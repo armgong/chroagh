@@ -1,0 +1,55 @@
+2014-11-14 15:57:34: BEGIN TEST w6-xbmc.kali.0
+0 [t] LAUNCHING: crouton -r kali -f /usr/local/test-20141114155732 prefix/kali-bootstrap.tar.gz -d
+192 [t] PASS: crouton -r kali -f /usr/local/test-20141114155732 prefix/kali-bootstrap.tar.gz -d
+192 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/kali-bootstrap.tar.gz -t x11 -n kali
+1076 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/kali-bootstrap.tar.gz -t x11 -n kali
+1076 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114155732 prefix/kali-x11-snapshot.tar.gz kali
+1195 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114155732 prefix/kali-x11-snapshot.tar.gz kali
+1196 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w6-xbmc.kali.0.qcl/target.9izyWg -U -n kali
+1196 [t] BEGIN /usr/local/test-20141114155732 prefix/w6-xbmc.kali.0.qcl/target.9izyWg CONTENTS
+1196 [t] REQUIRES=''
+1196 [t] . "${TARGETSDIR:="$PWD"}/common"
+1196 [t] ### Append to prepare.sh:
+1196 [t] set -x
+1196 [t] install --minimal x11-apps imagemagick xautomation
+1196 [t] 
+1196 [t] set +x
+1196 [t] END /usr/local/test-20141114155732 prefix/w6-xbmc.kali.0.qcl/target.9izyWg CONTENTS
+1267 [t] PASS: crouton -U -n kali
+1267 [t] LAUNCHING: crouton -u -n kali -t xbmc
+1742 [t] PASS: crouton -u -n kali -t xbmc
+1742 [t] LAUNCHING: startxbmc -b -n kali
+1744 [t] PASS: startxbmc -b -n kali
+1804 [t] LAUNCHING: enter-chroot -n kali sh -exc 
+1804 [t]         # Test croutoncycle as a bonus
+1804 [t]         export DISPLAY="`croutoncycle display`"
+1804 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1804 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1804 [t]             exit 1
+1804 [t]         fi
+1804 [t]         if [ -n "" ]; then
+1804 [t]             echo "" | tr ";" "
+1804 [t] " | xte
+1804 [t]             sleep 60
+1804 [t]         fi
+1804 [t]         # Snapshot!
+1804 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+1814 [t] PASS: enter-chroot -n kali sh -exc 
+1814 [t]         # Test croutoncycle as a bonus
+1814 [t]         export DISPLAY="`croutoncycle display`"
+1814 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1814 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1814 [t]             exit 1
+1814 [t]         fi
+1814 [t]         if [ -n "" ]; then
+1814 [t]             echo "" | tr ";" "
+1814 [t] " | xte
+1814 [t]             sleep 60
+1814 [t]         fi
+1814 [t]         # Snapshot!
+1814 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-xbmc.jpg"
+1814 [t] LAUNCHING: unmount-chroot -f -y kali
+1828 [t] PASS: unmount-chroot -f -y kali
+1828 [t] LAUNCHING: delete-chroot -y kali
+1868 [t] PASS: delete-chroot -y kali
+1870 [t] TEST PASSED: w6-xbmc.kali.0 finished with exit code 0

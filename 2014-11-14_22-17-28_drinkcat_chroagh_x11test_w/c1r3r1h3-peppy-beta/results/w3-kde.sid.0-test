@@ -1,0 +1,51 @@
+2014-11-14 17:22:49: BEGIN TEST w3-kde.sid.0
+0 [t] LAUNCHING: crouton -f /usr/local/test-20141114151541 prefix/sid-x11-snapshot.tar.gz -n sid
+102 [t] PASS: crouton -f /usr/local/test-20141114151541 prefix/sid-x11-snapshot.tar.gz -n sid
+102 [t] LAUNCHING: crouton -T /usr/local/test-20141114151541 prefix/w3-kde.sid.0.TRU/target.vKSXA9 -U -n sid
+102 [t] BEGIN /usr/local/test-20141114151541 prefix/w3-kde.sid.0.TRU/target.vKSXA9 CONTENTS
+102 [t] REQUIRES=''
+102 [t] . "${TARGETSDIR:="$PWD"}/common"
+102 [t] ### Append to prepare.sh:
+102 [t] set -x
+102 [t] install --minimal x11-apps imagemagick xautomation
+102 [t] 
+102 [t] set +x
+102 [t] END /usr/local/test-20141114151541 prefix/w3-kde.sid.0.TRU/target.vKSXA9 CONTENTS
+170 [t] PASS: crouton -U -n sid
+170 [t] LAUNCHING: crouton -u -n sid -t kde
+853 [t] PASS: crouton -u -n sid -t kde
+853 [t] LAUNCHING: startkde -b -n sid
+854 [t] PASS: startkde -b -n sid
+914 [t] LAUNCHING: enter-chroot -n sid sh -exc 
+914 [t]         # Test croutoncycle as a bonus
+914 [t]         export DISPLAY="`croutoncycle display`"
+914 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+914 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+914 [t]             exit 1
+914 [t]         fi
+914 [t]         if [ -n "" ]; then
+914 [t]             echo "" | tr ";" "
+914 [t] " | xte
+914 [t]             sleep 60
+914 [t]         fi
+914 [t]         # Snapshot!
+914 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+916 [t] PASS: enter-chroot -n sid sh -exc 
+916 [t]         # Test croutoncycle as a bonus
+916 [t]         export DISPLAY="`croutoncycle display`"
+916 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+916 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+916 [t]             exit 1
+916 [t]         fi
+916 [t]         if [ -n "" ]; then
+916 [t]             echo "" | tr ";" "
+916 [t] " | xte
+916 [t]             sleep 60
+916 [t]         fi
+916 [t]         # Snapshot!
+916 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-kde.jpg"
+916 [t] LAUNCHING: unmount-chroot -f -y sid
+928 [t] PASS: unmount-chroot -f -y sid
+928 [t] LAUNCHING: delete-chroot -y sid
+942 [t] PASS: delete-chroot -y sid
+943 [t] TEST PASSED: w3-kde.sid.0 finished with exit code 0

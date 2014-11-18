@@ -1,0 +1,56 @@
+2014-11-14 15:57:33: BEGIN TEST w2-gnome.trusty.0
+1 [t] LAUNCHING: crouton -r trusty -f /usr/local/test-20141114155732 prefix/trusty-bootstrap.tar.gz -d
+229 [t] PASS: crouton -r trusty -f /usr/local/test-20141114155732 prefix/trusty-bootstrap.tar.gz -d
+229 [t] LAUNCHING: crouton -f /usr/local/test-20141114155732 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+1289 [t] PASS: crouton -f /usr/local/test-20141114155732 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+1289 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114155732 prefix/trusty-x11-snapshot.tar.gz trusty
+1448 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114155732 prefix/trusty-x11-snapshot.tar.gz trusty
+1448 [t] LAUNCHING: crouton -T /usr/local/test-20141114155732 prefix/w2-gnome.trusty.0.bdg/target.EnVicw -U -n trusty
+1448 [t] BEGIN /usr/local/test-20141114155732 prefix/w2-gnome.trusty.0.bdg/target.EnVicw CONTENTS
+1448 [t] REQUIRES=''
+1448 [t] . "${TARGETSDIR:="$PWD"}/common"
+1448 [t] ### Append to prepare.sh:
+1448 [t] set -x
+1448 [t] install --minimal x11-apps imagemagick xautomation
+1448 [t] 
+1448 [t] set +x
+1448 [t] END /usr/local/test-20141114155732 prefix/w2-gnome.trusty.0.bdg/target.EnVicw CONTENTS
+1557 [t] PASS: crouton -U -n trusty
+1557 [t] LAUNCHING: crouton -u -n trusty -t gnome
+2652 [t] PASS: crouton -u -n trusty -t gnome
+2652 [t] Waiting for VT lock...
+2685 [t] LAUNCHING: startgnome -b -n trusty
+2689 [t] PASS: startgnome -b -n trusty
+2749 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+2749 [t]         # Test croutoncycle as a bonus
+2749 [t]         export DISPLAY="`croutoncycle display`"
+2749 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2749 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2749 [t]             exit 1
+2749 [t]         fi
+2749 [t]         if [ -n "" ]; then
+2749 [t]             echo "" | tr ";" "
+2749 [t] " | xte
+2749 [t]             sleep 60
+2749 [t]         fi
+2749 [t]         # Snapshot!
+2749 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+2751 [t] PASS: enter-chroot -n trusty sh -exc 
+2751 [t]         # Test croutoncycle as a bonus
+2751 [t]         export DISPLAY="`croutoncycle display`"
+2751 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+2751 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+2751 [t]             exit 1
+2751 [t]         fi
+2751 [t]         if [ -n "" ]; then
+2751 [t]             echo "" | tr ";" "
+2751 [t] " | xte
+2751 [t]             sleep 60
+2751 [t]         fi
+2751 [t]         # Snapshot!
+2751 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-gnome.jpg"
+2751 [t] LAUNCHING: unmount-chroot -f -y trusty
+2767 [t] PASS: unmount-chroot -f -y trusty
+2767 [t] LAUNCHING: delete-chroot -y trusty
+2799 [t] PASS: delete-chroot -y trusty
+2800 [t] TEST PASSED: w2-gnome.trusty.0 finished with exit code 0

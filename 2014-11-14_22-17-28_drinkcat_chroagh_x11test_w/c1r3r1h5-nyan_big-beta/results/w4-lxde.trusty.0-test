@@ -1,0 +1,55 @@
+2014-11-14 15:40:51: BEGIN TEST w4-lxde.trusty.0
+7 [t] LAUNCHING: crouton -r trusty -f /usr/local/test-20141114151908 prefix/trusty-bootstrap.tar.gz -d
+213 [t] PASS: crouton -r trusty -f /usr/local/test-20141114151908 prefix/trusty-bootstrap.tar.gz -d
+213 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+980 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/trusty-bootstrap.tar.gz -t x11 -n trusty
+980 [t] LAUNCHING: edit-chroot -y -b -f /usr/local/test-20141114151908 prefix/trusty-x11-snapshot.tar.gz trusty
+1086 [t] PASS: edit-chroot -y -b -f /usr/local/test-20141114151908 prefix/trusty-x11-snapshot.tar.gz trusty
+1086 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w4-lxde.trusty.0.p4I/target.MMEkXm -U -n trusty
+1086 [t] BEGIN /usr/local/test-20141114151908 prefix/w4-lxde.trusty.0.p4I/target.MMEkXm CONTENTS
+1086 [t] REQUIRES=''
+1086 [t] . "${TARGETSDIR:="$PWD"}/common"
+1086 [t] ### Append to prepare.sh:
+1086 [t] set -x
+1086 [t] install --minimal x11-apps imagemagick xautomation
+1086 [t] 
+1086 [t] set +x
+1086 [t] END /usr/local/test-20141114151908 prefix/w4-lxde.trusty.0.p4I/target.MMEkXm CONTENTS
+1138 [t] PASS: crouton -U -n trusty
+1138 [t] LAUNCHING: crouton -u -n trusty -t lxde
+1785 [t] PASS: crouton -u -n trusty -t lxde
+1785 [t] LAUNCHING: startlxde -b -n trusty
+1786 [t] PASS: startlxde -b -n trusty
+1846 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+1846 [t]         # Test croutoncycle as a bonus
+1846 [t]         export DISPLAY="`croutoncycle display`"
+1846 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1846 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1846 [t]             exit 1
+1846 [t]         fi
+1846 [t]         if [ -n "" ]; then
+1846 [t]             echo "" | tr ";" "
+1846 [t] " | xte
+1846 [t]             sleep 60
+1846 [t]         fi
+1846 [t]         # Snapshot!
+1846 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1848 [t] PASS: enter-chroot -n trusty sh -exc 
+1848 [t]         # Test croutoncycle as a bonus
+1848 [t]         export DISPLAY="`croutoncycle display`"
+1848 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1848 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1848 [t]             exit 1
+1848 [t]         fi
+1848 [t]         if [ -n "" ]; then
+1848 [t]             echo "" | tr ";" "
+1848 [t] " | xte
+1848 [t]             sleep 60
+1848 [t]         fi
+1848 [t]         # Snapshot!
+1848 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1848 [t] LAUNCHING: unmount-chroot -f -y trusty
+1860 [t] PASS: unmount-chroot -f -y trusty
+1860 [t] LAUNCHING: delete-chroot -y trusty
+1885 [t] PASS: delete-chroot -y trusty
+1886 [t] TEST PASSED: w4-lxde.trusty.0 finished with exit code 0

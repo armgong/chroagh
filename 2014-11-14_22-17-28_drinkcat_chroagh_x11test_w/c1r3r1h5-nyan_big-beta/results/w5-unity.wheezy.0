@@ -1,0 +1,269 @@
+2014-11-14 18:16:30: BEGIN TEST w5-unity.wheezy.0
+2 [t] LAUNCHING: crouton -f /usr/local/test-20141114151908 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+2 [e]   Restoring /usr/local/test-20141114151908 prefix/wheezy-x11-snapshot.tar.gz to /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/chroots/wheezy...
+53 [e] Finished restoring /usr/local/test-20141114151908 prefix/wheezy-x11-snapshot.tar.gz to /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/chroots/wheezy
+53 [e] WARNING: USB booting is enabled; consider disabling it.
+53 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+53 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+58 [e] Preparing chroot environment...
+58 [e] Installing croutonversion into the chroot...
+58 [e] Installing host-dbus into the chroot...
+58 [e] Installing host-x11 into the chroot...
+58 [e] Installing pulseaudio-default.pa into the chroot...
+58 [e] Installing brightness into the chroot...
+58 [e] Installing croutoncycle into the chroot...
+58 [e] Installing croutonpowerd into the chroot...
+58 [e] Installing croutonwheel into the chroot...
+58 [e] Installing croutonxinitrc-wrapper into the chroot...
+58 [e] Installing xinit into the chroot...
+58 [e] Installing xbindkeysrc.scm into the chroot...
+58 [e] Installing xserverrc-xephyr into the chroot...
+58 [e] Installing xserverrc-local.example into the chroot...
+58 [e] Installing enter-chroot into the host...
+58 [e] Installing delete-chroot into the host...
+58 [e] Installing edit-chroot into the host...
+58 [e] Installing mount-chroot into the host...
+58 [e] Installing unmount-chroot into the host...
+58 [e] Installing crash_reporter_wrapper into the host...
+58 [e] Done! You can enter the chroot using enter-chroot.
+65 [t] PASS: crouton -f /usr/local/test-20141114151908 prefix/wheezy-x11-snapshot.tar.gz -n wheezy
+65 [t] LAUNCHING: crouton -T /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/target.qBPoPF -U -n wheezy
+65 [t] BEGIN /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/target.qBPoPF CONTENTS
+65 [t] REQUIRES=''
+65 [t] . "${TARGETSDIR:="$PWD"}/common"
+65 [t] ### Append to prepare.sh:
+65 [t] set -x
+65 [t] install --minimal x11-apps imagemagick xautomation
+65 [t] 
+65 [t] set +x
+65 [t] END /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/target.qBPoPF CONTENTS
+65 [e] /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/chroots/wheezy already exists; updating it...
+65 [e] WARNING: USB booting is enabled; consider disabling it.
+65 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+65 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+70 [e] Preparing chroot environment...
+70 [e] Installing enter-chroot into the host...
+71 [e] Installing delete-chroot into the host...
+71 [e] Installing edit-chroot into the host...
+71 [e] Installing mount-chroot into the host...
+71 [e] Installing unmount-chroot into the host...
+71 [e] Installing crash_reporter_wrapper into the host...
+71 [e] stdin: is not a tty
+71 [e] Installing target /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/target.qBPoPF...
+71 [e] + install --minimal x11-apps imagemagick xautomation
+71 [e] + distropkgs --minimal x11-apps imagemagick xautomation
+71 [e] + local descriptor desc pkgname rank option optionname optiondistro optionrel
+71 [e] + pkgname=.
+71 [e] + rank=0
+71 [e] + desc=--minimal,
+71 [e] + [ -n --minimal, ]
+71 [e] + option=--minimal
+71 [e] + optionname=--minimal
+71 [e] + desc=
+71 [e] + [ --minimal = --minimal ]
+71 [e] + [ 0 -lt 1 ]
+71 [e] + rank=1
+71 [e] + pkgname=--minimal
+71 [e] + continue
+71 [e] + [ -n  ]
+71 [e] + [ ! --minimal = . ]
+71 [e] + echo -n --minimal 
+71 [e] + pkgname=.
+71 [e] + rank=0
+71 [e] + desc=x11-apps,
+71 [e] + [ -n x11-apps, ]
+71 [e] + option=x11-apps
+71 [e] + optionname=x11-apps
+71 [e] + desc=
+71 [e] + [ x11-apps = x11-apps ]
+71 [e] + [ 0 -lt 1 ]
+71 [e] + rank=1
+71 [e] + pkgname=x11-apps
+71 [e] + continue
+71 [e] + [ -n  ]
+71 [e] + [ ! x11-apps = . ]
+71 [e] + echo -n x11-apps 
+71 [e] + pkgname=.
+71 [e] + rank=0
+71 [e] + desc=imagemagick,
+71 [e] + [ -n imagemagick, ]
+71 [e] + option=imagemagick
+71 [e] + optionname=imagemagick
+71 [e] + desc=
+71 [e] + [ imagemagick = imagemagick ]
+71 [e] + [ 0 -lt 1 ]
+71 [e] + rank=1
+71 [e] + pkgname=imagemagick
+71 [e] + continue
+71 [e] + [ -n  ]
+71 [e] + [ ! imagemagick = . ]
+71 [e] + echo -n imagemagick 
+71 [e] + pkgname=.
+71 [e] + rank=0
+71 [e] + desc=xautomation,
+71 [e] + [ -n xautomation, ]
+71 [e] + option=xautomation
+71 [e] + optionname=xautomation
+71 [e] + desc=
+71 [e] + [ xautomation = xautomation ]
+71 [e] + [ 0 -lt 1 ]
+71 [e] + rank=1
+71 [e] + pkgname=xautomation
+71 [e] + continue
+71 [e] + [ -n  ]
+71 [e] + [ ! xautomation = . ]
+71 [e] + echo -n xautomation 
+71 [e] + install_dist --minimal x11-apps imagemagick xautomation
+71 [e] + local pkgs= pkgsasdeps= params= asdeps=
+71 [e] + [ ! 4 = 0 ]
+71 [e] + [ --minimal = --minimal ]
+71 [e] + params=--no-install-recommends
+71 [e] + shift
+71 [e] + [ ! 3 = 0 ]
+71 [e] + [ x11-apps = --minimal ]
+71 [e] + [ x11-apps = --asdeps ]
+71 [e] + break
+71 [e] + [ ! 3 = 0 ]
+71 [e] + [ x11-apps = -- ]
+71 [e] + pkgs= x11-apps
+71 [e] + shift
+71 [e] + [ ! 2 = 0 ]
+71 [e] + [ imagemagick = -- ]
+71 [e] + pkgs= x11-apps imagemagick
+71 [e] + shift
+71 [e] + [ ! 1 = 0 ]
+71 [e] + [ xautomation = -- ]
+71 [e] + pkgs= x11-apps imagemagick xautomation
+71 [e] + shift
+71 [e] + [ ! 0 = 0 ]
+71 [e] + [ -n  ]
+71 [e] + list_uninstalled_dist -
+71 [e] + local suffix=- pkg
+71 [e] + shift
+71 [e] + apt-get -y --no-install-recommends install x11-apps imagemagick xautomation
+80 [i] Reading package lists...
+81 [i] Building dependency tree...
+81 [i] Reading state information...
+81 [i] xautomation is already the newest version.
+81 [i] The following extra packages will be installed:
+81 [i]   hicolor-icon-theme imagemagick-common libffi5 libglib2.0-0 libjasper1
+81 [i]   libjbig0 libjpeg8 liblcms2-2 liblqr-1-0 libmagickcore5 libmagickwand5
+81 [i]   libtiff4 libxml2
+81 [i] Suggested packages:
+81 [i]   imagemagick-doc autotrace cups-bsd lpr lprng curl enscript ffmpeg gimp
+81 [i]   gnuplot grads hp2xx html2ps libwmf-bin mplayer povray radiance sane-utils
+81 [i]   texlive-base-bin transfig libjasper-runtime liblcms2-utils mesa-utils
+81 [i] Recommended packages:
+81 [i]   libmagickcore5-extra ghostscript netpbm ufraw-batch libglib2.0-data
+81 [i]   shared-mime-info gsfonts xml-core
+81 [i] The following NEW packages will be installed:
+81 [i]   hicolor-icon-theme imagemagick imagemagick-common libffi5 libglib2.0-0
+81 [i]   libjasper1 libjbig0 libjpeg8 liblcms2-2 liblqr-1-0 libmagickcore5
+81 [i]   libmagickwand5 libtiff4 libxml2 x11-apps
+82 [i] 0 upgraded, 15 newly installed, 0 to remove and 0 not upgraded.
+82 [i] Need to get 6578 kB of archives.
+82 [i] After this operation, 15.3 MB of additional disk space will be used.
+82 [i] Get:1 http://security.debian.org/ wheezy/updates/main libxml2 armhf 2.8.0+dfsg1-7+wheezy2 [786 kB]
+82 [i] Get:2 https://mirrors.kernel.org/debian/ wheezy/main imagemagick-common all 8:6.7.7.10-5+deb7u3 [128 kB]
+82 [i] Get:3 https://mirrors.kernel.org/debian/ wheezy/main libffi5 armhf 3.0.10-3+b1 [22.3 kB]
+82 [i] Get:4 https://mirrors.kernel.org/debian/ wheezy/main libglib2.0-0 armhf 2.33.12+really2.32.4-5 [1709 kB]
+83 [i] Get:5 https://mirrors.kernel.org/debian/ wheezy/main libjpeg8 armhf 8d-1+deb7u1 [122 kB]
+83 [i] Get:6 https://mirrors.kernel.org/debian/ wheezy/main libjasper1 armhf 1.900.1-13 [133 kB]
+83 [i] Get:7 https://mirrors.kernel.org/debian/ wheezy/main liblcms2-2 armhf 2.2+git20110628-2.2+deb7u1 [112 kB]
+83 [i] Get:8 https://mirrors.kernel.org/debian/ wheezy/main liblqr-1-0 armhf 0.4.1-2 [24.9 kB]
+83 [i] Get:9 https://mirrors.kernel.org/debian/ wheezy/main libjbig0 armhf 2.0-2+deb7u1 [29.4 kB]
+83 [i] Get:10 https://mirrors.kernel.org/debian/ wheezy/main libtiff4 armhf 3.9.6-11 [178 kB]
+83 [i] Get:11 https://mirrors.kernel.org/debian/ wheezy/main libmagickcore5 armhf 8:6.7.7.10-5+deb7u3 [1955 kB]
+83 [i] Get:12 https://mirrors.kernel.org/debian/ wheezy/main libmagickwand5 armhf 8:6.7.7.10-5+deb7u3 [444 kB]
+83 [i] Get:13 https://mirrors.kernel.org/debian/ wheezy/main hicolor-icon-theme all 0.12-1 [11.7 kB]
+83 [i] Get:14 https://mirrors.kernel.org/debian/ wheezy/main imagemagick armhf 8:6.7.7.10-5+deb7u3 [284 kB]
+84 [i] Get:15 https://mirrors.kernel.org/debian/ wheezy/main x11-apps armhf 7.7~2 [638 kB]
+86 [i] Fetched 6578 kB in 3s (1663 kB/s)
+88 [i] Selecting previously unselected package imagemagick-common.
+88 [i] (Reading database ... 13522 files and directories currently installed.)
+88 [i] Unpacking imagemagick-common (from .../imagemagick-common_8%3a6.7.7.10-5+deb7u3_all.deb) ...
+88 [i] Selecting previously unselected package libffi5:armhf.
+88 [i] Unpacking libffi5:armhf (from .../libffi5_3.0.10-3+b1_armhf.deb) ...
+92 [i] Selecting previously unselected package libglib2.0-0:armhf.
+92 [i] Unpacking libglib2.0-0:armhf (from .../libglib2.0-0_2.33.12+really2.32.4-5_armhf.deb) ...
+95 [i] Selecting previously unselected package libjpeg8:armhf.
+95 [i] Unpacking libjpeg8:armhf (from .../libjpeg8_8d-1+deb7u1_armhf.deb) ...
+95 [i] Selecting previously unselected package libjasper1:armhf.
+95 [i] Unpacking libjasper1:armhf (from .../libjasper1_1.900.1-13_armhf.deb) ...
+95 [i] Selecting previously unselected package liblcms2-2:armhf.
+95 [i] Unpacking liblcms2-2:armhf (from .../liblcms2-2_2.2+git20110628-2.2+deb7u1_armhf.deb) ...
+96 [i] Selecting previously unselected package liblqr-1-0:armhf.
+96 [i] Unpacking liblqr-1-0:armhf (from .../liblqr-1-0_0.4.1-2_armhf.deb) ...
+97 [i] Selecting previously unselected package libjbig0:armhf.
+97 [i] Unpacking libjbig0:armhf (from .../libjbig0_2.0-2+deb7u1_armhf.deb) ...
+97 [i] Selecting previously unselected package libtiff4:armhf.
+97 [i] Unpacking libtiff4:armhf (from .../libtiff4_3.9.6-11_armhf.deb) ...
+97 [i] Selecting previously unselected package libxml2:armhf.
+97 [i] Unpacking libxml2:armhf (from .../libxml2_2.8.0+dfsg1-7+wheezy2_armhf.deb) ...
+98 [i] Selecting previously unselected package libmagickcore5:armhf.
+98 [i] Unpacking libmagickcore5:armhf (from .../libmagickcore5_8%3a6.7.7.10-5+deb7u3_armhf.deb) ...
+102 [i] Selecting previously unselected package libmagickwand5:armhf.
+102 [i] Unpacking libmagickwand5:armhf (from .../libmagickwand5_8%3a6.7.7.10-5+deb7u3_armhf.deb) ...
+103 [i] Selecting previously unselected package hicolor-icon-theme.
+103 [i] Unpacking hicolor-icon-theme (from .../hicolor-icon-theme_0.12-1_all.deb) ...
+104 [i] Selecting previously unselected package imagemagick.
+104 [i] Unpacking imagemagick (from .../imagemagick_8%3a6.7.7.10-5+deb7u3_armhf.deb) ...
+111 [i] Selecting previously unselected package x11-apps.
+111 [i] Unpacking x11-apps (from .../x11-apps_7.7~2_armhf.deb) ...
+112 [i] Processing triggers for man-db ...
+121 [i] Setting up imagemagick-common (8:6.7.7.10-5+deb7u3) ...
+126 [i] Setting up libffi5:armhf (3.0.10-3+b1) ...
+126 [i] Setting up libglib2.0-0:armhf (2.33.12+really2.32.4-5) ...
+126 [i] No schema files found: doing nothing.
+127 [i] Setting up libjpeg8:armhf (8d-1+deb7u1) ...
+127 [i] Setting up libjasper1:armhf (1.900.1-13) ...
+127 [i] Setting up liblcms2-2:armhf (2.2+git20110628-2.2+deb7u1) ...
+127 [i] Setting up liblqr-1-0:armhf (0.4.1-2) ...
+127 [i] Setting up libjbig0:armhf (2.0-2+deb7u1) ...
+128 [i] Setting up libtiff4:armhf (3.9.6-11) ...
+128 [i] Setting up libxml2:armhf (2.8.0+dfsg1-7+wheezy2) ...
+128 [i] Setting up libmagickcore5:armhf (8:6.7.7.10-5+deb7u3) ...
+129 [i] Setting up libmagickwand5:armhf (8:6.7.7.10-5+deb7u3) ...
+129 [i] Setting up hicolor-icon-theme (0.12-1) ...
+129 [i] Setting up imagemagick (8:6.7.7.10-5+deb7u3) ...
+129 [i] update-alternatives: using /usr/bin/compare.im6 to provide /usr/bin/compare (compare) in auto mode
+130 [i] update-alternatives: using /usr/bin/animate.im6 to provide /usr/bin/animate (animate) in auto mode
+130 [i] update-alternatives: using /usr/bin/convert.im6 to provide /usr/bin/convert (convert) in auto mode
+130 [i] update-alternatives: using /usr/bin/composite.im6 to provide /usr/bin/composite (composite) in auto mode
+130 [i] update-alternatives: using /usr/bin/conjure.im6 to provide /usr/bin/conjure (conjure) in auto mode
+130 [i] update-alternatives: using /usr/bin/import.im6 to provide /usr/bin/import (import) in auto mode
+131 [i] update-alternatives: using /usr/bin/identify.im6 to provide /usr/bin/identify (identify) in auto mode
+131 [i] update-alternatives: using /usr/bin/stream.im6 to provide /usr/bin/stream (stream) in auto mode
+131 [i] update-alternatives: using /usr/bin/display.im6 to provide /usr/bin/display (display) in auto mode
+131 [i] update-alternatives: using /usr/bin/montage.im6 to provide /usr/bin/montage (montage) in auto mode
+131 [i] update-alternatives: using /usr/bin/mogrify.im6 to provide /usr/bin/mogrify (mogrify) in auto mode
+131 [i] Setting up x11-apps (7.7~2) ...
+133 [e] + [ -n  ]
+133 [e] + set +x
+133 [e] Installing target post-common...
+133 [e] Cleaning up...
+133 [i] Reading package lists...
+134 [i] Building dependency tree...
+134 [i] Reading state information...
+134 [i] 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+135 [e] Unmounting /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/chroots/wheezy...
+136 [e] Done! You can enter the chroot using enter-chroot.
+138 [t] PASS: crouton -U -n wheezy
+138 [t] LAUNCHING: crouton -u -n wheezy -t unity
+138 [e] /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/chroots/wheezy already exists; updating it...
+139 [e] WARNING: USB booting is enabled; consider disabling it.
+139 [e] WARNING: Signed boot verification is disabled; consider enabling it.
+139 [e] You can use the following command: sudo crossystem dev_boot_usb=0 dev_boot_signed_only=1
+144 [e] Preparing chroot environment...
+144 [e] unity target is only supported on Ubuntu.
+146 [t] FAIL with code 99: crouton -u -n wheezy -t unity
+146 [e] + echo Running trap...
+146 [e] + [ -d /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/chroots ]
+146 [e] + sh -e /usr/local/autotest/tmp/tmpO6wj6a_platform_Crouton/host-bin/unmount-chroot -a -f -y -c /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/chroots
+146 [i] Running trap...
+146 [t] Target unity failed on wheezy, as expected (unsupported combination).
+146 [e] Unmounting /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo/chroots/wheezy...
+147 [e] + pkill -9 -P 7135
+147 [e] + umount -l /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo
+147 [e] + rm -rf --one-file-system /usr/local/test-20141114151908 prefix/w5-unity.wheezy.0.kUo
+152 [t] TEST PASSED: w5-unity.wheezy.0 finished with exit code 0

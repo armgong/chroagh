@@ -1,0 +1,4 @@
++ atest job create -m chromeos1-row3-rack1-host5 -w cautotest -f /mnt/ssd/drinkcat/crouton-testing/daemon/status/2014-11-14_22-17-28_drinkcat_chroagh_x11test_w/c1r3r1h5-nyan_big-beta/control -d cros-version:nyan_big-release/R39-6310.43.0 -B always --max_runtime=1440 2014-11-14_22-17-28_drinkcat_chroagh_x11test_w-c1r3r1h5-nyan_big-beta
+Created job: 
+	'2014-11-14_22-17-28_drinkcat_chroagh_x11test_w-c1r3r1h5-nyan_big-
+	beta (id 20697197)'

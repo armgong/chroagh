@@ -1,0 +1,6 @@
+2014-11-14 16:04:44: BEGIN TEST w5-unity.sid.0
+2 [t] LAUNCHING: crouton -r sid -f /usr/local/test-20141114160443 prefix/sid-bootstrap.tar.gz -d
+128 [t] PASS: crouton -r sid -f /usr/local/test-20141114160443 prefix/sid-bootstrap.tar.gz -d
+128 [t] LAUNCHING: crouton -f /usr/local/test-20141114160443 prefix/sid-bootstrap.tar.gz -t x11 -n sid
+975 [t] FAIL with code 100: crouton -f /usr/local/test-20141114160443 prefix/sid-bootstrap.tar.gz -t x11 -n sid
+978 [t] TEST FAILED: w5-unity.sid.0 finished with exit code 100

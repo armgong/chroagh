@@ -1,0 +1,51 @@
+2014-11-14 19:44:52: BEGIN TEST w4-lxde.trusty.0
+7 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/trusty-x11-snapshot.tar.gz -n trusty
+63 [t] PASS: crouton -f /usr/local/test-20141114164154 prefix/trusty-x11-snapshot.tar.gz -n trusty
+63 [t] LAUNCHING: crouton -T /usr/local/test-20141114164154 prefix/w4-lxde.trusty.0.F7Z/target.UhKico -U -n trusty
+63 [t] BEGIN /usr/local/test-20141114164154 prefix/w4-lxde.trusty.0.F7Z/target.UhKico CONTENTS
+63 [t] REQUIRES=''
+63 [t] . "${TARGETSDIR:="$PWD"}/common"
+63 [t] ### Append to prepare.sh:
+63 [t] set -x
+63 [t] install --minimal x11-apps imagemagick xautomation
+63 [t] 
+63 [t] set +x
+63 [t] END /usr/local/test-20141114164154 prefix/w4-lxde.trusty.0.F7Z/target.UhKico CONTENTS
+134 [t] PASS: crouton -U -n trusty
+134 [t] LAUNCHING: crouton -u -n trusty -t lxde
+1543 [t] PASS: crouton -u -n trusty -t lxde
+1543 [t] LAUNCHING: startlxde -b -n trusty
+1546 [t] PASS: startlxde -b -n trusty
+1606 [t] LAUNCHING: enter-chroot -n trusty sh -exc 
+1606 [t]         # Test croutoncycle as a bonus
+1606 [t]         export DISPLAY="`croutoncycle display`"
+1606 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1606 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1606 [t]             exit 1
+1606 [t]         fi
+1606 [t]         if [ -n "" ]; then
+1606 [t]             echo "" | tr ";" "
+1606 [t] " | xte
+1606 [t]             sleep 60
+1606 [t]         fi
+1606 [t]         # Snapshot!
+1606 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1609 [t] PASS: enter-chroot -n trusty sh -exc 
+1609 [t]         # Test croutoncycle as a bonus
+1609 [t]         export DISPLAY="`croutoncycle display`"
+1609 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+1609 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+1609 [t]             exit 1
+1609 [t]         fi
+1609 [t]         if [ -n "" ]; then
+1609 [t]             echo "" | tr ";" "
+1609 [t] " | xte
+1609 [t]             sleep 60
+1609 [t]         fi
+1609 [t]         # Snapshot!
+1609 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-lxde.jpg"
+1610 [t] LAUNCHING: unmount-chroot -f -y trusty
+1619 [t] PASS: unmount-chroot -f -y trusty
+1619 [t] LAUNCHING: delete-chroot -y trusty
+1664 [t] PASS: delete-chroot -y trusty
+1666 [t] TEST PASSED: w4-lxde.trusty.0 finished with exit code 0

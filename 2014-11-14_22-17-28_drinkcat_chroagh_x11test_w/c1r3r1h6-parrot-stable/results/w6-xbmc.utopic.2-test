@@ -1,0 +1,4 @@
+2014-11-15 01:51:26: BEGIN TEST w6-xbmc.utopic.2
+25 [t] LAUNCHING: crouton -f /usr/local/test-20141114164154 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1359 [t] FAIL with code 100: crouton -f /usr/local/test-20141114164154 prefix/utopic-bootstrap.tar.gz -t x11 -n utopic
+1366 [t] TEST FAILED: w6-xbmc.utopic.2 finished with exit code 100

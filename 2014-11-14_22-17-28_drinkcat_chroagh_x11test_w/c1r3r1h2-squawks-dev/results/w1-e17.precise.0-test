@@ -1,0 +1,51 @@
+2014-11-14 18:52:24: BEGIN TEST w1-e17.precise.0
+2 [t] LAUNCHING: crouton -f /usr/local/test-20141114154527 prefix/precise-x11-snapshot.tar.gz -n precise
+92 [t] PASS: crouton -f /usr/local/test-20141114154527 prefix/precise-x11-snapshot.tar.gz -n precise
+92 [t] LAUNCHING: crouton -T /usr/local/test-20141114154527 prefix/w1-e17.precise.0.2ER/target.csNUjF -U -n precise
+92 [t] BEGIN /usr/local/test-20141114154527 prefix/w1-e17.precise.0.2ER/target.csNUjF CONTENTS
+92 [t] REQUIRES=''
+92 [t] . "${TARGETSDIR:="$PWD"}/common"
+92 [t] ### Append to prepare.sh:
+92 [t] set -x
+92 [t] install --minimal x11-apps imagemagick xautomation
+92 [t] 
+92 [t] set +x
+92 [t] END /usr/local/test-20141114154527 prefix/w1-e17.precise.0.2ER/target.csNUjF CONTENTS
+118 [t] PASS: crouton -U -n precise
+118 [t] LAUNCHING: crouton -u -n precise -t e17
+460 [t] PASS: crouton -u -n precise -t e17
+460 [t] LAUNCHING: starte17 -b -n precise
+463 [t] PASS: starte17 -b -n precise
+523 [t] LAUNCHING: enter-chroot -n precise sh -exc 
+523 [t]         # Test croutoncycle as a bonus
+523 [t]         export DISPLAY="`croutoncycle display`"
+523 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+523 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+523 [t]             exit 1
+523 [t]         fi
+523 [t]         if [ -n "" ]; then
+523 [t]             echo "" | tr ";" "
+523 [t] " | xte
+523 [t]             sleep 60
+523 [t]         fi
+523 [t]         # Snapshot!
+523 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+528 [t] PASS: enter-chroot -n precise sh -exc 
+528 [t]         # Test croutoncycle as a bonus
+528 [t]         export DISPLAY="`croutoncycle display`"
+528 [t]         if [ "$DISPLAY" = ":0" -o "$DISPLAY" = "aura" ]; then
+528 [t]             echo "Invalid display ($DISPLAY)." 1>&2
+528 [t]             exit 1
+528 [t]         fi
+528 [t]         if [ -n "" ]; then
+528 [t]             echo "" | tr ";" "
+528 [t] " | xte
+528 [t]             sleep 60
+528 [t]         fi
+528 [t]         # Snapshot!
+528 [t]         xwd -root | convert -quality 75 xwd:- ~/"screenshot-e17.jpg"
+528 [t] LAUNCHING: unmount-chroot -f -y precise
+536 [t] PASS: unmount-chroot -f -y precise
+536 [t] LAUNCHING: delete-chroot -y precise
+542 [t] PASS: delete-chroot -y precise
+543 [t] TEST PASSED: w1-e17.precise.0 finished with exit code 0
