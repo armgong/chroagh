@@ -14,6 +14,7 @@ var display_ = null; /* Display number to use */
 var title_ = "crouton in a tab"; /* window title */
 var connected_ = false;
 var closing_ = false; /* Disconnected, and waiting for the window to close */
+var lasterror_ = null; /* Last error from NaCl module */
 
 var prevstate_ = "maximized"; /* Previous window state (before full screen) */
 
@@ -124,9 +125,13 @@ function handleMessage(message) {
     } else if (type == "connected") {
         connected_ = true;
         updateStatus("Connected");
+    } else if (type == "error") {
+        lasterror_ = payload;
     } else if (type == "disconnected") {
         connected_ = false;
-        if (debug_ < 1) {
+        if (lasterror_) {
+            updateStatus("ERROR: " + lasterror_);
+        } else if (debug_ < 1) {
             closing_ = true;
             updateStatus("Disconnected, closing window in " +
                          CLOSE_TIMEOUT + " seconds.");

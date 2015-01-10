@@ -51,7 +51,7 @@ static struct keybutton pressed[256];
 static int pressed_len = 0;
 
 /* Adds a key/button to array of pressed keys */
-void kb_add(keybuttontype type, uint32_t code) {
+static void kb_add(keybuttontype type, uint32_t code) {
     trueorabort(pressed_len < sizeof(pressed)/sizeof(struct keybutton),
                 "Too many keys pressed");
 
@@ -67,7 +67,7 @@ void kb_add(keybuttontype type, uint32_t code) {
 }
 
 /* Removes a key/button from array of pressed keys */
-void kb_remove(keybuttontype type, uint32_t code) {
+static void kb_remove(keybuttontype type, uint32_t code) {
     int i;
     for (i = 0; i < pressed_len; i++) {
         if (pressed[i].type == type && pressed[i].code == code) {
@@ -81,7 +81,7 @@ void kb_remove(keybuttontype type, uint32_t code) {
 }
 
 /* Releases all pressed key/buttons, and empties array */
-void kb_release_all() {
+static void kb_release_all() {
     int i;
     log(2, "Releasing all keys...");
     for (i = 0; i < pressed_len; i++) {
@@ -166,7 +166,7 @@ static int init_display(char* name) {
 /* Changes resolution using external handler.
  * Reply must be a resolution in "canonical" form: <w>x<h>[_<rate>] */
 /* FIXME: Maybe errors here should not be fatal... */
-void change_resolution(const struct resolution* rin) {
+static void change_resolution(const struct resolution* rin) {
     /* Setup parameters and run command */
     char arg1[32], arg2[32];
     int c;
@@ -209,7 +209,7 @@ void change_resolution(const struct resolution* rin) {
 }
 
 /* Closes the mmap/fd in the entry. */
-void close_mmap(struct cache_entry* entry) {
+static void close_mmap(struct cache_entry* entry) {
     if (!entry->map)
         return;
 
@@ -221,7 +221,8 @@ void close_mmap(struct cache_entry* entry) {
 
 /* Finds NaCl/Chromium shm memory using external handler.
  * Reply must be in the form PID:file */
-struct cache_entry* find_shm(uint64_t paddr, uint64_t sig, size_t length) {
+static struct cache_entry* find_shm(uint64_t paddr, uint64_t sig,
+                                    size_t length) {
     struct cache_entry* entry = NULL;
 
     /* Find entry in cache */
@@ -319,7 +320,7 @@ XImage* img = NULL;
 XShmSegmentInfo shminfo;
 
 /* Writes framebuffer image to websocket/shm */
-int write_image(const struct screen* screen) {
+static int write_image(const struct screen* screen) {
     char reply_raw[FRAMEMAXHEADERSIZE + sizeof(struct screen_reply)];
     struct screen_reply* reply =
         (struct screen_reply*)(reply_raw + FRAMEMAXHEADERSIZE);
@@ -436,7 +437,7 @@ int write_image(const struct screen* screen) {
 }
 
 /* Writes cursor image to websocket */
-int write_cursor() {
+static int write_cursor() {
     XFixesCursorImage *img = XFixesGetCursorImage(dpy);
     int size = img->width*img->height;
     const int replylength = sizeof(struct cursor_reply) + size*sizeof(uint32_t);
@@ -463,8 +464,19 @@ int write_cursor() {
     return 0;
 }
 
+static int write_exit() {
+    const int packetlength = 1;
+    char packet_raw[FRAMEMAXHEADERSIZE + packetlength];
+    char* packet = packet_raw + FRAMEMAXHEADERSIZE;
+    packet[0] = 'X';
+
+    socket_client_write_frame(packet_raw, packetlength, WS_OPCODE_BINARY, 1);
+
+    return 0;
+}
+
 /* Checks if a packet size is correct */
-int check_size(int length, int target, char* error) {
+static int check_size(int length, int target, char* error) {
     if (length != target) {
         error("Invalid %s packet (%d != %d)", error, length, target);
         socket_client_close(0);
@@ -472,6 +484,86 @@ int check_size(int length, int target, char* error) {
     }
     return 1;
 }
+
+/* Handles a frame from client */
+static int socket_client_read() {
+    unsigned char buffer[BUFFERSIZE];
+
+    int length = socket_client_read_frame((char*)buffer, sizeof(buffer));
+
+    if (length < 0) {
+        return -1;
+    }
+
+    if (length < 1) {
+        error("Invalid packet from client (size <1).");
+        return -1;
+    }
+
+    switch (buffer[0]) {
+    case 'S':  /* Screen */
+        if (!check_size(length, sizeof(struct screen), "screen"))
+            return -1;
+        write_image((struct screen*)buffer);
+        return 0;
+    case 'P':  /* Cursor */
+        if (!check_size(length, sizeof(struct cursor), "cursor"))
+            return -1;
+        write_cursor();
+        return 0;
+    case 'R':  /* Resolution */
+        if (!check_size(length, sizeof(struct resolution),
+                        "resolution"))
+            return -1;
+        change_resolution((struct resolution*)buffer);
+        return 0;
+    case 'K': {  /* Key */
+        if (!check_size(length, sizeof(struct key), "key"))
+            return -1;
+        struct key* k = (struct key*)buffer;
+        KeyCode kc = XKeysymToKeycode(dpy, k->keysym);
+        log(2, "Key: ks=%04x kc=%04x\n", k->keysym, kc);
+        if (kc != 0) {
+            XTestFakeKeyEvent(dpy, kc, k->down, CurrentTime);
+            if (k->down) {
+                kb_add(KEYBOARD, kc);
+            } else {
+                kb_remove(KEYBOARD, kc);
+            }
+        } else {
+            error("Invalid keysym %04x.", k->keysym);
+        }
+        return 0;
+    }
+    case 'C': {  /* Click */
+        if (!check_size(length, sizeof(struct mouseclick),
+                        "mouseclick"))
+            return -1;
+        struct mouseclick* mc = (struct mouseclick*)buffer;
+        XTestFakeButtonEvent(dpy, mc->button, mc->down, CurrentTime);
+        if (mc->down) {
+            kb_add(MOUSE, mc->button);
+        } else {
+            kb_remove(MOUSE, mc->button);
+        }
+        return 0;
+    }
+    case 'M': {  /* Mouse move */
+        if (!check_size(length, sizeof(struct mousemove), "mousemove"))
+            return -1;
+        struct mousemove* mm = (struct mousemove*)buffer;
+        XTestFakeMotionEvent(dpy, 0, mm->x, mm->y, CurrentTime);
+        return 0;
+    }
+    case 'Q':  /* "Quit": release all keys */
+        kb_release_all();
+        return 0;
+    default:
+        error("Invalid packet from client (%d).", buffer[0]);
+        return -1;
+    }
+}
+
 
 /* Prints usage */
 void usage(char* argv0) {
@@ -503,94 +595,74 @@ int main(int argc, char** argv) {
     trueorabort(display+1 != endptr && (*endptr == '\0' || *endptr == '.'),
                 "Invalid display number: '%s'", display);
 
+    /* Setup signal handler (HUP, INT, TERM) */
+    sigset_t sigmask;
+    if (signal_setup_handler(&sigmask) < 0) {
+        return 2;
+    }
+
     init_display(display);
     socket_server_init(PORT_BASE + displaynum);
 
-    unsigned char buffer[BUFFERSIZE];
-    int length;
+    /* Poll array:
+     * 0 - server_fd
+     * 1 - client_fd (if any)
+     */
+    struct pollfd fds[2];
+    int nfds = 2;
+    memset(fds, 0, sizeof(fds));
+    fds[0].events = POLLIN;
+    fds[1].events = POLLIN;
 
-    while (1) {
-        socket_server_accept(VERSION);
-        while (1) {
-            length = socket_client_read_frame((char*)buffer, sizeof(buffer));
-            if (length < 0) {
-                socket_client_close(1);
-                break;
-            }
+    while (!terminate) {
+        /* Make sure fds is up to date. */
+        fds[0].fd = server_fd;
+        fds[1].fd = client_fd;
 
-            if (length < 1) {
-                error("Invalid packet from client (size <1).");
-                socket_client_close(0);
-                break;
-            }
+        log(3, "poll %d %d", fds[0].fd, fds[1].fd);
 
-            switch (buffer[0]) {
-            case 'S':  /* Screen */
-                if (!check_size(length, sizeof(struct screen), "screen"))
-                    break;
-                write_image((struct screen*)buffer);
-                break;
-            case 'P':  /* Cursor */
-                if (!check_size(length, sizeof(struct cursor), "cursor"))
-                    break;
-                write_cursor();
-                break;
-            case 'R':  /* Resolution */
-                if (!check_size(length, sizeof(struct resolution),
-                                "resolution"))
-                    break;
-                change_resolution((struct resolution*)buffer);
-                break;
-            case 'K': {  /* Key */
-                if (!check_size(length, sizeof(struct key), "key"))
-                    break;
-                struct key* k = (struct key*)buffer;
-                KeyCode kc = XKeysymToKeycode(dpy, k->keysym);
-                log(2, "Key: ks=%04x kc=%04x\n", k->keysym, kc);
-                if (kc != 0) {
-                    XTestFakeKeyEvent(dpy, kc, k->down, CurrentTime);
-                    if (k->down) {
-                        kb_add(KEYBOARD, kc);
-                    } else {
-                        kb_remove(KEYBOARD, kc);
-                    }
-                } else {
-                    error("Invalid keysym %04x.", k->keysym);
-                }
-                break;
-            }
-            case 'C': {  /* Click */
-                if (!check_size(length, sizeof(struct mouseclick),
-                                "mouseclick"))
-                    break;
-                struct mouseclick* mc = (struct mouseclick*)buffer;
-                XTestFakeButtonEvent(dpy, mc->button, mc->down, CurrentTime);
-                if (mc->down) {
-                    kb_add(MOUSE, mc->button);
-                } else {
-                    kb_remove(MOUSE, mc->button);
-                }
-                break;
-            }
-            case 'M': {  /* Mouse move */
-                if (!check_size(length, sizeof(struct mousemove), "mousemove"))
-                    break;
-                struct mousemove* mm = (struct mousemove*)buffer;
-                XTestFakeMotionEvent(dpy, 0, mm->x, mm->y, CurrentTime);
-                break;
-            }
-            case 'Q':  /* "Quit": release all keys */
-                kb_release_all();
-                break;
-            default:
-                error("Invalid packet from client (%d).", buffer[0]);
-                socket_client_close(0);
-            }
+        /* Only handle signals in ppoll: this makes sure we complete processing
+         * the current request before bailing out. */
+        int n = ppoll(fds, nfds, NULL, &sigmask);
+
+        log(3, "poll ret=%d (%d, %d)", n, fds[0].revents, fds[1].revents);
+
+        if (n < 0) {
+            /* Do not print error when ppoll is interupted by a signal. */
+            if (errno != EINTR || verbose >= 1)
+                syserror("ppoll error.");
+            break;
         }
-        socket_client_close(0);
-        kb_release_all();
-        close_mmap(&cache[0]);
-        close_mmap(&cache[1]);
+
+        if (fds[0].revents & POLLIN) {
+            log(1, "WebSocket accept.");
+            socket_server_accept(VERSION);
+            n--;
+        }
+        if (fds[1].revents & POLLIN) {
+            log(2, "Client fd ready.");
+            if (socket_client_read() < 0) {
+                kb_release_all();
+                close_mmap(&cache[0]);
+                close_mmap(&cache[1]);
+                socket_client_close(1);
+            }
+            n--;
+        }
+
+        if (n > 0) { /* Some events were not handled, this is a problem */
+            error("Some poll events could not be handled: "
+                    "ret=%d (%d, %d).",
+                    n, fds[0].revents, fds[1].revents);
+            break;
+        }
+    }
+
+    log(1, "fbserver: terminating.");
+    if (client_fd) {
+        write_exit();
+        sleep(10);
+        //socket_client_close(1);
     }
 
     return 0;

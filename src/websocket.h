@@ -932,3 +932,44 @@ static void socket_server_init(int port_) {
         exit(1);
     }
 }
+
+/**/
+/* Signal handling */
+/**/
+
+static int terminate = 0;
+
+static void signal_handler(int sig) {
+    terminate = 1;
+}
+
+/* Setup HUP, INT, TERM handler, and ignore signals. Returns original
+ * mask in sigmask_orig for use in ppoll. */
+static int signal_setup_handler(sigset_t* sigmask_orig) {
+    /* Termination signal handler. */
+    struct sigaction act;
+    memset(&act, 0, sizeof(act));
+    act.sa_handler = signal_handler;
+
+    if (sigaction(SIGHUP, &act, 0) < 0 ||
+        sigaction(SIGINT, &act, 0) < 0 ||
+        sigaction(SIGTERM, &act, 0) < 0) {
+        syserror("sigaction error.");
+        return -1;
+    }
+
+    /* Ignore terminating signals, except when ppoll is running. Save current
+     * mask in sigmask_orig. */
+    sigset_t sigmask;
+    sigemptyset(&sigmask);
+    sigaddset(&sigmask, SIGHUP);
+    sigaddset(&sigmask, SIGINT);
+    sigaddset(&sigmask, SIGTERM);
+
+    if (sigprocmask(SIG_BLOCK, &sigmask, sigmask_orig) < 0) {
+        syserror("sigprocmask error.");
+        return -1;
+    }
+
+    return 0;
+}

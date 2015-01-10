@@ -135,6 +135,12 @@ private:
         return Message(this, "status", false);
     }
 
+    /* Sends an error message to Javascript: all errors are fatal and a
+     * disconnect message will be sent soon after. */
+    Message ErrorMessage() {
+        return Message(this, "error", false);
+    }
+
     /* Sends a logging message to Javascript */
     Message LogMessage(int level) {
         if (level <= debug_) {
@@ -165,7 +171,7 @@ private:
      * Parameter is ignored: used for callbacks */
     void SocketConnect(int32_t /*result*/ = 0) {
         if (display_ < 0) {
-            LogMessage(-1) << "SocketConnect: No display defined yet.";
+            ErrorMessage() << "SocketConnect: No display defined yet.";
             return;
         }
 
@@ -218,7 +224,7 @@ private:
         if (length == target)
             return true;
 
-        LogMessage(-1) << "Invalid " << type << " request (" << length
+        ErrorMessage() << "Invalid " << type << " request (" << length
                        << " != " << target << ").";
         return false;
     }
@@ -226,11 +232,11 @@ private:
     /* Receives and handles a version request */
     bool SocketParseVersion(const char* data, int datalen) {
         if (connected_) {
-            LogMessage(-1) << "Got a version while connected?!?";
+            ErrorMessage() << "Got a version while connected?!?";
             return false;
         }
         if (strcmp(data, VERSION)) {
-            LogMessage(-1) << "Invalid version received (" << data << ").";
+            ErrorMessage() << "Invalid version received (" << data << ").";
             return false;
         }
         connected_ = true;
@@ -288,7 +294,7 @@ private:
     /* Receives and handles a cursor_reply request */
     bool SocketParseCursor(const char* data, int datalen) {
         if (datalen < sizeof(struct cursor_reply)) {
-            LogMessage(-1) << "Invalid cursor_reply packet (" << datalen
+            ErrorMessage() << "Invalid cursor_reply packet (" << datalen
                            << " < " << sizeof(struct cursor_reply) << ").";
             return false;
         }
@@ -351,7 +357,7 @@ private:
             /* Not fatal: just wait for next call */
             return;
         } else if (result != PP_OK) {
-            LogMessage(-1) << "Receive error.";
+            ErrorMessage() << "Receive error.";
             SocketClose("Receive error.");
             return;
         }
@@ -396,12 +402,12 @@ private:
                 if (SocketParseResolution(data, datalen)) return;
                 break;
             default:
-                LogMessage(-1) << "Invalid request. First char: "
+                ErrorMessage() << "Invalid request. First char: "
                                << (int)data[0];
                 /* Fall-through: disconnect. */
             }
         } else {
-            LogMessage(-1) << "Got some packet before version...";
+            ErrorMessage() << "Got some packet before version...";
         }
 
         SocketClose("Invalid payload.");

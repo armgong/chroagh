@@ -382,12 +382,6 @@ static void socket_client_read() {
     }
 }
 
-static int terminate = 0;
-
-static void signal_handler(int sig) {
-    terminate = 1;
-}
-
 int main(int argc, char **argv) {
     int n;
     /* Poll array:
@@ -398,8 +392,6 @@ int main(int argc, char **argv) {
     struct pollfd fds[3];
     int nfds = 3;
     sigset_t sigmask;
-    sigset_t sigmask_orig;
-    struct sigaction act;
     int c;
 
     while ((c = getopt(argc, argv, "v:")) != -1) {
@@ -413,17 +405,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    /* Termination signal handler. */
-    memset(&act, 0, sizeof(act));
-    act.sa_handler = signal_handler;
-
-    if (sigaction(SIGHUP, &act, 0) < 0 ||
-        sigaction(SIGINT, &act, 0) < 0 ||
-        sigaction(SIGTERM, &act, 0) < 0) {
-        syserror("sigaction error.");
-        return 2;
-    }
-
     /* Ignore SIGPIPE in all cases: it may happen, since we write to pipes, but
      * it is not fatal. */
     sigemptyset(&sigmask);
@@ -434,15 +415,8 @@ int main(int argc, char **argv) {
         return 2;
     }
 
-    /* Ignore terminating signals, except when ppoll is running. Save current
-     * mask in sigmask_orig. */
-    sigemptyset(&sigmask);
-    sigaddset(&sigmask, SIGHUP);
-    sigaddset(&sigmask, SIGINT);
-    sigaddset(&sigmask, SIGTERM);
-
-    if (sigprocmask(SIG_BLOCK, &sigmask, &sigmask_orig) < 0) {
-        syserror("sigprocmask error.");
+    /* Setup signal handler (HUP, INT, TERM) */
+    if (signal_setup_handler(&sigmask) < 0) {
         return 2;
     }
 
@@ -464,9 +438,9 @@ int main(int argc, char **argv) {
 
         /* Only handle signals in ppoll: this makes sure we complete processing
          * the current request before bailing out. */
-        n = ppoll(fds, nfds, NULL, &sigmask_orig);
+        n = ppoll(fds, nfds, NULL, &sigmask);
 
-        log(3, "poll ret=%d (%d, %d, %d)\n", n,
+        log(3, "poll ret=%d (%d, %d, %d)", n,
                    fds[0].revents, fds[1].revents, fds[2].revents);
 
         if (n < 0) {
